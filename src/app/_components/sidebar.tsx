@@ -7,11 +7,6 @@ import {
     PanelLeftClose,
     PanelLeftOpen,
     LayoutDashboard,
-    DoorOpen,
-    ClipboardCheck,
-    FolderOpen,
-    Link2,
-    NotebookPen,
     Users,
     Settings,
 } from "lucide-react";
@@ -25,11 +20,6 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
     { id: "dashboard", label: "Dashboard", link: "/nexus/dashboard", icon: LayoutDashboard },
-    { id: "turmas", label: "Turmas", link: "/nexus/turmas", icon: DoorOpen },
-    { id: "presenca", label: "Presença", link: "/nexus/presenca", icon: ClipboardCheck },
-    { id: "material", label: "Material", link: "/nexus/material", icon: FolderOpen },
-    { id: "links", label: "Links", link: "/nexus/links", icon: Link2 },
-    { id: "anotacoes", label: "Anotações", link: "/nexus/anotacoes", icon: NotebookPen },
     { id: "diretoria", label: "Diretoria", link: "/nexus/diretoria", icon: Users },
 ];
 

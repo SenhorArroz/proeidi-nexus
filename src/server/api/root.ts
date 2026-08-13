@@ -1,3 +1,5 @@
+import { certificadoRouter } from "~/server/api/routers/certificado";
+import { certificadoRouter as declaracaoRouter } from "~/server/api/routers/certificadoPM";
 import { postRouter } from "~/server/api/routers/post";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
@@ -8,6 +10,8 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
 	post: postRouter,
+	certificado: certificadoRouter,
+	declaracao: declaracaoRouter,
 });
 
 // export type definition of API

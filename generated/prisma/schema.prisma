@@ -8,26 +8,56 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
 
-  createdBy   User   @relation(fields: [createdById], references: [id])
-  createdById String
-
-  @@index([name])
+enum Role {
+  COORDENADOR
+  DIRETOR
+  PROFESSOR
+  MONITOR
 }
 
-// Necessary for Next auth
+enum TipoMaterial {
+  LINK
+  PDF
+  SLIDE
+  IMAGEM
+}
+
+enum TipoEvento {
+  AULA
+  FERIADO
+  CANCELADA
+  ESPECIAL
+}
+
+enum EstadoPresenca {
+  PRESENTE
+  AUSENTE
+  JUSTIFICADO
+}
+
+enum CursoSorteio {
+  SMARTPHONE
+  COMPUTADOR
+}
+
+enum TipoPergunta {
+  SHORT_TEXT
+  PARAGRAPH
+  MULTIPLE_CHOICE
+  CHECKBOX
+}
+
+// ---------------------------------------------------------------------------
+// Auth (NextAuth) — mantidos do schema original
+// ---------------------------------------------------------------------------
+
 model Account {
   id                       String  @id @default(cuid())
   userId                   String
@@ -41,8 +71,9 @@ model Account {
   scope                    String?
   id_token                 String? // @db.Text
   session_state            String?
-  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   refresh_token_expires_in Int?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -52,18 +83,8 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  posts         Post[]
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
@@ -72,4 +93,334 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// ---------------------------------------------------------------------------
+// User — unifica Coordenador, Diretor, Professor e Monitor
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  nome          String
+  email         String    @unique
+  senha         String
+  role          Role
+  image         String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Auth
+  accounts Account[]
+  sessions Session[]
+
+  // Relações de turma
+  turmasProfessor ProfessorTurma[]
+  turmasMonitor   MonitorTurma[]
+
+  // Conteúdo
+  avisos    Aviso[]
+  anotacoes Anotacao[]
+
+  // Presença (monitores)
+  presencas PresencaMonitor[]
+}
+
+// ---------------------------------------------------------------------------
+// Semestre
+// ---------------------------------------------------------------------------
+
+model Semestre {
+  id        String   @id @default(cuid())
+  codigo    String   @unique // Ex: "2026.1"
+  ativo     Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  turmas     Turma[]
+  alunos     Aluno[]
+  candidatos Candidato[]
+}
+
+// ---------------------------------------------------------------------------
+// Turma
+// ---------------------------------------------------------------------------
+
+model Turma {
+  id         String  @id @default(cuid())
+  titulo     String
+  sala       String?
+  horario    String?
+  cor        String  @default("#1A73E8")
+  semestreId String
+
+  semestre Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+
+  // Pessoas
+  professores ProfessorTurma[]
+  monitores   MonitorTurma[]
+  alunos      AlunoTurma[]
+
+  // Conteúdo
+  materiais Material[]
+  eventos   EventoCalendario[]
+  avisos    Aviso[]
+  anotacoes Anotacao[]
+
+  // Presença
+  presencas RegistroPresenca[]
+
+  @@index([semestreId])
+}
+
+// ---------------------------------------------------------------------------
+// Tabelas de junção (many-to-many)
+// ---------------------------------------------------------------------------
+
+model ProfessorTurma {
+  userId  String
+  turmaId String
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  turma Turma @relation(fields: [turmaId], references: [id], onDelete: Cascade)
+
+  @@id([userId, turmaId])
+}
+
+model MonitorTurma {
+  userId  String
+  turmaId String
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  turma Turma @relation(fields: [turmaId], references: [id], onDelete: Cascade)
+
+  @@id([userId, turmaId])
+}
+
+model AlunoTurma {
+  alunoId String
+  turmaId String
+
+  aluno Aluno @relation(fields: [alunoId], references: [id], onDelete: Cascade)
+  turma Turma @relation(fields: [turmaId], references: [id], onDelete: Cascade)
+
+  @@id([alunoId, turmaId])
+}
+
+// ---------------------------------------------------------------------------
+// Aluno — registro demográfico (não faz login)
+// ---------------------------------------------------------------------------
+
+model Aluno {
+  id                String   @id @default(cuid())
+  semestreId        String
+  nome              String
+  dataNascimento    DateTime
+  cpf               String   @unique
+  corRaca           String
+  identidadeGenero  String
+  lgbtqiapn         String
+  telefone          String
+  contatoEmergencia String
+  email             String
+  escolaridade      String
+  cuidaTerceiros    Boolean  @default(false)
+
+  // Trabalho (condicionais)
+  trabalha       Boolean @default(false)
+  trabalhoLocal  String?
+  trabalhoFuncao String?
+
+  // Estudo (condicionais)
+  estuda      Boolean @default(false)
+  estudoLocal String?
+  estudoCurso String?
+
+  // Saúde (condicionais)
+  problemaSaude           Boolean @default(false)
+  problemaSaudeQual       String?
+  necessidadeEspecial     Boolean @default(false)
+  necessidadeEspecialQual String?
+
+  // Infraestrutura (condicionais)
+  acessoInternet    Boolean @default(false)
+  temComputador     Boolean @default(false)
+  temSmartphone     Boolean @default(false)
+  sistemaSmartphone String?
+
+  createdAt DateTime @default(now())
+
+  semestre  Semestre        @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  turmas    AlunoTurma[]
+  presencas PresencaAluno[]
+
+  @@index([semestreId])
+  @@index([cpf])
+}
+
+// ---------------------------------------------------------------------------
+// Material
+// ---------------------------------------------------------------------------
+
+model Material {
+  id        String       @id @default(cuid())
+  turmaId   String
+  titulo    String
+  tipo      TipoMaterial
+  url       String
+  createdAt DateTime     @default(now())
+
+  turma Turma @relation(fields: [turmaId], references: [id], onDelete: Cascade)
+
+  @@index([turmaId])
+}
+
+// ---------------------------------------------------------------------------
+// Evento do Calendário
+// ---------------------------------------------------------------------------
+
+model EventoCalendario {
+  id      String     @id @default(cuid())
+  turmaId String
+  data    DateTime
+  titulo  String
+  tipo    TipoEvento
+
+  turma Turma @relation(fields: [turmaId], references: [id], onDelete: Cascade)
+
+  @@index([turmaId, data])
+}
+
+// ---------------------------------------------------------------------------
+// Aviso (Posts da turma)
+// ---------------------------------------------------------------------------
+
+model Aviso {
+  id        String   @id @default(cuid())
+  turmaId   String
+  autorId   String
+  texto     String
+  fixado    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  turma Turma @relation(fields: [turmaId], references: [id], onDelete: Cascade)
+  autor User  @relation(fields: [autorId], references: [id], onDelete: Cascade)
+
+  @@index([turmaId])
+}
+
+// ---------------------------------------------------------------------------
+// Anotação (notas privadas do professor/monitor)
+// ---------------------------------------------------------------------------
+
+model Anotacao {
+  id        String   @id @default(cuid())
+  turmaId   String
+  autorId   String
+  titulo    String
+  conteudo  String
+  createdAt DateTime @default(now())
+
+  turma Turma @relation(fields: [turmaId], references: [id], onDelete: Cascade)
+  autor User  @relation(fields: [autorId], references: [id], onDelete: Cascade)
+
+  @@index([turmaId])
+}
+
+// ---------------------------------------------------------------------------
+// Presença — dividida em Alunos e Monitores
+// ---------------------------------------------------------------------------
+
+model RegistroPresenca {
+  id      String   @id @default(cuid())
+  turmaId String
+  data    DateTime
+
+  turma     Turma             @relation(fields: [turmaId], references: [id], onDelete: Cascade)
+  alunos    PresencaAluno[]
+  monitores PresencaMonitor[]
+
+  @@unique([turmaId, data])
+  @@index([turmaId])
+}
+
+model PresencaAluno {
+  id         String         @id @default(cuid())
+  registroId String
+  alunoId    String
+  estado     EstadoPresenca
+
+  registro RegistroPresenca @relation(fields: [registroId], references: [id], onDelete: Cascade)
+  aluno    Aluno            @relation(fields: [alunoId], references: [id], onDelete: Cascade)
+
+  @@unique([registroId, alunoId])
+}
+
+model PresencaMonitor {
+  id         String         @id @default(cuid())
+  registroId String
+  monitorId  String
+  estado     EstadoPresenca
+
+  registro RegistroPresenca @relation(fields: [registroId], references: [id], onDelete: Cascade)
+  monitor  User             @relation(fields: [monitorId], references: [id], onDelete: Cascade)
+
+  @@unique([registroId, monitorId])
+}
+
+// ---------------------------------------------------------------------------
+// Candidato (Sorteio)
+// ---------------------------------------------------------------------------
+
+model Candidato {
+  id             String       @id @default(cuid())
+  semestreId     String
+  ficha          String
+  nome           String
+  dataNascimento DateTime
+  cpf            String
+  telefone       String
+  emergencia     String
+  curso          CursoSorteio
+
+  semestre Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+
+  @@index([semestreId])
+}
+
+// ---------------------------------------------------------------------------
+// Formulário (Builder)
+// ---------------------------------------------------------------------------
+
+model Formulario {
+  id        String   @id @default(cuid())
+  titulo    String
+  descricao String?
+  createdAt DateTime @default(now())
+
+  perguntas Pergunta[]
+}
+
+model Pergunta {
+  id           String       @id @default(cuid())
+  formularioId String
+  titulo       String
+  tipo         TipoPergunta
+  obrigatoria  Boolean      @default(false)
+  ordem        Int          @default(0)
+
+  formulario Formulario @relation(fields: [formularioId], references: [id], onDelete: Cascade)
+  opcoes     Opcao[]
+
+  @@index([formularioId])
+}
+
+model Opcao {
+  id         String @id @default(cuid())
+  perguntaId String
+  texto      String
+  ordem      Int    @default(0)
+
+  pergunta Pergunta @relation(fields: [perguntaId], references: [id], onDelete: Cascade)
+
+  @@index([perguntaId])
 }

@@ -14,6 +14,7 @@ import {
   RefreshCw,
   DoorOpen,
   Info,
+  IdCard,
 } from "lucide-react";
 import BotaoVoltar from "~/app/_components/botaoVoltar";
 
@@ -24,6 +25,7 @@ import BotaoVoltar from "~/app/_components/botaoVoltar";
 interface Monitor {
   id: string;
   nome: string;
+  matricula: string;
   email: string;
   senha: string;
   turmas: string[]; // somente leitura aqui — vínculo é feito na tela de Turmas
@@ -33,6 +35,7 @@ const MONITORES_INICIAIS: Monitor[] = [
   {
     id: "1",
     nome: "Beatriz Cardoso",
+    matricula: "20240012345",
     email: "beatriz.cardoso@proeidi.com.br",
     senha: "trocar123",
     turmas: ["Smartphone mais do que Avançado"],
@@ -40,6 +43,7 @@ const MONITORES_INICIAIS: Monitor[] = [
   {
     id: "2",
     nome: "Lucas Martins",
+    matricula: "20240012346",
     email: "lucas.martins@proeidi.com.br",
     senha: "trocar123",
     turmas: ["Excel para o dia a dia"],
@@ -47,6 +51,7 @@ const MONITORES_INICIAIS: Monitor[] = [
   {
     id: "3",
     nome: "Fernanda Dias",
+    matricula: "20240012347",
     email: "fernanda.dias@proeidi.com.br",
     senha: "trocar123",
     turmas: ["Introdução ao Word", "Smartphone mais do que Avançado"],
@@ -54,6 +59,7 @@ const MONITORES_INICIAIS: Monitor[] = [
   {
     id: "4",
     nome: "Gabriel Rocha",
+    matricula: "20240012348",
     email: "gabriel.rocha@proeidi.com.br",
     senha: "trocar123",
     turmas: [],
@@ -63,6 +69,7 @@ const MONITORES_INICIAIS: Monitor[] = [
 const monitorVazio = (): Monitor => ({
   id: "",
   nome: "",
+  matricula: "",
   email: "",
   senha: "",
   turmas: [],
@@ -72,6 +79,7 @@ function normalizarMonitor(m: Partial<Monitor> & { id: string }): Monitor {
   return {
     id: m.id,
     nome: m.nome ?? "",
+    matricula: m.matricula ?? "",
     email: m.email ?? "",
     senha: m.senha ?? "",
     turmas: m.turmas ?? [],
@@ -119,6 +127,11 @@ function MonitorCard({
           <div className="min-w-0">
             <p className="text-sm font-semibold text-gray-900 truncate">{monitor.nome || "Sem nome"}</p>
             <p className="text-xs text-gray-500 truncate">{monitor.email || "Sem e-mail cadastrado"}</p>
+            {monitor.matricula && (
+              <p className="text-[11px] text-gray-400 font-mono mt-0.5">
+                Matrícula: {monitor.matricula}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-1 flex-shrink-0">
@@ -190,7 +203,13 @@ export default function MonitoresDiretoria() {
   const cancelar = () => setModo("lista");
 
   const salvar = () => {
-    if (!rascunho.nome.trim() || !rascunho.email.trim() || !rascunho.senha.trim()) return;
+    if (
+      !rascunho.nome.trim() ||
+      !rascunho.matricula.trim() ||
+      !rascunho.email.trim() ||
+      !rascunho.senha.trim()
+    )
+      return;
     if (editandoId) {
       setMonitores((prev) =>
         prev.map((m) => (m.id === editandoId ? { ...rascunho, id: editandoId } : m))
@@ -207,7 +226,11 @@ export default function MonitoresDiretoria() {
     }
   };
 
-  const formValido = rascunho.nome.trim() && rascunho.email.trim() && rascunho.senha.trim();
+  const formValido =
+    rascunho.nome.trim() &&
+    rascunho.matricula.trim() &&
+    rascunho.email.trim() &&
+    rascunho.senha.trim();
 
   return (
     <div className="min-h-screen w-full bg-gray-50 flex flex-col items-center font-sans px-4 py-10">
@@ -286,6 +309,22 @@ export default function MonitoresDiretoria() {
                   placeholder="Nome completo"
                   className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm focus:bg-white focus:border-emerald-300 focus:outline-none transition-colors"
                 />
+              </div>
+
+              {/* Matrícula */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+                  Matrícula
+                </label>
+                <div className="relative">
+                  <IdCard className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    value={rascunho.matricula}
+                    onChange={(e) => setRascunho({ ...rascunho, matricula: e.target.value })}
+                    placeholder="Ex: 20240012345"
+                    className="w-full rounded-lg border border-gray-200 bg-gray-50 pl-9 pr-3 py-2.5 text-sm focus:bg-white focus:border-emerald-300 focus:outline-none transition-colors"
+                  />
+                </div>
               </div>
 
               {/* Email de acesso */}
