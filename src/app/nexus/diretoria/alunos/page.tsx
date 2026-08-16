@@ -26,6 +26,7 @@ import {
 import { api } from "~/trpc/react";
 import { DiretoriaBackLink, DiretoriaPageIntro } from "~/app/_components/diretoria/page-intro";
 import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
+import { normalizarBusca } from "~/lib/texto";
 
 function downloadBase64Pdf(base64Data: string, filename: string) {
 	const byteCharacters = atob(base64Data);
@@ -461,12 +462,9 @@ export default function GerenciarAlunos() {
 	};
 
 	// Filtros
-	const alunosFiltrados = alunos.filter(
-		(a) =>
-			a.semestre === semestreFiltro &&
-			(a.nome.toLowerCase().includes(busca.toLowerCase()) ||
-				a.cpf.replace(/\D/g, "").includes(busca.replace(/\D/g, ""))),
-	);
+	const buscaNormalizada = normalizarBusca(busca);
+	const cpfBuscado = busca.replace(/\D/g, "");
+	const alunosFiltrados = alunos.filter((aluno) => aluno.semestre === semestreFiltro && (!buscaNormalizada || normalizarBusca(aluno.nome).includes(buscaNormalizada) || (cpfBuscado.length > 0 && aluno.cpf.replace(/\D/g, "").includes(cpfBuscado))));
 
 	// Ações CRUD
 	const abrirModalNovo = () => {

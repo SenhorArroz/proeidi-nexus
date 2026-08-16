@@ -962,10 +962,12 @@ function MateriaisView({
 	materiais,
 	setMateriais,
 	cor,
+	podeGerenciar,
 }: {
 	materiais: Material[];
 	setMateriais: React.Dispatch<React.SetStateAction<Material[]>>;
 	cor: string;
+	podeGerenciar: boolean;
 }) {
 	const [criando, setCriando] = useState(false);
 	const [nome, setNome] = useState("");
@@ -997,7 +999,7 @@ function MateriaisView({
 				<h3 className="text-sm font-semibold text-gray-700">
 					Materiais da turma
 				</h3>
-				<button
+				{podeGerenciar && <button
 					onClick={() => setCriando((v) => !v)}
 					className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
 				>
@@ -1007,11 +1009,11 @@ function MateriaisView({
 						<Plus className="w-3.5 h-3.5" />
 					)}
 					{criando ? "Cancelar" : "Adicionar"}
-				</button>
+				</button>}
 			</div>
 
 			{/* Input novo material */}
-			{criando && (
+			{podeGerenciar && criando && (
 				<div className="flex flex-col gap-2 bg-white rounded-2xl border border-gray-200 p-3.5 shadow-xs">
 					<input
 						autoFocus
@@ -1027,13 +1029,13 @@ function MateriaisView({
 						placeholder="URL do link (ex: https://...)"
 						className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
 					/>
-					<button
+					{podeGerenciar && <button
 						onClick={adicionar}
 						className="w-full flex justify-center items-center gap-1.5 px-4 py-2 rounded-lg bg-sky-600 text-white text-sm font-medium hover:bg-sky-700 transition-colors"
 					>
 						<Check className="w-4 h-4" />
 						Salvar
-					</button>
+					</button>}
 				</div>
 			)}
 
@@ -1535,6 +1537,7 @@ export default function TurmaView() {
 						materiais={materiais}
 						setMateriais={setMateriais}
 						cor={turma.cor}
+						podeGerenciar={detalhe.role !== "MONITOR"}
 					/>
 				)}
 				{tab === "anotacoes" && (

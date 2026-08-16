@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { DiretoriaBackLink, DiretoriaPageIntro } from "~/app/_components/diretoria/page-intro";
 import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
+import { normalizarBusca } from "~/lib/texto";
 import { api } from "~/trpc/react";
 
 // ---------------------------------------------------------------------------
@@ -106,11 +107,8 @@ export default function GerenciarSorteio() {
 	});
 
 	// Filtros e Separação
-	const candidatosFiltrados = candidatos.filter(
-		(c) =>
-			c.nome.toLowerCase().includes(busca.toLowerCase()) ||
-			c.ficha.includes(busca),
-	);
+	const buscaNormalizada = normalizarBusca(busca);
+	const candidatosFiltrados = candidatos.filter((candidato) => !buscaNormalizada || normalizarBusca(candidato.nome).includes(buscaNormalizada) || candidato.ficha.includes(busca.trim()));
 
 	const listaSmartphone = candidatosFiltrados.filter(
 		(c) => c.curso === "Smartphone",

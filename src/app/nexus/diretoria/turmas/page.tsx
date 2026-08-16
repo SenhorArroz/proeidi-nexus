@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { DiretoriaBackLink, DiretoriaPageIntro } from "~/app/_components/diretoria/page-intro";
 import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
+import { normalizarBusca } from "~/lib/texto";
 import { api } from "~/trpc/react";
 
 // ---------------------------------------------------------------------------
@@ -50,8 +51,11 @@ interface Turma {
 	sala: string;
 	horario: string;
 	professores: string[];
+	professorIds: string[];
 	monitores: string[];
+	monitorIds: string[];
 	alunos: string[];
+	alunoIds: string[];
 	materiais: Material[];
 	aulas: Aula[];
 }
@@ -62,8 +66,11 @@ const turmaVazia = (): Turma => ({
 	sala: "",
 	horario: "",
 	professores: [],
+	professorIds: [],
 	monitores: [],
+	monitorIds: [],
 	alunos: [],
+	alunoIds: [],
 	materiais: [],
 	aulas: [],
 });
@@ -77,8 +84,11 @@ function normalizarTurma(t: Partial<Turma> & { id: string }): Turma {
 		sala: t.sala ?? "",
 		horario: t.horario ?? "",
 		professores: t.professores ?? [],
+		professorIds: t.professorIds ?? [],
 		monitores: t.monitores ?? [],
+		monitorIds: t.monitorIds ?? [],
 		alunos: t.alunos ?? [],
+		alunoIds: t.alunoIds ?? [],
 		materiais: t.materiais ?? [],
 		aulas: t.aulas ?? [],
 	};
@@ -101,10 +111,12 @@ const ICONE_MATERIAL: Record<TipoMaterial, React.ElementType> = {
 // Dropdown de busca (professores, monitores, alunos) — simula busca no banco
 // ---------------------------------------------------------------------------
 
+type OpcaoPessoa = { id: string; nome: string; detalhe?: string };
+
 function SearchSelect({
 	label,
 	icon: Icon,
-	values = [],
+	selectedIds = [],
 	onChange,
 	options,
 	placeholder,
@@ -113,9 +125,9 @@ function SearchSelect({
 }: {
 	label: string;
 	icon: React.ElementType;
-	values: string[] | undefined;
-	onChange: (v: string[]) => void;
-	options: string[];
+	selectedIds: string[] | undefined;
+	onChange: (ids: string[]) => void;
+	options: OpcaoPessoa[];
 	placeholder: string;
 	accent: string;
 	isLoading?: boolean;
@@ -137,17 +149,20 @@ function SearchSelect({
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
+	const buscaNormalizada = normalizarBusca(query);
+	const selecionados = options.filter((opcao) => selectedIds.includes(opcao.id));
 	const resultados = options
-		.filter((o) => !values.includes(o))
-		.filter((o) => o.toLowerCase().includes(query.toLowerCase()))
+		.filter((opcao) => !selectedIds.includes(opcao.id))
+		.filter((opcao) => !buscaNormalizada || normalizarBusca(`${opcao.nome} ${opcao.detalhe ?? ""}`).includes(buscaNormalizada))
 		.slice(0, 6);
 
-	const selecionar = (nome: string) => {
-		onChange([...values, nome]);
+	const selecionar = (id: string) => {
+		onChange([...selectedIds, id]);
 		setQuery("");
+		setOpen(false);
 	};
 
-	const remover = (nome: string) => onChange(values.filter((v) => v !== nome));
+	const remover = (id: string) => onChange(selectedIds.filter((value) => value !== id));
 
 	return (
 		<div>
@@ -157,23 +172,23 @@ function SearchSelect({
 			</label>
 
 			<div className="flex flex-wrap gap-1.5 mb-2 min-h-[1.75rem]">
-				{values.map((v) => (
+				{selecionados.map((opcao) => (
 					<span
-						key={v}
+						key={opcao.id}
 						className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full text-xs font-medium"
 						style={{ backgroundColor: `${accent}1A`, color: accent }}
 					>
-						{v}
+						{opcao.nome}
 						<button
-							onClick={() => remover(v)}
+							onClick={() => remover(opcao.id)}
 							className="p-0.5 rounded-full hover:bg-black/10"
-							aria-label={`Remover ${v}`}
+							aria-label={`Remover ${opcao.nome}`}
 						>
 							<X className="w-3 h-3" />
 						</button>
 					</span>
 				))}
-				{values.length === 0 && (
+				{selectedIds.length === 0 && (
 					isLoading ? <span className="h-4 w-28 animate-pulse rounded bg-slate-200" /> : <span className="text-xs text-gray-400 py-1">Nenhum selecionado</span>
 				)}
 			</div>
@@ -186,6 +201,7 @@ function SearchSelect({
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
 						onFocus={() => setOpen(true)}
+						onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}
 						placeholder={placeholder}
 						className="w-full rounded-lg border border-gray-200 bg-gray-50 pl-9 pr-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
 					/>
@@ -194,13 +210,14 @@ function SearchSelect({
 				{open && (
 					<div className="absolute z-20 mt-1.5 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-52 overflow-y-auto">
 						{resultados.length > 0 ? (
-							resultados.map((opt, index) => (
+							resultados.map((opcao) => (
 								<button
-									key={`${opt}-${index}`}
-									onClick={() => selecionar(opt)}
+									key={opcao.id}
+									onClick={() => selecionar(opcao.id)}
 									className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-sky-50 hover:text-sky-700 transition-colors"
 								>
-									{opt}
+									<span className="block truncate">{opcao.nome}</span>
+									{opcao.detalhe && <span className="mt-0.5 block truncate text-xs text-slate-500">{opcao.detalhe}</span>}
 								</button>
 							))
 						) : (
@@ -573,8 +590,11 @@ export default function TurmasDiretoria() {
 				sala: t.sala ?? "",
 				horario: t.horario ?? "",
 				professores: t.professores.map((v) => v.user.nome),
+				professorIds: t.professores.map((v) => v.user.id),
 				monitores: t.monitores.map((v) => v.user.nome),
+				monitorIds: t.monitores.map((v) => v.user.id),
 				alunos: t.alunos.map((v) => v.aluno.nome),
+				alunoIds: t.alunos.map((v) => v.aluno.id),
 				materiais: t.materiais.map((m) => ({
 					...m,
 					tipo: m.tipo.toLowerCase() as TipoMaterial,
@@ -611,27 +631,15 @@ export default function TurmasDiretoria() {
 
 	const salvar = () => {
 		if (!rascunho.titulo.trim() || !rascunho.semestreId) return;
-		const professorIds =
-			docentesDb
-				?.filter((p) => rascunho.professores.includes(p.nome))
-				.map((p) => p.id) ?? [];
-		const monitorIds =
-			monitoresDb
-				?.filter((m) => rascunho.monitores.includes(m.nome))
-				.map((m) => m.id) ?? [];
-		const alunoIds =
-			alunosDb
-				?.filter((a) => rascunho.alunos.includes(a.nome))
-				.map((a) => a.id) ?? [];
 		const payload = {
 			semestreId: rascunho.semestreId,
 			titulo: rascunho.titulo,
 			sala: rascunho.sala.trim() || null,
 			horario: rascunho.horario.trim() || null,
 			cor: "#1A73E8",
-			professorIds,
-			monitorIds,
-			alunoIds,
+			professorIds: rascunho.professorIds,
+			monitorIds: rascunho.monitorIds,
+			alunoIds: rascunho.alunoIds,
 			materiais: rascunho.materiais.map((m) => ({
 				titulo: m.titulo,
 				tipo: m.tipo.toUpperCase() as "LINK" | "PDF" | "SLIDE" | "IMAGEM",
@@ -788,9 +796,9 @@ export default function TurmasDiretoria() {
 								<SearchSelect
 									label="Docentes (professores e diretores)"
 									icon={GraduationCap}
-									values={rascunho.professores}
-									onChange={(v) => setRascunho({ ...rascunho, professores: v })}
-					options={docentesDb.map((p) => p.nome)}
+									selectedIds={rascunho.professorIds}
+									onChange={(ids) => setRascunho({ ...rascunho, professorIds: ids, professores: docentesDb.filter((p) => ids.includes(p.id)).map((p) => p.nome) })}
+									options={docentesDb.map((p) => ({ id: p.id, nome: p.nome, detalhe: p.role === "DIRETOR" ? "Diretor" : "Professor" }))}
 									placeholder="Buscar professor ou diretor..."
 									accent="#1A73E8"
 									isLoading={carregandoProfessores || carregandoDiretores}
@@ -798,9 +806,9 @@ export default function TurmasDiretoria() {
 								<SearchSelect
 									label="Monitores"
 									icon={ShieldCheck}
-									values={rascunho.monitores}
-									onChange={(v) => setRascunho({ ...rascunho, monitores: v })}
-									options={monitoresDb?.map((m) => m.nome) ?? []}
+									selectedIds={rascunho.monitorIds}
+									onChange={(ids) => setRascunho({ ...rascunho, monitorIds: ids, monitores: (monitoresDb ?? []).filter((monitor) => ids.includes(monitor.id)).map((monitor) => monitor.nome) })}
+									options={(monitoresDb ?? []).map((monitor) => ({ id: monitor.id, nome: monitor.nome, detalhe: monitor.matricula }))}
 									placeholder="Buscar monitor..."
 									accent="#188038"
 									isLoading={carregandoMonitores}
@@ -810,9 +818,9 @@ export default function TurmasDiretoria() {
 							<SearchSelect
 								label="Alunos"
 								icon={Users}
-								values={rascunho.alunos}
-								onChange={(v) => setRascunho({ ...rascunho, alunos: v })}
-								options={alunosDb?.map((a) => a.nome) ?? []}
+								selectedIds={rascunho.alunoIds}
+								onChange={(ids) => setRascunho({ ...rascunho, alunoIds: ids, alunos: (alunosDb ?? []).filter((aluno) => ids.includes(aluno.id)).map((aluno) => aluno.nome) })}
+								options={(alunosDb ?? []).map((aluno) => ({ id: aluno.id, nome: aluno.nome, detalhe: aluno.cpf }))}
 								placeholder="Buscar aluno..."
 								accent="#9334E6"
 								isLoading={carregandoAlunos}
