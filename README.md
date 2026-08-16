@@ -94,8 +94,6 @@ Questionários publicados recebem um `slug` único. O acesso público usa esse i
 - Certificados e carga horária dependem de turmas, aulas e presenças efetivamente registradas; informações ausentes no cadastro não são inventadas pelo sistema.
 - O link público de questionário não autentica o respondente. Portanto, não há garantia nativa de uma única resposta por pessoa.
 - O endpoint de detalhe de turma hoje trata diretor como perfil com acesso a qualquer turma, embora o dashboard liste apenas as turmas em que ele está vinculado. Isso deve ser ajustado caso a regra desejada seja limitar diretores somente às próprias turmas.
-- Monitores têm acesso de servidor a materiais e calendário das turmas vinculadas, inclusive às mutations de criação e remoção de materiais. A interface é mais restritiva; se a política exigir autoria para remoção de material, essa regra ainda precisa ser adicionada ao controller.
-- O banco configurado é PostgreSQL. A URL de produção deve usar o formato aceito pelo provedor/Prisma configurado no ambiente.
 
 ## Arquitetura
 
@@ -161,3 +159,7 @@ Abra `http://localhost:3000`. Em Windows, use `Copy-Item .env.example .env` se o
 ## Tecnologias
 
 Next.js 15, React 19, TypeScript, Tailwind CSS, tRPC, NextAuth, Prisma, PostgreSQL, Zod, PDF-Lib e SheetJS (`xlsx`).
+
+## Criado por:
+
+Luiz Guimarães - @luizrob_bah
