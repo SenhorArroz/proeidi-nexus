@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect, useMemo } from "react";
+import { useParams } from "next/navigation";
+import { api } from "~/trpc/react";
 import {
 	Home,
 	FolderOpen,
@@ -32,40 +34,6 @@ import {
 } from "lucide-react";
 
 // ---------------------------------------------------------------------------
-// Bancos de dados mock — consistentes com /nexus/diretoria/*
-// ---------------------------------------------------------------------------
-
-const PROFESSORES_DB = [
-	"Thales",
-	"Paulo",
-	"Marina Alves",
-	"Rafael Souza",
-	"Camila Ferreira",
-	"Eduardo Lima",
-	"Patrícia Gomes",
-];
-
-const MONITORES_DB = [
-	"Beatriz Cardoso",
-	"Lucas Martins",
-	"Fernanda Dias",
-	"Gabriel Rocha",
-];
-
-const ALUNOS_DB = [
-	"Maria Helena Souza",
-	"João Carlos Pereira",
-	"Antônia Ferreira Lima",
-	"José Roberto Alves",
-	"Francisca Nunes Costa",
-	"Carlos Eduardo Ramos",
-	"Juliana Prado",
-	"Marcos Vinícius",
-	"Larissa Martins",
-	"Pedro Henrique Souza",
-];
-
-// ---------------------------------------------------------------------------
 // Tipos
 // ---------------------------------------------------------------------------
 
@@ -75,7 +43,8 @@ type TabId =
 	| "anotacoes"
 	| "calendario"
 	| "presenca-alunos"
-	| "presenca-monitores";
+	| "presenca-monitores"
+	| "presenca-professores";
 type TipoEvento = "aula" | "feriado" | "cancelada" | "especial";
 
 interface EventoCalendario {
@@ -107,7 +76,7 @@ interface Anotacao {
 	conteudo: string;
 }
 
-type EstadoPresenca = "presente" | "ausente" | "justificado";
+type EstadoPresenca = "presente" | "ausente" | "justificado" | "a_registrar";
 
 interface Pessoa {
 	id: string;
@@ -125,186 +94,7 @@ interface DadosTurma {
 	cor: string;
 }
 
-// ---------------------------------------------------------------------------
-// Dados mock da turma
-// ---------------------------------------------------------------------------
-
-const TURMA_INICIAL: DadosTurma = {
-	nome: "Smartphone mais do que Avançado",
-	sala: "Sala 204",
-	horario: "Seg e Qua · 14:00 – 16:00",
-	professores: ["Thales", "Paulo"],
-	monitores: ["Beatriz Cardoso", "Lucas Martins"],
-	alunos: [
-		"Maria Helena Souza",
-		"João Carlos Pereira",
-		"Antônia Ferreira Lima",
-		"José Roberto Alves",
-		"Francisca Nunes Costa",
-	],
-	cor: "#1A73E8",
-};
-
-const AVISOS_INICIAIS: Aviso[] = [
-	{
-		id: "1",
-		autor: "Thales",
-		fixado: true,
-		texto:
-			"Próxima aula traremos os próprios celulares para praticarmos configuração de segurança.",
-		quando: "Hoje, 09:12",
-	},
-	{
-		id: "2",
-		autor: "Paulo",
-		fixado: false,
-		texto:
-			"Turma, o material da última aula já está disponível na aba Materiais.",
-		quando: "Ontem, 17:30",
-	},
-	{
-		id: "3",
-		autor: "Thales",
-		fixado: false,
-		texto: "Não haverá aula na próxima sexta-feira (feriado municipal).",
-		quando: "Seg, 08:00",
-	},
-];
-
-const MATERIAIS_INICIAIS: Material[] = [
-	{
-		id: "1",
-		nome: "Apostila — Módulo 1",
-		url: "https://drive.google.com/file/exemplo1",
-		quando: "12/07",
-	},
-	{
-		id: "2",
-		nome: "Slides — Configurações de segurança",
-		url: "https://docs.google.com/presentation/exemplo2",
-		quando: "15/07",
-	},
-	{
-		id: "3",
-		nome: "Vídeo tutorial — Backup na nuvem",
-		url: "https://youtu.be/exemplo3",
-		quando: "18/07",
-	},
-	{
-		id: "4",
-		nome: "Prints do exercício em sala",
-		url: "https://photos.app.goo.gl/exemplo4",
-		quando: "22/07",
-	},
-];
-
-const ANOTACOES_INICIAIS: Anotacao[] = [
-	{
-		id: "1",
-		titulo: "Dúvidas recorrentes sobre Wi-Fi",
-		data: "22/07",
-		conteudo: "Vários alunos tiveram dificuldade em conectar na rede 5G.",
-	},
-	{
-		id: "2",
-		titulo: "Alunos com dificuldade — acompanhar",
-		data: "18/07",
-		conteudo: "Maria Helena e José Roberto precisam de mais atenção.",
-	},
-	{
-		id: "3",
-		titulo: "Ideia para próxima dinâmica em grupo",
-		data: "10/07",
-		conteudo: "Fazer duplas onde um aluno mais experiente ajuda outro.",
-	},
-];
-
-const EVENTOS_INICIAIS: EventoCalendario[] = [
-	{
-		id: "e1",
-		data: "2026-07-06",
-		titulo: "Introdução ao sistema Android",
-		tipo: "aula",
-	},
-	{
-		id: "e2",
-		data: "2026-07-08",
-		titulo: "Navegação básica no smartphone",
-		tipo: "aula",
-	},
-	{
-		id: "e3",
-		data: "2026-07-13",
-		titulo: "Configurações de segurança",
-		tipo: "aula",
-	},
-	{
-		id: "e4",
-		data: "2026-07-15",
-		titulo: "Aplicativos essenciais",
-		tipo: "aula",
-	},
-	{
-		id: "e5",
-		data: "2026-07-20",
-		titulo: "Feriado — Dia do Amigo",
-		tipo: "feriado",
-	},
-	{
-		id: "e6",
-		data: "2026-07-22",
-		titulo: "Backup e armazenamento na nuvem",
-		tipo: "aula",
-	},
-	{
-		id: "e7",
-		data: "2026-07-27",
-		titulo: "Aula cancelada — Manutenção na sala",
-		tipo: "cancelada",
-	},
-	{
-		id: "e8",
-		data: "2026-07-29",
-		titulo: "Aula prática com celulares dos alunos",
-		tipo: "especial",
-	},
-	{
-		id: "e9",
-		data: "2026-08-03",
-		titulo: "Redes sociais — WhatsApp avançado",
-		tipo: "aula",
-	},
-	{
-		id: "e10",
-		data: "2026-08-05",
-		titulo: "Redes sociais — Instagram e Facebook",
-		tipo: "aula",
-	},
-	{
-		id: "e11",
-		data: "2026-08-10",
-		titulo: "Fotografia e edição no celular",
-		tipo: "especial",
-	},
-	{
-		id: "e12",
-		data: "2026-08-12",
-		titulo: "Banco digital e Pix",
-		tipo: "aula",
-	},
-	{
-		id: "e13",
-		data: "2026-08-17",
-		titulo: "Segurança digital — Golpes online",
-		tipo: "aula",
-	},
-	{
-		id: "e14",
-		data: "2026-08-19",
-		titulo: "Revisão e encerramento do módulo",
-		tipo: "aula",
-	},
-];
+const TURMA_VAZIA: DadosTurma = { nome: "", sala: "", horario: "", professores: [], monitores: [], alunos: [], cor: "#0284c7" };
 
 const EVENTO_CONFIG: Record<
 	TipoEvento,
@@ -455,9 +245,9 @@ function SearchSelect({
 				{open && (
 					<div className="absolute z-20 mt-1.5 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-52 overflow-y-auto">
 						{resultados.length > 0 ? (
-							resultados.map((opt) => (
+							resultados.map((opt, index) => (
 								<button
-									key={opt}
+									key={`${opt}-${index}`}
 									onClick={() => selecionar(opt)}
 									className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-sky-50 hover:text-sky-700 transition-colors"
 								>
@@ -938,7 +728,7 @@ function EditarTurmaModal({
 							icon={GraduationCap}
 							values={rascunho.professores}
 							onChange={(v) => setRascunho({ ...rascunho, professores: v })}
-							options={PROFESSORES_DB}
+							options={turma.professores}
 							placeholder="Buscar professor..."
 							accent="#1A73E8"
 						/>
@@ -947,7 +737,7 @@ function EditarTurmaModal({
 							icon={ShieldCheck}
 							values={rascunho.monitores}
 							onChange={(v) => setRascunho({ ...rascunho, monitores: v })}
-							options={MONITORES_DB}
+							options={turma.monitores}
 							placeholder="Buscar monitor..."
 							accent="#188038"
 						/>
@@ -959,7 +749,7 @@ function EditarTurmaModal({
 						icon={Users}
 						values={rascunho.alunos}
 						onChange={(v) => setRascunho({ ...rascunho, alunos: v })}
-						options={ALUNOS_DB}
+						options={turma.alunos}
 						placeholder="Buscar aluno..."
 						accent="#9334E6"
 					/>
@@ -1000,6 +790,7 @@ function InicioView({
 	turma: DadosTurma;
 	avisos: Aviso[];
 	setAvisos: React.Dispatch<React.SetStateAction<Aviso[]>>;
+	eventos: EventoCalendario[];
 }) {
 	const [criandoAviso, setCriandoAviso] = useState(false);
 	const [novoAviso, setNovoAviso] = useState("");
@@ -1438,12 +1229,14 @@ function PresencaView({
 	setPessoas,
 	cor,
 	eventos,
+	onSalvar,
 }: {
 	titulo: string;
 	pessoas: Pessoa[];
 	setPessoas: React.Dispatch<React.SetStateAction<Pessoa[]>>;
 	cor: string;
 	eventos: EventoCalendario[];
+	onSalvar: (data: string) => void;
 }) {
 	const presentes = pessoas.filter((p) => p.presente === "presente").length;
 	const hoje = new Date();
@@ -1491,6 +1284,7 @@ function PresencaView({
 					>
 						{presentes}/{pessoas.length} presentes
 					</span>
+					<button onClick={() => onSalvar(dataSelecionada)} className="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-sky-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"><Check className="h-3.5 w-3.5" />Salvar presenças</button>
 				</div>
 			</div>
 
@@ -1537,12 +1331,13 @@ function PresencaView({
 									? "bg-green-50 text-green-700 border-green-200"
 									: p.presente === "ausente"
 										? "bg-red-50 text-red-700 border-red-200"
-										: "bg-amber-50 text-amber-700 border-amber-200"
+								: p.presente === "a_registrar" ? "bg-slate-100 text-slate-600 border-slate-200" : "bg-amber-50 text-amber-700 border-amber-200"
 							}`}
 						>
 							<option value="presente">Presente</option>
 							<option value="ausente">Ausente</option>
 							<option value="justificado">Justificado</option>
+							<option value="a_registrar">A registrar</option>
 						</select>
 					</div>
 				))}
@@ -1567,6 +1362,7 @@ const TABS: { id: TabId; label: string; icon: React.ElementType }[] = [
 	{ id: "calendario", label: "Calendário", icon: CalendarDays },
 	{ id: "presenca-alunos", label: "Alunos", icon: ClipboardList },
 	{ id: "presenca-monitores", label: "Monitores", icon: ShieldCheck },
+	{ id: "presenca-professores", label: "Professores", icon: GraduationCap },
 ];
 
 // ---------------------------------------------------------------------------
@@ -1574,12 +1370,16 @@ const TABS: { id: TabId; label: string; icon: React.ElementType }[] = [
 // ---------------------------------------------------------------------------
 
 export default function TurmaView() {
+	const params = useParams<{ id: string }>();
+	const turmaId = Array.isArray(params.id) ? params.id[0] : params.id;
+	const { data: detalhe, isLoading: carregandoTurma } = api.turma.detalhe.useQuery({ id: turmaId }, { enabled: Boolean(turmaId) });
+	const salvarPresencas = api.turma.presencas.salvar.useMutation({ onError: (erro) => alert(`Não foi possível salvar as presenças: ${erro.message}`) });
 	const [tab, setTab] = useState<TabId>("inicio");
-	const [turma, setTurma] = useState<DadosTurma>(TURMA_INICIAL);
-	const [avisos, setAvisos] = useState<Aviso[]>(AVISOS_INICIAIS);
-	const [materiais, setMateriais] = useState<Material[]>(MATERIAIS_INICIAIS);
-	const [anotacoes, setAnotacoes] = useState<Anotacao[]>(ANOTACOES_INICIAIS);
-	const [eventos] = useState<EventoCalendario[]>(EVENTOS_INICIAIS);
+	const [turma, setTurma] = useState<DadosTurma>(TURMA_VAZIA);
+	const [avisos, setAvisos] = useState<Aviso[]>([]);
+	const [materiais, setMateriais] = useState<Material[]>([]);
+	const [anotacoes, setAnotacoes] = useState<Anotacao[]>([]);
+	const [eventos, setEventos] = useState<EventoCalendario[]>([]);
 	const [editando, setEditando] = useState(false);
 
 	// Constroi lista de presença a partir dos nomes da turma
@@ -1597,6 +1397,28 @@ export default function TurmaView() {
 			presente: "presente",
 		})),
 	);
+	const [presencaProfessores, setPresencaProfessores] = useState<Pessoa[]>(
+		turma.professores.map((nome, i) => ({ id: `professor-${i}`, nome, presente: "presente" })),
+	);
+	const salvarNaData = (data: string) => {
+		const todas = [...presencaAlunos, ...presencaMonitores, ...presencaProfessores];
+		if (todas.some((pessoa) => pessoa.presente === "a_registrar")) return alert("Defina a presença de todas as pessoas antes de salvar.");
+		const estado = (pessoa: Pessoa) => pessoa.presente.toUpperCase() as "PRESENTE" | "AUSENTE" | "JUSTIFICADO";
+		salvarPresencas.mutate({ turmaId, data: new Date(`${data}T12:00:00`), alunos: presencaAlunos.map((pessoa) => ({ id: pessoa.id, estado: estado(pessoa) })), monitores: presencaMonitores.map((pessoa) => ({ id: pessoa.id, estado: estado(pessoa) })), professores: presencaProfessores.map((pessoa) => ({ id: pessoa.id, estado: estado(pessoa) })) });
+	};
+
+	useEffect(() => {
+		const dados = detalhe?.turma;
+		if (!dados) return;
+		setTurma({ nome: dados.titulo, sala: dados.sala ?? "Local a definir", horario: dados.horario ?? "Horário a definir", cor: dados.cor, professores: dados.professores.map((item) => item.user.nome), monitores: dados.monitores.map((item) => item.user.nome), alunos: dados.alunos.map((item) => item.aluno.nome) });
+		setAvisos(dados.avisos.map((item) => ({ id: item.id, autor: item.autor.nome, fixado: item.fixado, texto: item.texto, quando: item.createdAt.toLocaleDateString("pt-BR") })));
+		setMateriais(dados.materiais.map((item) => ({ id: item.id, nome: item.titulo, url: item.url, quando: item.createdAt.toLocaleDateString("pt-BR") })));
+		setAnotacoes((dados.anotacoes ?? []).map((item) => ({ id: item.id, titulo: item.titulo, conteudo: item.conteudo, data: item.createdAt.toLocaleDateString("pt-BR") })));
+		setEventos(dados.eventos.map((item) => ({ id: item.id, titulo: item.titulo, data: item.data.toISOString().slice(0, 10), tipo: item.tipo.toLowerCase() as TipoEvento })));
+		setPresencaAlunos(dados.alunos.map((item) => ({ id: item.aluno.id, nome: item.aluno.nome, presente: "presente" })));
+		setPresencaMonitores(dados.monitores.map((item) => ({ id: item.user.id, nome: item.user.nome, presente: "presente" })));
+		setPresencaProfessores(dados.professores.map((item) => ({ id: item.user.id, nome: item.user.nome, presente: "presente" })));
+	}, [detalhe]);
 
 	// Atualiza presença quando turma muda (editor)
 	const salvarTurma = (novaTurma: DadosTurma) => {
@@ -1618,6 +1440,13 @@ export default function TurmaView() {
 					"presente",
 			})),
 		);
+		setPresencaProfessores(
+			novaTurma.professores.map((nome, i) => ({
+				id: `professor-${i}`,
+				nome,
+				presente: presencaProfessores.find((p) => p.nome === nome)?.presente ?? "presente",
+			})),
+		);
 		setEditando(false);
 	};
 
@@ -1634,27 +1463,32 @@ export default function TurmaView() {
 		return () => document.removeEventListener("mousedown", handler);
 	}, [menuAberto]);
 
+	if (carregandoTurma) {
+		return <div className="flex h-full min-h-0 flex-col animate-pulse bg-slate-50"><div className="h-40 shrink-0 bg-sky-200" /><div className="flex-1 space-y-5 p-6"><div className="h-7 w-48 rounded-lg bg-slate-200" /><div className="grid grid-cols-1 gap-4 sm:grid-cols-2"><div className="h-44 rounded-2xl bg-white" /><div className="h-44 rounded-2xl bg-white" /></div><div className="h-36 rounded-2xl bg-white" /></div><div className="h-16 shrink-0 border-t border-sky-100 bg-white" /></div>;
+	}
+
+	if (!detalhe) {
+		return <div className="grid h-full place-items-center bg-slate-50 p-6 text-center"><div><AlertTriangle className="mx-auto h-8 w-8 text-orange-500" /><h1 className="mt-3 font-bold text-slate-800">Turma indisponível</h1><p className="mt-1 text-sm text-slate-500">Não foi possível carregar esta turma ou você não possui acesso a ela.</p></div></div>;
+	}
+
 	return (
-		<div className="flex flex-col min-h-screen w-full mx-auto text-gray-900 bg-gray-50/25">
+		<div className="flex h-full min-h-0 min-w-0 flex-col overflow-x-clip text-slate-900 bg-[radial-gradient(circle_at_96%_2%,rgba(14,165,233,.12),transparent_24rem),#f8fafc]">
 			{/* Header da turma */}
 			<div
-				className="relative flex-shrink-0 px-4 sm:px-6 lg:px-8 pt-6 pb-5 overflow-hidden shadow-xs"
-				style={{
-					background: `linear-gradient(135deg, ${turma.cor} 0%, ${turma.cor}CC 100%)`,
-				}}
+				className="relative flex-shrink-0 overflow-hidden bg-sky-600 px-4 pb-6 pt-6 shadow-[0_18px_35px_rgba(2,132,199,.2)] sm:px-6 lg:px-8"
 			>
-				<div className="absolute -right-8 -bottom-10 w-32 h-32 rounded-full bg-white/10" />
-				<div className="absolute right-10 -top-8 w-20 h-20 rounded-full bg-white/10" />
+				<div className="absolute -right-8 -bottom-10 w-32 h-32 rounded-full bg-orange-500" />
+				<div className="absolute right-10 -top-8 w-20 h-20 rounded-full border-[11px] border-sky-200/80" />
 
 				<div className="w-full max-w-6xl mx-auto relative">
 					<div className="flex items-center justify-between mb-4">
-						<div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center">
+						<div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
 							<BookOpen className="w-4.5 h-4.5 text-white" />
 						</div>
 						<div ref={menuRef} className="relative">
 							<button
 								onClick={() => setMenuAberto((v) => !v)}
-								className="p-1.5 rounded-full text-white/80 hover:bg-white/20 transition-colors cursor-pointer"
+							className="rounded-xl p-2 text-white/80 transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
 							>
 								<MoreVertical className="w-4 h-4" />
 							</button>
@@ -1682,7 +1516,7 @@ export default function TurmaView() {
 						</div>
 					</div>
 
-					<h1 className="text-lg sm:text-2xl font-bold text-white leading-snug mb-1">
+					<h1 className="text-xl sm:text-3xl font-black tracking-[-.035em] text-white leading-snug mb-1">
 						{turma.nome}
 					</h1>
 					<p className="text-xs sm:text-sm text-white/85">
@@ -1692,9 +1526,9 @@ export default function TurmaView() {
 			</div>
 
 			{/* Conteúdo */}
-			<div className="flex-1 overflow-y-auto">
+			<div className="min-h-0 flex-1 overflow-y-auto">
 				{tab === "inicio" && (
-					<InicioView turma={turma} avisos={avisos} setAvisos={setAvisos} />
+					<InicioView turma={turma} avisos={avisos} setAvisos={setAvisos} eventos={eventos} />
 				)}
 				{tab === "materiais" && (
 					<MateriaisView
@@ -1731,6 +1565,7 @@ export default function TurmaView() {
 						setPessoas={setPresencaAlunos}
 						cor={turma.cor}
 						eventos={eventos}
+						onSalvar={salvarNaData}
 					/>
 				)}
 				{tab === "presenca-monitores" && (
@@ -1740,13 +1575,24 @@ export default function TurmaView() {
 						setPessoas={setPresencaMonitores}
 						cor="#188038"
 						eventos={eventos}
+						onSalvar={salvarNaData}
+					/>
+				)}
+				{tab === "presenca-professores" && (
+					<PresencaView
+						titulo="Presença de professores"
+						pessoas={presencaProfessores}
+						setPessoas={setPresencaProfessores}
+						cor="#0284c7"
+						eventos={eventos}
+						onSalvar={salvarNaData}
 					/>
 				)}
 			</div>
 
 			{/* Bottom nav */}
-			<nav className="flex-shrink-0 flex items-stretch bg-white border-t border-gray-200 shadow-xs">
-				<div className="w-full max-w-6xl mx-auto flex items-stretch">
+			<nav className="flex-shrink-0 flex items-stretch border-t border-sky-100 bg-white shadow-[0_-8px_24px_rgba(15,23,42,.05)]">
+				<div className="flex w-full max-w-6xl mx-auto items-stretch overflow-x-auto">
 					{TABS.map((t) => {
 						const Icon = t.icon;
 						const active = tab === t.id;
@@ -1754,21 +1600,21 @@ export default function TurmaView() {
 							<button
 								key={t.id}
 								onClick={() => setTab(t.id)}
-								className="flex-1 flex flex-col items-center justify-center gap-1 py-2.5 sm:py-3 relative transition-colors cursor-pointer"
+							className="flex min-w-20 flex-1 flex-col items-center justify-center gap-1 py-2.5 sm:py-3 relative transition-colors cursor-pointer"
 							>
 								{active && (
 									<span
 										className="absolute top-0 left-1/2 -translate-x-1/2 w-8 sm:w-12 h-0.5 rounded-full"
-										style={{ backgroundColor: turma.cor }}
+										style={{ backgroundColor: "#f97316" }}
 									/>
 								)}
 								<Icon
 									className={`w-5 h-5 transition-colors ${active ? "" : "text-gray-400"}`}
-									style={active ? { color: turma.cor } : undefined}
+									style={active ? { color: "#0284c7" } : undefined}
 								/>
 								<span
 									className={`text-[10px] sm:text-xs transition-colors ${active ? "font-semibold" : "text-gray-400"}`}
-									style={active ? { color: turma.cor } : undefined}
+									style={active ? { color: "#0284c7" } : undefined}
 								>
 									{t.label}
 								</span>

@@ -7,7 +7,8 @@ import {
 	rgb,
 	StandardFonts,
 } from "pdf-lib";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter } from "~/server/api/trpc";
+import { directorProcedure } from "~/server/api/routers/diretoria";
 import fs from "node:fs/promises";
 import path from "node:path";
 
@@ -29,15 +30,11 @@ function calcularCargaHoraria(
 	presencas?: { estado: string }[] | number,
 ): string {
 	if (typeof presencas === "number") {
-		const horasCalculadas = presencas * 1.5;
-		if (horasCalculadas >= 7.5) {
-			return "12 horas";
-		}
-		return `${horasCalculadas} horas`;
+		return `${Math.min(presencas * 1.5, 12)} horas`;
 	}
 
 	if (!presencas || presencas.length === 0) {
-		return "12 horas";
+		return "0 horas";
 	}
 
 	// Contabiliza apenas as presenças confirmadas (PRESENTE)
@@ -45,19 +42,28 @@ function calcularCargaHoraria(
 		(p) => p.estado === "PRESENTE",
 	).length;
 
-	const horasCalculadas = totalPresencas * 1.5;
-
-	if (horasCalculadas >= 7.5) {
-		return "12 horas";
-	}
-
-	return `${horasCalculadas} horas`;
+	return `${Math.min(totalPresencas * 1.5, 12)} horas`;
 }
 
 interface FormatoPeriodo {
 	inicio: string;
 	fim: string;
 	ano: string;
+}
+
+const meses = [
+	"janeiro", "fevereiro", "março", "abril", "maio", "junho",
+	"julho", "agosto", "setembro", "outubro", "novembro", "dezembro",
+];
+
+function periodoDasAulas(aulas: { data: Date }[]): FormatoPeriodo | null {
+	if (!aulas.length) return null;
+	const ordenadas = [...aulas].sort((a, b) => a.data.getTime() - b.data.getTime());
+	const primeira = ordenadas[0]?.data;
+	const ultima = ordenadas.at(-1)?.data;
+	if (!primeira || !ultima) return null;
+	const formatarData = (data: Date) => `${data.getUTCDate()} de ${meses[data.getUTCMonth()]}`;
+	return { inicio: formatarData(primeira), fim: formatarData(ultima), ano: String(ultima.getUTCFullYear()) };
 }
 
 function formatarPeriodo(
@@ -215,7 +221,7 @@ function desenharParagrafoFormatado(
 }
 
 export const certificadoRouter = createTRPCRouter({
-	gerarIndividual: publicProcedure
+	gerarIndividual: directorProcedure
 		.input(
 			z.object({
 				alunoId: z.string().optional(),
@@ -233,6 +239,7 @@ export const certificadoRouter = createTRPCRouter({
 			let curso = input.curso ?? "Inclusão Digital";
 			let periodo = input.periodo ?? "2026.1";
 			let cargaHoraria = input.cargaHoraria ?? "12 horas";
+			let periodoAulas: FormatoPeriodo | null = null;
 			const localInfo = "Universidade Federal do Rio Grande do Norte (UFRN)";
 
 			if (input.alunoId) {
@@ -244,7 +251,7 @@ export const certificadoRouter = createTRPCRouter({
 						semestre: true,
 						turmas: {
 							include: {
-								turma: true,
+								turma: { include: { eventos: { where: { tipo: "AULA" }, orderBy: { data: "asc" }, select: { data: true } } } },
 							},
 						},
 						presencas: {
@@ -262,7 +269,9 @@ export const certificadoRouter = createTRPCRouter({
 				if (aluno) {
 					nome = aluno.nome;
 					cargaHoraria = calcularCargaHoraria(aluno.presencas);
-					curso = aluno.turmas[0]?.turma?.titulo || curso;
+					const turma = aluno.turmas.find((vinculo) => vinculo.turma.eventos.length > 0) ?? aluno.turmas[0];
+					curso = turma?.turma.titulo || curso;
+					periodoAulas = periodoDasAulas(turma?.turma.eventos ?? []);
 					periodo = aluno.semestre?.codigo || periodo;
 				}
 			}
@@ -298,12 +307,7 @@ export const certificadoRouter = createTRPCRouter({
 			const corAzulUfrn = rgb(0 / 255, 74 / 255, 173 / 255); // #004aad
 
 			// Período formatado
-			const { inicio, fim, ano } = formatarPeriodo(
-				periodo,
-				input.dataInicio,
-				input.dataFim,
-				input.ano,
-			);
+			const { inicio, fim, ano } = periodoAulas ?? formatarPeriodo(periodo, input.dataInicio, input.dataFim, input.ano);
 
 			// Texto descritivo com formatação rica:
 			// - Curso: Negrito
@@ -341,7 +345,7 @@ export const certificadoRouter = createTRPCRouter({
 			};
 		}),
 
-	gerarLote: publicProcedure
+	gerarLote: directorProcedure
 		.input(
 			z.object({
 				semestreId: z.string(),
@@ -349,6 +353,7 @@ export const certificadoRouter = createTRPCRouter({
 				dataInicio: z.string().optional(),
 				dataFim: z.string().optional(),
 				ano: z.string().optional(),
+				alunoIds: z.array(z.string().cuid()).max(200).optional(),
 				alunosManuais: z
 					.array(
 						z.object({
@@ -368,6 +373,7 @@ export const certificadoRouter = createTRPCRouter({
 				curso: string;
 				periodo: string;
 				cargaHoraria: string;
+				periodoAulas: FormatoPeriodo | null;
 			}[] = [];
 
 			// 1. Se foi enviada uma lista manual da tela
@@ -376,6 +382,7 @@ export const certificadoRouter = createTRPCRouter({
 					nome: a.nome,
 					curso: a.curso || a.turma || "Inclusão Digital",
 					periodo: input.semestreId,
+					periodoAulas: null,
 					cargaHoraria:
 						a.cargaHoraria ||
 						(a.presencasCount !== undefined
@@ -402,12 +409,13 @@ export const certificadoRouter = createTRPCRouter({
 									},
 								}
 							: {}),
+						...(input.alunoIds?.length ? { id: { in: input.alunoIds } } : {}),
 					},
 					include: {
 						semestre: true,
 						turmas: {
 							include: {
-								turma: true,
+								turma: { include: { eventos: { where: { tipo: "AULA" }, orderBy: { data: "asc" }, select: { data: true } } } },
 							},
 						},
 						presencas: {
@@ -422,12 +430,10 @@ export const certificadoRouter = createTRPCRouter({
 					},
 				});
 
-				listaAlunos = alunosDb.map((aluno) => ({
-					nome: aluno.nome,
-					curso: aluno.turmas[0]?.turma?.titulo || "Inclusão Digital",
-					periodo: aluno.semestre?.codigo || input.semestreId,
-					cargaHoraria: calcularCargaHoraria(aluno.presencas),
-				}));
+				listaAlunos = alunosDb.map((aluno) => {
+					const turma = aluno.turmas.find((vinculo) => vinculo.turma.eventos.length > 0) ?? aluno.turmas[0];
+					return { nome: aluno.nome, curso: turma?.turma.titulo || "Inclusão Digital", periodo: aluno.semestre?.codigo || input.semestreId, cargaHoraria: calcularCargaHoraria(aluno.presencas), periodoAulas: periodoDasAulas(turma?.turma.eventos ?? []) };
+				});
 			}
 
 			if (listaAlunos.length === 0) {
@@ -466,12 +472,7 @@ export const certificadoRouter = createTRPCRouter({
 				});
 
 				// Período formatado
-				const { inicio, fim, ano } = formatarPeriodo(
-					aluno.periodo,
-					input.dataInicio,
-					input.dataFim,
-					input.ano,
-				);
+				const { inicio, fim, ano } = aluno.periodoAulas ?? formatarPeriodo(aluno.periodo, input.dataInicio, input.dataFim, input.ano);
 
 				// Texto descritivo com formatação rica
 				const spans: TextSpan[] = [

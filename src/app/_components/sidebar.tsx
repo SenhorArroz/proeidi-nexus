@@ -9,6 +9,14 @@ import {
     LayoutDashboard,
     Users,
     Settings,
+    ChevronDown,
+    DoorOpen,
+    FileText,
+    GraduationCap,
+    ShieldCheck,
+    CalendarDays,
+    Dices,
+    ClipboardCheck,
 } from "lucide-react";
 
 interface NavItem {
@@ -20,7 +28,18 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
     { id: "dashboard", label: "Dashboard", link: "/nexus/dashboard", icon: LayoutDashboard },
-    { id: "diretoria", label: "Diretoria", link: "/nexus/diretoria", icon: Users },
+];
+
+const DIRETORIA_ITEMS: NavItem[] = [
+    { id: "diretoria-inicio", label: "Painel da Diretoria", link: "/nexus/diretoria", icon: LayoutDashboard },
+    { id: "semestres", label: "Semestres", link: "/nexus/diretoria/semestres", icon: CalendarDays },
+    { id: "turmas", label: "Turmas", link: "/nexus/diretoria/turmas", icon: DoorOpen },
+    { id: "alunos", label: "Alunos", link: "/nexus/diretoria/alunos", icon: GraduationCap },
+    { id: "professores", label: "Professores", link: "/nexus/diretoria/professores", icon: Users },
+    { id: "monitores", label: "Monitores", link: "/nexus/diretoria/monitores", icon: ShieldCheck },
+    { id: "presencas", label: "Presenças", link: "/nexus/diretoria/presencas", icon: ClipboardCheck },
+    { id: "questionarios", label: "Questionários", link: "/nexus/diretoria/questionarios", icon: FileText },
+    { id: "sorteio", label: "Sorteio", link: "/nexus/diretoria/sorteio", icon: Dices },
 ];
 
 // Componente utilitário para esconder/mostrar texto suavemente sem quebrar o layout
@@ -47,24 +66,24 @@ function Collapsible({
 export default function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
     const pathname = usePathname();
+    const [diretoriaAberta, setDiretoriaAberta] = useState(() => pathname.startsWith("/nexus/diretoria"));
     
     // Extrai o segmento após /nexus/ → ex: "/nexus/diretoria/algo" → "diretoria"
     const activeSegment = pathname.split("/")[2] ?? "dashboard";
 
     return (
         <aside
-            className={`flex flex-col h-[100dvh] bg-white border-r border-gray-200 transition-all duration-500 ease-in-out z-20 shrink-0 ${
+			className={`flex h-full min-h-0 flex-col bg-white/95 border-r border-sky-100 transition-all duration-500 ease-in-out z-20 shrink-0 shadow-[10px_0_30px_rgba(14,165,233,0.05)] ${
                 collapsed ? "w-[72px]" : "w-64"
             }`}
         >
             {/* Header do Menu */}
-            <div className="flex items-center h-16 px-4 border-b border-gray-200">
+            <div className="flex items-center h-[4.75rem] px-4 border-b border-sky-100">
                 <Collapsible collapsed={collapsed}>
-                    <span className="text-sm font-semibold text-gray-700 pr-3 truncate">
-                        Seja Bem-Vindo(a)
-                        <span className="inline-block w-[2px] h-[1em] bg-sky-500 align-middle ml-0.5 animate-[blink_1s_steps(1)_infinite]" />
-                        <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-                    </span>
+                    <div className="flex items-center gap-2.5 pr-3 min-w-0">
+                        <Image src="/nexus_logo.png" alt="ProEIDI Nexus" width={104} height={35} className="h-9 w-auto object-contain" priority />
+                        <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-bold text-orange-700">NEXUS</span>
+                    </div>
                 </Collapsible>
 
                 <button
@@ -105,19 +124,53 @@ export default function Sidebar() {
                         </Link>
                     );
                 })}
+
+                {!collapsed && <p className="px-3 pt-3 text-[10px] font-extrabold uppercase tracking-[0.16em] text-sky-700">Área de gestão</p>}
+                {collapsed ? (
+                    <Link
+                        href="/nexus/diretoria"
+                        title="Diretoria"
+                        className={`flex w-full items-center justify-center rounded-xl px-3 py-2.5 transition-colors ${activeSegment === "diretoria" ? "bg-sky-50 text-sky-600" : "text-gray-600 hover:bg-gray-50"}`}
+                    >
+                        <Users className="w-5 h-5" />
+                    </Link>
+                ) : (
+                    <div className="space-y-1">
+                        <button
+                            type="button"
+                            onClick={() => setDiretoriaAberta((aberta) => !aberta)}
+                            className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${activeSegment === "diretoria" ? "bg-sky-600 text-white shadow-md shadow-sky-200" : "text-gray-700 hover:bg-sky-50 hover:text-sky-800"}`}
+                            aria-expanded={diretoriaAberta}
+                        >
+                            <Users className="w-5 h-5 flex-shrink-0" />
+                            <span className="flex-1 text-left">Diretoria</span>
+                            <ChevronDown className={`h-4 w-4 transition-transform ${diretoriaAberta ? "rotate-180" : ""}`} />
+                        </button>
+                        {diretoriaAberta && <div className="ml-4 mt-1 space-y-0.5 border-l-2 border-orange-200 pl-2">{DIRETORIA_ITEMS.map((item) => {
+                            const Icon = item.icon;
+                            const ativo = pathname === item.link;
+                            return <Link key={item.id} href={item.link} className={`flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold transition-colors ${ativo ? "bg-orange-50 text-orange-800" : "text-gray-500 hover:bg-sky-50 hover:text-sky-800"}`}><Icon className="h-3.5 w-3.5" />{item.label}</Link>;
+                        })}</div>}
+                    </div>
+                )}
             </nav>
 
             {/* Footer do Menu */}
             <div className="p-3 border-t border-gray-200 space-y-3">
-                <button 
+                <Link
+                    href="/nexus/configuracoes"
                     title={collapsed ? "Configurações" : undefined}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                        pathname.startsWith("/nexus/configuracoes")
+                            ? "bg-sky-50 text-sky-600 shadow-sm ring-1 ring-sky-100"
+                            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    }`}
                 >
                     <Settings className="w-5 h-5 flex-shrink-0 text-gray-400" />
                     <Collapsible collapsed={collapsed}>
                         <span>Configurações</span>
                     </Collapsible>
-                </button>
+                </Link>
                 
                 <div className={`flex items-center justify-center pt-2 pb-1 transition-all duration-500 ${collapsed ? "px-1" : "px-4"}`}>
                     <Image

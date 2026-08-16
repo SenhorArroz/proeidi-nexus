@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Users,
   Plus,
@@ -19,7 +19,9 @@ import {
   Loader2,
   IdCard,
 } from "lucide-react";
-import BotaoVoltar from "~/app/_components/botaoVoltar";
+import { DiretoriaBackLink, DiretoriaPageIntro } from "~/app/_components/diretoria/page-intro";
+import { PersonManagementCard } from "~/app/_components/diretoria/people-management-card";
+import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
 import { api } from "~/trpc/react";
 
 // ---------------------------------------------------------------------------
@@ -45,7 +47,7 @@ function downloadBase64Pdf(base64Data: string, filename: string) {
 }
 
 // ---------------------------------------------------------------------------
-// Tipos e dados de exemplo
+// Tipos
 // ---------------------------------------------------------------------------
 
 interface Professor {
@@ -54,43 +56,10 @@ interface Professor {
   matricula: string;
   email: string;
   senha: string;
+	role: "PROFESSOR" | "DIRETOR";
   turmas: string[]; // somente leitura aqui — vínculo é feito na tela de Turmas
+	 turmasDetalhadas: { id: string; titulo: string; semestre: string }[];
 }
-
-const PROFESSORES_INICIAIS: Professor[] = [
-  {
-    id: "1",
-    nome: "Thales",
-    matricula: "20230011221",
-    email: "thales@proeidi.com.br",
-    senha: "trocar123",
-    turmas: ["Smartphone mais do que Avançado"],
-  },
-  {
-    id: "2",
-    nome: "Paulo",
-    matricula: "20230011222",
-    email: "paulo@proeidi.com.br",
-    senha: "trocar123",
-    turmas: ["Smartphone mais do que Avançado"],
-  },
-  {
-    id: "3",
-    nome: "Marina Alves",
-    matricula: "20230011223",
-    email: "marina.alves@proeidi.com.br",
-    senha: "trocar123",
-    turmas: ["Excel para o dia a dia", "Introdução ao Word"],
-  },
-  {
-    id: "4",
-    nome: "Rafael Souza",
-    matricula: "20230011224",
-    email: "rafael.souza@proeidi.com.br",
-    senha: "trocar123",
-    turmas: [],
-  },
-];
 
 const professorVazio = (): Professor => ({
   id: "",
@@ -98,7 +67,9 @@ const professorVazio = (): Professor => ({
   matricula: "",
   email: "",
   senha: "",
+	role: "PROFESSOR",
   turmas: [],
+	 turmasDetalhadas: [],
 });
 
 function normalizarProfessor(p: Partial<Professor> & { id: string }): Professor {
@@ -108,7 +79,9 @@ function normalizarProfessor(p: Partial<Professor> & { id: string }): Professor 
     matricula: p.matricula ?? "",
     email: p.email ?? "",
     senha: p.senha ?? "",
+	role: p.role ?? "PROFESSOR",
     turmas: p.turmas ?? [],
+	 turmasDetalhadas: p.turmasDetalhadas ?? [],
   };
 }
 
@@ -194,8 +167,8 @@ function ProfessorCard({
           <button
             onClick={onDeclaracao}
             className="p-1.5 rounded-lg text-gray-400 hover:bg-amber-50 hover:text-amber-600"
-            aria-label="Gerar declaração"
-            title="Gerar declaração"
+            aria-label="Gerar certificado PM"
+            title="Gerar certificado PM"
           >
             <FileText className="w-3.5 h-3.5" />
           </button>
@@ -248,6 +221,7 @@ function ModalDeclaracao({
   professor: Professor;
   onClose: () => void;
 }) {
+	const [turmaId, setTurmaId] = useState(professor.turmasDetalhadas[0]?.id ?? "");
   const [form, setForm] = useState<DeclaracaoForm>({
     ...declaracaoFormPadrao(),
     matricula: professor.matricula || "",
@@ -270,6 +244,8 @@ function ModalDeclaracao({
   const handleGerar = () => {
     if (!form.matricula.trim() || !form.curso.trim()) return;
     gerarMutation.mutate({
+		usuarioId: professor.id,
+		turmaId,
       nome: professor.nome,
       matricula: form.matricula,
       curso: form.curso,
@@ -284,7 +260,7 @@ function ModalDeclaracao({
     });
   };
 
-  const formValido = form.matricula.trim() && form.curso.trim();
+  const formValido = form.matricula.trim() && form.curso.trim() && turmaId;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
@@ -347,6 +323,14 @@ function ModalDeclaracao({
           </div>
 
           {/* Cursos */}
+		  <div>
+			  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">Turma de referência *</label>
+			  <select value={turmaId} onChange={(e) => setTurmaId(e.target.value)} className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors">
+				  <option value="">Selecione uma turma</option>
+				  {professor.turmasDetalhadas.map((turma) => <option key={turma.id} value={turma.id}>{turma.titulo} — {turma.semestre}</option>)}
+			  </select>
+			  <p className="mt-1 text-[11px] text-gray-400">O semestre e as datas serão calculados pela primeira e última aula desta turma.</p>
+		  </div>
           <div>
             <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
               Cursos ministrados *
@@ -370,9 +354,8 @@ function ModalDeclaracao({
               </label>
               <input
                 value={form.dataInicio}
-                onChange={(e) => setForm({ ...form, dataInicio: e.target.value })}
-                placeholder="11 de abril"
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
+                readOnly
+                className="w-full rounded-lg border border-gray-200 bg-gray-100 px-3 py-2 text-sm text-gray-500"
               />
             </div>
             <div>
@@ -381,9 +364,8 @@ function ModalDeclaracao({
               </label>
               <input
                 value={form.dataFim}
-                onChange={(e) => setForm({ ...form, dataFim: e.target.value })}
-                placeholder="20 de junho"
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
+                readOnly
+                className="w-full rounded-lg border border-gray-200 bg-gray-100 px-3 py-2 text-sm text-gray-500"
               />
             </div>
             <div>
@@ -392,12 +374,12 @@ function ModalDeclaracao({
               </label>
               <input
                 value={form.ano}
-                onChange={(e) => setForm({ ...form, ano: e.target.value })}
-                placeholder="2026"
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
+                readOnly
+                className="w-full rounded-lg border border-gray-200 bg-gray-100 px-3 py-2 text-sm text-gray-500"
               />
             </div>
           </div>
+		  <p className="-mt-2 text-[11px] text-sky-700">As datas e o ano do documento são definidos automaticamente pelas aulas cadastradas na turma selecionada.</p>
 
           {/* Carga Horária */}
           <div>
@@ -489,20 +471,39 @@ function ModalDeclaracao({
 // ---------------------------------------------------------------------------
 
 export default function ProfessoresDiretoria() {
-  const [professores, setProfessores] = useState<Professor[]>(
-    PROFESSORES_INICIAIS.map(normalizarProfessor)
-  );
+	const utils = api.useUtils();
+	const { data: professoresDb, isLoading: carregandoProfessores } = api.diretoria.usuarios.list.useQuery({ role: "PROFESSOR" });
+	const { data: diretoresDb, isLoading: carregandoDiretores } = api.diretoria.usuarios.list.useQuery({ role: "DIRETOR" });
+	const criar = api.diretoria.usuarios.create.useMutation({ onSuccess: () => utils.diretoria.usuarios.list.invalidate() });
+	const atualizar = api.diretoria.usuarios.update.useMutation({ onSuccess: () => utils.diretoria.usuarios.list.invalidate() });
+	const remover = api.diretoria.usuarios.remove.useMutation({ onSuccess: () => utils.diretoria.usuarios.list.invalidate() });
+	const gerarDeclaracao = api.declaracao.gerarIndividual.useMutation({
+		onSuccess: (data) => downloadBase64Pdf(data.arquivoBase64, data.nomeArquivo || "Certificado_PM.pdf"),
+		onError: (err) => alert(`Erro ao gerar certificado PM: ${err.message}`),
+	});
+	const gerarLoteDeclaracoes = api.declaracao.gerarLoteUsuarios.useMutation({
+		onSuccess: (data) => downloadBase64Pdf(data.arquivoBase64, data.nomeArquivo),
+		onError: (err) => alert(`Erro ao gerar o lote de certificados: ${err.message}`),
+	});
+  const [professores, setProfessores] = useState<Professor[]>([]);
   const [modo, setModo] = useState<"lista" | "form">("lista");
   const [editandoId, setEditandoId] = useState<string | null>(null);
   const [rascunho, setRascunho] = useState<Professor>(professorVazio());
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
-  // Estado do modal de declaração
-  const [professorDeclaracao, setProfessorDeclaracao] = useState<Professor | null>(null);
+	useEffect(() => {
+		if (!professoresDb || !diretoresDb) return;
+		setProfessores([...professoresDb, ...diretoresDb].map((p) => ({ id: p.id, nome: p.nome, matricula: p.matricula, email: p.email, senha: "", role: p.role as "PROFESSOR" | "DIRETOR", turmas: p.turmasProfessor.map((v) => v.turma.titulo), turmasDetalhadas: p.turmasProfessor.map((v) => ({ id: v.turma.id, titulo: v.turma.titulo, semestre: v.turma.semestre.codigo })) })));
+	}, [professoresDb, diretoresDb]);
+
+	const gerarLote = () => {
+		if (!professores.length) return;
+		gerarLoteDeclaracoes.mutate({ usuarioIds: professores.map((professor) => professor.id), tipo: "professor" });
+	};
 
   const abrirNovo = () => {
     setEditandoId(null);
-    setRascunho({ ...professorVazio(), senha: gerarSenha() });
+    setRascunho(professorVazio());
     setMostrarSenha(true);
     setModo("form");
   };
@@ -520,78 +521,65 @@ export default function ProfessoresDiretoria() {
     if (
       !rascunho.nome.trim() ||
       !rascunho.matricula.trim() ||
-      !rascunho.email.trim() ||
-      !rascunho.senha.trim()
+      !rascunho.email.trim()
     )
       return;
     if (editandoId) {
-      setProfessores((prev) =>
-        prev.map((p) => (p.id === editandoId ? { ...rascunho, id: editandoId } : p))
-      );
+		atualizar.mutate({ id: editandoId, role: "PROFESSOR", nome: rascunho.nome, matricula: rascunho.matricula, email: rascunho.email });
     } else {
-      setProfessores((prev) => [{ ...rascunho, id: Date.now().toString() }, ...prev]);
+		criar.mutate({ role: "PROFESSOR", nome: rascunho.nome, matricula: rascunho.matricula, email: rascunho.email });
     }
     setModo("lista");
   };
 
   const excluir = (id: string) => {
     if (confirm("Excluir este professor? O acesso dele será revogado imediatamente.")) {
-      setProfessores((prev) => prev.filter((p) => p.id !== id));
+		remover.mutate({ id, role: "PROFESSOR" });
     }
   };
 
   const formValido =
     rascunho.nome.trim() &&
     rascunho.matricula.trim() &&
-    rascunho.email.trim() &&
-    rascunho.senha.trim();
+    rascunho.email.trim();
 
   return (
     <div className="min-h-screen w-full bg-gray-50 flex flex-col items-center font-sans px-4 py-10">
       <div className="w-full max-w-5xl">
-        <BotaoVoltar href="/nexus/diretoria" label="Voltar para Diretoria" />
+		<DiretoriaBackLink />
       </div>
       {/* Banner de topo */}
-      <div className="w-full max-w-5xl relative rounded-2xl overflow-hidden mb-8 px-8 py-8 bg-gradient-to-br from-amber-600 to-sky-500">
-        <div className="absolute -right-10 -bottom-16 w-56 h-56 rounded-full bg-white/10" />
-        <div className="absolute right-24 -top-12 w-32 h-32 rounded-full bg-white/10" />
-
-        <div className="relative w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center mb-3">
-          <Users className="w-5 h-5 text-white" />
-        </div>
-        <h1 className="relative text-2xl font-semibold text-white leading-snug mb-1">Gerenciar professores</h1>
-        <p className="relative text-sm text-white/80">Cadastro, acesso e turmas vinculadas</p>
-      </div>
+		<div className="w-full max-w-5xl mb-6"><DiretoriaPageIntro icon={Users} title="Gerenciar professores" description="Cadastro, acesso e turmas vinculadas." /></div>
 
       <div className="w-full max-w-5xl">
         {modo === "lista" ? (
           <>
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm font-medium text-gray-700">
-                {professores.length} professores cadastrados
+                {professores.length} docentes cadastrados
               </span>
-              <button
+			  <div className="flex items-center gap-2">
+			  <button onClick={gerarLote} disabled={!professores.length || gerarLoteDeclaracoes.isPending} className="flex items-center gap-1.5 rounded-xl border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 transition-colors hover:bg-orange-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60" title="Gera um único PDF com todos os certificados dos docentes listados.">
+				{gerarLoteDeclaracoes.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />}
+				{gerarLoteDeclaracoes.isPending ? "Gerando PDF..." : "Gerar lote"}
+			  </button>
+			  <button
                 onClick={abrirNovo}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 Novo professor
               </button>
+			  </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+			{carregandoProfessores || carregandoDiretores ? <DataSkeleton cards={4} /> : <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {professores.map((professor) => (
-                <ProfessorCard
-                  key={professor.id}
-                  professor={professor}
-                  onEditar={() => abrirEdicao(professor)}
-                  onExcluir={() => excluir(professor.id)}
-                  onDeclaracao={() => setProfessorDeclaracao(professor)}
-                />
+                <PersonManagementCard key={professor.id} person={professor} role="professor" roleLabel={professor.role === "DIRETOR" ? "Diretor · docente" : undefined} onEdit={professor.role === "PROFESSOR" ? () => abrirEdicao(professor) : undefined} onRemove={professor.role === "PROFESSOR" ? () => excluir(professor.id) : undefined} onCertificate={() => gerarDeclaracao.mutate({ usuarioId: professor.id, tipo: "professor" })} />
               ))}
-            </div>
+			</div>}
 
-            {professores.length === 0 && (
+			{!carregandoProfessores && !carregandoDiretores && professores.length === 0 && (
               <div className="text-center py-16 text-sm text-gray-400">
                 Nenhum professor cadastrado ainda
               </div>
@@ -664,35 +652,7 @@ export default function ProfessoresDiretoria() {
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
                   Senha de acesso
                 </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  <input
-                    type={mostrarSenha ? "text" : "password"}
-                    value={rascunho.senha}
-                    onChange={(e) => setRascunho({ ...rascunho, senha: e.target.value })}
-                    placeholder="Defina uma senha"
-                    className="w-full rounded-lg border border-gray-200 bg-gray-50 pl-9 pr-20 py-2.5 text-sm focus:bg-white focus:border-violet-300 focus:outline-none transition-colors"
-                  />
-                  <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={() => setRascunho({ ...rascunho, senha: gerarSenha() })}
-                      className="p-1.5 rounded-md text-gray-400 hover:bg-gray-200 hover:text-gray-600"
-                      aria-label="Gerar senha aleatória"
-                      title="Gerar senha aleatória"
-                    >
-                      <RefreshCw className="w-3.5 h-3.5" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setMostrarSenha((v) => !v)}
-                      className="p-1.5 rounded-md text-gray-400 hover:bg-gray-200 hover:text-gray-600"
-                      aria-label={mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
-                    >
-                      {mostrarSenha ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                    </button>
-                  </div>
-                </div>
+				<p className="rounded-lg bg-amber-50 px-3 py-2.5 text-sm text-amber-800">A senha de acesso é a matrícula informada acima. Alterar a matrícula redefine a senha.</p>
               </div>
 
               {/* Turmas (somente leitura) */}
@@ -743,12 +703,6 @@ export default function ProfessoresDiretoria() {
       </div>
 
       {/* Modal de Declaração */}
-      {professorDeclaracao && (
-        <ModalDeclaracao
-          professor={professorDeclaracao}
-          onClose={() => setProfessorDeclaracao(null)}
-        />
-      )}
     </div>
   );
 }

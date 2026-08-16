@@ -1,157 +1,145 @@
 "use client";
-import React from "react";
+
 import Link from "next/link";
 import {
-  Sun,
-  Sunset,
-  Moon,
-  GraduationCap,
-  ShieldCheck,
-  Users,
-  DoorOpen,
-  MapPin,
-  Clock,
+	CalendarDays,
+	ChevronRight,
+	Clock3,
+	DoorOpen,
+	GraduationCap,
+	MapPin,
+	ShieldCheck,
+	Sparkles,
+	Users,
 } from "lucide-react";
+import { api } from "~/trpc/react";
 
-type Role = "professor" | "monitor";
-
-interface Turma {
-  id: string;
-  titulo: string;
-  sala: string;
-  cor: string;
-  alunos: number;
-  proximaAula: string;
-}
-
-const USUARIO: { nome: string; role: Role } = {
-  nome: "Thales",
-  role: "professor",
-};
-
-const ROLE_INFO: Record<Role, { label: string; icon: React.ElementType; cor: string }> = {
-  professor: { label: "Professor(a)", icon: GraduationCap, cor: "#1A73E8" },
-  monitor: { label: "Monitor(a)", icon: ShieldCheck, cor: "#188038" },
-};
-
-const TURMAS_DO_USUARIO: Turma[] = [
-  {
-    id: "1",
-    titulo: "Smartphone mais do que Avançado",
-    sala: "Sala 204",
-    cor: "#1A73E8",
-    alunos: 28,
-    proximaAula: "Hoje, 14:00",
-  },
-  {
-    id: "2",
-    titulo: "Excel para o dia a dia",
-    sala: "Sala 108",
-    cor: "#188038",
-    alunos: 19,
-    proximaAula: "Amanhã, 09:00",
-  },
-];
-
-function useSaudacao() {
-  const hora = new Date().getHours();
-  if (hora < 12) return { texto: "Bom dia", icon: Sun };
-  if (hora < 18) return { texto: "Boa tarde", icon: Sunset };
-  return { texto: "Boa noite", icon: Moon };
-}
-
-function TurmaMiniCard({ turma }: { turma: Turma }) {
-  const slug = turma.titulo
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, "-");
-
-  return (
-    <Link 
-      href={`/nexus/dashboard/turmas/${slug}`}
-      className="block bg-white rounded-2xl border border-sky-200 overflow-hidden hover:border-amber-300 hover:shadow-sm transition-all cursor-pointer"
-    >
-      <div
-        className="relative h-16 flex items-center px-4"
-        style={{ background: `linear-gradient(135deg, ${turma.cor} 0%, ${turma.cor}CC 100%)` }}
-      >
-        <div className="absolute -right-4 -bottom-6 w-20 h-20 rounded-full bg-white/10" />
-        <div className="relative w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center">
-          <DoorOpen className="w-4 h-4 text-white" />
-        </div>
-      </div>
-      <div className="p-4">
-        <p className="text-sm font-semibold text-gray-900 truncate mb-1">{turma.titulo}</p>
-        <p className="text-xs text-gray-500 flex items-center gap-1 mb-3">
-          <MapPin className="w-3 h-3" />
-          {turma.sala}
-        </p>
-        <div className="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
-          <span className="flex items-center gap-1.5">
-            <Users className="w-3.5 h-3.5" />
-            {turma.alunos} alunos
-          </span>
-          <span className="flex items-center gap-1.5 font-medium text-gray-700">
-            <Clock className="w-3.5 h-3.5 text-gray-400" />
-            {turma.proximaAula}
-          </span>
-        </div>
-      </div>
-    </Link>
-  );
-}
+const dataFormatada = (data?: Date) =>
+	data
+		? new Intl.DateTimeFormat("pt-BR", {
+				weekday: "short",
+				day: "2-digit",
+				month: "short",
+				hour: "2-digit",
+				minute: "2-digit",
+			}).format(data)
+		: "Sem próxima aula";
 
 export default function Dashboard() {
-  const saudacao = useSaudacao();
-  const SaudacaoIcon = saudacao.icon;
-  const roleInfo = ROLE_INFO[USUARIO.role];
-  const RoleIcon = roleInfo.icon;
-
-  return (
-    <div className="w-full  bg-gray-50 flex flex-col items-center font-sans px-4 py-10">
-      <div className="w-full max-w-5xl">
-        {/* Banner de saudação */}
-        <div
-          className="relative rounded-2xl overflow-hidden mb-8 px-8 py-8"
-          style={{ background: `linear-gradient(135deg, ${roleInfo.cor} 0%, ${roleInfo.cor}CC 100%)` }}
-        >
-          <div className="absolute -right-10 -bottom-16 w-56 h-56 rounded-full bg-white/10" />
-          <div className="absolute right-24 -top-12 w-32 h-32 rounded-full bg-white/10" />
-
-          <div className="relative flex items-center gap-2 mb-3">
-            <SaudacaoIcon className="w-5 h-5 text-white/80" />
-            <span className="text-sm text-white/80">{saudacao.texto}</span>
-          </div>
-          <h1 className="relative text-2xl font-semibold text-white leading-snug mb-3">
-            {saudacao.texto}, {USUARIO.nome}
-          </h1>
-          <span className="relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-sm text-white text-xs font-semibold">
-            <RoleIcon className="w-3.5 h-3.5" />
-            {roleInfo.label}
-          </span>
-        </div>
-
-        {/* Turmas do usuário */}
-        <section>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-medium text-gray-700">Suas turmas</h2>
-            <span className="text-xs text-gray-400">{TURMAS_DO_USUARIO.length} turmas</span>
-          </div>
-
-          {TURMAS_DO_USUARIO.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {TURMAS_DO_USUARIO.map((turma) => (
-                <TurmaMiniCard key={turma.id} turma={turma} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 text-sm text-gray-400 bg-white rounded-2xl border border-gray-200">
-              Você ainda não está vinculado a nenhuma turma
-            </div>
-          )}
-        </section>
-      </div>
-    </div>
-  );
+	const { data, isLoading } = api.turma.minhas.useQuery();
+	const usuario = data?.usuario;
+	const turmas = data?.turmas ?? [];
+	const cargo =
+		usuario?.role === "MONITOR"
+			? "Monitor"
+			: usuario?.role === "COORDENADOR"
+				? "Coordenação"
+				: usuario?.role === "DIRETOR"
+					? "Diretoria"
+					: "Professor";
+	const IconeCargo = usuario?.role === "MONITOR" ? ShieldCheck : GraduationCap;
+	return (
+		<main className="min-h-full min-w-0 overflow-x-clip bg-[radial-gradient(circle_at_95%_0%,rgba(14,165,233,.14),transparent_25rem),radial-gradient(circle_at_76%_12rem,rgba(249,115,22,.1),transparent_19rem),#f8fafc] px-4 py-7 sm:px-7 lg:px-10">
+			<div className="mx-auto max-w-6xl">
+				<header className="relative overflow-hidden rounded-2xl bg-sky-600 px-6 py-7 text-white shadow-[0_20px_45px_rgba(2,132,199,.22)] sm:px-8">
+					<div className="absolute -right-8 -top-10 h-44 w-44 rounded-full bg-orange-500" />
+					<div className="absolute right-36 bottom-[-3rem] h-28 w-28 rounded-full border-[14px] border-sky-200/80" />
+					<div className="relative">
+						<div className="mb-3 flex items-center gap-2 text-sm font-semibold text-sky-100">
+							<Sparkles className="h-4 w-4 text-orange-200" />
+							Seu espaço de trabalho
+						</div>
+						<h1 className="text-2xl font-black tracking-[-.035em] sm:text-3xl">
+							Olá, {usuario?.nome ?? ""}
+						</h1>
+						<p className="mt-2 max-w-xl text-sm leading-6 text-sky-100">
+							Acesse suas turmas, acompanhe as próximas aulas e continue o
+							trabalho pedagógico de onde parou.
+						</p>
+						<span className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-xs font-bold">
+							<IconeCargo className="h-4 w-4" />
+							{cargo}
+						</span>
+					</div>
+				</header>
+				<section className="mt-8">
+					<div className="mb-4 flex items-end justify-between gap-3">
+						<div>
+							<h2 className="text-lg font-black tracking-[-.025em] text-slate-900">
+								Suas turmas
+							</h2>
+							<p className="mt-1 text-sm text-slate-500">
+								Escolha uma turma para abrir seus materiais, calendário e
+								atividades.
+							</p>
+						</div>
+						<span className="rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-800">
+							{turmas.length} {turmas.length === 1 ? "turma" : "turmas"}
+						</span>
+					</div>
+					{isLoading ? (
+						<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+							{Array.from({ length: 3 }).map((_, index) => (
+								<div
+									key={index}
+									className="h-52 animate-pulse rounded-2xl bg-sky-100"
+								/>
+							))}
+						</div>
+					) : turmas.length ? (
+						<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+							{turmas.map((turma) => (
+								<Link
+									key={turma.id}
+									href={`/nexus/dashboard/turmas/${turma.id}`}
+									className="group overflow-hidden rounded-2xl bg-white shadow-[0_12px_27px_rgba(15,23,42,.07)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_20px_35px_rgba(2,132,199,.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-4"
+								>
+									<div className="relative bg-sky-600 px-5 py-5">
+										<div className="absolute -right-6 -bottom-9 h-28 w-28 rounded-full bg-orange-500" />
+										<div className="relative flex items-start justify-between gap-4">
+											<span className="grid h-10 w-10 place-items-center rounded-xl bg-white/15">
+												<DoorOpen className="h-5 w-5 text-white" />
+											</span>
+											<ChevronRight className="mt-1 h-5 w-5 text-white/75 transition group-hover:translate-x-1" />
+										</div>
+										<h3 className="relative mt-5 truncate text-base font-black tracking-[-.02em] text-white">
+											{turma.titulo}
+										</h3>
+										<p className="relative mt-1 text-xs font-semibold text-sky-100">
+											{turma.semestre.codigo}
+										</p>
+									</div>
+									<div className="space-y-3 p-5 text-sm text-slate-600">
+										<p className="flex items-center gap-2">
+											<MapPin className="h-4 w-4 text-orange-600" />
+											{turma.sala || "Local a definir"}
+										</p>
+										<p className="flex items-center gap-2">
+											<Users className="h-4 w-4 text-sky-600" />
+											{turma.alunos.length} alunos
+										</p>
+										<p className="flex items-center gap-2 border-t border-slate-100 pt-3 font-semibold text-slate-700">
+											<Clock3 className="h-4 w-4 text-sky-600" />
+											{dataFormatada(turma.eventos[0]?.data)}
+										</p>
+									</div>
+								</Link>
+							))}
+						</div>
+					) : (
+						<div className="rounded-2xl border border-dashed border-sky-200 bg-white px-6 py-14 text-center">
+							<CalendarDays className="mx-auto h-8 w-8 text-orange-500" />
+							<h3 className="mt-4 font-bold text-slate-800">
+								Nenhuma turma disponível
+							</h3>
+							<p className="mx-auto mt-2 max-w-md text-sm text-slate-500">
+								Quando você for vinculado a uma turma, ela aparecerá aqui
+								automaticamente.
+							</p>
+						</div>
+					)}
+				</section>
+			</div>
+		</main>
+	);
 }

@@ -14,20 +14,8 @@ import {
   UserCircle2
 } from "lucide-react";
 import BotaoVoltar from "~/app/_components/botaoVoltar";
-
-// ---------------------------------------------------------------------------
-// Mock de Dados (Simulando o banco de inscritos)
-// ---------------------------------------------------------------------------
-const CANDIDATOS_REGISTRADOS = [
-  { ficha: 1, nome: "Maria das Graças Silva", curso: "Smartphone" },
-  { ficha: 42, nome: "José Carlos Pereira", curso: "Computador" },
-  { ficha: 15, nome: "Ana Lúcia Medeiros", curso: "Smartphone" },
-  { ficha: 100, nome: "Francisco Costa", curso: "Computador" },
-];
-
-const getNomeCandidato = (ficha: number, curso: string) => {
-  return CANDIDATOS_REGISTRADOS.find(c => c.ficha === ficha && c.curso === curso)?.nome;
-};
+import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
+import { api } from "~/trpc/react";
 
 // ---------------------------------------------------------------------------
 // Função de Exportação Atualizada
@@ -35,8 +23,10 @@ const getNomeCandidato = (ficha: number, curso: string) => {
 export const exportarParaCSV = (
   smartphone: number[], 
   computador: number[], 
-  modo: "vinculado" | "simples"
+  modo: "vinculado" | "simples",
+  candidatos: { ficha: string; nome: string; curso: "SMARTPHONE" | "COMPUTADOR" }[],
 ) => {
+  const getNomeCandidato = (ficha: number, curso: string) => candidatos.find((candidato) => Number(candidato.ficha) === ficha && candidato.curso === (curso === "Smartphone" ? "SMARTPHONE" : "COMPUTADOR"))?.nome;
   const BOM = "\ufeff";
   const cabecalho = "Smartphone;Computador\n";
 
@@ -92,6 +82,12 @@ export const exportarParaCSV = (
 // Componente Principal
 // ---------------------------------------------------------------------------
 const SorteadorOrganico = () => {
+  const { data: semestres, isLoading: carregandoSemestres } = api.diretoria.semestres.list.useQuery();
+  const [semestreId, setSemestreId] = useState("");
+  const semestreSelecionado = semestres?.find((semestre) => semestre.id === semestreId) ?? semestres?.find((semestre) => semestre.ativo) ?? semestres?.[0];
+  const { data: candidatosDb, isLoading: carregandoCandidatos } = api.diretoria.candidatos.list.useQuery({ semestreId: semestreSelecionado?.id ?? "c0000000000000000000000000" }, { enabled: Boolean(semestreSelecionado) });
+  const candidatos = candidatosDb ?? [];
+  const getNomeCandidato = (ficha: number, curso: string) => candidatos.find((candidato) => Number(candidato.ficha) === ficha && candidato.curso === (curso === "Smartphone" ? "SMARTPHONE" : "COMPUTADOR"))?.nome;
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(100);
   const [results, setResults] = useState<number[]>([]);
@@ -103,6 +99,11 @@ const SorteadorOrganico = () => {
   const [smartphoneHistory, setSmartphoneHistory] = useState<number[]>([]);
   const [computerHistory, setComputerHistory] = useState<number[]>([]);
   const [deviceType, setDeviceType] = useState<"Smartphone" | "Computador">("Smartphone");
+  const candidatosDoModulo = candidatos.filter((candidato) => candidato.curso === (deviceType === "Smartphone" ? "SMARTPHONE" : "COMPUTADOR"));
+
+  useEffect(() => {
+    if (!semestreId && semestreSelecionado) setSemestreId(semestreSelecionado.id);
+  }, [semestreId, semestreSelecionado]);
 
   useEffect(() => {
     const tratarFechamento = (e: BeforeUnloadEvent) => {
@@ -116,15 +117,8 @@ const SorteadorOrganico = () => {
   }, [smartphoneHistory, computerHistory]);
 
   const gerarNumeroOrganico = (lista: number[]) => {
-    let copia = [...lista];
-    for (let pass = 0; pass < 3; pass++) {
-      for (let i = copia.length - 1; i > 0; i--) {
-        const seed = (Math.random() * performance.now()) % 1;
-        const j = Math.floor(seed * (i + 1));
-        [copia[i], copia[j]] = [copia[j], copia[i]];
-      }
-    }
-    return copia[Math.floor(Math.random() * copia.length)];
+    const indice = Math.floor(((Math.random() * performance.now()) % 1) * lista.length);
+    return lista[indice] ?? null;
   };
 
   const sortear = () => {
@@ -134,19 +128,23 @@ const SorteadorOrganico = () => {
     setTimeout(() => {
       const historicoAlvo = deviceType === "Smartphone" ? smartphoneHistory : computerHistory;
 
-      const possiveis = [];
-      for (let i = min; i <= max; i++) {
-        if (deviceType == "Computador" && i == 105) continue;
-        if (!historicoAlvo.includes(i)) possiveis.push(i);
-      }
+      const possiveis = modo === "vinculado"
+        ? candidatosDoModulo.map((candidato) => Number(candidato.ficha)).filter((ficha) => Number.isSafeInteger(ficha) && !historicoAlvo.includes(ficha))
+        : Array.from({ length: Math.max(0, max - min + 1) }, (_, indice) => min + indice).filter((numero) => !historicoAlvo.includes(numero));
 
       if (possiveis.length === 0) {
-        alert(`Fim dos números para ${deviceType}!`);
+        alert(modo === "vinculado" && candidatosDoModulo.length === 0
+          ? `Não há candidatos de ${deviceType} cadastrados para este semestre. Cadastre as fichas antes de sortear.`
+          : `Não há mais fichas disponíveis para ${deviceType} neste sorteio.`);
         setIsAnimating(false);
         return;
       }
 
       const sorteado = gerarNumeroOrganico(possiveis);
+      if (sorteado === null) {
+        setIsAnimating(false);
+        return;
+      }
       setResults([sorteado]);
 
       if (deviceType === "Smartphone") {
@@ -167,31 +165,34 @@ const SorteadorOrganico = () => {
   };
 
   // Pega o nome do ganhador atual (se aplicável)
-  const ganhadorAtual = !isAnimating && results.length > 0 && modo === "vinculado" 
-    ? getNomeCandidato(results[0], deviceType) 
+  const resultadoAtual = results.at(0);
+  const ganhadorAtual = !isAnimating && resultadoAtual !== undefined && modo === "vinculado"
+    ? getNomeCandidato(resultadoAtual, deviceType)
     : null;
 
+  if (carregandoSemestres || carregandoCandidatos) return <div className="min-h-full px-4 py-6" aria-busy="true"><div className="mx-auto max-w-6xl space-y-6"><BotaoVoltar href="/nexus/diretoria/sorteio" label="Voltar para Sorteio" /><DataSkeleton cards={4} /></div></div>;
+
   return (
-    <div className="h-dvh w-full bg-gray-50 flex flex-col items-center justify-center font-sans overflow-hidden p-[clamp(0.75rem,2vw,1.5rem)]">
-      <div className="w-full max-w-5xl h-full max-h-full flex flex-col justify-center gap-[clamp(0.6rem,1.8vh,1.25rem)] overflow-y-auto">
+    <div className="min-h-full w-full bg-[radial-gradient(circle_at_92%_5%,rgba(14,165,233,.16),transparent_22rem),radial-gradient(circle_at_10%_75%,rgba(249,115,22,.10),transparent_18rem),#f8fafc] px-[clamp(.75rem,2vw,1.5rem)] py-6 font-sans">
+	  <div className="mx-auto flex w-full max-w-6xl flex-col gap-[clamp(.6rem,1.8vh,1.25rem)]">
         
         <BotaoVoltar href="/nexus/diretoria/sorteio" label="Voltar para Sorteio" />
 
         {/* Banner de topo */}
-        <div className="w-full relative rounded-2xl overflow-hidden flex-shrink-0 px-[clamp(1rem,3vw,2rem)] py-[clamp(0.75rem,2.2vh,1.75rem)] bg-gradient-to-br from-sky-600 to-sky-500 shadow-sm">
-          <div className="absolute -right-10 -bottom-16 w-56 h-56 rounded-full bg-white/10" />
-          <div className="absolute right-24 -top-12 w-32 h-32 rounded-full bg-white/10" />
+        <div className="relative w-full shrink-0 overflow-hidden rounded-[1.75rem] bg-sky-600 px-[clamp(1rem,3vw,2rem)] py-[clamp(.9rem,2.2vh,1.75rem)] shadow-[0_20px_45px_rgba(2,132,199,.24)]">
+          <div className="absolute -right-10 -bottom-16 h-56 w-56 rounded-full bg-orange-500" />
+          <div className="absolute right-28 -top-9 h-24 w-24 rounded-full border-[12px] border-sky-300/70" />
 
           <div className="relative flex items-center gap-3">
             <div className="w-[clamp(2rem,3vw,2.5rem)] h-[clamp(2rem,3vw,2.5rem)] rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0 border border-white/20">
               <Dices className="w-[55%] h-[55%] text-white" />
             </div>
             <div className="min-w-0">
-              <h1 className="text-[clamp(1rem,1.8vw,1.375rem)] font-semibold text-white leading-tight truncate">
-                Sorteador Orgânico
+              <h1 className="text-[clamp(1.2rem,2vw,1.75rem)] font-black tracking-[-.035em] text-white leading-tight truncate">
+				Estação de Sorteio
               </h1>
               <p className="text-[clamp(0.65rem,1vw,0.8rem)] text-white/80 truncate">
-                Sorteio embaralhado com cruzamento de dados
+                Defina o semestre, selecione o módulo e acompanhe o resultado em tempo real.
               </p>
             </div>
           </div>
@@ -200,11 +201,11 @@ const SorteadorOrganico = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[clamp(0.6rem,1.5vw,1.25rem)] w-full min-h-0">
           
           {/* COLUNA DE AÇÃO */}
-          <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden flex flex-col shadow-sm">
+          <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_12px_30px_rgba(15,23,42,.07)]">
             
             {/* Cabeçalho do card */}
-            <div className="relative flex-shrink-0 px-[clamp(1rem,2vw,1.5rem)] py-[clamp(0.6rem,1.6vh,1.1rem)] bg-gradient-to-br from-sky-600 to-sky-500 overflow-hidden">
-              <div className="absolute -right-6 -bottom-8 w-28 h-28 rounded-full bg-white/10" />
+            <div className="relative shrink-0 overflow-hidden bg-sky-600 px-[clamp(1rem,2vw,1.5rem)] py-[clamp(.6rem,1.6vh,1.1rem)]">
+			  <div className="absolute -right-6 -bottom-8 h-28 w-28 rounded-full bg-orange-500" />
               <div className="relative flex items-center gap-2.5">
                 <div className="w-[clamp(1.75rem,2.5vw,2.25rem)] h-[clamp(1.75rem,2.5vw,2.25rem)] rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
                   <SlidersHorizontal className="w-[55%] h-[55%] text-white" />
@@ -219,6 +220,14 @@ const SorteadorOrganico = () => {
             <div className="flex-1 flex flex-col justify-between p-[clamp(0.85rem,1.8vw,1.5rem)] gap-[clamp(0.6rem,1.6vh,1.25rem)] min-h-0">
               
               <div className="flex flex-col gap-[clamp(0.6rem,1.6vh,1.25rem)] flex-shrink-0">
+                <div>
+                  <label className="block text-center text-[clamp(0.6rem,0.8vw,0.7rem)] font-medium text-gray-500 uppercase tracking-wider mb-[clamp(0.4rem,1vh,0.75rem)]">
+                    Semestre
+                  </label>
+                  <select value={semestreSelecionado?.id ?? ""} onChange={(e) => setSemestreId(e.target.value)} className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-center text-sm font-medium text-gray-700 focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-100">
+                    {semestres?.map((semestre) => <option key={semestre.id} value={semestre.id}>{semestre.codigo}{semestre.ativo ? " — ativo" : ""}</option>)}
+                  </select>
+                </div>
                 
                 {/* Seletor de Modo (Vinculado vs Simples) */}
                 <div>
@@ -274,8 +283,15 @@ const SorteadorOrganico = () => {
                   </div>
                 </div>
 
-                {/* Range */}
-                <div className="grid grid-cols-2 gap-[clamp(0.5rem,1.2vw,1rem)]">
+                {modo === "vinculado" && (
+                  <div className="rounded-xl border border-sky-100 bg-sky-50 px-3 py-2.5 text-center">
+                    <p className="text-xs font-semibold text-sky-800">{candidatosDoModulo.length} ficha(s) de {deviceType} disponível(is)</p>
+                    <p className="mt-1 text-[11px] text-sky-700">As fichas são carregadas do cadastro deste semestre.</p>
+                    {candidatosDoModulo.length === 0 && <a href="/nexus/diretoria/sorteio" className="mt-2 inline-block text-[11px] font-semibold text-sky-700 underline">Cadastrar candidatos</a>}
+                  </div>
+                )}
+
+                {modo === "simples" && <div className="grid grid-cols-2 gap-[clamp(0.5rem,1.2vw,1rem)]">
                   <div>
                     <label className="block text-[clamp(0.6rem,0.75vw,0.68rem)] font-medium text-gray-500 uppercase tracking-wide mb-1">
                       Range inicial
@@ -283,7 +299,7 @@ const SorteadorOrganico = () => {
                     <input
                       type="number"
                       value={min}
-                      onChange={(e) => setMin(parseInt(e.target.value))}
+                      onChange={(e) => setMin(Number(e.target.value) || 1)}
                       className="w-full rounded-lg border border-gray-200 bg-gray-50 text-center font-semibold text-sky-700 px-3 py-[clamp(0.3rem,1vh,0.5rem)] text-[clamp(0.75rem,0.9vw,0.875rem)] focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
                     />
                   </div>
@@ -294,11 +310,11 @@ const SorteadorOrganico = () => {
                     <input
                       type="number"
                       value={max}
-                      onChange={(e) => setMax(parseInt(e.target.value))}
+                      onChange={(e) => setMax(Number(e.target.value) || 1)}
                       className="w-full rounded-lg border border-gray-200 bg-gray-50 text-center font-semibold text-sky-700 px-3 py-[clamp(0.3rem,1vh,0.5rem)] text-[clamp(0.75rem,0.9vw,0.875rem)] focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
                     />
                   </div>
-                </div>
+                </div>}
               </div>
 
               {/* Área de resultado (Modificada para exibir o nome) */}
@@ -341,7 +357,7 @@ const SorteadorOrganico = () => {
               <button
                 onClick={sortear}
                 disabled={isAnimating}
-                className="w-full h-[clamp(2.5rem,5.5vh,3.25rem)] flex-shrink-0 rounded-2xl bg-sky-600 text-white text-[clamp(0.75rem,0.95vw,0.875rem)] font-semibold tracking-wide hover:bg-sky-700 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0 shadow-sm hover:shadow-md transition-all mt-2"
+                className="mt-2 h-[clamp(2.5rem,5.5vh,3.25rem)] w-full shrink-0 rounded-2xl bg-orange-600 text-[clamp(.75rem,.95vw,.875rem)] font-extrabold tracking-wide text-white shadow-[0_12px_24px_rgba(234,88,12,.24)] transition-all hover:-translate-y-0.5 hover:bg-orange-700 disabled:opacity-50 disabled:hover:translate-y-0"
               >
                 EXECUTAR SORTEIO
               </button>
@@ -349,7 +365,7 @@ const SorteadorOrganico = () => {
               {/* Ações secundárias */}
               <div className="flex items-center gap-3 flex-shrink-0">
                 <button
-                  onClick={() => exportarParaCSV(smartphoneHistory, computerHistory, modo)}
+                  onClick={() => exportarParaCSV(smartphoneHistory, computerHistory, modo, candidatos)}
                   className="flex-1 flex items-center justify-center gap-2 h-[clamp(2rem,4.2vh,2.75rem)] rounded-xl border border-gray-200 bg-white text-sky-600 text-[clamp(0.7rem,0.85vw,0.8rem)] font-medium hover:bg-sky-50 hover:border-sky-200 transition-colors min-w-0"
                 >
                   <Download className="w-4 h-4 flex-shrink-0" />
@@ -367,11 +383,11 @@ const SorteadorOrganico = () => {
           </div>
 
           {/* COLUNA DE REGISTROS (HISTÓRICO) */}
-          <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden flex flex-col shadow-sm">
+          <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_12px_30px_rgba(15,23,42,.07)]">
             
             {/* Cabeçalho do card */}
-            <div className="relative flex-shrink-0 px-[clamp(1rem,2vw,1.5rem)] py-[clamp(0.6rem,1.6vh,1.1rem)] bg-gradient-to-br from-amber-500 to-amber-400 overflow-hidden">
-              <div className="absolute -right-6 -bottom-8 w-28 h-28 rounded-full bg-white/10" />
+            <div className="relative shrink-0 overflow-hidden bg-orange-600 px-[clamp(1rem,2vw,1.5rem)] py-[clamp(.6rem,1.6vh,1.1rem)]">
+			  <div className="absolute -right-6 -bottom-8 h-28 w-28 rounded-full bg-sky-300/50" />
               <div className="relative flex items-center gap-2.5">
                 <div className="w-[clamp(1.75rem,2.5vw,2.25rem)] h-[clamp(1.75rem,2.5vw,2.25rem)] rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0 border border-white/20">
                   <History className="w-[55%] h-[55%] text-white" />

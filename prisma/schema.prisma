@@ -123,8 +123,9 @@ model User {
   avisos    Aviso[]
   anotacoes Anotacao[]
 
-  // Presença (monitores)
-  presencas PresencaMonitor[]
+  // Presença de equipe
+  presencasMonitor   PresencaMonitor[]
+  presencasProfessor PresencaProfessor[]
 }
 
 // ---------------------------------------------------------------------------
@@ -220,9 +221,9 @@ model Aluno {
   corRaca           String
   identidadeGenero  String
   lgbtqiapn         String
-  telefone          String
-  contatoEmergencia String
-  email             String
+  telefone          String?
+  contatoEmergencia String?
+  email             String?
   escolaridade      String
   cuidaTerceiros    Boolean  @default(false)
 
@@ -337,8 +338,9 @@ model RegistroPresenca {
   data    DateTime
 
   turma     Turma             @relation(fields: [turmaId], references: [id], onDelete: Cascade)
-  alunos    PresencaAluno[]
-  monitores PresencaMonitor[]
+  alunos      PresencaAluno[]
+  monitores   PresencaMonitor[]
+  professores PresencaProfessor[]
 
   @@unique([turmaId, data])
   @@index([turmaId])
@@ -368,6 +370,18 @@ model PresencaMonitor {
   @@unique([registroId, monitorId])
 }
 
+model PresencaProfessor {
+  id         String         @id @default(cuid())
+  registroId String
+  professorId String
+  estado     EstadoPresenca
+
+  registro  RegistroPresenca @relation(fields: [registroId], references: [id], onDelete: Cascade)
+  professor User             @relation(fields: [professorId], references: [id], onDelete: Cascade)
+
+  @@unique([registroId, professorId])
+}
+
 // ---------------------------------------------------------------------------
 // Candidato (Sorteio)
 // ---------------------------------------------------------------------------
@@ -393,12 +407,28 @@ model Candidato {
 // ---------------------------------------------------------------------------
 
 model Formulario {
-  id        String   @id @default(cuid())
-  titulo    String
-  descricao String?
-  createdAt DateTime @default(now())
+  id          String   @id @default(cuid())
+  titulo      String
+  descricao   String?
+  slug        String   @unique
+  conteudo    Json     // definição inteira do formulário; evita salvar rascunhos parciais em várias tabelas
+  publicado   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  perguntas Pergunta[]
+  perguntas   Pergunta[]
+  respostas   FormularioResposta[]
+}
+
+model FormularioResposta {
+  id           String   @id @default(cuid())
+  formularioId String
+  respostas    Json     // mapa { perguntaId: resposta }, preservando a resposta exatamente como enviada
+  createdAt    DateTime @default(now())
+
+  formulario Formulario @relation(fields: [formularioId], references: [id], onDelete: Cascade)
+
+  @@index([formularioId, createdAt])
 }
 
 model Pergunta {

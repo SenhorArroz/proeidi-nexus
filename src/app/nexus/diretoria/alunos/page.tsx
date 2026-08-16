@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as XLSX from "xlsx";
 import {
 	UserPlus,
@@ -24,7 +24,8 @@ import {
 	Loader2,
 } from "lucide-react";
 import { api } from "~/trpc/react";
-import BotaoVoltar from "~/app/_components/botaoVoltar";
+import { DiretoriaBackLink, DiretoriaPageIntro } from "~/app/_components/diretoria/page-intro";
+import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
 
 function downloadBase64Pdf(base64Data: string, filename: string) {
 	const byteCharacters = atob(base64Data);
@@ -45,9 +46,17 @@ function downloadBase64Pdf(base64Data: string, filename: string) {
 }
 
 // ---------------------------------------------------------------------------
-// Tipos e Mock de Dados
+// Tipos
 // ---------------------------------------------------------------------------
 type SimNao = "Sim" | "Não" | "";
+
+function formatarCpf(valor: string) {
+	const digitos = valor.replace(/\D/g, "").slice(0, 11);
+	if (digitos.length <= 3) return digitos;
+	if (digitos.length <= 6) return `${digitos.slice(0, 3)}.${digitos.slice(3)}`;
+	if (digitos.length <= 9) return `${digitos.slice(0, 3)}.${digitos.slice(3, 6)}.${digitos.slice(6)}`;
+	return `${digitos.slice(0, 3)}.${digitos.slice(3, 6)}.${digitos.slice(6, 9)}-${digitos.slice(9)}`;
+}
 
 interface Aluno {
 	id: string;
@@ -88,49 +97,22 @@ interface Aluno {
 	sistemaSmartphone?: string;
 }
 
-const TURMAS_MOCK = [
-	"Turma A - Manhã",
-	"Turma B - Tarde",
-	"Turma C - Noite (Avançado)",
-];
-const SEMESTRES_MOCK = ["2026.1", "2025.2", "2025.1"];
-
-const DADOS_INICIAIS: Aluno[] = [
-	{
-		id: "1",
-		semestre: "2026.1",
-		turma: "Turma A - Manhã",
-		nome: "Ana Paula Tavares",
-		dataNascimento: "1960-05-12",
-		cpf: "111.222.333-44",
-		corRaca: "Parda",
-		identidadeGenero: "Mulher cis",
-		lgbtqiapn: "Não",
-		telefone: "(84) 99999-1111",
-		contatoEmergencia: "(84) 98888-1111",
-		email: "ana.tavares@email.com",
-		escolaridade: "Ensino Médio Completo",
-		cuidaTerceiros: "Não",
-		trabalha: "Não",
-		estuda: "Não",
-		problemaSaude: "Sim",
-		problemaSaudeQual: "Hipertensão",
-		necessidadeEspecial: "Sim",
-		necessidadeEspecialQual: "Baixa visão",
-		acessoInternet: "Sim",
-		temComputador: "Não",
-		temSmartphone: "Sim",
-		sistemaSmartphone: "Android",
-	},
-];
-
 // ---------------------------------------------------------------------------
 // Componente Principal
 // ---------------------------------------------------------------------------
 export default function GerenciarAlunos() {
-	const [alunos, setAlunos] = useState<Aluno[]>(DADOS_INICIAIS);
-	const [busca, setBusca] = useState("");
+	const utils = api.useUtils();
 	const [semestreFiltro, setSemestreFiltro] = useState<string>("2026.1");
+	const [busca, setBusca] = useState("");
+	const { data: semestresDb, isLoading: carregandoSemestres } = api.diretoria.semestres.list.useQuery();
+	const semestreSelecionado = semestresDb?.find((s) => s.codigo === semestreFiltro) ?? semestresDb?.find((s) => s.ativo) ?? semestresDb?.[0];
+	const { data: alunosDb, isLoading: carregandoAlunos } = api.aluno.list.useQuery({ semestreId: semestreSelecionado?.id ?? "c0000000000000000000000000" }, { enabled: Boolean(semestreSelecionado) });
+	const { data: turmasDb, isLoading: carregandoTurmas } = api.diretoria.turmas.list.useQuery(semestreSelecionado ? { semestreId: semestreSelecionado.id } : undefined, { enabled: Boolean(semestreSelecionado) });
+	const criarAluno = api.aluno.create.useMutation({ onSuccess: () => utils.aluno.list.invalidate() });
+	const atualizarAluno = api.aluno.update.useMutation({ onSuccess: () => utils.aluno.list.invalidate() });
+	const removerAluno = api.aluno.remove.useMutation({ onSuccess: () => utils.aluno.list.invalidate() });
+	const importarAlunos = api.aluno.import.useMutation({ onSuccess: () => utils.aluno.list.invalidate() });
+	const [alunos, setAlunos] = useState<Aluno[]>([]);
 
 	// Controle de Geração de Certificados
 	const [gerandoAlunoId, setGerandoAlunoId] = useState<string | null>(null);
@@ -193,6 +175,15 @@ export default function GerenciarAlunos() {
 
 	const [form, setForm] = useState<Aluno>(stateInicial);
 
+	useEffect(() => {
+		if (!alunosDb || !semestreSelecionado) return;
+		setAlunos(alunosDb.map((a) => ({ id: a.id, semestre: semestreSelecionado.codigo, turma: a.turmas.map((v) => v.turma.titulo).join(", "), nome: a.nome, dataNascimento: a.dataNascimento.toISOString().slice(0, 10), cpf: formatarCpf(a.cpf), corRaca: a.corRaca, identidadeGenero: a.identidadeGenero, lgbtqiapn: a.lgbtqiapn, telefone: a.telefone ?? "", contatoEmergencia: a.contatoEmergencia ?? "", email: a.email ?? "", escolaridade: a.escolaridade, cuidaTerceiros: a.cuidaTerceiros ? "Sim" : "Não", trabalha: a.trabalha ? "Sim" : "Não", trabalhoLocal: a.trabalhoLocal ?? "", trabalhoFuncao: a.trabalhoFuncao ?? "", estuda: a.estuda ? "Sim" : "Não", estudoLocal: a.estudoLocal ?? "", estudoCurso: a.estudoCurso ?? "", problemaSaude: a.problemaSaude ? "Sim" : "Não", problemaSaudeQual: a.problemaSaudeQual ?? "", necessidadeEspecial: a.necessidadeEspecial ? "Sim" : "Não", necessidadeEspecialQual: a.necessidadeEspecialQual ?? "", acessoInternet: a.acessoInternet ? "Sim" : "Não", temComputador: a.temComputador ? "Sim" : "Não", temSmartphone: a.temSmartphone ? "Sim" : "Não", sistemaSmartphone: a.sistemaSmartphone ?? "" })));
+	}, [alunosDb, semestreSelecionado]);
+
+	useEffect(() => {
+		if (semestreSelecionado && !semestresDb?.some((semestre) => semestre.codigo === semestreFiltro)) setSemestreFiltro(semestreSelecionado.codigo);
+	}, [semestreFiltro, semestreSelecionado, semestresDb]);
+
 	// Importação e Exportação
 	const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -254,10 +245,9 @@ export default function GerenciarAlunos() {
 				const targetField = colMap[header];
 				if (targetField && targetField !== "ignorar") {
 					const rawVal = row[index];
-					let val =
-						rawVal !== undefined && rawVal !== null
-							? String(rawVal).trim()
-							: "";
+					let val = rawVal instanceof Date
+						? rawVal.toISOString().slice(0, 10)
+						: rawVal !== undefined && rawVal !== null ? String(rawVal).trim() : "";
 
 					// Tratamento simples para Sim/Não
 					if (
@@ -282,6 +272,7 @@ export default function GerenciarAlunos() {
 							val = `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
 						}
 					}
+					if (targetField === "dataNascimento" && val.includes("T")) val = val.split("T")[0] ?? "";
 
 					(novoAluno as any)[targetField] = val;
 				}
@@ -293,9 +284,38 @@ export default function GerenciarAlunos() {
 			}
 		}
 
-		setAlunos((prev) => [...prev, ...newAlunos]);
-		setIsImportModalOpen(false);
-		alert(`${newAlunos.length} aluno(s) importado(s) com sucesso!`);
+		if (!semestreSelecionado) {
+			alert("Nenhum semestre disponível para receber a importação.");
+			return;
+		}
+
+		const turmasPorTitulo = new Map((turmasDb ?? []).map((turma) => [turma.titulo.trim().toLowerCase(), turma.id]));
+		const obrigatorios: { campo: keyof Aluno; nome: string }[] = [
+			{ campo: "nome", nome: "Nome" }, { campo: "dataNascimento", nome: "Data de nascimento" }, { campo: "cpf", nome: "CPF" }, { campo: "corRaca", nome: "Cor ou raça" }, { campo: "identidadeGenero", nome: "Identidade de gênero" }, { campo: "lgbtqiapn", nome: "LGBTQIAPN+" }, { campo: "escolaridade", nome: "Escolaridade" }, { campo: "cuidaTerceiros", nome: "Cuida de terceiros" }, { campo: "trabalha", nome: "Trabalha" }, { campo: "estuda", nome: "Estuda" }, { campo: "problemaSaude", nome: "Problema de saúde" }, { campo: "necessidadeEspecial", nome: "Necessidade especial" }, { campo: "acessoInternet", nome: "Acesso à internet" }, { campo: "temComputador", nome: "Computador" }, { campo: "temSmartphone", nome: "Smartphone" },
+		];
+		const exigeTurmaCadastrada = (turmasDb?.length ?? 0) > 0;
+		const erroLinha = newAlunos.map((aluno, index) => {
+			const ausentes = obrigatorios.filter(({ campo }) => !String(aluno[campo] ?? "").trim()).map(({ nome }) => nome);
+			const turmaInvalida = exigeTurmaCadastrada && !turmasPorTitulo.has(aluno.turma.trim().toLowerCase());
+			return ausentes.length || turmaInvalida ? { index, ausentes, turmaInvalida, turma: aluno.turma } : null;
+		}).find(Boolean);
+		if (erroLinha) {
+			const detalhes = [erroLinha.ausentes.length ? `campos ausentes: ${erroLinha.ausentes.join(", ")}` : "", erroLinha.turmaInvalida ? `turma não cadastrada: ${erroLinha.turma || "(vazia)"}` : ""].filter(Boolean).join("; ");
+			alert(`Linha ${erroLinha.index + 2}: ${detalhes}.`);
+			return;
+		}
+
+		importarAlunos.mutate({
+			semestreId: semestreSelecionado.id,
+			alunos: newAlunos.map((aluno) => ({
+				nome: aluno.nome.trim(), dataNascimento: new Date(`${aluno.dataNascimento}T12:00:00`), cpf: aluno.cpf.replace(/\D/g, ""), corRaca: aluno.corRaca.trim(), identidadeGenero: aluno.identidadeGenero.trim(), lgbtqiapn: aluno.lgbtqiapn.trim(), telefone: aluno.telefone?.trim() || null, contatoEmergencia: aluno.contatoEmergencia?.trim() || null, email: aluno.email?.trim() || null, escolaridade: aluno.escolaridade.trim(),
+				cuidaTerceiros: aluno.cuidaTerceiros === "Sim", trabalha: aluno.trabalha === "Sim", trabalhoLocal: aluno.trabalhoLocal || null, trabalhoFuncao: aluno.trabalhoFuncao || null, estuda: aluno.estuda === "Sim", estudoLocal: aluno.estudoLocal || null, estudoCurso: aluno.estudoCurso || null, problemaSaude: aluno.problemaSaude === "Sim", problemaSaudeQual: aluno.problemaSaudeQual || null, necessidadeEspecial: aluno.necessidadeEspecial === "Sim", necessidadeEspecialQual: aluno.necessidadeEspecialQual || null, acessoInternet: aluno.acessoInternet === "Sim", temComputador: aluno.temComputador === "Sim", temSmartphone: aluno.temSmartphone === "Sim", sistemaSmartphone: aluno.sistemaSmartphone || null,
+				turmaIds: exigeTurmaCadastrada ? [turmasPorTitulo.get(aluno.turma.trim().toLowerCase())!] : [],
+			})),
+		}, {
+			onSuccess: (result) => { setIsImportModalOpen(false); alert(`${result.total} aluno(s) importado(s) para o banco com sucesso.${exigeTurmaCadastrada ? "" : " Como não há turmas cadastradas neste semestre, os alunos foram importados sem vínculo de turma."}`); },
+			onError: (error) => alert(`A importação não foi salva: ${error.message}`),
+		});
 	};
 
 	const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -306,7 +326,7 @@ export default function GerenciarAlunos() {
 		reader.onload = (evt) => {
 			try {
 				const bstr = evt.target?.result;
-				const wb = XLSX.read(bstr, { type: "binary" });
+				const wb = XLSX.read(bstr, { type: "binary", cellDates: true });
 				const wsname = wb.SheetNames[0];
 				if (!wsname) {
 					alert("A planilha selecionada está vazia.");
@@ -419,17 +439,14 @@ export default function GerenciarAlunos() {
 
 	// Ações de Certificado
 	const handleGerarLoteCertificados = () => {
-		if (alunosFiltrados.length === 0) {
+		if (!semestreSelecionado || alunosFiltrados.length === 0) {
 			alert("Nenhum aluno encontrado para gerar certificados neste semestre.");
 			return;
 		}
 
 		gerarLoteMutation.mutate({
-			semestreId: semestreFiltro,
-			alunosManuais: alunosFiltrados.map((a) => ({
-				nome: a.nome,
-				turma: a.turma,
-			})),
+			semestreId: semestreSelecionado.id,
+			alunoIds: alunosFiltrados.map((aluno) => aluno.id),
 		});
 	};
 
@@ -448,7 +465,7 @@ export default function GerenciarAlunos() {
 		(a) =>
 			a.semestre === semestreFiltro &&
 			(a.nome.toLowerCase().includes(busca.toLowerCase()) ||
-				a.cpf.includes(busca)),
+				a.cpf.replace(/\D/g, "").includes(busca.replace(/\D/g, ""))),
 	);
 
 	// Ações CRUD
@@ -466,7 +483,7 @@ export default function GerenciarAlunos() {
 
 	const excluirAluno = (id: string) => {
 		if (confirm("Tem certeza que deseja remover este aluno?")) {
-			setAlunos((prev) => prev.filter((a) => a.id !== id));
+			if (semestreSelecionado) removerAluno.mutate({ id, semestreId: semestreSelecionado.id });
 		}
 	};
 
@@ -488,60 +505,44 @@ export default function GerenciarAlunos() {
 		if (formProcessado.necessidadeEspecial !== "Sim")
 			delete formProcessado.necessidadeEspecialQual;
 
-		if (alunoEditando) {
-			setAlunos((prev) =>
-				prev.map((a) =>
-					a.id === alunoEditando.id ? { ...formProcessado, id: a.id } : a,
-				),
-			);
-		} else {
-			setAlunos([...alunos, { ...formProcessado, id: Date.now().toString() }]);
-		}
-		setIsModalOpen(false);
+		if (!semestreSelecionado) return;
+		const turmaIds = formProcessado.turma ? (turmasDb?.filter((t) => t.titulo === formProcessado.turma).map((t) => t.id) ?? []) : [];
+		const payload = { semestreId: semestreSelecionado.id, nome: formProcessado.nome, dataNascimento: new Date(`${formProcessado.dataNascimento}T12:00:00`), cpf: formProcessado.cpf.replace(/\D/g, ""), corRaca: formProcessado.corRaca, identidadeGenero: formProcessado.identidadeGenero, lgbtqiapn: formProcessado.lgbtqiapn, telefone: formProcessado.telefone?.trim() || null, contatoEmergencia: formProcessado.contatoEmergencia?.trim() || null, email: formProcessado.email?.trim() || null, escolaridade: formProcessado.escolaridade, cuidaTerceiros: formProcessado.cuidaTerceiros === "Sim", trabalha: formProcessado.trabalha === "Sim", trabalhoLocal: formProcessado.trabalhoLocal || null, trabalhoFuncao: formProcessado.trabalhoFuncao || null, estuda: formProcessado.estuda === "Sim", estudoLocal: formProcessado.estudoLocal || null, estudoCurso: formProcessado.estudoCurso || null, problemaSaude: formProcessado.problemaSaude === "Sim", problemaSaudeQual: formProcessado.problemaSaudeQual || null, necessidadeEspecial: formProcessado.necessidadeEspecial === "Sim", necessidadeEspecialQual: formProcessado.necessidadeEspecialQual || null, acessoInternet: formProcessado.acessoInternet === "Sim", temComputador: formProcessado.temComputador === "Sim", temSmartphone: formProcessado.temSmartphone === "Sim", sistemaSmartphone: formProcessado.sistemaSmartphone || null, turmaIds };
+		const options = {
+			onSuccess: () => setIsModalOpen(false),
+			onError: (error: { message: string }) => alert(`Não foi possível salvar o aluno: ${error.message}`),
+		};
+		if (alunoEditando) atualizarAluno.mutate({ ...payload, id: alunoEditando.id }, options); else criarAluno.mutate(payload, options);
 	};
 
 	return (
 		<div className="min-h-screen bg-gray-50 flex flex-col font-sans p-4 sm:p-8 pb-32">
 			<div className="max-w-7xl w-full mx-auto space-y-6">
-				<BotaoVoltar href="/nexus/diretoria" label="Voltar para Diretoria" />
-				{/* Banner Principal */}
-				<div className="w-full relative rounded-2xl overflow-hidden px-6 py-8 sm:p-10 bg-gradient-to-br from-sky-700 to-sky-500 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-					<div className="absolute -right-10 -bottom-16 w-56 h-56 rounded-full bg-white/10 blur-2xl" />
+				<DiretoriaBackLink />
+				<DiretoriaPageIntro icon={GraduationCap} title="Gerenciar alunos" description="Cadastro completo, perfil demográfico e emissão de certificados." />
 
-					<div className="relative z-10 flex items-center gap-4 text-white">
-						<div className="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 shrink-0">
-							<GraduationCap className="w-7 h-7" />
-						</div>
-						<div>
-							<h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
-								Gerenciar Alunos
-							</h1>
-							<p className="text-sky-100 mt-1 text-sm sm:text-base">
-								Cadastro completo, perfil demográfico e emissão de certificados.
-							</p>
-						</div>
+				{/* Seleção única de contexto: toda leitura, importação e exportação usa este semestre. */}
+				<div className="rounded-2xl border border-sky-100 bg-sky-50/60 p-4 sm:flex sm:items-end sm:justify-between sm:gap-5">
+					<div className="mb-3 sm:mb-0">
+						<p className="text-sm font-semibold text-sky-900">Semestre de trabalho</p>
+						<p className="mt-1 text-sm text-sky-700">A lista, os novos cadastros, a importação e a exportação usam o semestre selecionado.</p>
 					</div>
+					<label className="block min-w-52">
+						<span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-sky-800">Selecionar semestre</span>
+						<select
+							value={semestreFiltro}
+							onChange={(e) => { setBusca(""); setSemestreFiltro(e.target.value); }}
+							disabled={!semestresDb?.length}
+							className="w-full rounded-xl border border-sky-200 bg-white px-3 py-2.5 text-sm font-semibold text-gray-800 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100 disabled:cursor-not-allowed"
+						>
+							{!semestresDb?.length && <option>Carregando semestres...</option>}
+							{semestresDb?.map((semestre) => <option key={semestre.id} value={semestre.codigo}>{semestre.codigo}{semestre.ativo ? " — ativo" : ""}</option>)}
+						</select>
+					</label>
 				</div>
 
 				{/* Controles de Filtro e Busca */}
 				<div className="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-4">
-					{/* Abas de Semestre */}
-					<div className="flex bg-gray-100 p-1 rounded-xl w-full lg:w-auto overflow-x-auto custom-scrollbar">
-						{SEMESTRES_MOCK.map((semestre) => (
-							<button
-								key={semestre}
-								onClick={() => setSemestreFiltro(semestre)}
-								className={`px-5 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${
-									semestreFiltro === semestre
-										? "bg-white text-sky-700 shadow-sm ring-1 ring-gray-200"
-										: "text-gray-500 hover:text-gray-700"
-								}`}
-							>
-								Semestre {semestre}
-							</button>
-						))}
-					</div>
-
 					<div className="flex items-center gap-3 w-full lg:w-auto flex-1 lg:justify-end">
 						<div className="flex items-center gap-3 w-full lg:max-w-md bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 transition-all">
 							<Search className="w-4 h-4 text-gray-400 shrink-0" />
@@ -571,6 +572,7 @@ export default function GerenciarAlunos() {
 							</button>
 							<button
 								onClick={() => setIsImportModalOpen(true)}
+								disabled={!semestreSelecionado}
 								className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 shadow-sm transition-all shrink-0"
 							>
 								<Upload className="w-4 h-4" />
@@ -578,6 +580,7 @@ export default function GerenciarAlunos() {
 							</button>
 							<button
 								onClick={handleExport}
+								disabled={!semestreSelecionado}
 								className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 shadow-sm transition-all shrink-0"
 							>
 								<Download className="w-4 h-4" />
@@ -585,6 +588,7 @@ export default function GerenciarAlunos() {
 							</button>
 							<button
 								onClick={abrirModalNovo}
+								disabled={!semestreSelecionado}
 								className="flex items-center justify-center gap-2 px-5 py-2.5 bg-sky-600 text-white text-sm font-bold rounded-xl hover:bg-sky-700 shadow-sm transition-all shrink-0"
 							>
 								<UserPlus className="w-4 h-4" />
@@ -595,8 +599,8 @@ export default function GerenciarAlunos() {
 				</div>
 
 				{/* Lista de Alunos (Grid) */}
-				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-					{alunosFiltrados.length === 0 ? (
+				<div className="grid grid-cols-1 overflow-auto md:grid-cols-2 xl:grid-cols-3 gap-5">
+					{carregandoSemestres || carregandoAlunos || carregandoTurmas ? <DataSkeleton cards={6} className="col-span-full" /> : alunosFiltrados.length === 0 ? (
 						<div className="col-span-full py-16 flex flex-col items-center justify-center text-gray-400 bg-white border border-dashed border-gray-300 rounded-2xl">
 							<Users className="w-12 h-12 mb-3 opacity-20" />
 							<p className="text-lg font-medium">
@@ -607,7 +611,7 @@ export default function GerenciarAlunos() {
 						alunosFiltrados.map((aluno) => (
 							<div
 								key={aluno.id}
-								className="bg-white border border-gray-200 rounded-2xl p-5 hover:border-sky-300 hover:shadow-md transition-all group relative"
+								className="group relative overflow-hidden rounded-2xl bg-white p-5 shadow-[0_10px_24px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,132,199,.13)]"
 							>
 								<div className="absolute top-4 right-4 flex items-center gap-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
 									<button
@@ -636,10 +640,11 @@ export default function GerenciarAlunos() {
 									</button>
 								</div>
 
-								<h3 className="font-bold text-gray-900 text-lg mb-1 pr-24 truncate">
+								<div className="absolute left-0 top-0 h-1.5 w-24 rounded-br-full bg-sky-500" />
+								<h3 className="mb-1 pr-24 text-lg font-extrabold text-slate-900 truncate">
 									{aluno.nome}
 								</h3>
-								<p className="text-xs font-bold text-sky-600 bg-sky-50 inline-block px-2.5 py-1 rounded-md mb-4">
+								<p className="mb-4 inline-block rounded-full bg-orange-50 px-2.5 py-1 text-xs font-bold text-orange-800">
 									{aluno.turma}
 								</p>
 
@@ -714,7 +719,7 @@ export default function GerenciarAlunos() {
 											}
 											className="w-full bg-white border border-gray-300 rounded-xl px-4 py-2.5 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 outline-none"
 										>
-											{SEMESTRES_MOCK.map((s) => (
+											{(semestresDb?.map((s) => s.codigo) ?? []).map((s) => (
 												<option key={s} value={s}>
 													{s}
 												</option>
@@ -734,7 +739,7 @@ export default function GerenciarAlunos() {
 											className="w-full bg-white border border-gray-300 rounded-xl px-4 py-2.5 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 outline-none"
 										>
 											<option value="">Selecione uma turma...</option>
-											{TURMAS_MOCK.map((t) => (
+											{(turmasDb?.map((t) => t.titulo) ?? []).map((t) => (
 												<option key={t} value={t}>
 													{t}
 												</option>
@@ -787,7 +792,7 @@ export default function GerenciarAlunos() {
 											type="text"
 											value={form.cpf}
 											onChange={(e) =>
-												setForm({ ...form, cpf: e.target.value })
+							setForm({ ...form, cpf: formatarCpf(e.target.value) })
 											}
 											placeholder="000.000.000-00"
 											className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 focus:border-sky-500 outline-none"
@@ -885,15 +890,15 @@ export default function GerenciarAlunos() {
 									</div>
 									<div className="space-y-1 lg:col-span-2">
 										<label className="text-sm font-semibold text-gray-700">
-											Email
+											Email <span className="text-xs font-normal text-gray-400">(opcional)</span>
 										</label>
 										<input
-											required
 											type="email"
 											value={form.email}
 											onChange={(e) =>
 												setForm({ ...form, email: e.target.value })
 											}
+											placeholder="exemplo@email.com"
 											className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 focus:border-sky-500 outline-none"
 										/>
 									</div>
@@ -1280,7 +1285,7 @@ export default function GerenciarAlunos() {
 			{/* Modal de Importação com File Upload */}
 			{isImportModalOpen && (
 				<div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/40 backdrop-blur-sm animate-in fade-in duration-200">
-					<div className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-xl flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
+					<div className="bg-white rounded-3xl w-full max-w-lg overflow-y-auto shadow-xl flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
 						{/* Cabecalho */}
 						<div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
 							<div className="flex items-center gap-3">
@@ -1292,7 +1297,7 @@ export default function GerenciarAlunos() {
 										Importar Planilha
 									</h2>
 									<p className="text-sm text-gray-500">
-										Faça o upload do seu arquivo
+										Destino: semestre {semestreSelecionado?.codigo ?? "não selecionado"}
 									</p>
 								</div>
 							</div>
@@ -1306,6 +1311,7 @@ export default function GerenciarAlunos() {
 
 						{/* Corpo */}
 						<div className="p-6 overflow-y-auto flex-1 bg-gray-50/50 space-y-4 flex flex-col items-center justify-center">
+							{(turmasDb?.length ?? 0) === 0 && <p className="w-full rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">Não há turmas cadastradas para {semestreSelecionado?.codigo}. A planilha será importada sem vínculo de turma; você poderá vinculá-los depois ao criar as turmas.</p>}
 							<div className="w-full p-8 border-2 border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center bg-white hover:border-sky-500 transition-colors">
 								<Upload className="w-10 h-10 text-gray-400 mb-4" />
 								<p className="text-sm font-semibold text-gray-700 mb-1">

@@ -155,6 +155,7 @@ exports.Prisma.UserScalarFieldEnum = {
   nome: 'nome',
   email: 'email',
   senha: 'senha',
+  matricula: 'matricula',
   role: 'role',
   image: 'image',
   emailVerified: 'emailVerified',
@@ -279,6 +280,13 @@ exports.Prisma.PresencaMonitorScalarFieldEnum = {
   estado: 'estado'
 };
 
+exports.Prisma.PresencaProfessorScalarFieldEnum = {
+  id: 'id',
+  registroId: 'registroId',
+  professorId: 'professorId',
+  estado: 'estado'
+};
+
 exports.Prisma.CandidatoScalarFieldEnum = {
   id: 'id',
   semestreId: 'semestreId',
@@ -295,6 +303,17 @@ exports.Prisma.FormularioScalarFieldEnum = {
   id: 'id',
   titulo: 'titulo',
   descricao: 'descricao',
+  slug: 'slug',
+  conteudo: 'conteudo',
+  publicado: 'publicado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FormularioRespostaScalarFieldEnum = {
+  id: 'id',
+  formularioId: 'formularioId',
+  respostas: 'respostas',
   createdAt: 'createdAt'
 };
 
@@ -319,6 +338,10 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -327,6 +350,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   COORDENADOR: 'COORDENADOR',
@@ -385,8 +414,10 @@ exports.Prisma.ModelName = {
   RegistroPresenca: 'RegistroPresenca',
   PresencaAluno: 'PresencaAluno',
   PresencaMonitor: 'PresencaMonitor',
+  PresencaProfessor: 'PresencaProfessor',
   Candidato: 'Candidato',
   Formulario: 'Formulario',
+  FormularioResposta: 'FormularioResposta',
   Pergunta: 'Pergunta',
   Opcao: 'Opcao'
 };

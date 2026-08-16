@@ -15,6 +15,7 @@ import {
     GripVertical
 } from "lucide-react";
 import BotaoVoltar from "~/app/_components/botaoVoltar";
+import { api } from "~/trpc/react";
 
 // ---------------------------------------------------------------------------
 // Tipos
@@ -33,6 +34,7 @@ interface Pergunta {
     tipo: TipoPergunta;
     opcoes: Opcao[];
     obrigatoria: boolean;
+	respostaCorreta?: string | string[];
 }
 
 const TIPOS_PERGUNTA = [
@@ -57,9 +59,11 @@ function IconeOpcao({ tipo, className }: { tipo: TipoPergunta; className?: strin
 // ---------------------------------------------------------------------------
 
 export default function EditorFormulario() {
+	const utils = api.useUtils();
     const [titulo, setTitulo] = useState("Pesquisa de Satisfação");
     const [descricao, setDescricao] = useState("Deixe sua opinião sobre o módulo.");
     const [ativoId, setAtivoId] = useState<string | null>("header");
+	const salvarFormulario = api.formulario.create.useMutation({ onSuccess: () => utils.formulario.list.invalidate() });
 
     const [perguntas, setPerguntas] = useState<Pergunta[]>([
         {
@@ -138,11 +142,13 @@ export default function EditorFormulario() {
         }));
     };
 
+	const salvar = () => salvarFormulario.mutate({ titulo: titulo.trim(), descricao: descricao.trim() || null, conteudo: { perguntas: perguntas.filter((pergunta) => pergunta.titulo.trim()).map((pergunta) => ({ ...pergunta, titulo: pergunta.titulo.trim(), opcoes: pergunta.opcoes.filter((opcao) => opcao.texto.trim()).map((opcao) => ({ ...opcao, texto: opcao.texto.trim() })) })) }, publicado: true });
+
     return (
         <div className="min-h-full w-full bg-gray-50 flex flex-col items-center font-sans px-4 py-10 pb-32">
             
             <div className="w-full max-w-3xl">
-                <BotaoVoltar href="/nexus/diretoria" label="Voltar para Diretoria" />
+                <BotaoVoltar href="/nexus/diretoria/questionarios" label="Voltar para Questionários" />
             </div>
 
             {/* Banner de topo (Mesmo estilo visual) */}
@@ -271,6 +277,7 @@ export default function EditorFormulario() {
                                                                 onChange={(e) => atualizarOpcao(pergunta.id, opcao.id, e.target.value)}
                                                                 className="flex-1 rounded-lg border border-transparent bg-transparent hover:bg-gray-50 focus:bg-gray-50 px-3 py-1.5 text-sm text-gray-700 focus:border-gray-200 focus:outline-none transition-colors"
                                                             />
+												<button type="button" onClick={() => atualizarPergunta(pergunta.id, "respostaCorreta", pergunta.tipo === "checkbox" ? (() => { const atuais = Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta : []; return atuais.includes(opcao.texto) ? atuais.filter((item) => item !== opcao.texto) : [...atuais, opcao.texto]; })() : (pergunta.respostaCorreta === opcao.texto ? undefined : opcao.texto))} className={`rounded-lg px-2 py-1 text-[11px] font-bold ${Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta.includes(opcao.texto) ? "bg-green-50 text-green-700" : "text-slate-400 hover:bg-slate-50" : pergunta.respostaCorreta === opcao.texto ? "bg-green-50 text-green-700" : "text-slate-400 hover:bg-slate-50"}`}>{(Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta.includes(opcao.texto) : pergunta.respostaCorreta === opcao.texto) ? "Correta" : "Marcar correta"}</button>
                                                             <button 
                                                                 onClick={(e) => { e.stopPropagation(); removerOpcao(pergunta.id, opcao.id); }}
                                                                 className="p-1.5 rounded-lg text-gray-300 hover:bg-red-50 hover:text-red-500 transition-all duration-200 opacity-0 group-hover/opt:opacity-100 focus:opacity-100"
@@ -376,6 +383,9 @@ export default function EditorFormulario() {
                         Adicionar pergunta
                     </button>
                 </div>
+				<div className="sticky bottom-4 flex justify-end"><button onClick={salvar} disabled={salvarFormulario.isPending || !titulo.trim() || !perguntas.some((pergunta) => pergunta.titulo.trim())} className="rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-sky-200 hover:bg-sky-700 disabled:opacity-50">{salvarFormulario.isPending ? "Publicando…" : "Publicar questionário"}</button></div>
+				{salvarFormulario.error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{salvarFormulario.error.message}</p>}
+				{salvarFormulario.data && <p role="status" className="rounded-xl bg-green-50 p-3 text-sm text-green-800">Questionário publicado. Link: <a className="font-bold underline" href={`/questionarios/${salvarFormulario.data.slug}`} target="_blank">/questionarios/{salvarFormulario.data.slug}</a></p>}
 
             </div>
         </div>

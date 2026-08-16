@@ -1,0 +1,74 @@
+{
+  "title": "Escolha a direção da Diretoria",
+  "question": "Todas preservam a identidade Nexus: azul-céu, ember, formas arredondadas e o caráter criativo do programa. Qual organização deve guiar todas as telas da Diretoria?",
+  "options": [
+    {
+      "id": "ritmo-oficina",
+      "label": "Ritmo de Oficina",
+      "kicker": "THE ROLL",
+      "lineage": "bancada criativa e rotina acadêmica",
+      "thesis": "A Diretoria funciona como uma oficina viva: o semestre, as pessoas e as ações aparecem no ritmo do trabalho.",
+      "palette": ["#0ea5e9", "#ea580c", "#ffffff", "#0f172a"],
+      "materials": ["blocos arredondados", "camadas coloridas", "trilhas de atividade"],
+      "viewport": "Uma bancada horizontal de operações abre com o semestre e deixa os próximos trabalhos visíveis sem perder a leveza.",
+      "risk": "Exige disciplina de hierarquia para que a expressividade não esconda ações urgentes.",
+      "raised": [
+        { "from": "Mural do Semestre", "raise": "A navegação ganha uma trilha visual contínua entre semestre, turma e presença." },
+        { "from": "Padrão operacional", "raise": "Tabelas e filtros preservam leitura imediata nas rotinas de alto volume." }
+      ],
+      "comp": ".impeccable/mocks/decision/ritmo-de-oficina.png"
+    },
+    {
+      "id": "atelie-operacional",
+      "label": "Ateliê Operacional",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "estúdio colaborativo de aprendizagem",
+      "thesis": "Cada tarefa ganha um lugar claro dentro de um estúdio visualmente rico, em vez de uma sequência de telas isoladas.",
+      "palette": ["#0ea5e9", "#ea580c", "#f8fafc", "#1e293b"],
+      "materials": ["recortes circulares", "faixas de contexto", "superfícies de trabalho"],
+      "viewport": "O semestre é a peça central; atalhos, pendências e pessoas se organizam ao redor dele em grupos de trabalho.",
+      "risk": "É a direção mais memorável, mas pede consistência para não virar apenas decoração.",
+      "comp": ".impeccable/mocks/decision/atelier-operacional.png"
+    },
+    {
+      "id": "mural-semestre",
+      "label": "Mural do Semestre",
+      "verdict": "competitive",
+      "lineage": "mural de sala e planejamento coletivo",
+      "thesis": "A gestão vira um mural organizado: o que está acontecendo, o que precisa de atenção e para onde ir em seguida.",
+      "palette": ["#0284c7", "#f97316", "#ffffff", "#334155"],
+      "materials": ["módulos conectados", "marcadores", "faixa cronológica"],
+      "viewport": "Uma trilha do semestre conduz o olhar pelas aulas, presenças e pendências antes das listas de gestão.",
+      "case": "Ganha em orientação entre telas; perde um pouco de velocidade quando a rotina exige consultar muitas linhas.",
+      "risk": "Pode parecer um mural de status se as listas e filtros não tiverem protagonismo.",
+      "comp": ".impeccable/mocks/decision/mural-do-semestre.png"
+    },
+    {
+      "id": "controle-generico",
+      "label": "Painel operacional padrão",
+      "verdict": "declined",
+      "lineage": "dashboard SaaS convencional",
+      "thesis": "Métricas e cartões em uma grade previsível.",
+      "palette": ["#ffffff", "#111827", "#2563eb"],
+      "materials": ["grade rígida", "cartões repetidos", "métricas"],
+      "viewport": "Resumo, indicadores e ações rápidas em uma grade corporativa.",
+      "case": "Tem familiaridade, mas não comunica a autonomia criativa do programa.",
+      "kept": "A leitura rápida de estados e filtros objetivos.",
+      "risk": "É funcional, porém indistinguível de uma plataforma administrativa comum.",
+      "comp": ".impeccable/mocks/decision/canon-operacional.png"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "comp", "toggle": true },
+  "canon": true,
+  "canonCard": {
+    "label": "O padrão da categoria",
+    "thesis": "A organização convencional de um painel administrativo, executada com clareza.",
+    "palette": ["#ffffff", "#111827", "#2563eb"],
+    "materials": ["grade limpa", "cards", "dados"],
+    "viewport": "A composição esperada: indicadores, filtros e listas em uma grade previsível.",
+    "risk": "Perde a identidade criativa que diferencia a Nexus.",
+    "comp": ".impeccable/mocks/decision/canon-operacional.png"
+  },
+  "steer": true
+}

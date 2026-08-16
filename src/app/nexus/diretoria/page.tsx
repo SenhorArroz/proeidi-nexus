@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import {
 	Building2,
 	DoorOpen,
@@ -12,9 +13,11 @@ import {
 	Wifi,
 	HeartPulse,
 	UserX,
+	ClipboardCheck,
 } from "lucide-react";
 
-import FerramentaCard from "~/app/_components/ferramentaCerd";
+import { api } from "~/trpc/react";
+import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
 
 // ---------------------------------------------------------------------------
 // Tipos e dados
@@ -31,12 +34,20 @@ interface Ferramenta {
 
 const FERRAMENTAS: Ferramenta[] = [
 	{
+		id: "semestres",
+		nome: "Gerenciar semestres",
+		descricao: "Períodos letivos, semestre ativo e equipes vinculadas",
+		link: "/nexus/diretoria/semestres",
+		icon: Briefcase,
+		cor: "#0F766E",
+	},
+	{
 		id: "turmas",
 		nome: "Gerenciar turmas",
 		descricao: "Criar, editar e arquivar turmas",
 		link: "/nexus/diretoria/turmas",
 		icon: DoorOpen,
-		cor: "#1A73E8",
+		cor: "#0F766E",
 	},
 	{
 		id: "professores",
@@ -45,6 +56,14 @@ const FERRAMENTAS: Ferramenta[] = [
 		link: "/nexus/diretoria/professores",
 		icon: Users,
 		cor: "#9334E6",
+	},
+	{
+		id: "diretores",
+		nome: "Gerenciar diretores",
+		descricao: "Cadastro e controle de acesso dos diretores",
+		link: "/nexus/diretoria/diretores",
+		icon: Building2,
+		cor: "#B06000",
 	},
 	{
 		id: "monitores",
@@ -63,6 +82,14 @@ const FERRAMENTAS: Ferramenta[] = [
 		cor: "#999999",
 	},
 	{
+		id: "presencas",
+		nome: "Gerenciar presenças",
+		descricao: "Alunos, monitores, professores e diretores docentes",
+		link: "/nexus/diretoria/presencas",
+		icon: ClipboardCheck,
+		cor: "#0F766E",
+	},
+	{
 		id: "sorteio",
 		nome: "Gerenciar sorteio",
 		descricao: "Sorteio de alunos para turmas",
@@ -70,48 +97,13 @@ const FERRAMENTAS: Ferramenta[] = [
 		icon: Dices,
 		cor: "#ff8400",
 	},
-];
-
-// Dados mock do semestre
-const RESUMO_SEMESTRE = {
-	totalAlunos: 55,
-	totalProfessores: 4,
-	totalMonitores: 5,
-	alunosQueTrabalham: 31,
-	alunosSemInternet: 6,
-	alunosComProblemaSaude: 9,
-	evasao: 3,
-};
-
-interface TurmaResumo {
-	nome: string;
-	alunos: number;
-	professores: string[];
-	monitores: string[];
-	cor: string;
-}
-
-const TURMAS_RESUMO: TurmaResumo[] = [
 	{
-		nome: "Turma A — Manhã",
-		alunos: 22,
-		professores: ["Thales", "Mariana"],
-		monitores: ["Lucas"],
-		cor: "#1A73E8",
-	},
-	{
-		nome: "Turma B — Tarde",
-		alunos: 18,
-		professores: ["Renata"],
-		monitores: ["Camila", "Pedro"],
-		cor: "#9334E6",
-	},
-	{
-		nome: "Turma C — Noite (Avançado)",
-		alunos: 15,
-		professores: ["Fábio"],
-		monitores: ["Ana", "João"],
-		cor: "#188038",
+		id: "questionarios",
+		nome: "Gerenciar questionários",
+		descricao: "Questionários aplicados aos alunos",
+		link: "/nexus/diretoria/questionarios",
+		icon: FileText,
+		cor: "#999999",
 	},
 ];
 
@@ -146,50 +138,13 @@ function StatMini({
 	);
 }
 
-function TurmaRow({ turma }: { turma: TurmaResumo }) {
+function AcessoRapido({ ferramenta, destaque = false }: { ferramenta: Ferramenta; destaque?: boolean }) {
+	const Icon = ferramenta.icon;
 	return (
-		<div className="flex items-center gap-4 py-4 border-b border-gray-100 last:border-b-0">
-			{/* Bolinha com cor da turma */}
-			<div
-				className="w-3 h-3 rounded-full flex-shrink-0"
-				style={{ backgroundColor: turma.cor }}
-			/>
-
-			{/* Info */}
-			<div className="flex-1 min-w-0">
-				<p className="text-sm font-semibold text-gray-800 truncate">{turma.nome}</p>
-				<div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
-					<span className="flex items-center gap-1">
-						<GraduationCap className="w-3 h-3" />
-						{turma.alunos} alunos
-					</span>
-					<span className="flex items-center gap-1">
-						<Users className="w-3 h-3" />
-						{turma.professores.join(", ")}
-					</span>
-					<span className="flex items-center gap-1">
-						<ShieldCheck className="w-3 h-3" />
-						{turma.monitores.join(", ")}
-					</span>
-				</div>
-			</div>
-
-			{/* Barra proporcional de alunos */}
-			<div className="hidden sm:flex items-center gap-2 w-32 flex-shrink-0">
-				<div className="flex-1 h-2 rounded-full bg-gray-100 overflow-hidden">
-					<div
-						className="h-full rounded-full transition-all duration-500 ease-out"
-						style={{
-							width: `${(turma.alunos / RESUMO_SEMESTRE.totalAlunos) * 100}%`,
-							backgroundColor: turma.cor,
-						}}
-					/>
-				</div>
-				<span className="text-xs font-medium text-gray-500 w-8 text-right">
-					{Math.round((turma.alunos / RESUMO_SEMESTRE.totalAlunos) * 100)}%
-				</span>
-			</div>
-		</div>
+		<Link href={ferramenta.link} className={`group flex min-w-0 items-center gap-3 rounded-2xl p-3.5 transition-all duration-200 focus-visible:outline-none ${destaque ? "bg-white text-sky-950 shadow-[0_16px_28px_rgba(2,132,199,0.18)] hover:-translate-y-0.5" : "bg-sky-950/10 text-white hover:bg-white/15"}`}>
+			<span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${destaque ? "bg-orange-100 text-orange-700" : "bg-white/18 text-white"}`}><Icon className="h-5 w-5" /></span>
+			<span className="min-w-0 flex-1"><span className="block truncate text-sm font-bold">{ferramenta.nome.replace("Gerenciar ", "")}</span><span className={`mt-0.5 block truncate text-xs ${destaque ? "text-slate-500" : "text-sky-100"}`}>{ferramenta.descricao}</span></span>
+		</Link>
 	);
 }
 
@@ -198,47 +153,35 @@ function TurmaRow({ turma }: { turma: TurmaResumo }) {
 // ---------------------------------------------------------------------------
 
 export default function PainelDiretor() {
+	const { data: resumo, isLoading } = api.diretoria.overview.useQuery();
 	return (
-		<div className="min-h-full w-full bg-gray-50 flex flex-col items-center font-sans px-4 py-10">
+		<div className="min-h-full w-full px-4 py-6 sm:px-6 lg:px-8">
 			{/* Banner de topo */}
-			<div className="w-full max-w-5xl relative rounded-2xl overflow-hidden mb-8 px-[clamp(1rem,3vw,2rem)] py-[clamp(0.75rem,2.2vh,1.75rem)] bg-gradient-to-br from-sky-600 to-sky-500">
-				<div className="absolute -right-10 -bottom-16 w-56 h-56 rounded-full bg-amber-600 " />
-				<div className="absolute right-24 -top-12 w-32 h-32 rounded-full bg-amber-600 mix-blend-overlay" />
-
-				<div className="relative flex items-center gap-3">
-					<div className="w-[clamp(2rem,3vw,2.5rem)] h-[clamp(2rem,3vw,2.5rem)] rounded-lg border-3 border-amber-600 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-						<Building2 className="w-[80%] h-[80%] text-white" />
-					</div>
-					<div className="min-w-0">
-						<h1 className="text-[clamp(1rem,1.8vw,1.375rem)] font-semibold text-white leading-tight truncate">
-							Painel do Diretor
-						</h1>
-						<p className="text-[clamp(0.65rem,1vw,0.8rem)] text-white/70 truncate">
-							Ferramentas de gestão e visão geral das turmas
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div className="w-full max-w-5xl space-y-8">
-				{/* Ferramentas */}
-				<section>
-					<h2 className="text-sm font-medium text-gray-700 mb-3">Ferramentas</h2>
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-						{FERRAMENTAS.map((f) => (
-							<FerramentaCard key={f.id} ferramenta={f} />
-						))}
+			<div className="mx-auto w-full max-w-6xl space-y-6">
+				<section className="relative overflow-hidden rounded-[1.75rem] bg-sky-600 px-5 py-6 text-white shadow-[0_20px_45px_rgba(2,132,199,0.25)] sm:px-7">
+					<div className="absolute -right-10 -top-12 h-48 w-48 rounded-full bg-orange-500" />
+					<div className="absolute bottom-0 right-32 h-20 w-20 rounded-t-full border-[14px] border-sky-300/70" />
+					<div className="relative grid gap-6 lg:grid-cols-[minmax(15rem,0.75fr)_minmax(0,1.6fr)] lg:items-end">
+						<div><div className="mb-4 grid h-11 w-11 place-items-center rounded-2xl bg-orange-500 text-white"><Building2 className="h-6 w-6" /></div><h1 className="text-3xl font-black tracking-[-0.035em]">Painel da Diretoria</h1><p className="mt-2 max-w-sm text-sm leading-6 text-sky-100">O ponto de partida para organizar pessoas, turmas e os movimentos do semestre.</p></div>
+						<div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+							{FERRAMENTAS.filter((f) => ["alunos", "turmas", "presencas", "semestres"].includes(f.id)).map((f, index) => <AcessoRapido key={f.id} ferramenta={f}  />)}
+						</div>
 					</div>
 				</section>
 
-				{/* Resumo numérico do semestre */}
-				<section>
-					<h2 className="text-sm font-medium text-gray-700 mb-3 text-center">Resumo do Semestre</h2>
-					<div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto">
-						<StatMini icon={GraduationCap} label="Total de alunos" valor={RESUMO_SEMESTRE.totalAlunos} cor="#1A73E8" />
-						<StatMini icon={Users} label="Professores" valor={RESUMO_SEMESTRE.totalProfessores} cor="#9334E6" />
-						<StatMini icon={ShieldCheck} label="Monitores ativos" valor={RESUMO_SEMESTRE.totalMonitores} cor="#188038" />
+				<section className="grid gap-5 lg:grid-cols-[minmax(0,1.55fr)_minmax(18rem,0.8fr)]">
+					<div className="rounded-2xl bg-white p-5 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
+						<div className="mb-4 flex items-end justify-between gap-4"><div><h2 className="text-lg font-extrabold tracking-[-0.02em] text-slate-900">Roteiro de gestão</h2><p className="mt-1 text-sm text-slate-500">Acesse os próximos espaços de trabalho sem perder o contexto.</p></div></div>
+						<div className="grid gap-2 sm:grid-cols-2">
+							{FERRAMENTAS.filter((f) => !["alunos", "turmas", "presencas", "semestres", "diretores"].includes(f.id)).map((f) => <AcessoRapido key={f.id} ferramenta={f} destaque />)}
+							{resumo?.role === "COORDENADOR" && FERRAMENTAS.filter((f) => f.id === "diretores").map((f) => <AcessoRapido key={f.id} ferramenta={f} destaque />)}
+						</div>
 					</div>
+					<div className="rounded-2xl bg-orange-50 p-5 text-slate-800 shadow-[0_12px_30px_rgba(234,88,12,0.08)]"><h2 className="text-lg font-extrabold tracking-[-0.02em]">Resumo do semestre</h2><p className="mt-1 text-sm leading-6 text-slate-600">Números atualizados a partir dos registros cadastrados.</p><div className="mt-5 grid gap-3">
+						{isLoading ? <DataSkeleton rows={3} /> : <><StatMini icon={GraduationCap} label="Total de alunos" valor={resumo?.totalAlunos ?? 0} cor="#1A73E8" />
+						<StatMini icon={Users} label="Professores" valor={resumo?.totalProfessores ?? 0} cor="#9334E6" />
+						<StatMini icon={ShieldCheck} label="Monitores ativos" valor={resumo?.totalMonitores ?? 0} cor="#188038" /></>}
+						</div></div>
 				</section>
 			</div>
 		</div>

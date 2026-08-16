@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginProEIDINexus() {
   const [email, setEmail] = useState("");
@@ -8,12 +10,18 @@ export default function LoginProEIDINexus() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [lembrar, setLembrar] = useState(false);
   const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setCarregando(true);
-    // Simulação visual de carregamento — sem chamada real de API
-    setTimeout(() => setCarregando(false), 1200);
+    setErro("");
+    const result = await signIn("credentials", { email, senha, redirect: false });
+    setCarregando(false);
+    if (result?.error) { setErro("E-mail ou senha inválidos."); return; }
+    router.replace("/nexus/diretoria");
+    router.refresh();
   };
 
   return (
@@ -37,6 +45,7 @@ export default function LoginProEIDINexus() {
         {/* Card de login */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
+			{erro && <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{erro}</p>}
             <div>
               <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
                 E-mail

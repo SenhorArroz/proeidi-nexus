@@ -1,6 +1,8 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import type { DefaultSession, NextAuthConfig } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import { z } from "zod";
 import { db } from "~/server/db";
+import { verifyPassword } from "~/server/auth/password";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -12,15 +14,17 @@ declare module "next-auth" {
 	interface Session extends DefaultSession {
 		user: {
 			id: string;
-			// ...other properties
-			// role: UserRole;
+			role: "COORDENADOR" | "DIRETOR" | "PROFESSOR" | "MONITOR";
 		} & DefaultSession["user"];
 	}
 
-	// interface User {
-	//   // ...other properties
-	//   // role: UserRole;
-	// }
+}
+
+declare module "next-auth/jwt" {
+	interface JWT {
+		id?: string;
+		role?: "COORDENADOR" | "DIRETOR" | "PROFESSOR" | "MONITOR";
+	}
 }
 
 /**
@@ -30,23 +34,33 @@ declare module "next-auth" {
  */
 export const authConfig = {
 	providers: [
-		/**
-		 * ...add more providers here.
-		 *
-		 * Most other providers require a bit more work than the Discord provider. For example, the
-		 * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-		 * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-		 *
-		 * @see https://next-auth.js.org/providers/github
-		 */
+		Credentials({
+			credentials: { email: {}, senha: {} },
+			authorize: async (credentials) => {
+				const parsed = z.object({ email: z.string().email(), senha: z.string().min(1) }).safeParse(credentials);
+				if (!parsed.success) return null;
+				const user = await db.user.findUnique({ where: { email: parsed.data.email.toLowerCase() }, select: { id: true, nome: true, email: true, senha: true, role: true } });
+				if (!user || !(await verifyPassword(parsed.data.senha, user.senha))) return null;
+				return { id: user.id, name: user.nome, email: user.email, role: user.role };
+			},
+		}),
 	],
-	adapter: PrismaAdapter(db),
+	// Credentials users are stateless: sessions must be JWTs, not adapter-backed sessions.
+	session: { strategy: "jwt" },
 	callbacks: {
-		session: ({ session, user }) => ({
+		jwt: ({ token, user }) => {
+			if (user) {
+				token.id = user.id;
+				token.role = user.role as "COORDENADOR" | "DIRETOR" | "PROFESSOR" | "MONITOR";
+			}
+			return token;
+		},
+		session: ({ session, token }) => ({
 			...session,
 			user: {
 				...session.user,
-				id: user.id,
+				id: token.id ?? token.sub ?? "",
+				role: token.role as "COORDENADOR" | "DIRETOR" | "PROFESSOR" | "MONITOR",
 			},
 		}),
 	},

@@ -6,7 +6,7 @@ import { Geist } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
-	title: "ProEIDI Nexus",
+	title: "ProEIDI",
 	description: "Sistema unificado do ProEIDI",
 	icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
