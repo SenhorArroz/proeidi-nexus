@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import type React from "react";
 import { usePathname } from "next/navigation";
 import Sidebar from "~/app/_components/sidebar";
 
@@ -17,8 +17,8 @@ export default function DashboardLayout({
 	}
 
 	return (
-		<div className="bg-blue-500 p-1 h-screen">
-			<div className="flex h-full w-full bg-white rounded-2xl overflow-hidden border-amber-500 border-6">
+		<div className="h-dvh min-h-[100dvh] bg-blue-500 p-0 sm:p-1">
+			<div className="flex h-full w-full overflow-hidden bg-white sm:rounded-2xl sm:border-6 sm:border-amber-500">
 				<Sidebar />
 				<main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
 					{children}

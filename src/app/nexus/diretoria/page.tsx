@@ -138,12 +138,34 @@ function StatMini({
 	);
 }
 
-function AcessoRapido({ ferramenta, destaque = false }: { ferramenta: Ferramenta; destaque?: boolean }) {
+function AcessoRapido({
+	ferramenta,
+	destaque = false,
+}: {
+	ferramenta: Ferramenta;
+	destaque?: boolean;
+}) {
 	const Icon = ferramenta.icon;
 	return (
-		<Link href={ferramenta.link} className={`group flex min-w-0 items-center gap-3 rounded-2xl p-3.5 transition-all duration-200 focus-visible:outline-none ${destaque ? "bg-white text-sky-950 shadow-[0_16px_28px_rgba(2,132,199,0.18)] hover:-translate-y-0.5" : "bg-sky-950/10 text-white hover:bg-white/15"}`}>
-			<span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${destaque ? "bg-orange-100 text-orange-700" : "bg-white/18 text-white"}`}><Icon className="h-5 w-5" /></span>
-			<span className="min-w-0 flex-1"><span className="block truncate text-sm font-bold">{ferramenta.nome.replace("Gerenciar ", "")}</span><span className={`mt-0.5 block truncate text-xs ${destaque ? "text-slate-500" : "text-sky-100"}`}>{ferramenta.descricao}</span></span>
+		<Link
+			href={ferramenta.link}
+			className={`group flex min-w-0 items-center gap-3 rounded-2xl p-3.5 transition-all duration-200 focus-visible:outline-none ${destaque ? "bg-white text-white-950 shadow-[0_16px_28px_rgba(2,132,199,0.18)] hover:-translate-y-0.5" : "bg-sky-950/10 text-white hover:bg-white/15"}`}
+		>
+			<span
+				className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${destaque ? "bg-orange-100 text-orange-700" : "bg-white/18 text-white"}`}
+			>
+				<Icon className="h-5 w-5" />
+			</span>
+			<span className="min-w-0 flex-1">
+				<span className="block truncate text-sm font-bold">
+					{ferramenta.nome.replace("Gerenciar ", "")}
+				</span>
+				<span
+					className={`mt-0.5 block truncate text-xs ${destaque ? "text-slate-500" : "text-sky-100"}`}
+				>
+					{ferramenta.descricao}
+				</span>
+			</span>
 		</Link>
 	);
 }
@@ -162,26 +184,93 @@ export default function PainelDiretor() {
 					<div className="absolute -right-10 -top-12 h-48 w-48 rounded-full bg-orange-500" />
 					<div className="absolute bottom-0 right-32 h-20 w-20 rounded-t-full border-[14px] border-sky-300/70" />
 					<div className="relative grid gap-6 lg:grid-cols-[minmax(15rem,0.75fr)_minmax(0,1.6fr)] lg:items-end">
-						<div><div className="mb-4 grid h-11 w-11 place-items-center rounded-2xl bg-orange-500 text-white"><Building2 className="h-6 w-6" /></div><h1 className="text-3xl font-black tracking-[-0.035em]">Painel da Diretoria</h1><p className="mt-2 max-w-sm text-sm leading-6 text-sky-100">O ponto de partida para organizar pessoas, turmas e os movimentos do semestre.</p></div>
+						<div>
+							<div className="mb-4 grid h-11 w-11 place-items-center rounded-2xl bg-orange-500 text-white">
+								<Building2 className="h-6 w-6" />
+							</div>
+							<h1 className="text-3xl font-black tracking-[-0.035em]">
+								Painel da Diretoria
+							</h1>
+							<p className="mt-2 max-w-sm text-sm leading-6 text-sky-100">
+								O nexus para organizar pessoas, turmas e os
+								movimentos do semestre.
+							</p>
+						</div>
 						<div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
-							{FERRAMENTAS.filter((f) => ["alunos", "turmas", "presencas", "semestres"].includes(f.id)).map((f, index) => <AcessoRapido key={f.id} ferramenta={f}  />)}
+							{FERRAMENTAS.filter((f) =>
+								["alunos", "turmas", "presencas", "semestres"].includes(f.id),
+							).map((f, index) => (
+								<AcessoRapido key={f.id} ferramenta={f} />
+							))}
 						</div>
 					</div>
 				</section>
 
 				<section className="grid gap-5 lg:grid-cols-[minmax(0,1.55fr)_minmax(18rem,0.8fr)]">
 					<div className="rounded-2xl bg-white p-5 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
-						<div className="mb-4 flex items-end justify-between gap-4"><div><h2 className="text-lg font-extrabold tracking-[-0.02em] text-slate-900">Roteiro de gestão</h2><p className="mt-1 text-sm text-slate-500">Acesse os próximos espaços de trabalho sem perder o contexto.</p></div></div>
+						<div className="mb-4 flex items-end justify-between gap-4">
+							<div>
+								<h2 className="text-lg font-extrabold tracking-[-0.02em] text-slate-900">
+									Ferramentas de Gestão
+								</h2>
+								<p className="mt-1 text-sm text-slate-500">
+									Acesse os espaços de trabalho do Nexus.
+								</p>
+							</div>
+						</div>
 						<div className="grid gap-2 sm:grid-cols-2">
-							{FERRAMENTAS.filter((f) => !["alunos", "turmas", "presencas", "semestres", "diretores"].includes(f.id)).map((f) => <AcessoRapido key={f.id} ferramenta={f} destaque />)}
-							{resumo?.role === "COORDENADOR" && FERRAMENTAS.filter((f) => f.id === "diretores").map((f) => <AcessoRapido key={f.id} ferramenta={f} destaque />)}
+							{FERRAMENTAS.filter(
+								(f) =>
+									![
+										"alunos",
+										"turmas",
+										"presencas",
+										"semestres",
+										"diretores",
+									].includes(f.id),
+							).map((f) => (
+								<AcessoRapido key={f.id} ferramenta={f} destaque />
+							))}
+							{resumo?.role === "COORDENADOR" &&
+								FERRAMENTAS.filter((f) => f.id === "diretores").map((f) => (
+									<AcessoRapido key={f.id} ferramenta={f} destaque />
+								))}
 						</div>
 					</div>
-					<div className="rounded-2xl bg-orange-50 p-5 text-slate-800 shadow-[0_12px_30px_rgba(234,88,12,0.08)]"><h2 className="text-lg font-extrabold tracking-[-0.02em]">Resumo do semestre</h2><p className="mt-1 text-sm leading-6 text-slate-600">Números atualizados a partir dos registros cadastrados.</p><div className="mt-5 grid gap-3">
-						{isLoading ? <DataSkeleton rows={3} /> : <><StatMini icon={GraduationCap} label="Total de alunos" valor={resumo?.totalAlunos ?? 0} cor="#1A73E8" />
-						<StatMini icon={Users} label="Professores" valor={resumo?.totalProfessores ?? 0} cor="#9334E6" />
-						<StatMini icon={ShieldCheck} label="Monitores ativos" valor={resumo?.totalMonitores ?? 0} cor="#188038" /></>}
-						</div></div>
+					<div className="rounded-2xl bg-orange-50 p-5 text-slate-800 shadow-[0_12px_30px_rgba(234,88,12,0.08)]">
+						<h2 className="text-lg font-extrabold tracking-[-0.02em]">
+							Resumo do semestre
+						</h2>
+						<p className="mt-1 text-sm leading-6 text-slate-600">
+							Números atualizados a partir dos registros cadastrados.
+						</p>
+						<div className="mt-5 grid gap-3">
+							{isLoading ? (
+								<DataSkeleton rows={3} />
+							) : (
+								<>
+									<StatMini
+										icon={GraduationCap}
+										label="Total de alunos"
+										valor={resumo?.totalAlunos ?? 0}
+										cor="#1A73E8"
+									/>
+									<StatMini
+										icon={Users}
+										label="Professores"
+										valor={resumo?.totalProfessores ?? 0}
+										cor="#9334E6"
+									/>
+									<StatMini
+										icon={ShieldCheck}
+										label="Monitores ativos"
+										valor={resumo?.totalMonitores ?? 0}
+										cor="#188038"
+									/>
+								</>
+							)}
+						</div>
+					</div>
 				</section>
 			</div>
 		</div>

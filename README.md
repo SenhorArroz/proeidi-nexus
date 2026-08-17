@@ -4,6 +4,30 @@ Sistema de operação pedagógica e administrativa do Projeto de Extensão de In
 
 Sua interface usa a identidade do projeto: `sky-500` como campo de trabalho e `ember/amber-600` como marca de ação. O objetivo não é uma dashboard genérica: é uma área de trabalho para a rotina da diretoria e das turmas.
 
+## Acessibilidade
+
+O sistema foi desenvolvido seguindo diretrizes de acessibilidade para garantir uma experiência de uso inclusiva e eficiente para todos os usuários, incluindo pessoas com deficiência.
+
+### Controle de Contraste
+Usuários com baixa visão ou sensibilidade ao brilho podem ajustar o contraste da interface:
+
+- **Contraste Alto:** Aumenta o contraste geral, remove sombras e aplica bordas mais evidentes em elementos interativos.
+- **Padrão:** Contraste equilibrado para uso diário.
+
+### Tamanho de Fonte
+É possível ajustar o tamanho da fonte para melhorar a legibilidade:
+
+- **Padrão:** Tamanho base de 16px.
+- **Grande:** Aumenta o tamanho da fonte para 18px.
+
+### Tema escuro
+
+- **Padrão**: Tema claro.
+- **Escuro**: Tema escuro.
+
+### Feedback Visual
+Os elementos interativos fornecem feedback visual claro quando estão em foco ou sendo ativados.
+
 ## O que o sistema organiza
 
 ```mermaid
