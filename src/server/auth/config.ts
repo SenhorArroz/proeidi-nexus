@@ -1,4 +1,4 @@
-import type { DefaultSession, NextAuthConfig } from "next-auth";
+import type { DefaultSession, NextAuthConfig, Session } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { db } from "~/server/db";
@@ -53,14 +53,21 @@ export const authConfig = {
 			}
 			return token;
 		},
-		session: ({ session, token }) => {
-			const userId = typeof token.id === "string" ? token.id : token.sub ?? "";
+		session: ({ session, token }): Session => {
+			const userId: string =
+				typeof token.id === "string"
+					? token.id
+					: typeof token.sub === "string"
+						? token.sub
+						: "";
 			return {
-				...session,
+				expires: String(session.expires),
 				user: {
-					...session.user,
 					id: userId,
 					role: token.role as UserRole,
+					name: session.user?.name ?? null,
+					email: session.user?.email ?? null,
+					image: session.user?.image ?? null,
 				},
 			};
 		},
