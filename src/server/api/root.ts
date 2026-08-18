@@ -1,6 +1,5 @@
 import { certificadoRouter } from "~/server/api/routers/certificado";
 import { certificadoRouter as declaracaoRouter } from "~/server/api/routers/certificadoPM";
-import { postRouter } from "~/server/api/routers/post";
 import { diretoriaRouter } from "~/server/api/routers/diretoria";
 import { alunoRouter } from "~/server/api/routers/aluno";
 import { turmaRouter } from "~/server/api/routers/turma";
@@ -16,7 +15,6 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-	post: postRouter,
 	certificado: certificadoRouter,
 	declaracao: declaracaoRouter,
 	diretoria: diretoriaRouter,
@@ -33,9 +31,5 @@ export type AppRouter = typeof appRouter;
 
 /**
  * Create a server-side caller for the tRPC API.
- * @example
- * const trpc = createCaller(createContext);
- * const res = await trpc.post.all();
- *       ^? Post[]
  */
 export const createCaller = createCallerFactory(appRouter);

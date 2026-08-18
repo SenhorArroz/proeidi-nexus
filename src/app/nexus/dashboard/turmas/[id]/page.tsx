@@ -1383,6 +1383,7 @@ export default function TurmaView() {
 	const [anotacoes, setAnotacoes] = useState<Anotacao[]>([]);
 	const [eventos, setEventos] = useState<EventoCalendario[]>([]);
 	const [editando, setEditando] = useState(false);
+	const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
 	// Constroi lista de presença a partir dos nomes da turma
 	const [presencaAlunos, setPresencaAlunos] = useState<Pessoa[]>(
@@ -1464,6 +1465,8 @@ export default function TurmaView() {
 		document.addEventListener("mousedown", handler);
 		return () => document.removeEventListener("mousedown", handler);
 	}, [menuAberto]);
+	const tabAtual = TABS.find((item) => item.id === tab) ?? TABS[0];
+	const IconeTabAtual = tabAtual?.icon ?? Home;
 
 	if (carregandoTurma) {
 		return <div className="flex h-full min-h-0 flex-col animate-pulse bg-slate-50"><div className="h-40 shrink-0 bg-sky-200" /><div className="flex-1 space-y-5 p-6"><div className="h-7 w-48 rounded-lg bg-slate-200" /><div className="grid grid-cols-1 gap-4 sm:grid-cols-2"><div className="h-44 rounded-2xl bg-white" /><div className="h-44 rounded-2xl bg-white" /></div><div className="h-36 rounded-2xl bg-white" /></div><div className="h-16 shrink-0 border-t border-sky-100 bg-white" /></div>;
@@ -1593,8 +1596,45 @@ export default function TurmaView() {
 				)}
 			</div>
 
+			{/* Navegação de turmas: menu flutuante no celular */}
+			<div className="fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 sm:hidden">
+				{mobileNavOpen && (
+					<div className="absolute right-0 bottom-14 max-h-[min(24rem,calc(100dvh-6rem))] w-56 overflow-y-auto rounded-2xl border border-sky-100 bg-white p-1.5 shadow-[0_14px_32px_rgb(15_23_42_/_0.2)]">
+						{TABS.map((item) => {
+							const Icon = item.icon;
+							const active = tab === item.id;
+							return (
+								<button
+									key={item.id}
+									type="button"
+									onClick={() => {
+										setTab(item.id);
+										setMobileNavOpen(false);
+									}}
+									className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition-colors ${
+										active ? "bg-sky-50 text-sky-700" : "text-gray-600 active:bg-slate-50"
+									}`}
+								>
+									<Icon className="h-4 w-4" style={active ? { color: turma.cor } : undefined} />
+									{item.label}
+								</button>
+							);
+						})}
+					</div>
+				)}
+				<button
+					type="button"
+					onClick={() => setMobileNavOpen((open) => !open)}
+					className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-600 text-white shadow-[0_10px_24px_rgb(2_132_199_/_0.34)] transition-transform active:scale-95"
+					aria-label={mobileNavOpen ? "Fechar navegação da turma" : `Abrir navegação: ${tabAtual?.label ?? "Início"}`}
+					aria-expanded={mobileNavOpen}
+				>
+					{mobileNavOpen ? <X className="h-5 w-5" /> : <IconeTabAtual className="h-5 w-5" />}
+				</button>
+			</div>
+
 			{/* Bottom nav */}
-			<nav className="flex-shrink-0 flex items-stretch border-t border-sky-100 bg-white shadow-[0_-8px_24px_rgba(15,23,42,.05)]">
+			<nav className="hidden flex-shrink-0 items-stretch border-t border-sky-100 bg-white shadow-[0_-8px_24px_rgba(15,23,42,.05)] sm:flex">
 				<div className="flex w-full max-w-6xl mx-auto items-stretch overflow-x-auto">
 					{TABS.map((t) => {
 						const Icon = t.icon;

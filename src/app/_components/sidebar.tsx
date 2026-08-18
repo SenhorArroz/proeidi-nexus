@@ -125,7 +125,7 @@ function Collapsible({
 export default function Sidebar() {
 	const [collapsed, setCollapsed] = useState(false);
 	const [headerTextVisible, setHeaderTextVisible] = useState(true);
-	const headerAnimationTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const headerAnimationTimer = useRef<number | null>(null);
 	const [userName, setUserName] = useState("Usuário(a)");
 	const pathname = usePathname();
 	const [diretoriaAberta, setDiretoriaAberta] = useState(() =>
@@ -191,11 +191,34 @@ export default function Sidebar() {
 	};
 
 	return (
-		<aside
-			className={`flex h-full min-h-0 flex-col bg-white/95 border-r border-sky-100 transition-all duration-500 ease-in-out z-20 shrink-0 shadow-[10px_0_30px_rgba(14,165,233,0.05)] ${
-				collapsed ? "w-[72px]" : "w-64"
-			}`}
-		>
+		<>
+			{collapsed && (
+				<button
+					type="button"
+					onClick={toggleSidebar}
+					className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] z-30 flex h-12 w-12 items-center justify-center rounded-full bg-sky-600 text-white shadow-[0_10px_24px_rgb(2_132_199_/_0.34)] transition-transform active:scale-95 sm:hidden"
+					aria-label="Abrir menu"
+				>
+					<PanelLeftOpen className="h-5 w-5" />
+				</button>
+			)}
+
+			{!collapsed && (
+				<button
+					type="button"
+					onClick={toggleSidebar}
+					className="fixed inset-0 z-30 bg-slate-950/35 backdrop-blur-[1px] sm:hidden"
+					aria-label="Fechar menu"
+				/>
+			)}
+
+			<aside
+				className={`fixed inset-y-0 left-0 z-40 flex min-h-0 flex-col border-r border-sky-100 bg-white/95 shadow-[10px_0_30px_rgba(14,165,233,0.05)] transition-all duration-500 ease-in-out sm:relative sm:z-20 sm:h-full sm:shrink-0 ${
+					collapsed
+						? "w-0 -translate-x-full overflow-hidden sm:w-[72px] sm:translate-x-0 sm:overflow-visible"
+						: "w-60 max-w-[calc(100vw-3.5rem)] translate-x-0 sm:w-64 sm:max-w-none"
+				}`}
+			>
 			{/* Cabeçalho do Menu */}
 			<div className="relative flex min-h-[5.75rem] items-start border-b border-sky-100 px-4 py-4">
 				<div
@@ -399,7 +422,8 @@ export default function Sidebar() {
 					/>
 				</div>
 			</div>
-		</aside>
+			</aside>
+		</>
 	);
 }
 

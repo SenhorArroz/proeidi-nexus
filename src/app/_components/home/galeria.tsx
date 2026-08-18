@@ -3,13 +3,13 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function Galeria() {
     const [isVisible, setIsVisible] = useState(false);
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement | null>(null);
     const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) {
+                if (entry?.isIntersecting) {
                     setIsVisible(true);
                     if (sectionRef.current) {
                         observer.unobserve(sectionRef.current);
@@ -53,7 +53,8 @@ export default function Galeria() {
         if (!selectedImage) return;
         const currentIndex = galleryImages.findIndex((img) => img.src === selectedImage.src);
         const nextIndex = (currentIndex + 1) % galleryImages.length;
-        setSelectedImage(galleryImages[nextIndex]);
+        const nextImage = galleryImages[nextIndex];
+        if (nextImage) setSelectedImage(nextImage);
     };
 
     const handlePrev = (e: React.MouseEvent) => {
@@ -61,7 +62,8 @@ export default function Galeria() {
         if (!selectedImage) return;
         const currentIndex = galleryImages.findIndex((img) => img.src === selectedImage.src);
         const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-        setSelectedImage(galleryImages[prevIndex]);
+        const previousImage = galleryImages[prevIndex];
+        if (previousImage) setSelectedImage(previousImage);
     };
 
     return (

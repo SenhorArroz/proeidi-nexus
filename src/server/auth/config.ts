@@ -4,6 +4,8 @@ import { z } from "zod";
 import { db } from "~/server/db";
 import { verifyPassword } from "~/server/auth/password";
 
+type UserRole = "COORDENADOR" | "DIRETOR" | "PROFESSOR" | "MONITOR";
+
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -14,16 +16,12 @@ declare module "next-auth" {
 	interface Session extends DefaultSession {
 		user: {
 			id: string;
-			role: "COORDENADOR" | "DIRETOR" | "PROFESSOR" | "MONITOR";
+			role: UserRole;
 		} & DefaultSession["user"];
 	}
 
-}
-
-declare module "next-auth/jwt" {
-	interface JWT {
-		id?: string;
-		role?: "COORDENADOR" | "DIRETOR" | "PROFESSOR" | "MONITOR";
+	interface User {
+		role: UserRole;
 	}
 }
 
@@ -51,7 +49,7 @@ export const authConfig = {
 		jwt: ({ token, user }) => {
 			if (user) {
 				token.id = user.id;
-				token.role = user.role as "COORDENADOR" | "DIRETOR" | "PROFESSOR" | "MONITOR";
+				token.role = user.role;
 			}
 			return token;
 		},
@@ -60,7 +58,7 @@ export const authConfig = {
 			user: {
 				...session.user,
 				id: token.id ?? token.sub ?? "",
-				role: token.role as "COORDENADOR" | "DIRETOR" | "PROFESSOR" | "MONITOR",
+				role: token.role as UserRole,
 			},
 		}),
 	},

@@ -20,7 +20,7 @@ import { api } from "~/trpc/react";
 // ---------------------------------------------------------------------------
 // Função de Exportação Atualizada
 // ---------------------------------------------------------------------------
-export const exportarParaCSV = (
+const exportarParaCSV = (
   smartphone: number[], 
   computador: number[], 
   modo: "vinculado" | "simples",

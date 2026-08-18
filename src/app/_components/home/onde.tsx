@@ -3,12 +3,12 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function Onde() {
     const [isVisible, setIsVisible] = useState(false);
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) {
+                if (entry?.isIntersecting) {
                     setIsVisible(true);
                     if (sectionRef.current) {
                         observer.unobserve(sectionRef.current);
