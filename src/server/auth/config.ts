@@ -53,13 +53,16 @@ export const authConfig = {
 			}
 			return token;
 		},
-		session: ({ session, token }) => ({
-			...session,
-			user: {
-				...session.user,
-				id: token.id ?? token.sub ?? "",
-				role: token.role as UserRole,
-			},
-		}),
+		session: ({ session, token }) => {
+			const userId = typeof token.id === "string" ? token.id : token.sub ?? "";
+			return {
+				...session,
+				user: {
+					...session.user,
+					id: userId,
+					role: token.role as UserRole,
+				},
+			};
+		},
 	},
 } satisfies NextAuthConfig;
