@@ -263,39 +263,39 @@ function ModalDeclaracao({
   const formValido = form.matricula.trim() && form.curso.trim() && turmaId;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-0 backdrop-blur-sm sm:items-center sm:px-4">
+      <div className="max-h-[96dvh] w-full max-w-lg overflow-y-auto rounded-t-2xl bg-white shadow-xl sm:max-h-[90vh] sm:rounded-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between gap-3 border-b border-gray-100 px-4 py-4 sm:px-6">
+          <div className="flex min-w-0 items-center gap-2">
             <FileText className="w-5 h-5 text-amber-600" />
-            <h2 className="text-sm font-semibold text-gray-900">Gerar Declaração — Professor</h2>
+            <h2 className="break-words text-sm font-semibold text-gray-900">Gerar Declaração — Professor</h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Nome (somente leitura) */}
-        <div className="px-6 pt-5">
+        <div className="px-4 pt-5 sm:px-6">
           <div className="flex items-center gap-3 p-3 rounded-xl bg-sky-50 border border-sky-100">
             <div className="w-9 h-9 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-xs font-semibold">
               {iniciais(professor.nome) || "?"}
             </div>
-            <div>
-              <p className="text-sm font-semibold text-gray-900">{professor.nome}</p>
-              <p className="text-xs text-gray-500">{professor.email}</p>
+            <div className="min-w-0">
+              <p className="break-words text-sm font-semibold text-gray-900">{professor.nome}</p>
+              <p className="break-all text-xs text-gray-500">{professor.email}</p>
             </div>
           </div>
         </div>
 
         {/* Campos */}
-        <div className="px-6 py-5 space-y-4">
+        <div className="space-y-4 px-4 py-5 sm:px-6">
           {/* Linha: Matrícula + Gênero */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
                 Matrícula *
@@ -347,7 +347,7 @@ function ModalDeclaracao({
           </div>
 
           {/* Linha: Período */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <div>
               <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
                 Data Início
@@ -395,8 +395,8 @@ function ModalDeclaracao({
           </div>
 
           {/* Linha: Projeto */}
-          <div className="grid grid-cols-3 gap-3">
-            <div className="col-span-2">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="sm:col-span-2">
               <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
                 Nome do Projeto
               </label>
@@ -441,17 +441,17 @@ function ModalDeclaracao({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50 border-t border-gray-100 rounded-b-2xl">
+        <div className="flex flex-col-reverse gap-3 border-t border-gray-100 bg-gray-50 px-4 py-4 sm:flex-row sm:items-center sm:justify-end sm:px-6">
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-200 transition-colors"
+            className="min-h-11 w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-200 sm:w-auto"
           >
             Cancelar
           </button>
           <button
             onClick={handleGerar}
             disabled={!formValido || gerarMutation.isPending}
-            className="flex items-center gap-1.5 px-5 py-2 rounded-lg bg-amber-600 text-white text-sm font-semibold hover:bg-amber-700 disabled:opacity-50 transition-colors"
+            className="flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg bg-amber-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-amber-700 disabled:opacity-50 sm:w-auto"
           >
             {gerarMutation.isPending ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -544,7 +544,7 @@ export default function ProfessoresDiretoria() {
     rascunho.email.trim();
 
   return (
-    <div className="min-h-screen w-full bg-gray-50 flex flex-col items-center font-sans px-4 py-10">
+    <div className="min-h-screen w-full min-w-0 bg-gray-50 flex flex-col items-center font-sans px-3 py-6 sm:px-4 sm:py-10">
       <div className="w-full max-w-5xl">
 		<DiretoriaBackLink />
       </div>
@@ -554,18 +554,18 @@ export default function ProfessoresDiretoria() {
       <div className="w-full max-w-5xl">
         {modo === "lista" ? (
           <>
-            <div className="flex items-center justify-between mb-4">
+            <div className="mb-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
               <span className="text-sm font-medium text-gray-700">
                 {professores.length} docentes cadastrados
               </span>
-			  <div className="flex items-center gap-2">
-			  <button onClick={gerarLote} disabled={!professores.length || gerarLoteDeclaracoes.isPending} className="flex items-center gap-1.5 rounded-xl border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 transition-colors hover:bg-orange-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60" title="Gera um único PDF com todos os certificados dos docentes listados.">
+			  <div className="grid grid-cols-1 gap-2 sm:flex sm:items-center">
+			  <button onClick={gerarLote} disabled={!professores.length || gerarLoteDeclaracoes.isPending} className="flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 transition-colors hover:bg-orange-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60" title="Gera um único PDF com todos os certificados dos docentes listados.">
 				{gerarLoteDeclaracoes.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />}
 				{gerarLoteDeclaracoes.isPending ? "Gerando PDF..." : "Gerar lote"}
 			  </button>
 			  <button
                 onClick={abrirNovo}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 transition-colors"
+                className="flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-700"
               >
                 <Plus className="w-4 h-4" />
                 Novo professor
@@ -587,7 +587,7 @@ export default function ProfessoresDiretoria() {
           </>
         ) : (
           <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
+            <div className="flex items-center gap-3 border-b border-gray-100 px-4 py-4 sm:px-6 sm:py-5">
               <button
                 onClick={cancelar}
                 className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600"
@@ -600,7 +600,7 @@ export default function ProfessoresDiretoria() {
               </h2>
             </div>
 
-            <div className="p-6 space-y-5">
+            <div className="min-w-0 space-y-5 p-4 sm:p-6">
               {/* Nome */}
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
@@ -665,10 +665,10 @@ export default function ProfessoresDiretoria() {
                     {rascunho.turmas.map((t) => (
                       <span
                         key={t}
-                        className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-sky-50 text-sky-700"
+                        className="flex max-w-full items-center gap-1 rounded-full bg-sky-50 px-2.5 py-1 text-xs font-medium text-sky-700"
                       >
                         <DoorOpen className="w-3 h-3" />
-                        {t}
+                        <span className="truncate">{t}</span>
                       </span>
                     ))}
                   </div>
@@ -682,17 +682,17 @@ export default function ProfessoresDiretoria() {
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50 border-t border-gray-100">
+            <div className="flex flex-col-reverse items-stretch gap-2 border-t border-gray-100 bg-gray-50 px-4 py-4 sm:flex-row sm:items-center sm:justify-end sm:gap-3 sm:px-6">
               <button
                 onClick={cancelar}
-                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-200 transition-colors"
+                className="min-h-11 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-200"
               >
                 Cancelar
               </button>
               <button
                 onClick={salvar}
                 disabled={!formValido}
-                className="flex items-center gap-1.5 px-5 py-2 rounded-lg bg-violet-600 text-white text-sm font-semibold hover:bg-violet-700 disabled:opacity-50 transition-colors"
+                className="flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-violet-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-violet-700 disabled:opacity-50"
               >
                 <Check className="w-4 h-4" />
                 Salvar professor

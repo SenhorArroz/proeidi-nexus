@@ -337,12 +337,12 @@ function CalendarioAulas({
 	const hojeISO = toISO(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
 
 	return (
-		<div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+		<div className="grid w-full min-w-0 grid-cols-1 items-start gap-5 lg:grid-cols-12">
 			{/* Calendário Principal (Grid adaptável) */}
-			<div className="lg:col-span-8 bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm flex flex-col">
+			<div className="flex min-w-0 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm lg:col-span-8">
 				{/* Header do calendário */}
-				<div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-gray-100 bg-gray-50/60">
-					<div className="flex items-center gap-3">
+				<div className="flex min-w-0 flex-col gap-3 border-b border-gray-100 bg-gray-50/60 px-3 py-3.5 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:px-6">
+					<div className="flex min-w-0 flex-wrap items-center gap-2 sm:gap-3">
 						<h4 className="text-sm sm:text-base font-bold text-gray-800 tracking-tight">
 							{NOMES_MES[mes]} {ano}
 						</h4>
@@ -352,10 +352,10 @@ function CalendarioAulas({
 						</span>
 					</div>
 
-					<div className="flex items-center gap-1.5">
+					<div className="flex items-center justify-end gap-1.5">
 						<button
 							onClick={irParaHoje}
-							className="px-2.5 py-1 text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-200/60 rounded-lg transition-colors"
+							className="min-h-11 rounded-lg px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-200/60 hover:text-gray-900"
 						>
 							Hoje
 						</button>
@@ -363,14 +363,14 @@ function CalendarioAulas({
 						<button
 							onClick={mesAnterior}
 							aria-label="Mês anterior"
-							className="p-1.5 rounded-lg text-gray-500 hover:bg-gray-200/70 hover:text-gray-800 transition-colors"
+							className="grid min-h-11 min-w-11 place-items-center rounded-lg text-gray-500 transition-colors hover:bg-gray-200/70 hover:text-gray-800"
 						>
 							<ChevronLeft className="w-4 h-4" />
 						</button>
 						<button
 							onClick={mesProximo}
 							aria-label="Próximo mês"
-							className="p-1.5 rounded-lg text-gray-500 hover:bg-gray-200/70 hover:text-gray-800 transition-colors"
+							className="grid min-h-11 min-w-11 place-items-center rounded-lg text-gray-500 transition-colors hover:bg-gray-200/70 hover:text-gray-800"
 						>
 							<ChevronRight className="w-4 h-4" />
 						</button>
@@ -653,29 +653,29 @@ function EditarTurmaModal({
 	};
 
 	return (
-		<div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+		<div className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-4">
 			<div
 				className="absolute inset-0 bg-gray-900/50 backdrop-blur-sm"
 				onClick={onFechar}
 			/>
 
-			<div className="bg-white rounded-3xl shadow-2xl border border-gray-100 w-full max-w-2xl relative z-10 flex flex-col max-h-[90vh]">
+			<div className="relative z-10 flex max-h-[96dvh] w-full max-w-2xl min-w-0 flex-col rounded-t-3xl border border-gray-100 bg-white shadow-2xl sm:max-h-[90vh] sm:rounded-3xl">
 				{/* Header */}
-				<div className="flex items-center justify-between p-5 border-b border-gray-100">
+				<div className="flex min-w-0 items-center justify-between gap-3 border-b border-gray-100 p-4 sm:p-5">
 					<h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
 						<Settings2 className="w-5 h-5 text-sky-600" />
 						Editar turma
 					</h3>
 					<button
 						onClick={onFechar}
-						className="p-2 text-gray-400 hover:bg-gray-100 rounded-full transition-colors"
+						className="grid min-h-11 min-w-11 place-items-center rounded-full text-gray-400 transition-colors hover:bg-gray-100"
 					>
 						<X className="w-5 h-5" />
 					</button>
 				</div>
 
 				{/* Form */}
-				<div className="flex-1 overflow-y-auto p-5 space-y-5">
+				<div className="min-w-0 flex-1 space-y-5 overflow-y-auto p-4 sm:p-5">
 					{/* Título */}
 					<div>
 						<label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
@@ -756,17 +756,17 @@ function EditarTurmaModal({
 				</div>
 
 				{/* Footer */}
-				<div className="flex items-center justify-end gap-3 px-5 py-4 bg-gray-50 border-t border-gray-100 rounded-b-3xl">
+				<div className="flex flex-col-reverse items-stretch gap-2 border-t border-gray-100 bg-gray-50 px-4 py-4 sm:flex-row sm:items-center sm:justify-end sm:gap-3 sm:rounded-b-3xl sm:px-5">
 					<button
 						onClick={onFechar}
-						className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-200 transition-colors"
+						className="min-h-11 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-200"
 					>
 						Cancelar
 					</button>
 					<button
 						onClick={salvar}
 						disabled={!rascunho.nome.trim()}
-						className="flex items-center gap-1.5 px-5 py-2 rounded-lg bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 disabled:opacity-50 transition-colors"
+						className="flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-700 disabled:opacity-50"
 					>
 						<Check className="w-4 h-4" />
 						Salvar
@@ -824,10 +824,10 @@ function InicioView({
 	);
 
 	return (
-		<div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
+		<div className="mx-auto w-full max-w-6xl min-w-0 space-y-5 px-3 py-5 sm:px-6 lg:px-8">
 			{/* Card info */}
 			<div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 shadow-xs">
-				<div className="flex items-center gap-2 mb-3">
+				<div className="mb-3 flex min-w-0 flex-wrap items-center gap-2">
 					<div
 						className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-semibold text-white"
 						style={{ backgroundColor: turma.cor }}
@@ -837,7 +837,7 @@ function InicioView({
 							.join("")
 							.slice(0, 2)}
 					</div>
-					<p className="text-sm font-medium text-gray-700">
+					<p className="min-w-0 break-words text-sm font-medium text-gray-700">
 						{turma.professores.join(" e ")}
 					</p>
 					<span className="text-gray-300">·</span>
@@ -881,7 +881,7 @@ function InicioView({
 
 				{/* Input novo aviso */}
 				{criandoAviso && (
-					<div className="flex items-center gap-2 bg-white rounded-2xl border border-gray-200 p-3 mb-3 shadow-xs">
+					<div className="mb-3 flex min-w-0 flex-col gap-2 rounded-2xl border border-gray-200 bg-white p-3 shadow-xs min-[420px]:flex-row min-[420px]:items-center">
 						<input
 							autoFocus
 							value={novoAviso}
@@ -892,7 +892,7 @@ function InicioView({
 						/>
 						<button
 							onClick={adicionarAviso}
-							className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-sky-600 text-white text-sm font-medium hover:bg-sky-700 transition-colors flex-shrink-0"
+							className="flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-700"
 						>
 							<Check className="w-4 h-4" />
 							Publicar
@@ -994,7 +994,7 @@ function MateriaisView({
 		setMateriais((prev) => prev.filter((m) => m.id !== id));
 
 	return (
-		<div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-3">
+		<div className="mx-auto w-full max-w-6xl min-w-0 space-y-3 px-3 py-5 sm:px-6 lg:px-8">
 			<div className="flex items-center justify-between mb-1">
 				<h3 className="text-sm font-semibold text-gray-700">
 					Materiais da turma
@@ -1042,7 +1042,7 @@ function MateriaisView({
 			{materiais.map((m) => (
 				<div
 					key={m.id}
-					className="flex items-center gap-3 bg-white rounded-2xl border border-gray-200 p-3.5 sm:p-4 hover:border-gray-300 hover:shadow-xs transition-all group"
+					className="group flex min-w-0 items-center gap-3 rounded-2xl border border-gray-200 bg-white p-3.5 transition-all hover:border-gray-300 hover:shadow-xs sm:p-4"
 				>
 					<div
 						className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
@@ -1063,7 +1063,7 @@ function MateriaisView({
 					</div>
 					<button
 						onClick={() => excluir(m.id)}
-						className="p-1.5 rounded-full text-gray-300 opacity-0 group-hover:opacity-100 hover:text-red-400 hover:bg-red-50 flex-shrink-0 transition-all"
+					className="grid min-h-11 min-w-11 shrink-0 place-items-center rounded-full text-gray-400 opacity-100 transition-all hover:bg-red-50 hover:text-red-500 sm:min-h-0 sm:min-w-0 sm:p-1.5 sm:text-gray-300 sm:opacity-0 sm:group-hover:opacity-100"
 						title="Remover"
 					>
 						<Trash2 className="w-4 h-4" />
@@ -1119,7 +1119,7 @@ function AnotacoesView({
 	};
 
 	return (
-		<div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-3">
+		<div className="mx-auto w-full max-w-6xl min-w-0 space-y-3 px-3 py-5 sm:px-6 lg:px-8">
 			<div className="flex items-center justify-between mb-1">
 				<h3 className="text-sm font-semibold text-gray-700">
 					Minhas anotações
@@ -1259,16 +1259,16 @@ function PresencaView({
 		.sort((a, b) => a.data.localeCompare(b.data));
 
 	return (
-		<div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-4">
+		<div className="mx-auto w-full max-w-6xl min-w-0 space-y-4 px-3 py-5 sm:px-6 lg:px-8">
 			<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-1">
 				<div className="flex flex-col gap-1.5">
 					<h3 className="text-sm font-semibold text-gray-700">{titulo}</h3>
-					<div className="flex items-center gap-1.5">
+					<div className="flex min-w-0 items-center gap-1.5">
 						<CalendarDays className="w-3.5 h-3.5 text-gray-400" />
 						<select
 							value={dataSelecionada}
 							onChange={(e) => setDataSelecionada(e.target.value)}
-							className="text-xs bg-gray-50 border border-gray-200 rounded-md py-1.5 px-2.5 text-gray-700 focus:outline-none focus:border-sky-300 transition-colors cursor-pointer"
+							className="min-h-11 w-full min-w-0 cursor-pointer rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1.5 text-base text-gray-700 transition-colors focus:border-sky-300 focus:outline-none sm:w-auto sm:text-xs"
 						>
 							<option value={hojeISO}>Hoje ({dataFormatada})</option>
 							{diasDeAula.map((aula) => (
@@ -1279,29 +1279,29 @@ function PresencaView({
 						</select>
 					</div>
 				</div>
-				<div className="flex items-center gap-2">
+				<div className="grid grid-cols-1 gap-2 min-[420px]:flex min-[420px]:items-center">
 					<span
 						className="text-xs font-semibold px-3 py-1 rounded-full shadow-2xs"
 						style={{ backgroundColor: `${cor}1A`, color: cor }}
 					>
 						{presentes}/{pessoas.length} presentes
 					</span>
-					<button onClick={() => onSalvar(dataSelecionada)} className="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-sky-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"><Check className="h-3.5 w-3.5" />Salvar presenças</button>
+					<button onClick={() => onSalvar(dataSelecionada)} className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-sky-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"><Check className="h-3.5 w-3.5" />Salvar presenças</button>
 				</div>
 			</div>
 
 			{/* Ações rápidas */}
-			<div className="flex items-center gap-2">
+			<div className="grid grid-cols-1 gap-2 min-[420px]:flex min-[420px]:items-center">
 				<button
 					onClick={() => marcarTodos("presente")}
-					className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium text-green-700 bg-green-50 hover:bg-green-100 transition-colors"
+					className="flex min-h-11 items-center justify-center gap-1 rounded-lg bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700 transition-colors hover:bg-green-100"
 				>
 					<Check className="w-3 h-3" />
 					Todos presentes
 				</button>
 				<button
 					onClick={() => marcarTodos("ausente")}
-					className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 transition-colors"
+					className="flex min-h-11 items-center justify-center gap-1 rounded-lg bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-100"
 				>
 					<X className="w-3 h-3" />
 					Todos ausentes
@@ -1312,7 +1312,7 @@ function PresencaView({
 				{pessoas.map((p) => (
 					<div
 						key={p.id}
-						className="flex items-center gap-3 px-4 py-3 sm:py-3.5 hover:bg-gray-50/50 transition-colors"
+						className="flex min-w-0 flex-col items-stretch gap-2 px-4 py-3 transition-colors hover:bg-gray-50/50 min-[420px]:flex-row min-[420px]:items-center sm:py-3.5"
 					>
 						<div
 							className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white flex-shrink-0"
@@ -1320,7 +1320,7 @@ function PresencaView({
 						>
 							{p.nome[0]}
 						</div>
-						<span className="flex-1 text-sm text-gray-800 truncate font-medium">
+						<span className="min-w-0 flex-1 truncate text-sm font-medium text-gray-800">
 							{p.nome}
 						</span>
 						<select
@@ -1328,7 +1328,7 @@ function PresencaView({
 							onChange={(e) =>
 								setPresenca(p.id, e.target.value as EstadoPresenca)
 							}
-							className={`text-xs font-medium rounded-lg px-2.5 py-1.5 border outline-none transition-colors cursor-pointer text-center ${
+							className={`min-h-11 w-full cursor-pointer rounded-lg border px-2.5 py-1.5 text-center text-base font-medium outline-none transition-colors min-[420px]:w-auto sm:text-xs ${
 								p.presente === "presente"
 									? "bg-green-50 text-green-700 border-green-200"
 									: p.presente === "ausente"
@@ -1480,7 +1480,7 @@ export default function TurmaView() {
 		<div className="flex h-full min-h-0 min-w-0 flex-col overflow-x-clip text-slate-900 bg-[radial-gradient(circle_at_96%_2%,rgba(14,165,233,.12),transparent_24rem),#f8fafc]">
 			{/* Header da turma */}
 			<div
-				className="relative flex-shrink-0 overflow-hidden bg-sky-600 px-4 pb-6 pt-6 shadow-[0_18px_35px_rgba(2,132,199,.2)] sm:px-6 lg:px-8"
+				className="relative min-w-0 flex-shrink-0 overflow-hidden bg-sky-600 px-3 pb-6 pt-5 shadow-[0_18px_35px_rgba(2,132,199,.2)] sm:px-6 sm:pt-6 lg:px-8"
 			>
 				<div className="absolute -right-8 -bottom-10 w-32 h-32 rounded-full bg-orange-500" />
 				<div className="absolute right-10 -top-8 w-20 h-20 rounded-full border-[11px] border-sky-200/80" />
@@ -1521,10 +1521,10 @@ export default function TurmaView() {
 						</div>
 					</div>
 
-					<h1 className="text-xl sm:text-3xl font-black tracking-[-.035em] text-white leading-snug mb-1">
+					<h1 className="mb-1 break-words text-xl font-black leading-snug tracking-[-.035em] text-white sm:text-3xl">
 						{turma.nome}
 					</h1>
-					<p className="text-xs sm:text-sm text-white/85">
+					<p className="break-words text-xs text-white/85 sm:text-sm">
 						{turma.sala} · {turma.professores.join(" e ")}
 					</p>
 				</div>
@@ -1551,7 +1551,7 @@ export default function TurmaView() {
 					/>
 				)}
 				{tab === "calendario" && (
-					<div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
+					<div className="mx-auto w-full max-w-6xl min-w-0 px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
 						<div className="mb-4">
 							<h3 className="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-2">
 								<CalendarDays className="w-5 h-5" style={{ color: turma.cor }} />
@@ -1599,7 +1599,7 @@ export default function TurmaView() {
 			{/* Navegação de turmas: menu flutuante no celular */}
 			<div className="fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 sm:hidden">
 				{mobileNavOpen && (
-					<div className="absolute right-0 bottom-14 max-h-[min(24rem,calc(100dvh-6rem))] w-56 overflow-y-auto rounded-2xl border border-sky-100 bg-white p-1.5 shadow-[0_14px_32px_rgb(15_23_42_/_0.2)]">
+					<div className="absolute right-0 bottom-14 max-h-[min(24rem,calc(100dvh-6rem))] w-[min(14rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-sky-100 bg-white p-1.5 shadow-[0_14px_32px_rgb(15_23_42_/_0.2)]">
 						{TABS.map((item) => {
 							const Icon = item.icon;
 							const active = tab === item.id;

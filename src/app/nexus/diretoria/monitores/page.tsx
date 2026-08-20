@@ -244,7 +244,7 @@ export default function MonitoresDiretoria() {
     rascunho.email.trim();
 
   return (
-    <div className="min-h-screen w-full bg-gray-50 flex flex-col items-center font-sans px-4 py-10">
+    <div className="min-h-screen w-full min-w-0 bg-gray-50 flex flex-col items-center font-sans px-3 py-6 sm:px-4 sm:py-10">
       <div className="w-full max-w-5xl">
 		<DiretoriaBackLink />
       </div>
@@ -254,18 +254,18 @@ export default function MonitoresDiretoria() {
       <div className="w-full max-w-5xl">
         {modo === "lista" ? (
           <>
-            <div className="flex items-center justify-between mb-4">
+            <div className="mb-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
               <span className="text-sm font-medium text-gray-700">
                 {monitores.length} monitores cadastrados
               </span>
-			  <div className="flex items-center gap-2">
-			  <button onClick={gerarLote} disabled={!monitores.length || gerarLoteDeclaracoes.isPending} className="flex items-center gap-1.5 rounded-xl border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 transition-colors hover:bg-orange-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60" title="Gera um único PDF com todos os certificados dos monitores listados.">
+			  <div className="grid grid-cols-1 gap-2 sm:flex sm:items-center">
+			  <button onClick={gerarLote} disabled={!monitores.length || gerarLoteDeclaracoes.isPending} className="flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 transition-colors hover:bg-orange-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60" title="Gera um único PDF com todos os certificados dos monitores listados.">
 				{gerarLoteDeclaracoes.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />}
 				{gerarLoteDeclaracoes.isPending ? "Gerando PDF..." : "Gerar lote"}
 			  </button>
 			  <button
                 onClick={abrirNovo}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-600 text-white text-sm font-semibold shadow-sm shadow-sky-200 hover:bg-sky-700 transition-colors"
+                className="flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-sky-200 transition-colors hover:bg-sky-700"
               >
                 <Plus className="w-4 h-4" />
                 Novo monitor
@@ -287,7 +287,7 @@ export default function MonitoresDiretoria() {
           </>
         ) : (
           <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
+            <div className="flex items-center gap-3 border-b border-gray-100 px-4 py-4 sm:px-6 sm:py-5">
               <button
                 onClick={cancelar}
                 className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600"
@@ -300,7 +300,7 @@ export default function MonitoresDiretoria() {
               </h2>
             </div>
 
-            <div className="p-6 space-y-5">
+            <div className="min-w-0 space-y-5 p-4 sm:p-6">
               {/* Nome */}
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
@@ -365,10 +365,10 @@ export default function MonitoresDiretoria() {
                     {rascunho.turmas.map((t) => (
                       <span
                         key={t}
-                        className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700"
+                        className="flex max-w-full items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700"
                       >
                         <DoorOpen className="w-3 h-3" />
-                        {t}
+                        <span className="truncate">{t}</span>
                       </span>
                     ))}
                   </div>
@@ -382,17 +382,17 @@ export default function MonitoresDiretoria() {
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50 border-t border-gray-100">
+            <div className="flex flex-col-reverse items-stretch gap-2 border-t border-gray-100 bg-gray-50 px-4 py-4 sm:flex-row sm:items-center sm:justify-end sm:gap-3 sm:px-6">
               <button
                 onClick={cancelar}
-                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-200 transition-colors"
+                className="min-h-11 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-200"
               >
                 Cancelar
               </button>
               <button
                 onClick={salvar}
                 disabled={!formValido}
-                className="flex items-center gap-1.5 px-5 py-2 rounded-lg bg-sky-600 text-white text-sm font-semibold shadow-sm shadow-sky-200 hover:bg-sky-700 disabled:opacity-50 transition-colors"
+                className="flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-5 py-2 text-sm font-semibold text-white shadow-sm shadow-sky-200 transition-colors hover:bg-sky-700 disabled:opacity-50"
               >
                 <Check className="w-4 h-4" />
                 Salvar monitor

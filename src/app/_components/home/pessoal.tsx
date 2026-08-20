@@ -78,7 +78,7 @@ export default function Pessoal() {
                         Integrantes do projeto
                     </h2>
                 </div>
-                <div className="rounded-3xl bg-white p-8 shadow-xl backdrop-blur-sm sm:p-12">
+				<div className="min-w-0 rounded-3xl bg-white p-4 shadow-xl backdrop-blur-sm sm:p-8 lg:p-12">
                     <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
                         {projects.map((project) => (
                             <PessoalGaleria

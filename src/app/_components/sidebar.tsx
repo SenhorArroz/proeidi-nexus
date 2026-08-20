@@ -239,7 +239,7 @@ export default function Sidebar() {
 				<button
 					type="button"
 					onClick={toggleSidebar}
-					className={`z-10 p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-sky-600 flex-shrink-0 transition-colors ${
+					className={`z-10 grid min-h-11 min-w-11 place-items-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-sky-600 flex-shrink-0 transition-colors ${
 						collapsed ? "mx-auto" : "ml-auto"
 					}`}
 					aria-label={collapsed ? "Expandir menu" : "Recolher menu"}
@@ -262,7 +262,7 @@ export default function Sidebar() {
 							key={item.id}
 							href={item.link}
 							title={collapsed ? item.label : undefined}
-							className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+							className={`flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
 								isActive
 									? "bg-sky-50 text-sky-600 shadow-sm ring-1 ring-sky-100"
 									: "text-gray-600 hover:bg-gray-50 hover:text-sky-900"
@@ -287,7 +287,7 @@ export default function Sidebar() {
 					<Link
 						href="/nexus/diretoria"
 						title="Diretoria"
-						className={`flex w-full items-center justify-center rounded-xl px-3 py-2.5 transition-colors ${activeSegment === "diretoria" ? "bg-sky-50 text-sky-600" : "text-gray-600 hover:bg-gray-50"}`}
+						className={`flex min-h-11 w-full items-center justify-center rounded-xl px-3 py-2.5 transition-colors ${activeSegment === "diretoria" ? "bg-sky-50 text-sky-600" : "text-gray-600 hover:bg-gray-50"}`}
 					>
 						<Users className="w-5 h-5" />
 					</Link>
@@ -296,7 +296,7 @@ export default function Sidebar() {
 						<button
 							type="button"
 							onClick={() => setDiretoriaAberta((aberta) => !aberta)}
-							className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${activeSegment === "diretoria" ? "bg-sky-600 text-white shadow-md shadow-sky-200" : "text-gray-700 hover:bg-sky-50 hover:text-sky-800"}`}
+							className={`flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${activeSegment === "diretoria" ? "bg-sky-600 text-white shadow-md shadow-sky-200" : "text-gray-700 hover:bg-sky-50 hover:text-sky-800"}`}
 							aria-expanded={diretoriaAberta}
 						>
 							<Users className="w-5 h-5 flex-shrink-0" />
@@ -332,7 +332,7 @@ export default function Sidebar() {
 				<Link
 					href="/nexus/configuracoes"
 					title={collapsed ? "Configurações" : undefined}
-					className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+					className={`flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
 						pathname.startsWith("/nexus/configuracoes")
 							? "bg-sky-50 text-sky-600 shadow-sm ring-1 ring-sky-100"
 							: "text-gray-600 hover:bg-gray-50 hover:text-gray-900"

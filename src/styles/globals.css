@@ -501,6 +501,40 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 }
 
 @media (max-width: 767px) {
+	html,
+	body {
+		max-width: 100%;
+		overflow-x: clip;
+	}
+	.nexus-main {
+		min-width: 0;
+		max-width: 100%;
+	}
+	.nexus-main :where(div, section, article, form, header, footer, label) {
+		min-width: 0;
+	}
+	.nexus-main :where(input, select, textarea) {
+		min-width: 0;
+		max-width: 100%;
+		font-size: 1rem;
+	}
+	.nexus-main :where(button, a) {
+		max-width: 100%;
+		overflow-wrap: anywhere;
+	}
+	.nexus-main :where(p, h1, h2, h3, h4, dd) {
+		overflow-wrap: anywhere;
+	}
+	.nexus-main .justify-between {
+		flex-wrap: wrap;
+	}
+	.diretoria-workspace {
+		min-width: 0;
+		overflow-x: clip;
+	}
+	.diretoria-workspace :is(input, select, textarea, button) {
+		max-width: 100%;
+	}
 	.diretoria-workspace__bar {
 		padding: 0.75rem 1rem;
 	}
@@ -508,9 +542,14 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 		font-size: 0.82rem;
 	}
 	.diretoria-page-intro {
+		flex-direction: column;
 		align-items: flex-start;
 		border-radius: 1.25rem;
 		padding: 1.25rem;
+	}
+	.diretoria-page-intro h1,
+	.diretoria-page-intro p {
+		overflow-wrap: anywhere;
 	}
 	.diretoria-page-intro__loop {
 		display: none;
@@ -527,9 +566,16 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 	.diretoria-page-intro > div:last-child > * {
 		flex: 1 1 auto;
 		justify-content: center;
+		min-height: 2.75rem;
 	}
 	.diretoria-workspace .overflow-x-auto {
 		-webkit-overflow-scrolling: touch;
+	}
+}
+
+@media (pointer: coarse) {
+	.nexus-main :where(button, a[href], input:not([type="checkbox"]):not([type="radio"]), select) {
+		min-height: 2.75rem;
 	}
 }
 

@@ -281,7 +281,7 @@ export default function GerenciarSorteio() {
 
 			{/* MODAL DE CRUD */}
 			{isModalOpen && (
-				<div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+				<div className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-4">
 					{/* Backdrop */}
 					<div
 						className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity"
@@ -289,9 +289,9 @@ export default function GerenciarSorteio() {
 					/>
 
 					{/* Modal Content */}
-					<div className="bg-white rounded-3xl shadow-xl border border-gray-100 w-full max-w-2xl relative z-10 overflow-hidden animate-in zoom-in-95 duration-200">
-						<div className="flex items-center justify-between p-6 border-b border-gray-100 bg-gray-50/50">
-							<h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+					<div className="relative z-10 max-h-[96dvh] w-full max-w-2xl overflow-hidden rounded-t-3xl border border-gray-100 bg-white shadow-xl animate-in zoom-in-95 duration-200 sm:rounded-3xl">
+						<div className="flex items-center justify-between gap-3 border-b border-gray-100 bg-gray-50/50 p-4 sm:p-6">
+							<h3 className="flex min-w-0 items-center gap-2 break-words text-lg font-bold text-gray-900">
 								{candidatoEditando ? (
 									<Pencil className="w-5 h-5 text-sky-600" />
 								) : (
@@ -303,7 +303,7 @@ export default function GerenciarSorteio() {
 							</h3>
 							<button
 								onClick={() => setIsModalOpen(false)}
-								className="p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700 rounded-full transition-colors"
+								className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700"
 							>
 								<X className="w-5 h-5" />
 							</button>
@@ -311,7 +311,7 @@ export default function GerenciarSorteio() {
 
 						<form
 							onSubmit={salvarCandidato}
-							className="p-6 overflow-y-auto max-h-[70vh]"
+							className="max-h-[calc(96dvh-5rem)] overflow-y-auto p-4 sm:max-h-[70vh] sm:p-6"
 						>
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 								{/* Ficha */}
@@ -338,7 +338,7 @@ export default function GerenciarSorteio() {
 										<Ticket className="w-4 h-4 text-sky-500" /> Curso de
 										Interesse
 									</label>
-									<div className="flex gap-2">
+									<div className="flex flex-col gap-2 min-[400px]:flex-row">
 										<button
 											type="button"
 											onClick={() => setForm({ ...form, curso: "Smartphone" })}
@@ -442,17 +442,17 @@ export default function GerenciarSorteio() {
 							</div>
 
 							{/* Rodapé do Modal */}
-							<div className="mt-8 flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+							<div className="mt-8 flex flex-col-reverse gap-3 border-t border-gray-100 pt-4 sm:flex-row sm:items-center sm:justify-end">
 								<button
 									type="button"
 									onClick={() => setIsModalOpen(false)}
-									className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 bg-white border border-gray-200 hover:bg-gray-50 transition-colors"
+									className="min-h-11 w-full rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 sm:w-auto"
 								>
 									Cancelar
 								</button>
 								<button
 									type="submit"
-									className="px-5 py-2.5 rounded-xl text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 hover:-translate-y-0.5 hover:shadow-md transition-all"
+									className="min-h-11 w-full rounded-xl bg-sky-600 px-5 py-2.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-sky-700 hover:shadow-md sm:w-auto"
 								>
 									{candidatoEditando
 										? "Salvar Alterações"

@@ -165,20 +165,20 @@ function SearchSelect({
 	const remover = (id: string) => onChange(selectedIds.filter((value) => value !== id));
 
 	return (
-		<div>
+		<div className="min-w-0">
 			<label className="flex items-center gap-1.5 text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
 				<Icon className="w-3.5 h-3.5" />
 				{label}
 			</label>
 
-			<div className="flex flex-wrap gap-1.5 mb-2 min-h-[1.75rem]">
+			<div className="mb-2 flex min-h-[1.75rem] min-w-0 flex-wrap gap-1.5">
 				{selecionados.map((opcao) => (
 					<span
 						key={opcao.id}
-						className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full text-xs font-medium"
+						className="flex max-w-full items-center gap-1.5 rounded-full py-1 pl-2.5 pr-1.5 text-xs font-medium"
 						style={{ backgroundColor: `${accent}1A`, color: accent }}
 					>
-						{opcao.nome}
+						<span className="truncate">{opcao.nome}</span>
 						<button
 							onClick={() => remover(opcao.id)}
 							className="p-0.5 rounded-full hover:bg-black/10"
@@ -277,12 +277,12 @@ function AulasEditor({
 				{aulas.map((aula) => (
 					<div
 						key={aula.id}
-						className="flex items-center gap-3 bg-gray-50 rounded-lg border border-gray-200 px-3 py-2"
+						className="flex min-w-0 flex-wrap items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 sm:flex-nowrap sm:gap-3"
 					>
 						<span className="text-xs font-semibold text-sky-600 bg-sky-50 rounded-md px-2 py-1 flex-shrink-0">
 							{formatarData(aula.data)}
 						</span>
-						<span className="flex-1 min-w-0 text-sm text-gray-700 truncate">
+						<span className="min-w-0 flex-[1_1_10rem] truncate text-sm text-gray-700">
 							{aula.titulo}
 						</span>
 						<span className="rounded-full bg-orange-50 px-2 py-1 text-[10px] font-bold text-orange-800">{aula.tipo.charAt(0) + aula.tipo.slice(1).toLowerCase()}</span>
@@ -462,7 +462,7 @@ function TurmaCard({
 	duplicando: boolean;
 }) {
 	return (
-		<div className="group overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,132,199,.14)]">
+		<div className="group min-w-0 overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,132,199,.14)]">
 			<div className="relative overflow-hidden bg-sky-600 px-5 py-4">
 				<div className="absolute -right-6 -bottom-8 h-24 w-24 rounded-full bg-orange-500" />
 				<div className="relative flex items-start justify-between gap-2">
@@ -474,10 +474,10 @@ function TurmaCard({
 							{turma.titulo}
 						</span>
 					</div>
-					<div className="relative flex items-center gap-1 flex-shrink-0">
+					<div className="relative flex shrink-0 items-center gap-0.5">
 						<button
 							onClick={onEditar}
-							className="p-1.5 rounded-lg text-white/80 hover:bg-white/20 hover:text-white"
+							className="grid min-h-11 min-w-11 place-items-center rounded-lg text-white/80 hover:bg-white/20 hover:text-white sm:min-h-0 sm:min-w-0 sm:p-1.5"
 							aria-label="Editar turma"
 						>
 							<Pencil className="w-3.5 h-3.5" />
@@ -485,7 +485,7 @@ function TurmaCard({
 						<button
 							onClick={onDuplicar}
 							disabled={duplicando}
-							className="p-1.5 rounded-lg text-white/80 hover:bg-white/20 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:cursor-not-allowed disabled:opacity-60"
+							className="grid min-h-11 min-w-11 place-items-center rounded-lg text-white/80 hover:bg-white/20 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:cursor-not-allowed disabled:opacity-60 sm:min-h-0 sm:min-w-0 sm:p-1.5"
 							aria-label="Duplicar turma"
 							title="Duplicar turma"
 						>
@@ -493,7 +493,7 @@ function TurmaCard({
 						</button>
 						<button
 							onClick={onExcluir}
-							className="p-1.5 rounded-lg text-white/80 hover:bg-white/20 hover:text-white"
+							className="grid min-h-11 min-w-11 place-items-center rounded-lg text-white/80 hover:bg-white/20 hover:text-white sm:min-h-0 sm:min-w-0 sm:p-1.5"
 							aria-label="Excluir turma"
 						>
 							<Trash2 className="w-3.5 h-3.5" />
@@ -511,7 +511,7 @@ function TurmaCard({
 						` · ${turma.monitores.join(", ")} (monitor)`}
 				</p>
 
-				<div className="flex items-center gap-4 text-xs font-semibold text-slate-500">
+				<div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold text-slate-500">
 					<span className="flex items-center gap-1.5">
 						<Users className="w-3.5 h-3.5" />
 						{turma.alunos?.length ?? 0} alunos
@@ -668,7 +668,7 @@ export default function TurmasDiretoria() {
 	const duplicarTurma = (id: string) => duplicar.mutate({ id });
 
 	return (
-		<div className="min-h-screen w-full bg-gray-50 flex flex-col items-center font-sans px-4 py-10">
+		<div className="min-h-screen w-full min-w-0 bg-gray-50 flex flex-col items-center font-sans px-3 py-6 sm:px-4 sm:py-10">
 			<div className="w-full max-w-5xl">
 				<DiretoriaBackLink />
 			</div>
@@ -678,15 +678,15 @@ export default function TurmasDiretoria() {
 			<div className="w-full max-w-5xl">
 				{modo === "lista" ? (
 					<>
-						<div className="flex items-center justify-between mb-4">
-							<div className="flex items-center gap-3">
+						<div className="mb-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
+							<div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
 								<label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
 									Semestre
 								</label>
 								<select
 									value={semestreSelecionado?.id ?? ""}
 									onChange={(e) => setSemestreSelecionadoId(e.target.value)}
-									className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-gray-700"
+									className="min-h-11 w-full min-w-0 rounded-lg border border-gray-200 bg-white px-3 py-2 text-base font-semibold text-gray-700 sm:w-auto sm:text-sm"
 								>
 									{semestres?.map((semestre) => (
 										<option key={semestre.id} value={semestre.id}>
@@ -701,7 +701,7 @@ export default function TurmasDiretoria() {
 							</div>
 							<button
 								onClick={abrirNova}
-								className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 transition-colors"
+								className="flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-700 sm:w-auto"
 							>
 								<Plus className="w-4 h-4" />
 								Nova turma
@@ -729,7 +729,7 @@ export default function TurmasDiretoria() {
 					</>
 				) : (
 					<div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-						<div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
+						<div className="flex items-center gap-3 border-b border-gray-100 px-4 py-4 sm:px-6 sm:py-5">
 							<button
 								onClick={cancelar}
 								className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600"
@@ -742,7 +742,7 @@ export default function TurmasDiretoria() {
 							</h2>
 						</div>
 
-						<div className="p-6 space-y-6">
+						<div className="min-w-0 space-y-6 p-4 sm:p-6">
 							<div>
 								<label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
 									Semestre da turma
@@ -841,17 +841,17 @@ export default function TurmasDiretoria() {
 							</div>
 						</div>
 
-						<div className="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50 border-t border-gray-100">
+						<div className="flex flex-col-reverse items-stretch gap-2 border-t border-gray-100 bg-gray-50 px-4 py-4 sm:flex-row sm:items-center sm:justify-end sm:gap-3 sm:px-6">
 							<button
 								onClick={cancelar}
-								className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-200 transition-colors"
+								className="min-h-11 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-200"
 							>
 								Cancelar
 							</button>
 							<button
 								onClick={salvar}
 								disabled={!rascunho.titulo.trim() || !rascunho.semestreId}
-								className="flex items-center gap-1.5 px-5 py-2 rounded-lg bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 disabled:opacity-50 transition-colors"
+								className="flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-700 disabled:opacity-50"
 							>
 								<Check className="w-4 h-4" />
 								Salvar turma

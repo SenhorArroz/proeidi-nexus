@@ -92,7 +92,7 @@ export default function Inscricoes() {
                     Os cursos do PROEIDI irão começar! Confira as informações abaixo.
                 </p>
 
-                <div className="bg-amber-500 rounded-xl p-6 shadow-lg mb-12 flex items-start gap-4 text-sky-950 max-w-3xl mx-auto">
+				<div className="mx-auto mb-12 flex max-w-3xl flex-col items-start gap-4 rounded-xl bg-amber-500 p-4 text-sky-950 shadow-lg min-[390px]:flex-row sm:p-6">
                     <div className="bg-amber-300 p-2 rounded-full shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
@@ -107,7 +107,7 @@ export default function Inscricoes() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 max-w-4xl mx-auto">
-                    <div className="bg-white/10 border border-white/20 rounded-xl p-6 text-white backdrop-blur-sm flex items-start gap-4">
+					<div className="flex min-w-0 flex-col items-start gap-4 rounded-xl border border-white/20 bg-white/10 p-4 text-white backdrop-blur-sm min-[390px]:flex-row sm:p-6">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-amber-300 shrink-0">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                         </svg>
@@ -121,7 +121,7 @@ export default function Inscricoes() {
                         </div>
                     </div>
 
-                    <div className="bg-white/10 border border-white/20 rounded-xl p-6 text-white backdrop-blur-sm flex items-start gap-4">
+					<div className="flex min-w-0 flex-col items-start gap-4 rounded-xl border border-white/20 bg-white/10 p-4 text-white backdrop-blur-sm min-[390px]:flex-row sm:p-6">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-amber-300 shrink-0">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.328l5.603 3.113z" />
@@ -145,7 +145,7 @@ export default function Inscricoes() {
                     {coursesData.map((card, index) => (
                         <div
                             key={index}
-                            className="bg-white rounded-2xl p-6 shadow-xl hover:-translate-y-2 transition-transform duration-300 flex flex-col items-center text-center h-full"
+							className="flex h-full min-w-0 flex-col items-center rounded-2xl bg-white p-4 text-center shadow-xl transition-transform duration-300 hover:-translate-y-2 sm:p-6"
                         >
                             <div className="bg-sky-100 p-3 md:p-4 rounded-full mb-4 md:mb-6 shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 md:h-10 md:w-10 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -161,9 +161,9 @@ export default function Inscricoes() {
 
                             <ul className="text-sm text-gray-600 leading-relaxed space-y-2 w-full text-left mt-4 bg-gray-50 p-4 rounded-lg">
                                 {card.details.map((detail, idx) => (
-                                    <li key={idx} className="flex flex-col sm:flex-row sm:justify-between border-b border-gray-200 last:border-0 pb-2 last:pb-0">
+									<li key={idx} className="flex min-w-0 flex-col border-b border-gray-200 pb-2 last:border-0 last:pb-0 sm:flex-row sm:justify-between sm:gap-3">
                                         <span className="font-bold text-gray-700">{detail.label}:</span>
-                                        <span className="text-gray-600">{detail.value}</span>
+										<span className="break-words text-gray-600 sm:text-right">{detail.value}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -172,11 +172,11 @@ export default function Inscricoes() {
                 </div>
 
                 
-                <div className="flex justify-center shadow-xl hover:-translate-y-2 transition-transform duration-300 bg-white p-4 grid grid-cols-2 gap-x-7 gap-y-5 lg:grid-cols-4 rounded-xl max-w-7xl lg:gap-x-10 mx-auto backdrop-blur-md">
-                    <img src="https://inclusaodigital.imd.ufrn.br/img/logos/imd.png" alt="" />
-                    <img src="https://inclusaodigital.imd.ufrn.br/img/logos/ufrn.png" alt="" />
-                    <img src="https://inclusaodigital.imd.ufrn.br/img/logos/spm.png" alt="" />
-                    <img src="https://inclusaodigital.imd.ufrn.br/img/logos/proex.png" alt="" />
+				<div className="mx-auto grid max-w-7xl grid-cols-2 place-items-center gap-x-5 gap-y-5 rounded-xl bg-white p-4 shadow-xl backdrop-blur-md transition-transform duration-300 hover:-translate-y-2 lg:grid-cols-4 lg:gap-x-10">
+					<img className="max-h-16 w-full object-contain" src="https://inclusaodigital.imd.ufrn.br/img/logos/imd.png" alt="IMD" />
+					<img className="max-h-16 w-full object-contain" src="https://inclusaodigital.imd.ufrn.br/img/logos/ufrn.png" alt="UFRN" />
+					<img className="max-h-16 w-full object-contain" src="https://inclusaodigital.imd.ufrn.br/img/logos/spm.png" alt="SPM" />
+					<img className="max-h-16 w-full object-contain" src="https://inclusaodigital.imd.ufrn.br/img/logos/proex.png" alt="PROEX" />
                 </div>
             </div>
         </section>

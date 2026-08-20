@@ -514,7 +514,7 @@ export default function GerenciarAlunos() {
 	};
 
 	return (
-		<div className="min-h-screen bg-gray-50 flex flex-col font-sans p-4 sm:p-8 pb-32">
+		<div className="min-h-screen min-w-0 bg-gray-50 flex flex-col font-sans p-3 pb-32 sm:p-8">
 			<div className="max-w-7xl w-full mx-auto space-y-6">
 				<DiretoriaBackLink />
 				<DiretoriaPageIntro icon={GraduationCap} title="Gerenciar alunos" description="Cadastro completo, perfil demográfico e emissão de certificados." />
@@ -525,7 +525,7 @@ export default function GerenciarAlunos() {
 						<p className="text-sm font-semibold text-sky-900">Semestre de trabalho</p>
 						<p className="mt-1 text-sm text-sky-700">A lista, os novos cadastros, a importação e a exportação usam o semestre selecionado.</p>
 					</div>
-					<label className="block min-w-52">
+					<label className="block w-full min-w-0 sm:w-auto sm:min-w-52">
 						<span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-sky-800">Selecionar semestre</span>
 						<select
 							value={semestreFiltro}
@@ -541,7 +541,7 @@ export default function GerenciarAlunos() {
 
 				{/* Controles de Filtro e Busca */}
 				<div className="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-4">
-					<div className="flex items-center gap-3 w-full lg:w-auto flex-1 lg:justify-end">
+					<div className="flex min-w-0 w-full flex-1 flex-col gap-3 lg:w-auto lg:flex-row lg:items-center lg:justify-end">
 						<div className="flex items-center gap-3 w-full lg:max-w-md bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 transition-all">
 							<Search className="w-4 h-4 text-gray-400 shrink-0" />
 							<input
@@ -552,7 +552,7 @@ export default function GerenciarAlunos() {
 								className="w-full bg-transparent border-none focus:outline-none text-sm text-gray-700 placeholder:text-gray-400"
 							/>
 						</div>
-						<div className="flex items-center gap-2 flex-wrap">
+						<div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:items-center">
 							<button
 								onClick={handleGerarLoteCertificados}
 								disabled={gerarLoteMutation.isPending}
@@ -597,7 +597,7 @@ export default function GerenciarAlunos() {
 				</div>
 
 				{/* Lista de Alunos (Grid) */}
-				<div className="grid grid-cols-1 overflow-auto md:grid-cols-2 xl:grid-cols-3 gap-5">
+				<div className="grid min-w-0 grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
 					{carregandoSemestres || carregandoAlunos || carregandoTurmas ? <DataSkeleton cards={6} className="col-span-full" /> : alunosFiltrados.length === 0 ? (
 						<div className="col-span-full py-16 flex flex-col items-center justify-center text-gray-400 bg-white border border-dashed border-gray-300 rounded-2xl">
 							<Users className="w-12 h-12 mb-3 opacity-20" />
@@ -669,14 +669,14 @@ export default function GerenciarAlunos() {
                 MODAL GIGANTE COM CAMPOS CONDICIONAIS
             --------------------------------------------------------------------------- */}
 			{isModalOpen && (
-				<div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+				<div className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6">
 					<div
 						className="absolute inset-0 bg-gray-900/50 backdrop-blur-sm"
 						onClick={() => setIsModalOpen(false)}
 					/>
 
-					<div className="bg-white rounded-3xl shadow-2xl border border-gray-100 w-full max-w-4xl relative z-10 flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
-						<div className="flex items-center justify-between p-6 border-b border-gray-100">
+					<div className="relative z-10 flex max-h-[96dvh] w-full max-w-4xl min-w-0 flex-col rounded-t-3xl border border-gray-100 bg-white shadow-2xl animate-in zoom-in-95 duration-200 sm:max-h-[90vh] sm:rounded-3xl">
+						<div className="flex min-w-0 items-center justify-between gap-3 border-b border-gray-100 p-4 sm:p-6">
 							<h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
 								{alunoEditando ? (
 									<Pencil className="w-5 h-5 text-sky-600" />
@@ -697,7 +697,7 @@ export default function GerenciarAlunos() {
 
 						<form
 							onSubmit={salvarAluno}
-							className="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar"
+							className="custom-scrollbar min-w-0 flex-1 space-y-8 overflow-y-auto p-4 sm:p-6"
 						>
 							{/* SEÇÃO: TURMA E SEMESTRE */}
 							<div className="bg-sky-50/50 border border-sky-100 rounded-2xl p-5 space-y-4">
@@ -1260,17 +1260,17 @@ export default function GerenciarAlunos() {
 							</div>
 
 							{/* Rodapé fixo do Modal */}
-							<div className="pt-6 border-t border-gray-100 flex justify-end gap-3 sticky bottom-0 bg-white pb-2">
+							<div className="sticky bottom-0 flex flex-col-reverse gap-2 border-t border-gray-100 bg-white pb-2 pt-4 sm:flex-row sm:justify-end sm:gap-3 sm:pt-6">
 								<button
 									type="button"
 									onClick={() => setIsModalOpen(false)}
-									className="px-5 py-2.5 rounded-xl font-bold text-gray-600 bg-white border border-gray-200 hover:bg-gray-50"
+									className="min-h-11 rounded-xl border border-gray-200 bg-white px-5 py-2.5 font-bold text-gray-600 hover:bg-gray-50"
 								>
 									Cancelar
 								</button>
 								<button
 									type="submit"
-									className="px-5 py-2.5 rounded-xl font-bold text-white bg-sky-600 hover:bg-sky-700 shadow-sm"
+									className="min-h-11 rounded-xl bg-sky-600 px-5 py-2.5 font-bold text-white shadow-sm hover:bg-sky-700"
 								>
 									{alunoEditando ? "Salvar Alterações" : "Concluir Matrícula"}
 								</button>
@@ -1282,10 +1282,10 @@ export default function GerenciarAlunos() {
 
 			{/* Modal de Importação com File Upload */}
 			{isImportModalOpen && (
-				<div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/40 backdrop-blur-sm animate-in fade-in duration-200">
-					<div className="bg-white rounded-3xl w-full max-w-lg overflow-y-auto shadow-xl flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
+				<div className="fixed inset-0 z-50 flex items-end justify-center bg-gray-900/40 p-0 backdrop-blur-sm animate-in fade-in duration-200 sm:items-center sm:p-4">
+					<div className="flex max-h-[96dvh] w-full max-w-lg min-w-0 flex-col overflow-y-auto rounded-t-3xl bg-white shadow-xl animate-in zoom-in-95 duration-200 sm:max-h-[90vh] sm:rounded-3xl">
 						{/* Cabecalho */}
-						<div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+						<div className="flex min-w-0 shrink-0 items-center justify-between gap-3 border-b border-gray-100 bg-white px-4 py-4 sm:px-6">
 							<div className="flex items-center gap-3">
 								<div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0">
 									<FileSpreadsheet className="w-5 h-5" />
@@ -1308,9 +1308,9 @@ export default function GerenciarAlunos() {
 						</div>
 
 						{/* Corpo */}
-						<div className="p-6 overflow-y-auto flex-1 bg-gray-50/50 space-y-4 flex flex-col items-center justify-center">
+						<div className="flex min-w-0 flex-1 flex-col items-center justify-center space-y-4 overflow-y-auto bg-gray-50/50 p-4 sm:p-6">
 							{(turmasDb?.length ?? 0) === 0 && <p className="w-full rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">Não há turmas cadastradas para {semestreSelecionado?.codigo}. A planilha será importada sem vínculo de turma; você poderá vinculá-los depois ao criar as turmas.</p>}
-							<div className="w-full p-8 border-2 border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center bg-white hover:border-sky-500 transition-colors">
+							<div className="flex w-full min-w-0 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-300 bg-white p-4 transition-colors hover:border-sky-500 sm:p-8">
 								<Upload className="w-10 h-10 text-gray-400 mb-4" />
 								<p className="text-sm font-semibold text-gray-700 mb-1">
 									Selecione uma planilha do seu computador

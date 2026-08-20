@@ -11,7 +11,7 @@ import { api } from "~/trpc/react";
 export default function QuestionariosPage() {
 	const { data: formularios, isLoading } = api.formulario.list.useQuery();
 	return (
-		<main className="min-h-full px-4 py-6">
+		<main className="min-h-full px-3 py-6 sm:px-4">
 			<div className="mx-auto max-w-6xl">
 				<DiretoriaBackLink />
 				<DiretoriaPageIntro
@@ -35,19 +35,19 @@ export default function QuestionariosPage() {
 						formularios.map((formulario) => (
 							<article
 								key={formulario.id}
-								className="rounded-2xl bg-white p-5 shadow-[0_10px_24px_rgba(15,23,42,.06)]"
+								className="min-w-0 rounded-2xl bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,.06)] sm:p-5"
 							>
 								<div className="flex items-start justify-between gap-3">
-									<div>
+									<div className="min-w-0">
 										<p
 											className={`mb-2 inline-flex rounded-full px-2.5 py-1 text-xs font-bold ${formulario.publicado ? "bg-green-50 text-green-800" : "bg-orange-50 text-orange-800"}`}
 										>
 											{formulario.publicado ? "Publicado" : "Rascunho"}
 										</p>
-										<h2 className="font-extrabold text-slate-900">
+										<h2 className="break-words font-extrabold text-slate-900">
 											{formulario.titulo}
 										</h2>
-										<p className="mt-1 text-sm text-slate-500">
+										<p className="mt-1 break-words text-sm text-slate-500">
 											{formulario.descricao || "Sem descrição"}
 										</p>
 									</div>
@@ -55,11 +55,11 @@ export default function QuestionariosPage() {
 										<BarChart3 className="h-5 w-5" />
 									</span>
 								</div>
-								<div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
+								<div className="mt-5 flex flex-col items-stretch gap-3 border-t border-slate-100 pt-4 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between">
 									<span className="text-sm font-semibold text-slate-600">
 										{formulario._count.respostas} resposta(s)
 									</span>
-									<div className="flex gap-3">
+									<div className="flex flex-wrap gap-3">
 										{formulario.publicado && (
 											<Link
 												href={`/questionarios/${formulario.slug}`}

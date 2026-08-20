@@ -64,14 +64,14 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo / Brand */}
-                    <a href="#" className="flex items-center gap-3 cursor-pointer select-none hover:opacity-75 transition-opacity duration-200 shrink-0">
+					<a href="#" className="flex min-w-0 items-center gap-2 cursor-pointer select-none hover:opacity-75 transition-opacity duration-200 sm:gap-3">
                         <span className="text-2xl font-bold text-blue-600 hover:text-amber-500 duration-200 transition-colors leading-none">
                             ProEIDI
                         </span>
 
                         <span className="hidden lg:block w-px h-6 bg-slate-300"></span>
 
-                        <span className="text-xs lg:text-lg font-medium text-black leading-tight">
+						<span className="hidden min-w-0 truncate text-xs font-medium leading-tight text-black min-[390px]:block lg:text-lg">
                             <span className="hidden lg:inline">Projeto de Extensão Inclusão Digital para Idosos</span>
                             <span className="lg:hidden">Extensão Inclusão Digital</span>
                         </span>
@@ -106,7 +106,7 @@ export default function Navbar() {
                     {/* Mobile Hamburger Button */}
                     <button
                         onClick={() => setMobileMenuOpen((v) => !v)}
-                        className="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+						className="grid min-h-11 min-w-11 shrink-0 place-items-center rounded-lg text-slate-600 transition-colors hover:bg-slate-100 lg:hidden"
                         aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -123,8 +123,8 @@ export default function Navbar() {
             {/* Mobile Menu */}
             <div
                 className={`
-                    lg:hidden overflow-hidden transition-all duration-300 ease-in-out
-                    ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
+					lg:hidden overflow-y-auto transition-all duration-300 ease-in-out
+					${mobileMenuOpen ? "max-h-[calc(100dvh-4rem)] opacity-100" : "max-h-0 opacity-0"}
                 `}
             >
                 <ul className="px-4 pb-4 pt-2 space-y-1 bg-white/95 backdrop-blur-md border-t border-slate-100">
@@ -138,7 +138,7 @@ export default function Navbar() {
                                     href={link.href}
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={`
-                                        block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200
+										block min-h-11 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200
                                         ${isActive
                                             ? "text-blue-600 font-bold bg-blue-50"
                                             : "text-slate-600 hover:text-blue-600 hover:bg-slate-50"

@@ -38,14 +38,14 @@ export default function SemestresDiretoria() {
 	});
 
 	return (
-		<div className="min-h-screen w-full bg-gray-50 px-4 py-10 font-sans">
+		<div className="min-h-screen w-full min-w-0 bg-gray-50 px-3 py-6 font-sans sm:px-4 sm:py-10">
 			<div className="mx-auto w-full max-w-5xl">
 				<DiretoriaBackLink />
 				<div className="mb-6"><DiretoriaPageIntro icon={CalendarDays} title="Gerenciar semestres" description="Defina o período ativo e acompanhe as pessoas vinculadas pelas turmas." /></div>
 
-				<div className="mb-6 rounded-2xl border border-gray-200 bg-white p-5">
+				<div className="mb-6 rounded-2xl border border-gray-200 bg-white p-4 sm:p-5">
 					<div className="flex flex-col gap-3 sm:flex-row sm:items-end">
-						<label className="flex-1">
+						<label className="min-w-0 flex-1">
 							<span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500">
 								Novo semestre
 							</span>
@@ -60,7 +60,7 @@ export default function SemestresDiretoria() {
 						<button
 							onClick={() => criar.mutate({ codigo })}
 							disabled={criar.isPending || !codigo}
-							className="flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-sky-200 hover:bg-sky-700 disabled:opacity-50"
+							className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-sky-200 hover:bg-sky-700 disabled:opacity-50"
 						>
 							<Plus className="h-4 w-4" />
 							Adicionar
@@ -94,7 +94,7 @@ export default function SemestresDiretoria() {
 									</div>
 									<CalendarDays className="relative h-5 w-5 text-white/75" />
 								</div>
-								<div className="grid grid-cols-3 gap-2 p-5 text-center">
+								<div className="grid grid-cols-1 gap-2 p-4 text-center min-[390px]:grid-cols-3 sm:p-5">
 									<Resumo
 										icon={GraduationCap}
 										valor={semestre.totalAlunos}
@@ -114,11 +114,11 @@ export default function SemestresDiretoria() {
 								<p className="px-5 pb-3 text-center text-xs text-gray-500">
 									{semestre.totalTurmas} turma(s) cadastrada(s)
 								</p>
-								<div className="flex gap-2 border-t border-gray-100 p-3">
+								<div className="flex flex-wrap gap-2 border-t border-gray-100 p-3">
 									{!semestre.ativo && (
 										<button
 											onClick={() => ativar.mutate({ id: semestre.id })}
-											className="flex-1 rounded-lg bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800 hover:bg-sky-100"
+											className="min-h-11 min-w-32 flex-1 rounded-lg bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800 hover:bg-sky-100"
 										>
 											Tornar ativo
 										</button>
@@ -138,7 +138,7 @@ export default function SemestresDiretoria() {
 												? "Não é possível excluir o semestre ativo"
 												: "Semestres com dados não podem ser excluídos"
 										}
-										className="rounded-lg px-3 py-2 text-red-500 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-30"
+										className="grid min-h-11 min-w-11 place-items-center rounded-lg px-3 py-2 text-red-500 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-30"
 									>
 										<Trash2 className="h-4 w-4" />
 									</button>

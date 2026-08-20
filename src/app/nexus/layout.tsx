@@ -10,7 +10,7 @@ export default function DashboardLayout({
 
 	if (pathname === "/nexus/login") {
 		return (
-				<main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
+				<main className="nexus-main flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
 					{children}
 				</main>
 		);
@@ -20,7 +20,7 @@ export default function DashboardLayout({
 		<div className="h-dvh min-h-[100dvh] bg-blue-500 p-0 sm:p-1">
 			<div className="flex h-full w-full overflow-hidden bg-white sm:rounded-2xl sm:border-6 sm:border-amber-500">
 				<Sidebar />
-				<main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
+				<main className="nexus-main flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
 					{children}
 				</main>
 			</div>

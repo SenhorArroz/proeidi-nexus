@@ -20,16 +20,16 @@ export default function AcessibilidadePage() {
 	const percent = 100 + textScale * 5;
 
 	return (
-		<div className="min-h-full overflow-y-auto bg-slate-50 px-4 py-6 font-sans">
+		<div className="min-h-full min-w-0 overflow-y-auto bg-slate-50 px-3 py-5 font-sans sm:px-4 sm:py-6">
 			<div className="mx-auto w-full max-w-4xl">
-				<div className="relative mb-6 overflow-hidden rounded-[1.75rem] bg-sky-700 px-6 py-8 text-white shadow-[0_20px_45px_rgba(3,105,161,.24)]">
+				<div className="relative mb-6 min-w-0 overflow-hidden rounded-[1.75rem] bg-sky-700 px-4 py-6 text-white shadow-[0_20px_45px_rgba(3,105,161,.24)] sm:px-6 sm:py-8">
 					<div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-orange-500" />
 					<div className="relative flex items-start gap-4">
 						<div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white/15">
 							<Settings2 className="h-6 w-6" />
 						</div>
-						<div>
-							<h1 className="text-3xl font-black tracking-[-.03em]">
+						<div className="min-w-0">
+							<h1 className="break-words text-[clamp(1.5rem,8vw,1.875rem)] font-black tracking-[-.03em]">
 								Acessibilidade
 							</h1>
 							<p className="mt-1 max-w-xl text-sm text-sky-100">
@@ -42,7 +42,7 @@ export default function AcessibilidadePage() {
 
 				<div className="grid gap-5 lg:grid-cols-[1.25fr_.75fr]">
 					<div className="space-y-5">
-						<section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,.06)]">
+						<section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,.06)] sm:p-6">
 							<div className="flex items-center gap-3">
 								<span className="grid h-10 w-10 place-items-center rounded-xl bg-sky-100 text-sky-700">
 									<Sun className="h-5 w-5" />
@@ -55,7 +55,7 @@ export default function AcessibilidadePage() {
 								</div>
 							</div>
 							<div
-								className="mt-5 grid grid-cols-2 gap-3"
+								className="mt-5 grid grid-cols-1 gap-3 min-[390px]:grid-cols-2"
 								role="radiogroup"
 								aria-label="Tema de cores"
 							>
@@ -74,8 +74,8 @@ export default function AcessibilidadePage() {
 							</div>
 						</section>
 
-						<section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,.06)]">
-							<div className="flex items-center justify-between gap-4">
+						<section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,.06)] sm:p-6">
+							<div className="flex flex-col items-start gap-4 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between">
 								<div className="flex items-center gap-3">
 									<span className="grid h-10 w-10 place-items-center rounded-xl bg-orange-100 text-orange-700">
 										<Contrast className="h-5 w-5" />
@@ -103,7 +103,7 @@ export default function AcessibilidadePage() {
 							</div>
 						</section>
 
-						<section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,.06)]">
+						<section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,.06)] sm:p-6">
 							<div className="flex items-center gap-3">
 								<span className="grid h-10 w-10 place-items-center rounded-xl bg-violet-100 text-violet-700">
 									<Type className="h-5 w-5" />
@@ -117,17 +117,17 @@ export default function AcessibilidadePage() {
 									</p>
 								</div>
 							</div>
-							<div className="mt-6 flex items-center gap-2 sm:gap-3">
+							<div className="mt-6 grid min-w-0 grid-cols-2 gap-3 sm:flex sm:items-center">
 								<button
 									type="button"
 									onClick={() => setTextScale(textScale - 1)}
 									disabled={textScale === -10}
-									className="grid h-10 w-10 place-items-center rounded-xl border border-slate-300 text-lg font-bold text-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
+									className="order-2 grid min-h-11 w-full place-items-center rounded-xl border border-slate-300 text-lg font-bold text-slate-800 disabled:cursor-not-allowed disabled:opacity-40 sm:order-1 sm:h-10 sm:w-10 sm:shrink-0"
 									aria-label="Diminuir tamanho do texto"
 								>
 									−
 								</button>
-								<fieldset className="flex min-w-0 flex-1 items-center justify-between gap-0 sm:gap-1">
+								<fieldset className="order-1 col-span-2 grid min-w-0 flex-1 grid-cols-7 place-items-center gap-2 sm:order-2 sm:flex sm:items-center sm:justify-between sm:gap-1">
 									<legend className="sr-only">Níveis de tamanho do texto</legend>
 									{Array.from({ length: 21 }, (_, index) => index - 10).map((scale) => (
 										<button
@@ -144,13 +144,13 @@ export default function AcessibilidadePage() {
 									type="button"
 									onClick={() => setTextScale(textScale + 1)}
 									disabled={textScale === 10}
-									className="grid h-10 w-10 place-items-center rounded-xl border border-slate-300 text-lg font-bold text-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
+									className="order-3 grid min-h-11 w-full place-items-center rounded-xl border border-slate-300 text-lg font-bold text-slate-800 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10 sm:shrink-0"
 									aria-label="Aumentar tamanho do texto"
 								>
 									+
 								</button>
 							</div>
-							<div className="mt-3 flex items-center justify-between">
+							<div className="mt-3 flex flex-col items-start gap-2 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between">
 								<span className="text-sm font-semibold text-sky-800">
 									{scaleLabel(textScale)} · {percent}%
 								</span>
@@ -167,7 +167,7 @@ export default function AcessibilidadePage() {
 						</section>
 					</div>
 
-					<aside className="rounded-2xl border border-sky-200 bg-sky-50 p-6">
+					<aside className="min-w-0 rounded-2xl border border-sky-200 bg-sky-50 p-4 sm:p-6">
 						<h2 className="text-lg font-bold text-sky-950">Prévia</h2>
 						<p className="mt-1 text-sm text-sky-800">
 							Veja o resultado das preferências antes de continuar.
@@ -211,7 +211,7 @@ function ThemeOption({
 }) {
 	return (
 		<label
-			className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-4 py-3 text-left font-semibold transition-colors ${active ? "border-sky-700 bg-sky-50 text-sky-900" : "border-slate-200 text-slate-700 hover:border-sky-300"}`}
+		className={`flex min-w-0 cursor-pointer items-center gap-3 rounded-xl border-2 px-4 py-3 text-left font-semibold transition-colors ${active ? "border-sky-700 bg-sky-50 text-sky-900" : "border-slate-200 text-slate-700 hover:border-sky-300"}`}
 		>
 			<input
 				type="radio"

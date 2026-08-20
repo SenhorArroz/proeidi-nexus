@@ -48,10 +48,10 @@ function AnalyticsQuestion({
 			}).length
 		: null;
 	return (
-		<article className="overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(15,23,42,.06)]">
-			<div className="flex items-start justify-between gap-3 border-b border-sky-100 bg-sky-50/60 p-5">
-				<div>
-					<h2 className="font-extrabold text-slate-900">{pergunta.titulo}</h2>
+		<article className="min-w-0 overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(15,23,42,.06)]">
+			<div className="flex flex-col items-start gap-3 border-b border-sky-100 bg-sky-50/60 p-4 min-[420px]:flex-row min-[420px]:justify-between sm:p-5">
+				<div className="min-w-0">
+					<h2 className="break-words font-extrabold text-slate-900">{pergunta.titulo}</h2>
 					<p className="mt-1 text-sm text-slate-500">
 						{totalRespondentes} de {respostas.length} pessoa(s) responderam
 					</p>
@@ -64,8 +64,8 @@ function AnalyticsQuestion({
 				)}
 			</div>
 			{escolhas ? (
-				<div className="flex justify-center p-5">
-					<div className="flex min-h-36 w-full max-w-xl items-end justify-center gap-3 border-b-2 border-sky-100 pb-1">
+				<div className="overflow-x-auto p-4 sm:p-5">
+					<div className="flex min-h-36 min-w-max items-end justify-center gap-3 border-b-2 border-sky-100 pb-1 sm:min-w-0">
 						{contagens.map(({ opcao, total }, index) => {
 							const percentual = totalRespondentes
 								? Math.round((total / totalRespondentes) * 100)
@@ -139,7 +139,7 @@ export default function EstatisticasQuestionario({
 		(item) => item.respostas as Respostas,
 	);
 	return (
-		<main className="min-h-full px-4 py-8">
+		<main className="min-h-full px-3 py-6 sm:px-4 sm:py-8">
 			<div className="mx-auto max-w-4xl">
 				<Link
 					href="/nexus/diretoria/questionarios"
@@ -147,9 +147,9 @@ export default function EstatisticasQuestionario({
 				>
 					← Questionários
 				</Link>
-				<header className="mt-3 rounded-3xl bg-sky-600 p-7 text-white shadow-[0_20px_45px_rgba(2,132,199,.22)]">
+				<header className="mt-3 min-w-0 rounded-3xl bg-sky-600 p-5 text-white shadow-[0_20px_45px_rgba(2,132,199,.22)] sm:p-7">
 					<BarChart3 className="h-7 w-7 text-orange-300" />
-					<h1 className="mt-3 text-2xl font-black">{data.formulario.titulo}</h1>
+					<h1 className="mt-3 break-words text-2xl font-black">{data.formulario.titulo}</h1>
 					<p className="mt-1 text-sky-100">
 						{data.totalRespostas} resposta(s) recebida(s)
 					</p>

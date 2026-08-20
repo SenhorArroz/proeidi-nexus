@@ -145,19 +145,19 @@ export default function EditorFormulario() {
 	const salvar = () => salvarFormulario.mutate({ titulo: titulo.trim(), descricao: descricao.trim() || null, conteudo: { perguntas: perguntas.filter((pergunta) => pergunta.titulo.trim()).map((pergunta) => ({ ...pergunta, titulo: pergunta.titulo.trim(), opcoes: pergunta.opcoes.filter((opcao) => opcao.texto.trim()).map((opcao) => ({ ...opcao, texto: opcao.texto.trim() })) })) }, publicado: true });
 
     return (
-        <div className="min-h-full w-full bg-gray-50 flex flex-col items-center font-sans px-4 py-10 pb-32">
+        <div className="flex min-h-full w-full flex-col items-center overflow-x-clip bg-gray-50 px-3 py-6 pb-32 font-sans sm:px-4 sm:py-10">
             
             <div className="w-full max-w-3xl">
                 <BotaoVoltar href="/nexus/diretoria/questionarios" label="Voltar para Questionários" />
             </div>
 
             {/* Banner de topo (Mesmo estilo visual) */}
-            <div className="w-full max-w-3xl relative rounded-2xl overflow-hidden mb-8 px-[clamp(1rem,3vw,2rem)] py-[clamp(0.75rem,2.2vh,1.75rem)] bg-gradient-to-br from-sky-600 to-sky-500 shadow-sm">
+            <div className="relative mb-8 w-full min-w-0 max-w-3xl overflow-hidden rounded-2xl bg-gradient-to-br from-sky-600 to-sky-500 px-[clamp(1rem,3vw,2rem)] py-[clamp(0.75rem,2.2vh,1.75rem)] shadow-sm">
                 <div className="absolute -right-10 -bottom-16 w-56 h-56 rounded-full bg-amber-600 " />
                 <div className="absolute right-24 -top-12 w-32 h-32 rounded-full bg-amber-600 mix-blend-overlay" />
 
-                <div className="relative flex items-center justify-between">
-                    <div className="flex items-center gap-3">
+                <div className="relative flex items-center justify-between gap-3">
+                    <div className="flex min-w-0 items-center gap-3">
                         <div className="w-[clamp(2rem,3vw,2.5rem)] h-[clamp(2rem,3vw,2.5rem)] rounded-lg border-3 border-amber-600 backdrop-blur-sm flex items-center justify-center flex-shrink-0 bg-white/10">
                             <FileText className="w-[70%] h-[70%] text-white" />
                         </div>
@@ -171,14 +171,14 @@ export default function EditorFormulario() {
                         </div>
                     </div>
                     
-                    <button className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/20 hover:bg-white/30 text-white text-sm font-medium backdrop-blur-md transition-all duration-200">
+                    <button className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg bg-white/20 px-3 py-2 text-sm font-medium text-white backdrop-blur-md transition-all duration-200 hover:bg-white/30 sm:px-4">
                         <Settings className="w-4 h-4" />
                         <span className="hidden sm:inline">Configurações</span>
                     </button>
                 </div>
             </div>
 
-            <div className="w-full max-w-3xl space-y-4">
+            <div className="w-full min-w-0 max-w-3xl space-y-4">
                 
                 {/* Cabeçalho do Formulário */}
                 <div 
@@ -190,7 +190,7 @@ export default function EditorFormulario() {
                     }`}
                 >
                     <div className="h-2 w-full bg-sky-500" />
-                    <div className="p-6 space-y-4">
+                    <div className="space-y-4 p-4 sm:p-6">
                         {ativoId === "header" ? (
                             <>
                                 <input
@@ -225,18 +225,18 @@ export default function EditorFormulario() {
                         <div 
                             key={pergunta.id}
                             onClick={() => setAtivoId(pergunta.id)}
-                            className={`bg-white rounded-2xl border transition-all duration-200 cursor-pointer group flex relative ${
+                            className={`group relative flex min-w-0 rounded-2xl border bg-white transition-all duration-200 cursor-pointer ${
                                 isAtivo 
                                     ? "border-sky-300 shadow-md ring-4 ring-sky-50" 
                                     : "border-gray-200 hover:border-gray-300 hover:shadow-sm"
                             }`}
                         >
                             {/* Drag handle sutil */}
-                            <div className="w-8 flex flex-col items-center pt-6 text-gray-200 group-hover:text-gray-400 transition-colors">
+                            <div className="flex w-7 shrink-0 flex-col items-center pt-4 text-gray-200 transition-colors group-hover:text-gray-400 sm:w-8 sm:pt-6">
                                 <GripVertical className="w-4 h-4" />
                             </div>
 
-                            <div className="flex-1 p-6 pl-0">
+                            <div className="min-w-0 flex-1 p-4 pl-0 sm:p-6 sm:pl-0">
                                 {isAtivo ? (
                                     // MODO EDIÇÃO
                                     <div className="space-y-4">
@@ -269,7 +269,7 @@ export default function EditorFormulario() {
                                             {(pergunta.tipo === "multiple_choice" || pergunta.tipo === "checkbox") && (
                                                 <>
                                                     {pergunta.opcoes.map((opcao) => (
-                                                        <div key={opcao.id} className="flex items-center gap-3 group/opt">
+                                                        <div key={opcao.id} className="group/opt grid min-w-0 grid-cols-[auto_minmax(0,1fr)_2.75rem] items-center gap-2 sm:grid-cols-[auto_minmax(0,1fr)_auto_2.75rem]">
                                                             <IconeOpcao tipo={pergunta.tipo} className="text-gray-300 flex-shrink-0" />
                                                             <input
                                                                 type="text"
@@ -277,10 +277,10 @@ export default function EditorFormulario() {
                                                                 onChange={(e) => atualizarOpcao(pergunta.id, opcao.id, e.target.value)}
                                                                 className="flex-1 rounded-lg border border-transparent bg-transparent hover:bg-gray-50 focus:bg-gray-50 px-3 py-1.5 text-sm text-gray-700 focus:border-gray-200 focus:outline-none transition-colors"
                                                             />
-												<button type="button" onClick={() => atualizarPergunta(pergunta.id, "respostaCorreta", pergunta.tipo === "checkbox" ? (() => { const atuais = Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta : []; return atuais.includes(opcao.texto) ? atuais.filter((item) => item !== opcao.texto) : [...atuais, opcao.texto]; })() : (pergunta.respostaCorreta === opcao.texto ? undefined : opcao.texto))} className={`rounded-lg px-2 py-1 text-[11px] font-bold ${Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta.includes(opcao.texto) ? "bg-green-50 text-green-700" : "text-slate-400 hover:bg-slate-50" : pergunta.respostaCorreta === opcao.texto ? "bg-green-50 text-green-700" : "text-slate-400 hover:bg-slate-50"}`}>{(Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta.includes(opcao.texto) : pergunta.respostaCorreta === opcao.texto) ? "Correta" : "Marcar correta"}</button>
+												<button type="button" onClick={() => atualizarPergunta(pergunta.id, "respostaCorreta", pergunta.tipo === "checkbox" ? (() => { const atuais = Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta : []; return atuais.includes(opcao.texto) ? atuais.filter((item) => item !== opcao.texto) : [...atuais, opcao.texto]; })() : (pergunta.respostaCorreta === opcao.texto ? undefined : opcao.texto))} className={`col-start-2 row-start-2 min-h-11 justify-self-start rounded-lg px-2 py-1 text-[11px] font-bold sm:col-start-3 sm:row-start-1 ${Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta.includes(opcao.texto) ? "bg-green-50 text-green-700" : "text-slate-400 hover:bg-slate-50" : pergunta.respostaCorreta === opcao.texto ? "bg-green-50 text-green-700" : "text-slate-400 hover:bg-slate-50"}`}>{(Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta.includes(opcao.texto) : pergunta.respostaCorreta === opcao.texto) ? "Correta" : "Marcar correta"}</button>
                                                             <button 
                                                                 onClick={(e) => { e.stopPropagation(); removerOpcao(pergunta.id, opcao.id); }}
-                                                                className="p-1.5 rounded-lg text-gray-300 hover:bg-red-50 hover:text-red-500 transition-all duration-200 opacity-0 group-hover/opt:opacity-100 focus:opacity-100"
+                                                                className="col-start-3 row-start-1 grid h-11 w-11 place-items-center rounded-lg text-gray-400 transition-all duration-200 hover:bg-red-50 hover:text-red-500 sm:col-start-4 sm:text-gray-300 sm:opacity-0 sm:group-hover/opt:opacity-100 sm:focus:opacity-100"
                                                                 title="Remover opção"
                                                             >
                                                                 <X className="w-4 h-4" />
@@ -308,7 +308,7 @@ export default function EditorFormulario() {
                                         </div>
 
                                         {/* Footer de ações da pergunta ativa */}
-                                        <div className="flex items-center justify-end gap-2 pt-4 mt-2 border-t border-gray-100">
+                                        <div className="mt-2 flex flex-wrap items-center justify-end gap-2 border-t border-gray-100 pt-4">
                                             <button 
                                                 onClick={() => atualizarPergunta(pergunta.id, "obrigatoria", !pergunta.obrigatoria)}
                                                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
@@ -383,7 +383,7 @@ export default function EditorFormulario() {
                         Adicionar pergunta
                     </button>
                 </div>
-				<div className="sticky bottom-4 flex justify-end"><button onClick={salvar} disabled={salvarFormulario.isPending || !titulo.trim() || !perguntas.some((pergunta) => pergunta.titulo.trim())} className="rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-sky-200 hover:bg-sky-700 disabled:opacity-50">{salvarFormulario.isPending ? "Publicando…" : "Publicar questionário"}</button></div>
+				<div className="sticky bottom-4 flex justify-end"><button onClick={salvar} disabled={salvarFormulario.isPending || !titulo.trim() || !perguntas.some((pergunta) => pergunta.titulo.trim())} className="min-h-11 w-full rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-sky-200 hover:bg-sky-700 disabled:opacity-50 sm:w-auto">{salvarFormulario.isPending ? "Publicando…" : "Publicar questionário"}</button></div>
 				{salvarFormulario.error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{salvarFormulario.error.message}</p>}
 				{salvarFormulario.data && <p role="status" className="rounded-xl bg-green-50 p-3 text-sm text-green-800">Questionário publicado. Link: <a className="font-bold underline" href={`/questionarios/${salvarFormulario.data.slug}`} target="_blank">/questionarios/{salvarFormulario.data.slug}</a></p>}
 

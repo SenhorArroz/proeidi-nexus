@@ -47,7 +47,7 @@ export default function TurmaCard({ turma }: { turma: Turma }) {
     }, [menuOpen]);
 
     return (
-        <div className="group relative bg-white rounded-2xl border-1 border-sky-500 hover:shadow-lg hover:-translate-y-0.5 hover:border-amber-600 transition-all duration-400 cursor-pointer">
+        <div className="group relative min-w-0 cursor-pointer rounded-2xl border-1 border-sky-500 bg-white transition-all duration-400 hover:-translate-y-0.5 hover:border-amber-600 hover:shadow-lg">
             {/* Banner */}
             <div
                 className="relative h-24 flex items-start justify-between p-3 overflow-hidden rounded-t-2xl"
@@ -75,7 +75,8 @@ export default function TurmaCard({ turma }: { turma: Turma }) {
             <div ref={menuRef} className="absolute top-3 right-3 z-10">
                 <button
                     onClick={(e) => { e.stopPropagation(); setMenuOpen((v) => !v); }}
-                    className="p-1.5 rounded-full text-white/80 hover:bg-white/20 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
+					className="grid min-h-11 min-w-11 place-items-center rounded-full text-white/80 opacity-100 transition-opacity hover:bg-white/20 hover:text-white sm:min-h-0 sm:min-w-0 sm:p-1.5 sm:opacity-0 sm:group-hover:opacity-100"
+					aria-label="Abrir ações da turma"
                 >
                     <MoreVertical className="w-4 h-4" />
                 </button>
@@ -102,18 +103,18 @@ export default function TurmaCard({ turma }: { turma: Turma }) {
 
             {/* Corpo */}
             <div className="p-4">
-                <div className="flex items-center gap-2 mb-4">
+				<div className="mb-4 flex min-w-0 flex-wrap items-center gap-2">
                     <div
                         className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-semibold text-white flex-shrink-0"
                         style={{ backgroundColor: turma.color }}
                     >
                         {initials(turma.professores)}
                     </div>
-                    <p className="text-xs text-gray-500 truncate">{turma.professores}</p>
+					<p className="min-w-0 flex-1 truncate text-xs text-gray-500">{turma.professores}</p>
                     <span className="text-gray-300">·</span>
-                    <span className="flex items-center gap-1 text-xs text-gray-500 flex-shrink-0">
+					<span className="flex max-w-full shrink-0 items-center gap-1 text-xs text-gray-500">
                         <MapPin className="w-3 h-3" />
-                        {turma.sala}
+						<span className="truncate">{turma.sala}</span>
                     </span>
                 </div>
 
