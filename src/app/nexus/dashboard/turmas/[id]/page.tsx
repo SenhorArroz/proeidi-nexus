@@ -67,6 +67,8 @@ interface Aviso {
 	fixado: boolean;
 	texto: string;
 	quando: string;
+	podeExcluir: boolean;
+	podeFixar: boolean;
 }
 
 interface Anotacao {
@@ -783,40 +785,53 @@ function EditarTurmaModal({
 
 function InicioView({
 	turma,
+	turmaId,
 	avisos,
-	setAvisos,
 	eventos,
 }: {
 	turma: DadosTurma;
+	turmaId: string;
 	avisos: Aviso[];
-	setAvisos: React.Dispatch<React.SetStateAction<Aviso[]>>;
 	eventos: EventoCalendario[];
 }) {
 	const [criandoAviso, setCriandoAviso] = useState(false);
 	const [novoAviso, setNovoAviso] = useState("");
+	const [erro, setErro] = useState<string | null>(null);
+	const utils = api.useUtils();
+	const criarAviso = api.turma.avisos.create.useMutation({
+		onSuccess: () => {
+			setNovoAviso("");
+			setCriandoAviso(false);
+			setErro(null);
+			void utils.turma.detalhe.invalidate({ id: turmaId });
+		},
+		onError: (causa) => setErro(causa.message),
+	});
+	const fixarAviso = api.turma.avisos.setFixado.useMutation({
+		onSuccess: () => void utils.turma.detalhe.invalidate({ id: turmaId }),
+		onError: (causa) => setErro(causa.message),
+	});
+	const removerAviso = api.turma.avisos.remove.useMutation({
+		onSuccess: () => void utils.turma.detalhe.invalidate({ id: turmaId }),
+		onError: (causa) => setErro(causa.message),
+	});
 
 	const adicionarAviso = () => {
 		const texto = novoAviso.trim();
 		if (!texto) return;
-		const novo: Aviso = {
-			id: Date.now().toString(),
-			autor: turma.professores[0] ?? "Você",
-			fixado: false,
-			texto,
-			quando: "Agora",
-		};
-		setAvisos((prev) => [novo, ...prev]);
-		setNovoAviso("");
-		setCriandoAviso(false);
+		setErro(null);
+		criarAviso.mutate({ turmaId, texto });
 	};
 
-	const toggleFixar = (id: string) =>
-		setAvisos((prev) =>
-			prev.map((a) => (a.id === id ? { ...a, fixado: !a.fixado } : a)),
-		);
+	const toggleFixar = (aviso: Aviso) => {
+		setErro(null);
+		fixarAviso.mutate({ turmaId, id: aviso.id, fixado: !aviso.fixado });
+	};
 
-	const excluirAviso = (id: string) =>
-		setAvisos((prev) => prev.filter((a) => a.id !== id));
+	const excluirAviso = (id: string) => {
+		setErro(null);
+		removerAviso.mutate({ turmaId, id });
+	};
 
 	// Organiza: fixados primeiro
 	const avisosOrdenados = [...avisos].sort((a, b) =>
@@ -892,13 +907,15 @@ function InicioView({
 						/>
 						<button
 							onClick={adicionarAviso}
-							className="flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-700"
+							disabled={!novoAviso.trim() || criarAviso.isPending}
+							className="flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							<Check className="w-4 h-4" />
-							Publicar
+							{criarAviso.isPending ? "Publicando..." : "Publicar"}
 						</button>
 					</div>
 				)}
+				{erro && <p role="alert" className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{erro}</p>}
 
 				<div className="space-y-3">
 					{avisosOrdenados.map((aviso) => (
@@ -922,20 +939,22 @@ function InicioView({
 									</div>
 								</div>
 								<div className="flex items-center gap-1">
-									<button
-										onClick={() => toggleFixar(aviso.id)}
+									{aviso.podeFixar && <button
+										onClick={() => toggleFixar(aviso)}
+										disabled={fixarAviso.isPending}
 										className={`p-1 rounded-full transition-colors ${aviso.fixado ? "text-amber-500" : "text-gray-300 opacity-0 group-hover:opacity-100 hover:text-amber-500"}`}
 										title={aviso.fixado ? "Desafixar" : "Fixar"}
 									>
 										<Pin className="w-3.5 h-3.5" />
-									</button>
-									<button
+									</button>}
+									{aviso.podeExcluir && <button
 										onClick={() => excluirAviso(aviso.id)}
+										disabled={removerAviso.isPending}
 										className="p-1 rounded-full text-gray-300 opacity-0 group-hover:opacity-100 hover:text-red-400 transition-colors"
 										title="Excluir"
 									>
 										<Trash2 className="w-3.5 h-3.5" />
-									</button>
+									</button>}
 								</div>
 							</div>
 							<p className="text-sm text-gray-600 leading-relaxed">
@@ -960,38 +979,47 @@ function InicioView({
 
 function MateriaisView({
 	materiais,
-	setMateriais,
+	turmaId,
 	cor,
 	podeGerenciar,
 }: {
 	materiais: Material[];
-	setMateriais: React.Dispatch<React.SetStateAction<Material[]>>;
+	turmaId: string;
 	cor: string;
 	podeGerenciar: boolean;
 }) {
 	const [criando, setCriando] = useState(false);
 	const [nome, setNome] = useState("");
 	const [url, setUrl] = useState("");
+	const [erro, setErro] = useState<string | null>(null);
+	const utils = api.useUtils();
+	const criarMaterial = api.turma.materiais.create.useMutation({
+		onSuccess: () => {
+			setNome("");
+			setUrl("");
+			setCriando(false);
+			setErro(null);
+			void utils.turma.detalhe.invalidate({ id: turmaId });
+		},
+		onError: (causa) => setErro(causa.message),
+	});
+	const removerMaterial = api.turma.materiais.remove.useMutation({
+		onSuccess: () => void utils.turma.detalhe.invalidate({ id: turmaId }),
+		onError: (causa) => setErro(causa.message),
+	});
 
 	const adicionar = () => {
 		const titulo = nome.trim();
 		const link = url.trim();
 		if (!titulo || !link) return;
-		const hoje = new Date();
-		const novo: Material = {
-			id: Date.now().toString(),
-			nome: titulo,
-			url: link,
-			quando: `${pad(hoje.getDate())}/${pad(hoje.getMonth() + 1)}`,
-		};
-		setMateriais((prev) => [novo, ...prev]);
-		setNome("");
-		setUrl("");
-		setCriando(false);
+		setErro(null);
+		criarMaterial.mutate({ turmaId, titulo, url: link, tipo: "LINK" });
 	};
 
-	const excluir = (id: string) =>
-		setMateriais((prev) => prev.filter((m) => m.id !== id));
+	const excluir = (id: string) => {
+		setErro(null);
+		removerMaterial.mutate({ turmaId, id });
+	};
 
 	return (
 		<div className="mx-auto w-full max-w-6xl min-w-0 space-y-3 px-3 py-5 sm:px-6 lg:px-8">
@@ -1031,13 +1059,15 @@ function MateriaisView({
 					/>
 					{podeGerenciar && <button
 						onClick={adicionar}
-						className="w-full flex justify-center items-center gap-1.5 px-4 py-2 rounded-lg bg-sky-600 text-white text-sm font-medium hover:bg-sky-700 transition-colors"
+						disabled={!nome.trim() || !url.trim() || criarMaterial.isPending}
+						className="flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
 					>
 						<Check className="w-4 h-4" />
-						Salvar
+						{criarMaterial.isPending ? "Salvando..." : "Salvar"}
 					</button>}
 				</div>
 			)}
+			{erro && <p role="alert" className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{erro}</p>}
 
 			{materiais.map((m) => (
 				<div
@@ -1063,6 +1093,7 @@ function MateriaisView({
 					</div>
 					<button
 						onClick={() => excluir(m.id)}
+						disabled={removerMaterial.isPending}
 					className="grid min-h-11 min-w-11 shrink-0 place-items-center rounded-full text-gray-400 opacity-100 transition-all hover:bg-red-50 hover:text-red-500 sm:min-h-0 sm:min-w-0 sm:p-1.5 sm:text-gray-300 sm:opacity-0 sm:group-hover:opacity-100"
 						title="Remover"
 					>
@@ -1085,37 +1116,47 @@ function MateriaisView({
 
 function AnotacoesView({
 	anotacoes,
-	setAnotacoes,
+	turmaId,
 	cor,
 }: {
 	anotacoes: Anotacao[];
-	setAnotacoes: React.Dispatch<React.SetStateAction<Anotacao[]>>;
+	turmaId: string;
 	cor: string;
 }) {
 	const [criando, setCriando] = useState(false);
 	const [titulo, setTitulo] = useState("");
 	const [conteudo, setConteudo] = useState("");
 	const [expandido, setExpandido] = useState<string | null>(null);
+	const [erro, setErro] = useState<string | null>(null);
+	const utils = api.useUtils();
+	const criarAnotacao = api.turma.anotacoes.create.useMutation({
+		onSuccess: () => {
+			setTitulo("");
+			setConteudo("");
+			setCriando(false);
+			setErro(null);
+			void utils.turma.detalhe.invalidate({ id: turmaId });
+		},
+		onError: (causa) => setErro(causa.message),
+	});
+	const removerAnotacao = api.turma.anotacoes.remove.useMutation({
+		onSuccess: () => {
+			setExpandido(null);
+			void utils.turma.detalhe.invalidate({ id: turmaId });
+		},
+		onError: (causa) => setErro(causa.message),
+	});
 
 	const adicionar = () => {
 		const t = titulo.trim();
 		if (!t) return;
-		const hoje = new Date();
-		const nova: Anotacao = {
-			id: Date.now().toString(),
-			titulo: t,
-			data: `${pad(hoje.getDate())}/${pad(hoje.getMonth() + 1)}`,
-			conteudo: conteudo.trim(),
-		};
-		setAnotacoes((prev) => [nova, ...prev]);
-		setTitulo("");
-		setConteudo("");
-		setCriando(false);
+		setErro(null);
+		criarAnotacao.mutate({ turmaId, titulo: t, conteudo: conteudo.trim() });
 	};
 
 	const excluir = (id: string) => {
-		setAnotacoes((prev) => prev.filter((a) => a.id !== id));
-		if (expandido === id) setExpandido(null);
+		setErro(null);
+		removerAnotacao.mutate({ turmaId, id });
 	};
 
 	return (
@@ -1157,14 +1198,16 @@ function AnotacoesView({
 					<div className="flex justify-end">
 						<button
 							onClick={adicionar}
-							className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-sky-600 text-white text-sm font-medium hover:bg-sky-700 transition-colors"
+							disabled={!titulo.trim() || criarAnotacao.isPending}
+							className="flex min-h-11 items-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							<Check className="w-4 h-4" />
-							Salvar
+							{criarAnotacao.isPending ? "Salvando..." : "Salvar"}
 						</button>
 					</div>
 				</div>
 			)}
+			{erro && <p role="alert" className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{erro}</p>}
 
 			{anotacoes.map((a) => (
 				<div
@@ -1202,6 +1245,7 @@ function AnotacoesView({
 								</p>
 								<button
 									onClick={() => excluir(a.id)}
+									disabled={removerAnotacao.isPending}
 									className="flex items-center gap-1 text-xs text-red-400 hover:text-red-500 transition-colors"
 								>
 									<Trash2 className="w-3 h-3" />
@@ -1414,7 +1458,7 @@ export default function TurmaView() {
 		const dados = detalhe?.turma;
 		if (!dados) return;
 		setTurma({ nome: dados.titulo, sala: dados.sala ?? "Local a definir", horario: dados.horario ?? "Horário a definir", cor: dados.cor, professores: dados.professores.map((item) => item.user.nome), monitores: dados.monitores.map((item) => item.user.nome), alunos: dados.alunos.map((item) => item.aluno.nome) });
-		setAvisos(dados.avisos.map((item) => ({ id: item.id, autor: item.autor.nome, fixado: item.fixado, texto: item.texto, quando: item.createdAt.toLocaleDateString("pt-BR") })));
+		setAvisos(dados.avisos.map((item) => ({ id: item.id, autor: item.autor.nome, fixado: item.fixado, texto: item.texto, quando: item.createdAt.toLocaleDateString("pt-BR"), podeExcluir: detalhe.role !== "MONITOR" || item.autorId === detalhe.usuarioId, podeFixar: detalhe.role !== "MONITOR" })));
 		setMateriais(dados.materiais.map((item) => ({ id: item.id, nome: item.titulo, url: item.url, quando: item.createdAt.toLocaleDateString("pt-BR") })));
 		setAnotacoes((dados.anotacoes ?? []).map((item) => ({ id: item.id, titulo: item.titulo, conteudo: item.conteudo, data: item.createdAt.toLocaleDateString("pt-BR") })));
 		setEventos(dados.eventos.map((item) => ({ id: item.id, titulo: item.titulo, data: item.data.toISOString().slice(0, 10), tipo: item.tipo.toLowerCase() as TipoEvento })));
@@ -1533,12 +1577,12 @@ export default function TurmaView() {
 			{/* Conteúdo */}
 			<div className="min-h-0 flex-1 overflow-y-auto">
 				{tab === "inicio" && (
-					<InicioView turma={turma} avisos={avisos} setAvisos={setAvisos} eventos={eventos} />
+					<InicioView turma={turma} turmaId={turmaId} avisos={avisos} eventos={eventos} />
 				)}
 				{tab === "materiais" && (
 					<MateriaisView
 						materiais={materiais}
-						setMateriais={setMateriais}
+						turmaId={turmaId}
 						cor={turma.cor}
 						podeGerenciar={detalhe.role !== "MONITOR"}
 					/>
@@ -1546,7 +1590,7 @@ export default function TurmaView() {
 				{tab === "anotacoes" && (
 					<AnotacoesView
 						anotacoes={anotacoes}
-						setAnotacoes={setAnotacoes}
+						turmaId={turmaId}
 						cor={turma.cor}
 					/>
 				)}

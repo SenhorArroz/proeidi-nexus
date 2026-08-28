@@ -23380,6 +23380,7 @@ export namespace Prisma {
     telefone: string | null
     emergencia: string | null
     curso: $Enums.CursoSorteio | null
+    createdAt: Date | null
   }
 
   export type CandidatoMaxAggregateOutputType = {
@@ -23392,6 +23393,7 @@ export namespace Prisma {
     telefone: string | null
     emergencia: string | null
     curso: $Enums.CursoSorteio | null
+    createdAt: Date | null
   }
 
   export type CandidatoCountAggregateOutputType = {
@@ -23404,6 +23406,7 @@ export namespace Prisma {
     telefone: number
     emergencia: number
     curso: number
+    createdAt: number
     _all: number
   }
 
@@ -23418,6 +23421,7 @@ export namespace Prisma {
     telefone?: true
     emergencia?: true
     curso?: true
+    createdAt?: true
   }
 
   export type CandidatoMaxAggregateInputType = {
@@ -23430,6 +23434,7 @@ export namespace Prisma {
     telefone?: true
     emergencia?: true
     curso?: true
+    createdAt?: true
   }
 
   export type CandidatoCountAggregateInputType = {
@@ -23442,6 +23447,7 @@ export namespace Prisma {
     telefone?: true
     emergencia?: true
     curso?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -23527,6 +23533,7 @@ export namespace Prisma {
     telefone: string
     emergencia: string
     curso: $Enums.CursoSorteio
+    createdAt: Date
     _count: CandidatoCountAggregateOutputType | null
     _min: CandidatoMinAggregateOutputType | null
     _max: CandidatoMaxAggregateOutputType | null
@@ -23556,6 +23563,7 @@ export namespace Prisma {
     telefone?: boolean
     emergencia?: boolean
     curso?: boolean
+    createdAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["candidato"]>
 
@@ -23569,6 +23577,7 @@ export namespace Prisma {
     telefone?: boolean
     emergencia?: boolean
     curso?: boolean
+    createdAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["candidato"]>
 
@@ -23582,6 +23591,7 @@ export namespace Prisma {
     telefone?: boolean
     emergencia?: boolean
     curso?: boolean
+    createdAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["candidato"]>
 
@@ -23595,9 +23605,10 @@ export namespace Prisma {
     telefone?: boolean
     emergencia?: boolean
     curso?: boolean
+    createdAt?: boolean
   }
 
-  export type CandidatoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "ficha" | "nome" | "dataNascimento" | "cpf" | "telefone" | "emergencia" | "curso", ExtArgs["result"]["candidato"]>
+  export type CandidatoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "ficha" | "nome" | "dataNascimento" | "cpf" | "telefone" | "emergencia" | "curso" | "createdAt", ExtArgs["result"]["candidato"]>
   export type CandidatoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
   }
@@ -23623,6 +23634,7 @@ export namespace Prisma {
       telefone: string
       emergencia: string
       curso: $Enums.CursoSorteio
+      createdAt: Date
     }, ExtArgs["result"]["candidato"]>
     composites: {}
   }
@@ -24056,6 +24068,7 @@ export namespace Prisma {
     readonly telefone: FieldRef<"Candidato", 'String'>
     readonly emergencia: FieldRef<"Candidato", 'String'>
     readonly curso: FieldRef<"Candidato", 'CursoSorteio'>
+    readonly createdAt: FieldRef<"Candidato", 'DateTime'>
   }
     
 
@@ -29101,7 +29114,8 @@ export namespace Prisma {
     cpf: 'cpf',
     telefone: 'telefone',
     emergencia: 'emergencia',
-    curso: 'curso'
+    curso: 'curso',
+    createdAt: 'createdAt'
   };
 
   export type CandidatoScalarFieldEnum = (typeof CandidatoScalarFieldEnum)[keyof typeof CandidatoScalarFieldEnum]
@@ -30573,6 +30587,7 @@ export namespace Prisma {
     telefone?: StringFilter<"Candidato"> | string
     emergencia?: StringFilter<"Candidato"> | string
     curso?: EnumCursoSorteioFilter<"Candidato"> | $Enums.CursoSorteio
+    createdAt?: DateTimeFilter<"Candidato"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
   }
 
@@ -30586,6 +30601,7 @@ export namespace Prisma {
     telefone?: SortOrder
     emergencia?: SortOrder
     curso?: SortOrder
+    createdAt?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
   }
 
@@ -30602,6 +30618,7 @@ export namespace Prisma {
     telefone?: StringFilter<"Candidato"> | string
     emergencia?: StringFilter<"Candidato"> | string
     curso?: EnumCursoSorteioFilter<"Candidato"> | $Enums.CursoSorteio
+    createdAt?: DateTimeFilter<"Candidato"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
   }, "id">
 
@@ -30615,6 +30632,7 @@ export namespace Prisma {
     telefone?: SortOrder
     emergencia?: SortOrder
     curso?: SortOrder
+    createdAt?: SortOrder
     _count?: CandidatoCountOrderByAggregateInput
     _max?: CandidatoMaxOrderByAggregateInput
     _min?: CandidatoMinOrderByAggregateInput
@@ -30633,6 +30651,7 @@ export namespace Prisma {
     telefone?: StringWithAggregatesFilter<"Candidato"> | string
     emergencia?: StringWithAggregatesFilter<"Candidato"> | string
     curso?: EnumCursoSorteioWithAggregatesFilter<"Candidato"> | $Enums.CursoSorteio
+    createdAt?: DateTimeWithAggregatesFilter<"Candidato"> | Date | string
   }
 
   export type FormularioWhereInput = {
@@ -32122,6 +32141,7 @@ export namespace Prisma {
     telefone: string
     emergencia: string
     curso: $Enums.CursoSorteio
+    createdAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutCandidatosInput
   }
 
@@ -32135,6 +32155,7 @@ export namespace Prisma {
     telefone: string
     emergencia: string
     curso: $Enums.CursoSorteio
+    createdAt?: Date | string
   }
 
   export type CandidatoUpdateInput = {
@@ -32146,6 +32167,7 @@ export namespace Prisma {
     telefone?: StringFieldUpdateOperationsInput | string
     emergencia?: StringFieldUpdateOperationsInput | string
     curso?: EnumCursoSorteioFieldUpdateOperationsInput | $Enums.CursoSorteio
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutCandidatosNestedInput
   }
 
@@ -32159,6 +32181,7 @@ export namespace Prisma {
     telefone?: StringFieldUpdateOperationsInput | string
     emergencia?: StringFieldUpdateOperationsInput | string
     curso?: EnumCursoSorteioFieldUpdateOperationsInput | $Enums.CursoSorteio
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CandidatoCreateManyInput = {
@@ -32171,6 +32194,7 @@ export namespace Prisma {
     telefone: string
     emergencia: string
     curso: $Enums.CursoSorteio
+    createdAt?: Date | string
   }
 
   export type CandidatoUpdateManyMutationInput = {
@@ -32182,6 +32206,7 @@ export namespace Prisma {
     telefone?: StringFieldUpdateOperationsInput | string
     emergencia?: StringFieldUpdateOperationsInput | string
     curso?: EnumCursoSorteioFieldUpdateOperationsInput | $Enums.CursoSorteio
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CandidatoUncheckedUpdateManyInput = {
@@ -32194,6 +32219,7 @@ export namespace Prisma {
     telefone?: StringFieldUpdateOperationsInput | string
     emergencia?: StringFieldUpdateOperationsInput | string
     curso?: EnumCursoSorteioFieldUpdateOperationsInput | $Enums.CursoSorteio
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FormularioCreateInput = {
@@ -33427,6 +33453,7 @@ export namespace Prisma {
     telefone?: SortOrder
     emergencia?: SortOrder
     curso?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type CandidatoMaxOrderByAggregateInput = {
@@ -33439,6 +33466,7 @@ export namespace Prisma {
     telefone?: SortOrder
     emergencia?: SortOrder
     curso?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type CandidatoMinOrderByAggregateInput = {
@@ -33451,6 +33479,7 @@ export namespace Prisma {
     telefone?: SortOrder
     emergencia?: SortOrder
     curso?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type EnumCursoSorteioWithAggregatesFilter<$PrismaModel = never> = {
@@ -36336,6 +36365,7 @@ export namespace Prisma {
     telefone: string
     emergencia: string
     curso: $Enums.CursoSorteio
+    createdAt?: Date | string
   }
 
   export type CandidatoUncheckedCreateWithoutSemestreInput = {
@@ -36347,6 +36377,7 @@ export namespace Prisma {
     telefone: string
     emergencia: string
     curso: $Enums.CursoSorteio
+    createdAt?: Date | string
   }
 
   export type CandidatoCreateOrConnectWithoutSemestreInput = {
@@ -36466,6 +36497,7 @@ export namespace Prisma {
     telefone?: StringFilter<"Candidato"> | string
     emergencia?: StringFilter<"Candidato"> | string
     curso?: EnumCursoSorteioFilter<"Candidato"> | $Enums.CursoSorteio
+    createdAt?: DateTimeFilter<"Candidato"> | Date | string
   }
 
   export type SemestreCreateWithoutTurmasInput = {
@@ -39425,6 +39457,7 @@ export namespace Prisma {
     telefone: string
     emergencia: string
     curso: $Enums.CursoSorteio
+    createdAt?: Date | string
   }
 
   export type TurmaUpdateWithoutSemestreInput = {
@@ -39570,6 +39603,7 @@ export namespace Prisma {
     telefone?: StringFieldUpdateOperationsInput | string
     emergencia?: StringFieldUpdateOperationsInput | string
     curso?: EnumCursoSorteioFieldUpdateOperationsInput | $Enums.CursoSorteio
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CandidatoUncheckedUpdateWithoutSemestreInput = {
@@ -39581,6 +39615,7 @@ export namespace Prisma {
     telefone?: StringFieldUpdateOperationsInput | string
     emergencia?: StringFieldUpdateOperationsInput | string
     curso?: EnumCursoSorteioFieldUpdateOperationsInput | $Enums.CursoSorteio
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CandidatoUncheckedUpdateManyWithoutSemestreInput = {
@@ -39592,6 +39627,7 @@ export namespace Prisma {
     telefone?: StringFieldUpdateOperationsInput | string
     emergencia?: StringFieldUpdateOperationsInput | string
     curso?: EnumCursoSorteioFieldUpdateOperationsInput | $Enums.CursoSorteio
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProfessorTurmaCreateManyTurmaInput = {

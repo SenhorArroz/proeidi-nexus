@@ -35,11 +35,11 @@ export const turmaRouter = createTRPCRouter({
 			id: true, titulo: true, sala: true, horario: true, cor: true, semestre: { select: { codigo: true } },
 			professores: { select: { user: { select: { id: true, nome: true } } } }, monitores: { select: { user: { select: { id: true, nome: true } } } }, alunos: { select: { aluno: { select: { id: true, nome: true } } } },
 			materiais: { orderBy: { createdAt: "desc" }, select: { id: true, titulo: true, tipo: true, url: true, createdAt: true } }, eventos: { orderBy: { data: "asc" }, select: { id: true, titulo: true, data: true, tipo: true } },
-			avisos: { orderBy: [{ fixado: "desc" }, { createdAt: "desc" }], select: { id: true, texto: true, fixado: true, createdAt: true, autor: { select: { nome: true } } } },
+			avisos: { orderBy: [{ fixado: "desc" }, { createdAt: "desc" }], select: { id: true, autorId: true, texto: true, fixado: true, createdAt: true, autor: { select: { nome: true } } } },
 			...(role === "MONITOR" ? {} : { anotacoes: { where: { autorId: ctx.session.user.id }, orderBy: { createdAt: "desc" }, select: { id: true, titulo: true, conteudo: true, createdAt: true } } }),
 		} });
 		if (!turma) throw new TRPCError({ code: "NOT_FOUND" });
-		return { turma, role };
+		return { turma, role, usuarioId: ctx.session.user.id };
 	}),
 	avisos: createTRPCRouter({
 		create: protectedProcedure.input(z.object({ turmaId, texto })).mutation(async ({ ctx, input }) => { await acessoTurma(ctx, input.turmaId); return ctx.db.aviso.create({ data: { ...input, autorId: ctx.session.user.id }, select: { id: true } }); }),

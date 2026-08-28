@@ -6,10 +6,7 @@ import { directorProcedure } from "~/server/api/routers/diretoria";
 const id = z.string().cuid();
 const optionalText = z.string().trim().max(240).nullable().optional();
 const optionalEmail = z
-	.union([
-		z.string().trim().max(254),
-		z.literal(""),
-	])
+	.union([z.string().trim().max(254), z.literal("")])
 	.nullable()
 	.optional()
 	.transform((val) => (val && val.trim().length > 0 ? val.trim() : null));
@@ -28,9 +25,11 @@ const alunoInput = z.object({
 	semestreId: id,
 	nome: z.string().trim().min(1).max(160),
 	dataNascimento: z.coerce.date(),
-	cpf: z.string().trim().transform((value) => value.replace(/\D/g, "")).pipe(
-		z.string().regex(/^\d{11}$/, "CPF deve conter 11 dígitos."),
-	),
+	cpf: z
+		.string()
+		.trim()
+		.transform((value) => value.replace(/\D/g, ""))
+		.pipe(z.string().regex(/^\d{11}$/, "CPF deve conter 11 dígitos.")),
 	corRaca: z.string().trim().min(1).max(80),
 	identidadeGenero: z.string().trim().min(1).max(80),
 	lgbtqiapn: z.string().trim().min(1).max(30),

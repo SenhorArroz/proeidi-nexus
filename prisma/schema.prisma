@@ -397,6 +397,7 @@ model Candidato {
   telefone       String
   emergencia     String
   curso          CursoSorteio
+  createdAt      DateTime     @default(now())
 
   semestre Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
 

@@ -79,6 +79,17 @@ const alunoInput = z.object({
 	turmaIds: z.array(id).max(20),
 });
 
+const candidatoInput = z.object({
+	semestreId: id,
+	ficha: z.string().trim().min(1).max(40),
+	nome: text,
+	dataNascimento: z.coerce.date(),
+	cpf: z.string().trim().regex(/^\d{11}$/),
+	telefone: z.string().trim().min(8).max(160),
+	emergencia: z.string().trim().min(8).max(160),
+	curso: z.enum(["SMARTPHONE", "COMPUTADOR"]),
+});
+
 const turmaInput = z.object({
 	semestreId: id,
 	titulo: text,
@@ -410,46 +421,18 @@ export const diretoriaRouter = createTRPCRouter({
 						telefone: true,
 						emergencia: true,
 						curso: true,
+						createdAt: true,
 					},
 					orderBy: [{ curso: "asc" }, { ficha: "asc" }],
 				}),
 			),
 		create: directorProcedure
-			.input(
-				z.object({
-					semestreId: id,
-					ficha: z.string().trim().min(1).max(40),
-					nome: text,
-					dataNascimento: z.coerce.date(),
-					cpf: z
-						.string()
-						.trim()
-						.regex(/^\d{11}$/),
-					telefone: z.string().trim().min(8).max(30),
-					emergencia: z.string().trim().min(8).max(160),
-					curso: z.enum(["SMARTPHONE", "COMPUTADOR"]),
-				}),
-			)
+			.input(candidatoInput)
 			.mutation(({ ctx, input }) =>
 				ctx.db.candidato.create({ data: input, select: { id: true } }),
 			),
 		update: directorProcedure
-			.input(
-				z.object({
-					id,
-					semestreId: id,
-					ficha: z.string().trim().min(1).max(40),
-					nome: text,
-					dataNascimento: z.coerce.date(),
-					cpf: z
-						.string()
-						.trim()
-						.regex(/^\d{11}$/),
-					telefone: z.string().trim().min(8).max(30),
-					emergencia: z.string().trim().min(8).max(160),
-					curso: z.enum(["SMARTPHONE", "COMPUTADOR"]),
-				}),
-			)
+			.input(candidatoInput.extend({ id }))
 			.mutation(async ({ ctx, input }) => {
 				const { id: candidatoId, ...data } = input;
 				const exists = await ctx.db.candidato.findFirst({
@@ -462,6 +445,36 @@ export const diretoriaRouter = createTRPCRouter({
 					data,
 					select: { id: true },
 				});
+			}),
+		importMany: directorProcedure
+			.input(
+				z.object({
+					semestreId: id,
+					registros: z.array(
+						candidatoInput.omit({ semestreId: true }).extend({
+							createdAt: z.coerce.date().optional(),
+						}),
+					).min(1).max(1000),
+				}),
+			)
+			.mutation(async ({ ctx, input }) => {
+				const existentes = await ctx.db.candidato.findMany({
+					where: { semestreId: input.semestreId },
+					select: { ficha: true, curso: true },
+				});
+				const chaves = new Set(existentes.map((candidato) => `${candidato.ficha.trim()}::${candidato.curso}`));
+				const novos = input.registros.filter((registro) => {
+					const chave = `${registro.ficha.trim()}::${registro.curso}`;
+					if (chaves.has(chave)) return false;
+					chaves.add(chave);
+					return true;
+				}).map(({ createdAt, ...registro }) => ({
+					...registro,
+					semestreId: input.semestreId,
+					...(createdAt ? { createdAt } : {}),
+				}));
+				if (novos.length) await ctx.db.candidato.createMany({ data: novos });
+				return { criados: novos.length, ignorados: input.registros.length - novos.length };
 			}),
 		remove: directorProcedure
 			.input(z.object({ id, semestreId: id }))

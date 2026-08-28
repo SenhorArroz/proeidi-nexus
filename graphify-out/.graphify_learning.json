@@ -1,0 +1,185 @@
+{
+  "generated_at": "2026-08-28T22:16:06.322600+00:00",
+  "nodes": {
+    "src_app_nexus_diretoria_layout_diretorialayout": {
+      "code_fingerprint": "7c0bbb4b86a068dd88da61ea19031a506088bd17ca8437ef74c06041a3b513c5",
+      "label": "DiretoriaLayout()",
+      "last": "2026-08-28T19:44:51.694894+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T19:44:51.694894+00:00",
+          "outcome": "useful",
+          "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
+        }
+      ],
+      "score": 0.997576224,
+      "source_file": "src/app/nexus/diretoria/layout.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_diretoria_sorteio_page": {
+      "code_fingerprint": "e4aafa12c7e8bb830e1763c4f98ad34c6034d1f88ebc752578e0fa38527af1d9",
+      "label": "sorteio/page.tsx",
+      "last": "2026-08-28T22:01:50.226663+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T22:01:50.226663+00:00",
+          "outcome": "useful",
+          "q": "Importar inscrições de planilha para o sorteio"
+        },
+        {
+          "date": "2026-08-28T21:39:50.482358+00:00",
+          "outcome": "useful",
+          "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
+        }
+      ],
+      "score": 1.999189401,
+      "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
+      "status": "preferred",
+      "uses": 2
+    },
+    "src_app_nexus_diretoria_sorteio_page_gerenciarsorteio": {
+      "code_fingerprint": "e4aafa12c7e8bb830e1763c4f98ad34c6034d1f88ebc752578e0fa38527af1d9",
+      "label": "GerenciarSorteio()",
+      "last": "2026-08-28T22:05:12.408189+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T22:05:12.408189+00:00",
+          "outcome": "useful",
+          "q": "Corrigir importação com telefones longos na planilha de inscrições"
+        },
+        {
+          "date": "2026-08-28T22:01:50.226663+00:00",
+          "outcome": "useful",
+          "q": "Importar inscrições de planilha para o sorteio"
+        },
+        {
+          "date": "2026-08-28T21:39:50.482358+00:00",
+          "outcome": "useful",
+          "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
+        }
+      ],
+      "score": 2.999014548,
+      "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
+      "status": "preferred",
+      "uses": 3
+    },
+    "src_app_nexus_diretoria_sorteio_sorteador_page": {
+      "code_fingerprint": "356f80fdb0589de6c94581e79df0de1add94bbd786eea4c6b016a590e5e929a6",
+      "label": "sorteador/page.tsx",
+      "last": "2026-08-28T22:09:43.148572+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T22:09:43.148572+00:00",
+          "outcome": "useful",
+          "q": "Exportar pessoas sorteadas do modo vinculado separadas por curso"
+        },
+        {
+          "date": "2026-08-28T20:38:52.714318+00:00",
+          "outcome": "useful",
+          "q": "faça o campo de Tirar números do sorteio ser retrátil"
+        },
+        {
+          "date": "2026-08-28T19:44:51.694894+00:00",
+          "outcome": "useful",
+          "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
+        }
+      ],
+      "score": 2.995914967,
+      "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
+      "status": "preferred",
+      "uses": 3
+    },
+    "src_app_nexus_diretoria_sorteio_sorteador_page_sorteadororganico": {
+      "code_fingerprint": "356f80fdb0589de6c94581e79df0de1add94bbd786eea4c6b016a590e5e929a6",
+      "label": "SorteadorOrganico()",
+      "last": "2026-08-28T22:09:43.148572+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T22:09:43.148572+00:00",
+          "outcome": "useful",
+          "q": "Exportar pessoas sorteadas do modo vinculado separadas por curso"
+        },
+        {
+          "date": "2026-08-28T20:38:52.714318+00:00",
+          "outcome": "useful",
+          "q": "faça o campo de Tirar números do sorteio ser retrátil"
+        },
+        {
+          "date": "2026-08-28T19:44:51.694894+00:00",
+          "outcome": "useful",
+          "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
+        }
+      ],
+      "score": 2.995914967,
+      "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
+      "status": "preferred",
+      "uses": 3
+    },
+    "src_env_env": {
+      "code_fingerprint": "84db5c676d082c800eed966f6e4e971f21aa94dc7a8953fd5a1c86eb5d541b9a",
+      "label": "env",
+      "last": "2026-08-28T16:26:30.950919+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T16:26:30.950919+00:00",
+          "outcome": "useful",
+          "q": "Authentication failed against database server during credentials login"
+        }
+      ],
+      "score": 0.994406512,
+      "source_file": "src/env.js",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_server_api_routers_turma_turmarouter": {
+      "code_fingerprint": "de735b04d2378533c50868da7d37192e5de49ebf3d20bf7a1303fa74ec5dac2c",
+      "label": "turmaRouter",
+      "last": "2026-08-28T16:55:41.214868+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T16:55:41.214868+00:00",
+          "outcome": "useful",
+          "q": "Persist avisos materiais notas da turma no banco"
+        }
+      ],
+      "score": 0.994872055,
+      "source_file": "src/server/api/routers/turma.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_server_auth_config_authconfig": {
+      "code_fingerprint": "1c43dc2168deb0ad23fb5aca3f089d57f37e40ac11e3cee583cc2d099eee0c49",
+      "label": "authConfig",
+      "last": "2026-08-28T16:26:30.950919+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T16:26:30.950919+00:00",
+          "outcome": "useful",
+          "q": "Authentication failed against database server during credentials login"
+        }
+      ],
+      "score": 0.994406512,
+      "source_file": "src/server/auth/config.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_server_auth_index_auth": {
+      "code_fingerprint": "db476ea8591de1c910380bbc3d992599ecf979beb0c64677514dc68687963c73",
+      "label": "auth",
+      "last": "2026-08-28T16:26:30.950919+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T16:26:30.950919+00:00",
+          "outcome": "useful",
+          "q": "Authentication failed against database server during credentials login"
+        }
+      ],
+      "score": 0.994406512,
+      "source_file": "src/server/auth/index.ts",
+      "status": "tentative",
+      "uses": 1
+    }
+  },
+  "version": 1
+}

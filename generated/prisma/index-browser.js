@@ -296,7 +296,8 @@ exports.Prisma.CandidatoScalarFieldEnum = {
   cpf: 'cpf',
   telefone: 'telefone',
   emergencia: 'emergencia',
-  curso: 'curso'
+  curso: 'curso',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.FormularioScalarFieldEnum = {
