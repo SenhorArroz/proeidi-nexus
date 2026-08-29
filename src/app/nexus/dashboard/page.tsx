@@ -45,10 +45,6 @@ export default function Dashboard() {
 					<div className="absolute -right-8 -top-10 h-44 w-44 rounded-full bg-orange-500" />
 					<div className="absolute right-36 bottom-[-3rem] h-28 w-28 rounded-full border-[14px] border-sky-200/80" />
 					<div className="relative">
-						<div className="mb-3 flex items-center gap-2 text-sm font-semibold text-sky-100">
-							<Sparkles className="h-4 w-4 text-orange-200" />
-							Seu espaço de trabalho
-						</div>
 						<h1 className="break-words text-2xl font-black tracking-[-.035em] sm:text-3xl">
 							Olá, {usuario?.nome ?? ""}
 						</h1>
