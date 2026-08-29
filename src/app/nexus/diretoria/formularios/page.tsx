@@ -23,6 +23,7 @@ import { api } from "~/trpc/react";
 
 type TipoPergunta = "short_text" | "paragraph" | "multiple_choice" | "checkbox";
 type ModoResposta = "ANONIMO" | "IDENTIFICADO_POR_COOKIE";
+type ConfiguracaoFormulario = { corPrimaria: string; corDestaque: string; corFundo: string; fonte: "SANS" | "SERIF" | "MONO"; mostrarProgresso: boolean; atribuirPontuacao: boolean };
 
 interface Opcao {
     id: string;
@@ -64,6 +65,9 @@ export default function EditorFormulario() {
     const [titulo, setTitulo] = useState("Pesquisa de Satisfação");
     const [descricao, setDescricao] = useState("Deixe sua opinião sobre o módulo.");
 	const [modoResposta, setModoResposta] = useState<ModoResposta>("ANONIMO");
+	const [limitarPorNavegador, setLimitarPorNavegador] = useState(false);
+	const [configuracoesAbertas, setConfiguracoesAbertas] = useState(false);
+	const [configuracao, setConfiguracao] = useState<ConfiguracaoFormulario>({ corPrimaria: "#0284c7", corDestaque: "#ea580c", corFundo: "#f8fafc", fonte: "SANS", mostrarProgresso: true, atribuirPontuacao: false });
     const [ativoId, setAtivoId] = useState<string | null>("header");
 	const salvarFormulario = api.formulario.create.useMutation({ onSuccess: () => utils.formulario.list.invalidate() });
 
@@ -144,7 +148,7 @@ export default function EditorFormulario() {
         }));
     };
 
-	const salvar = () => salvarFormulario.mutate({ titulo: titulo.trim(), descricao: descricao.trim() || null, conteudo: { perguntas: perguntas.filter((pergunta) => pergunta.titulo.trim()).map((pergunta) => ({ ...pergunta, titulo: pergunta.titulo.trim(), opcoes: pergunta.opcoes.filter((opcao) => opcao.texto.trim()).map((opcao) => ({ ...opcao, texto: opcao.texto.trim() })) })) }, publicado: true, modoResposta });
+	const salvar = () => salvarFormulario.mutate({ titulo: titulo.trim(), descricao: descricao.trim() || null, conteudo: { perguntas: perguntas.filter((pergunta) => pergunta.titulo.trim()).map((pergunta) => ({ ...pergunta, titulo: pergunta.titulo.trim(), opcoes: pergunta.opcoes.filter((opcao) => opcao.texto.trim()).map((opcao) => ({ ...opcao, texto: opcao.texto.trim() })) })) }, publicado: true, modoResposta, limitarPorNavegador, configuracao });
 
     return (
         <div className="flex min-h-full w-full flex-col items-center overflow-x-clip bg-gray-50 px-3 py-6 pb-32 font-sans sm:px-4 sm:py-10">
@@ -173,7 +177,7 @@ export default function EditorFormulario() {
                         </div>
                     </div>
                     
-                    <button className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg bg-white/20 px-3 py-2 text-sm font-medium text-white backdrop-blur-md transition-all duration-200 hover:bg-white/30 sm:px-4">
+					<button type="button" onClick={() => setConfiguracoesAbertas((aberta) => !aberta)} aria-expanded={configuracoesAbertas} className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg bg-white/20 px-3 py-2 text-sm font-medium text-white backdrop-blur-md transition-all duration-200 hover:bg-white/30 sm:px-4">
                         <Settings className="w-4 h-4" />
                         <span className="hidden sm:inline">Configurações</span>
                     </button>
@@ -219,16 +223,24 @@ export default function EditorFormulario() {
                     </div>
                 </div>
 
-				<section className="rounded-2xl border border-sky-100 bg-sky-50/60 p-4 sm:p-5">
-					<h2 className="font-extrabold text-slate-900">Coleta de respostas</h2>
-					<p className="mt-1 text-sm text-slate-600">Escolha se o questionário será livre ou se pedirá o nome e aceitará uma resposta por navegador.</p>
+				{configuracoesAbertas && <section className="rounded-2xl border border-sky-100 bg-sky-50/60 p-4 sm:p-5">
+					<h2 className="font-extrabold text-slate-900">Configurações do questionário</h2>
+					<div className="mt-4 grid gap-4 sm:grid-cols-2">
+						{([['corPrimaria','Cor principal'],['corDestaque','Cor de destaque'],['corFundo','Cor do fundo']] as const).map(([campo, rotulo]) => <label key={campo} className="text-sm font-bold text-slate-800">{rotulo}<input type="color" value={configuracao[campo]} onChange={(event) => setConfiguracao({ ...configuracao, [campo]: event.target.value })} className="mt-2 block h-11 w-full cursor-pointer rounded-xl border border-sky-200 bg-white p-1" /></label>)}
+						<label className="text-sm font-bold text-slate-800">Fonte<select value={configuracao.fonte} onChange={(event) => setConfiguracao({ ...configuracao, fonte: event.target.value as ConfiguracaoFormulario['fonte'] })} className="mt-2 min-h-11 w-full rounded-xl border border-sky-200 bg-white px-3"><option value="SANS">Sem serifa</option><option value="SERIF">Com serifa</option><option value="MONO">Monoespaçada</option></select></label>
+					</div>
+					<div className="mt-5 space-y-3 border-t border-sky-100 pt-4">
+						<label className="flex min-h-11 items-center justify-between gap-3 text-sm font-bold text-slate-800"><span>Mostrar progresso ao responder</span><input type="checkbox" checked={configuracao.mostrarProgresso} onChange={(event) => setConfiguracao({ ...configuracao, mostrarProgresso: event.target.checked })} className="h-5 w-5" /></label>
+						<label className="flex min-h-11 items-center justify-between gap-3 text-sm font-bold text-slate-800"><span>Atribuir 1 ponto por questão correta</span><input type="checkbox" checked={configuracao.atribuirPontuacao} onChange={(event) => setConfiguracao({ ...configuracao, atribuirPontuacao: event.target.checked })} className="h-5 w-5" /></label>
+						<label className="flex min-h-11 items-center justify-between gap-3 text-sm font-bold text-slate-800"><span>Limitar a uma resposta por navegador</span><input type="checkbox" checked={limitarPorNavegador || modoResposta === "IDENTIFICADO_POR_COOKIE"} disabled={modoResposta === "IDENTIFICADO_POR_COOKIE"} onChange={(event) => setLimitarPorNavegador(event.target.checked)} className="h-5 w-5" /></label>
+					</div>
 					<label className="mt-4 block text-sm font-bold text-slate-800" htmlFor="modo-resposta">Modo de resposta</label>
 					<select id="modo-resposta" value={modoResposta} onChange={(event) => setModoResposta(event.target.value as ModoResposta)} className="mt-2 min-h-11 w-full rounded-xl border border-sky-200 bg-white px-3 text-sm font-semibold text-slate-800 outline-none focus:border-sky-600 focus:ring-2 focus:ring-sky-100">
 						<option value="ANONIMO">Anônima — várias respostas permitidas</option>
 						<option value="IDENTIFICADO_POR_COOKIE">Identificada — uma resposta por navegador</option>
 					</select>
-					{modoResposta === "IDENTIFICADO_POR_COOKIE" && <p className="mt-3 rounded-xl bg-white px-3 py-2 text-sm text-sky-800">A pessoa informará o nome. O bloqueio usa um cookie persistente e pode ser removido ao apagar os dados do navegador.</p>}
-				</section>
+					{modoResposta === "IDENTIFICADO_POR_COOKIE" && <p className="mt-3 rounded-xl bg-white px-3 py-2 text-sm text-sky-800">A pessoa informará o nome e poderá responder uma vez por navegador.</p>}
+				</section>}
 
                 {/* Lista de Perguntas */}
                 {perguntas.map((pergunta) => {
@@ -290,7 +302,7 @@ export default function EditorFormulario() {
                                                                 onChange={(e) => atualizarOpcao(pergunta.id, opcao.id, e.target.value)}
                                                                 className="flex-1 rounded-lg border border-transparent bg-transparent hover:bg-gray-50 focus:bg-gray-50 px-3 py-1.5 text-sm text-gray-700 focus:border-gray-200 focus:outline-none transition-colors"
                                                             />
-												<button type="button" onClick={() => atualizarPergunta(pergunta.id, "respostaCorreta", pergunta.tipo === "checkbox" ? (() => { const atuais = Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta : []; return atuais.includes(opcao.texto) ? atuais.filter((item) => item !== opcao.texto) : [...atuais, opcao.texto]; })() : (pergunta.respostaCorreta === opcao.texto ? undefined : opcao.texto))} className={`col-start-2 row-start-2 min-h-11 justify-self-start rounded-lg px-2 py-1 text-[11px] font-bold sm:col-start-3 sm:row-start-1 ${Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta.includes(opcao.texto) ? "bg-green-50 text-green-700" : "text-slate-400 hover:bg-slate-50" : pergunta.respostaCorreta === opcao.texto ? "bg-green-50 text-green-700" : "text-slate-400 hover:bg-slate-50"}`}>{(Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta.includes(opcao.texto) : pergunta.respostaCorreta === opcao.texto) ? "Correta" : "Marcar correta"}</button>
+																	{configuracao.atribuirPontuacao && <button type="button" onClick={() => atualizarPergunta(pergunta.id, "respostaCorreta", pergunta.tipo === "checkbox" ? (() => { const atuais = Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta : []; return atuais.includes(opcao.texto) ? atuais.filter((item) => item !== opcao.texto) : [...atuais, opcao.texto]; })() : (pergunta.respostaCorreta === opcao.texto ? undefined : opcao.texto))} className={`col-start-2 row-start-2 min-h-11 justify-self-start rounded-lg px-2 py-1 text-[11px] font-bold sm:col-start-3 sm:row-start-1 ${Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta.includes(opcao.texto) ? "bg-green-50 text-green-700" : "text-slate-600 hover:bg-slate-50" : pergunta.respostaCorreta === opcao.texto ? "bg-green-50 text-green-700" : "text-slate-600 hover:bg-slate-50"}`}>{(Array.isArray(pergunta.respostaCorreta) ? pergunta.respostaCorreta.includes(opcao.texto) : pergunta.respostaCorreta === opcao.texto) ? "Correta" : "Marcar correta"}</button>}
                                                             <button 
                                                                 onClick={(e) => { e.stopPropagation(); removerOpcao(pergunta.id, opcao.id); }}
                                                                 className="col-start-3 row-start-1 grid h-11 w-11 place-items-center rounded-lg text-gray-400 transition-all duration-200 hover:bg-red-50 hover:text-red-500 sm:col-start-4 sm:text-gray-300 sm:opacity-0 sm:group-hover/opt:opacity-100 sm:focus:opacity-100"

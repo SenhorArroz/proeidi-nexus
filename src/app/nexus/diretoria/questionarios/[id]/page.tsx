@@ -139,6 +139,7 @@ export default function EstatisticasQuestionario({
 		(item) => item.respostas as Respostas,
 	);
 	const respostasIndividuais = data.formulario.respostas;
+	const configuracao = data.formulario.configuracao as { atribuirPontuacao?: boolean } | null;
 	return (
 		<main className="min-h-full px-3 py-6 sm:px-4 sm:py-8">
 			<div className="mx-auto max-w-4xl">
@@ -174,7 +175,7 @@ export default function EstatisticasQuestionario({
 							{respostasIndividuais.map((resposta, indice) => (
 								<details key={resposta.id} className="group p-4 sm:p-5">
 									<summary className="flex cursor-pointer list-none items-center justify-between gap-3">
-										<div className="min-w-0"><p className="truncate font-bold text-slate-900">{resposta.nomeRespondente || `Resposta ${respostasIndividuais.length - indice}`}</p><p className="mt-1 text-xs text-slate-500">{new Intl.DateTimeFormat("pt-BR", { dateStyle: "medium", timeStyle: "short" }).format(resposta.createdAt)}</p></div>
+										<div className="min-w-0"><p className="truncate font-bold text-slate-900">{resposta.nomeRespondente || `Resposta ${respostasIndividuais.length - indice}`}</p><p className="mt-1 text-xs text-slate-500">{new Intl.DateTimeFormat("pt-BR", { dateStyle: "medium", timeStyle: "short" }).format(resposta.createdAt)}{configuracao?.atribuirPontuacao && ` · ${resposta.pontuacao ?? 0} ponto(s)`}</p></div>
 										<span className="text-sm font-bold text-sky-700 group-open:hidden">Ver respostas</span><span className="hidden text-sm font-bold text-sky-700 group-open:inline">Fechar</span>
 									</summary>
 									<dl className="mt-4 space-y-3 border-t border-slate-100 pt-4">

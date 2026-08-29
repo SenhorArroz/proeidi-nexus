@@ -11,6 +11,8 @@ type Pergunta = {
 	opcoes: { id: string; texto: string }[];
 	obrigatoria: boolean;
 };
+type ConfiguracaoFormulario = { corPrimaria: string; corDestaque: string; corFundo: string; fonte: "SANS" | "SERIF" | "MONO"; mostrarProgresso: boolean; atribuirPontuacao: boolean };
+const configuracaoPadrao: ConfiguracaoFormulario = { corPrimaria: "#0284c7", corDestaque: "#ea580c", corFundo: "#f8fafc", fonte: "SANS", mostrarProgresso: true, atribuirPontuacao: false };
 
 const COOKIE_NAME = "nexus_questionario_dispositivo";
 
@@ -42,6 +44,9 @@ export default function ResponderQuestionario({
 		return <main className="grid min-h-screen place-items-center p-6 text-center text-slate-600">Este questionário não está disponível.</main>;
 
 	const perguntas = (data.conteudo as { perguntas: Pergunta[] }).perguntas;
+	const configuracao = { ...configuracaoPadrao, ...(data.configuracao as Partial<ConfiguracaoFormulario> | null) };
+	const fonte = configuracao.fonte === "SERIF" ? "font-serif" : configuracao.fonte === "MONO" ? "font-mono" : "font-sans";
+	const respondidas = perguntas.filter((pergunta) => { const resposta = respostas[pergunta.id]; return Array.isArray(resposta) ? resposta.length > 0 : Boolean(resposta?.trim()); }).length;
 	const identificado = data.modoResposta === "IDENTIFICADO_POR_COOKIE";
 	if (enviar.isSuccess)
 		return (
@@ -49,21 +54,22 @@ export default function ResponderQuestionario({
 				<div>
 					<h1 className="text-2xl font-black text-sky-800">Resposta enviada!</h1>
 					<p className="mt-2 text-slate-600">Agradecemos sua participação.</p>
+					{configuracao.atribuirPontuacao && <p className="mt-3 font-bold" style={{ color: configuracao.corPrimaria }}>Pontuação: {enviar.data?.pontuacao ?? 0} ponto(s)</p>}
 				</div>
 			</main>
 		);
 
 	return (
-		<main className="min-h-screen min-w-0 overflow-x-clip bg-slate-50 px-3 py-6 sm:px-4 sm:py-10">
+		<main className={`min-h-screen min-w-0 overflow-x-clip px-3 py-6 sm:px-4 sm:py-10 ${fonte}`} style={{ backgroundColor: configuracao.corFundo }}>
 			<form
 				onSubmit={(event) => {
 					event.preventDefault();
 					enviar.mutate({
 						slug,
 						respostas,
-						...(identificado
+						...(identificado || data.limitarPorNavegador
 							? {
-								nomeRespondente,
+								...(identificado ? { nomeRespondente } : {}),
 								identificadorCookie: obterIdentificadorDoNavegador(),
 							}
 							: {}),
@@ -71,10 +77,11 @@ export default function ResponderQuestionario({
 				}}
 				className="mx-auto min-w-0 max-w-2xl space-y-4"
 			>
-				<header className="min-w-0 rounded-3xl bg-sky-600 p-4 text-white sm:p-7">
+				<header className="min-w-0 rounded-3xl p-4 text-white sm:p-7" style={{ backgroundColor: configuracao.corPrimaria }}>
 					<h1 className="break-words text-2xl font-black">{data.titulo}</h1>
 					{data.descricao && <p className="mt-2 break-words text-sky-100">{data.descricao}</p>}
 				</header>
+				{configuracao.mostrarProgresso && <div className="rounded-2xl bg-white p-4 shadow-sm"><div className="flex justify-between text-sm font-bold text-slate-700"><span>Progresso</span><span>{respondidas}/{perguntas.length}</span></div><div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-100"><div className="h-full rounded-full transition-all" style={{ width: `${perguntas.length ? (respondidas / perguntas.length) * 100 : 0}%`, backgroundColor: configuracao.corDestaque }} /></div></div>}
 
 				{identificado && (
 					<section className="rounded-2xl border border-sky-200 bg-sky-50 p-4 text-sky-950 sm:p-5">
@@ -123,7 +130,7 @@ export default function ResponderQuestionario({
 					</label>
 				))}
 				{enviar.error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{enviar.error.message}</p>}
-				<button disabled={enviar.isPending} className="min-h-11 w-full rounded-xl bg-orange-600 px-5 py-3 font-extrabold text-white hover:bg-orange-700 disabled:opacity-50">
+				<button disabled={enviar.isPending} style={{ backgroundColor: configuracao.corDestaque }} className="min-h-11 w-full rounded-xl px-5 py-3 font-extrabold text-white disabled:opacity-50">
 					{enviar.isPending ? "Enviando…" : "Enviar respostas"}
 				</button>
 			</form>

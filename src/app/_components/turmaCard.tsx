@@ -11,6 +11,9 @@ interface Turma {
     alunos: number;
     proximaAula: string;
     color: string;
+	accentColor?: string;
+	backgroundColor?: string;
+	font?: "SANS" | "SERIF" | "MONO";
     progresso?: number; // 0-100, opcional (turmas concluídas podem omitir)
 }
 
@@ -47,7 +50,15 @@ export default function TurmaCard({ turma }: { turma: Turma }) {
     }, [menuOpen]);
 
     return (
-        <div className="group relative min-w-0 cursor-pointer rounded-2xl border-1 border-sky-500 bg-white transition-all duration-400 hover:-translate-y-0.5 hover:border-amber-600 hover:shadow-lg">
+        <div
+			className="group relative min-w-0 cursor-pointer rounded-2xl border transition-all duration-400 hover:-translate-y-0.5 hover:shadow-lg"
+			style={{
+				backgroundColor: turma.backgroundColor ?? "#ffffff",
+				borderColor: turma.color,
+				fontFamily: turma.font === "SERIF" ? "Georgia, serif" : turma.font === "MONO" ? "ui-monospace, SFMono-Regular, Menlo, monospace" : undefined,
+				boxShadow: `0 16px 28px ${hexToRgba(turma.color, 0.14)}`,
+			}}
+		>
             {/* Banner */}
             <div
                 className="relative h-24 flex items-start justify-between p-3 overflow-hidden rounded-t-2xl"
@@ -58,7 +69,7 @@ export default function TurmaCard({ turma }: { turma: Turma }) {
                 {/* padrão decorativo: listras */}
                 <div className="absolute -right-30 -top-10 w-40 h-40 flex flex-col gap-2 rotate-75 pointer-events-none mix-blend-screen ">
                     {[...Array(10)].map((_, i) => (
-                        <div key={i} className="w-full h-2.5 bg-amber-600 rounded-full" />
+						<div key={i} className="w-full h-2.5 rounded-full" style={{ backgroundColor: turma.accentColor ?? "#ea580c" }} />
                     ))}
                 </div>
 
@@ -106,7 +117,7 @@ export default function TurmaCard({ turma }: { turma: Turma }) {
 				<div className="mb-4 flex min-w-0 flex-wrap items-center gap-2">
                     <div
                         className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-semibold text-white flex-shrink-0"
-                        style={{ backgroundColor: turma.color }}
+						style={{ backgroundColor: turma.accentColor ?? turma.color }}
                     >
                         {initials(turma.professores)}
                     </div>

@@ -9031,6 +9031,9 @@ export namespace Prisma {
     sala: string | null
     horario: string | null
     cor: string | null
+    corDestaque: string | null
+    corFundo: string | null
+    fonte: string | null
     semestreId: string | null
   }
 
@@ -9040,6 +9043,9 @@ export namespace Prisma {
     sala: string | null
     horario: string | null
     cor: string | null
+    corDestaque: string | null
+    corFundo: string | null
+    fonte: string | null
     semestreId: string | null
   }
 
@@ -9049,6 +9055,9 @@ export namespace Prisma {
     sala: number
     horario: number
     cor: number
+    corDestaque: number
+    corFundo: number
+    fonte: number
     semestreId: number
     _all: number
   }
@@ -9060,6 +9069,9 @@ export namespace Prisma {
     sala?: true
     horario?: true
     cor?: true
+    corDestaque?: true
+    corFundo?: true
+    fonte?: true
     semestreId?: true
   }
 
@@ -9069,6 +9081,9 @@ export namespace Prisma {
     sala?: true
     horario?: true
     cor?: true
+    corDestaque?: true
+    corFundo?: true
+    fonte?: true
     semestreId?: true
   }
 
@@ -9078,6 +9093,9 @@ export namespace Prisma {
     sala?: true
     horario?: true
     cor?: true
+    corDestaque?: true
+    corFundo?: true
+    fonte?: true
     semestreId?: true
     _all?: true
   }
@@ -9160,6 +9178,9 @@ export namespace Prisma {
     sala: string | null
     horario: string | null
     cor: string
+    corDestaque: string
+    corFundo: string
+    fonte: string
     semestreId: string
     _count: TurmaCountAggregateOutputType | null
     _min: TurmaMinAggregateOutputType | null
@@ -9186,6 +9207,9 @@ export namespace Prisma {
     sala?: boolean
     horario?: boolean
     cor?: boolean
+    corDestaque?: boolean
+    corFundo?: boolean
+    fonte?: boolean
     semestreId?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     professores?: boolean | Turma$professoresArgs<ExtArgs>
@@ -9205,6 +9229,9 @@ export namespace Prisma {
     sala?: boolean
     horario?: boolean
     cor?: boolean
+    corDestaque?: boolean
+    corFundo?: boolean
+    fonte?: boolean
     semestreId?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["turma"]>
@@ -9215,6 +9242,9 @@ export namespace Prisma {
     sala?: boolean
     horario?: boolean
     cor?: boolean
+    corDestaque?: boolean
+    corFundo?: boolean
+    fonte?: boolean
     semestreId?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["turma"]>
@@ -9225,10 +9255,13 @@ export namespace Prisma {
     sala?: boolean
     horario?: boolean
     cor?: boolean
+    corDestaque?: boolean
+    corFundo?: boolean
+    fonte?: boolean
     semestreId?: boolean
   }
 
-  export type TurmaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "sala" | "horario" | "cor" | "semestreId", ExtArgs["result"]["turma"]>
+  export type TurmaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "sala" | "horario" | "cor" | "corDestaque" | "corFundo" | "fonte" | "semestreId", ExtArgs["result"]["turma"]>
   export type TurmaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     professores?: boolean | Turma$professoresArgs<ExtArgs>
@@ -9267,6 +9300,9 @@ export namespace Prisma {
       sala: string | null
       horario: string | null
       cor: string
+      corDestaque: string
+      corFundo: string
+      fonte: string
       semestreId: string
     }, ExtArgs["result"]["turma"]>
     composites: {}
@@ -9705,6 +9741,9 @@ export namespace Prisma {
     readonly sala: FieldRef<"Turma", 'String'>
     readonly horario: FieldRef<"Turma", 'String'>
     readonly cor: FieldRef<"Turma", 'String'>
+    readonly corDestaque: FieldRef<"Turma", 'String'>
+    readonly corFundo: FieldRef<"Turma", 'String'>
+    readonly fonte: FieldRef<"Turma", 'String'>
     readonly semestreId: FieldRef<"Turma", 'String'>
   }
     
@@ -16952,6 +16991,8 @@ export namespace Prisma {
     turmaId: string | null
     autorId: string | null
     texto: string | null
+    imagemUrl: string | null
+    linkUrl: string | null
     fixado: boolean | null
     createdAt: Date | null
   }
@@ -16961,6 +17002,8 @@ export namespace Prisma {
     turmaId: string | null
     autorId: string | null
     texto: string | null
+    imagemUrl: string | null
+    linkUrl: string | null
     fixado: boolean | null
     createdAt: Date | null
   }
@@ -16970,6 +17013,8 @@ export namespace Prisma {
     turmaId: number
     autorId: number
     texto: number
+    imagemUrl: number
+    linkUrl: number
     fixado: number
     createdAt: number
     _all: number
@@ -16981,6 +17026,8 @@ export namespace Prisma {
     turmaId?: true
     autorId?: true
     texto?: true
+    imagemUrl?: true
+    linkUrl?: true
     fixado?: true
     createdAt?: true
   }
@@ -16990,6 +17037,8 @@ export namespace Prisma {
     turmaId?: true
     autorId?: true
     texto?: true
+    imagemUrl?: true
+    linkUrl?: true
     fixado?: true
     createdAt?: true
   }
@@ -16999,6 +17048,8 @@ export namespace Prisma {
     turmaId?: true
     autorId?: true
     texto?: true
+    imagemUrl?: true
+    linkUrl?: true
     fixado?: true
     createdAt?: true
     _all?: true
@@ -17081,6 +17132,8 @@ export namespace Prisma {
     turmaId: string
     autorId: string
     texto: string
+    imagemUrl: string | null
+    linkUrl: string | null
     fixado: boolean
     createdAt: Date
     _count: AvisoCountAggregateOutputType | null
@@ -17107,6 +17160,8 @@ export namespace Prisma {
     turmaId?: boolean
     autorId?: boolean
     texto?: boolean
+    imagemUrl?: boolean
+    linkUrl?: boolean
     fixado?: boolean
     createdAt?: boolean
     turma?: boolean | TurmaDefaultArgs<ExtArgs>
@@ -17118,6 +17173,8 @@ export namespace Prisma {
     turmaId?: boolean
     autorId?: boolean
     texto?: boolean
+    imagemUrl?: boolean
+    linkUrl?: boolean
     fixado?: boolean
     createdAt?: boolean
     turma?: boolean | TurmaDefaultArgs<ExtArgs>
@@ -17129,6 +17186,8 @@ export namespace Prisma {
     turmaId?: boolean
     autorId?: boolean
     texto?: boolean
+    imagemUrl?: boolean
+    linkUrl?: boolean
     fixado?: boolean
     createdAt?: boolean
     turma?: boolean | TurmaDefaultArgs<ExtArgs>
@@ -17140,11 +17199,13 @@ export namespace Prisma {
     turmaId?: boolean
     autorId?: boolean
     texto?: boolean
+    imagemUrl?: boolean
+    linkUrl?: boolean
     fixado?: boolean
     createdAt?: boolean
   }
 
-  export type AvisoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "turmaId" | "autorId" | "texto" | "fixado" | "createdAt", ExtArgs["result"]["aviso"]>
+  export type AvisoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "turmaId" | "autorId" | "texto" | "imagemUrl" | "linkUrl" | "fixado" | "createdAt", ExtArgs["result"]["aviso"]>
   export type AvisoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     turma?: boolean | TurmaDefaultArgs<ExtArgs>
     autor?: boolean | UserDefaultArgs<ExtArgs>
@@ -17169,6 +17230,8 @@ export namespace Prisma {
       turmaId: string
       autorId: string
       texto: string
+      imagemUrl: string | null
+      linkUrl: string | null
       fixado: boolean
       createdAt: Date
     }, ExtArgs["result"]["aviso"]>
@@ -17600,6 +17663,8 @@ export namespace Prisma {
     readonly turmaId: FieldRef<"Aviso", 'String'>
     readonly autorId: FieldRef<"Aviso", 'String'>
     readonly texto: FieldRef<"Aviso", 'String'>
+    readonly imagemUrl: FieldRef<"Aviso", 'String'>
+    readonly linkUrl: FieldRef<"Aviso", 'String'>
     readonly fixado: FieldRef<"Aviso", 'Boolean'>
     readonly createdAt: FieldRef<"Aviso", 'DateTime'>
   }
@@ -24512,6 +24577,7 @@ export namespace Prisma {
     slug: string | null
     publicado: boolean | null
     modoResposta: $Enums.ModoRespostaFormulario | null
+    limitarPorNavegador: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -24523,6 +24589,7 @@ export namespace Prisma {
     slug: string | null
     publicado: boolean | null
     modoResposta: $Enums.ModoRespostaFormulario | null
+    limitarPorNavegador: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -24535,6 +24602,8 @@ export namespace Prisma {
     conteudo: number
     publicado: number
     modoResposta: number
+    limitarPorNavegador: number
+    configuracao: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -24548,6 +24617,7 @@ export namespace Prisma {
     slug?: true
     publicado?: true
     modoResposta?: true
+    limitarPorNavegador?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -24559,6 +24629,7 @@ export namespace Prisma {
     slug?: true
     publicado?: true
     modoResposta?: true
+    limitarPorNavegador?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -24571,6 +24642,8 @@ export namespace Prisma {
     conteudo?: true
     publicado?: true
     modoResposta?: true
+    limitarPorNavegador?: true
+    configuracao?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -24656,6 +24729,8 @@ export namespace Prisma {
     conteudo: JsonValue
     publicado: boolean
     modoResposta: $Enums.ModoRespostaFormulario
+    limitarPorNavegador: boolean
+    configuracao: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: FormularioCountAggregateOutputType | null
@@ -24685,6 +24760,8 @@ export namespace Prisma {
     conteudo?: boolean
     publicado?: boolean
     modoResposta?: boolean
+    limitarPorNavegador?: boolean
+    configuracao?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     perguntas?: boolean | Formulario$perguntasArgs<ExtArgs>
@@ -24700,6 +24777,8 @@ export namespace Prisma {
     conteudo?: boolean
     publicado?: boolean
     modoResposta?: boolean
+    limitarPorNavegador?: boolean
+    configuracao?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["formulario"]>
@@ -24712,6 +24791,8 @@ export namespace Prisma {
     conteudo?: boolean
     publicado?: boolean
     modoResposta?: boolean
+    limitarPorNavegador?: boolean
+    configuracao?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["formulario"]>
@@ -24724,11 +24805,13 @@ export namespace Prisma {
     conteudo?: boolean
     publicado?: boolean
     modoResposta?: boolean
+    limitarPorNavegador?: boolean
+    configuracao?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FormularioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "descricao" | "slug" | "conteudo" | "publicado" | "modoResposta" | "createdAt" | "updatedAt", ExtArgs["result"]["formulario"]>
+  export type FormularioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "descricao" | "slug" | "conteudo" | "publicado" | "modoResposta" | "limitarPorNavegador" | "configuracao" | "createdAt" | "updatedAt", ExtArgs["result"]["formulario"]>
   export type FormularioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     perguntas?: boolean | Formulario$perguntasArgs<ExtArgs>
     respostas?: boolean | Formulario$respostasArgs<ExtArgs>
@@ -24751,6 +24834,8 @@ export namespace Prisma {
       conteudo: Prisma.JsonValue
       publicado: boolean
       modoResposta: $Enums.ModoRespostaFormulario
+      limitarPorNavegador: boolean
+      configuracao: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["formulario"]>
@@ -25185,6 +25270,8 @@ export namespace Prisma {
     readonly conteudo: FieldRef<"Formulario", 'Json'>
     readonly publicado: FieldRef<"Formulario", 'Boolean'>
     readonly modoResposta: FieldRef<"Formulario", 'ModoRespostaFormulario'>
+    readonly limitarPorNavegador: FieldRef<"Formulario", 'Boolean'>
+    readonly configuracao: FieldRef<"Formulario", 'Json'>
     readonly createdAt: FieldRef<"Formulario", 'DateTime'>
     readonly updatedAt: FieldRef<"Formulario", 'DateTime'>
   }
@@ -25647,8 +25734,18 @@ export namespace Prisma {
 
   export type AggregateFormularioResposta = {
     _count: FormularioRespostaCountAggregateOutputType | null
+    _avg: FormularioRespostaAvgAggregateOutputType | null
+    _sum: FormularioRespostaSumAggregateOutputType | null
     _min: FormularioRespostaMinAggregateOutputType | null
     _max: FormularioRespostaMaxAggregateOutputType | null
+  }
+
+  export type FormularioRespostaAvgAggregateOutputType = {
+    pontuacao: number | null
+  }
+
+  export type FormularioRespostaSumAggregateOutputType = {
+    pontuacao: number | null
   }
 
   export type FormularioRespostaMinAggregateOutputType = {
@@ -25656,6 +25753,7 @@ export namespace Prisma {
     formularioId: string | null
     nomeRespondente: string | null
     identificadorCookie: string | null
+    pontuacao: number | null
     createdAt: Date | null
   }
 
@@ -25664,6 +25762,7 @@ export namespace Prisma {
     formularioId: string | null
     nomeRespondente: string | null
     identificadorCookie: string | null
+    pontuacao: number | null
     createdAt: Date | null
   }
 
@@ -25673,16 +25772,26 @@ export namespace Prisma {
     respostas: number
     nomeRespondente: number
     identificadorCookie: number
+    pontuacao: number
     createdAt: number
     _all: number
   }
 
+
+  export type FormularioRespostaAvgAggregateInputType = {
+    pontuacao?: true
+  }
+
+  export type FormularioRespostaSumAggregateInputType = {
+    pontuacao?: true
+  }
 
   export type FormularioRespostaMinAggregateInputType = {
     id?: true
     formularioId?: true
     nomeRespondente?: true
     identificadorCookie?: true
+    pontuacao?: true
     createdAt?: true
   }
 
@@ -25691,6 +25800,7 @@ export namespace Prisma {
     formularioId?: true
     nomeRespondente?: true
     identificadorCookie?: true
+    pontuacao?: true
     createdAt?: true
   }
 
@@ -25700,6 +25810,7 @@ export namespace Prisma {
     respostas?: true
     nomeRespondente?: true
     identificadorCookie?: true
+    pontuacao?: true
     createdAt?: true
     _all?: true
   }
@@ -25742,6 +25853,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: FormularioRespostaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FormularioRespostaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: FormularioRespostaMinAggregateInputType
@@ -25772,6 +25895,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: FormularioRespostaCountAggregateInputType | true
+    _avg?: FormularioRespostaAvgAggregateInputType
+    _sum?: FormularioRespostaSumAggregateInputType
     _min?: FormularioRespostaMinAggregateInputType
     _max?: FormularioRespostaMaxAggregateInputType
   }
@@ -25782,8 +25907,11 @@ export namespace Prisma {
     respostas: JsonValue
     nomeRespondente: string | null
     identificadorCookie: string | null
+    pontuacao: number | null
     createdAt: Date
     _count: FormularioRespostaCountAggregateOutputType | null
+    _avg: FormularioRespostaAvgAggregateOutputType | null
+    _sum: FormularioRespostaSumAggregateOutputType | null
     _min: FormularioRespostaMinAggregateOutputType | null
     _max: FormularioRespostaMaxAggregateOutputType | null
   }
@@ -25808,6 +25936,7 @@ export namespace Prisma {
     respostas?: boolean
     nomeRespondente?: boolean
     identificadorCookie?: boolean
+    pontuacao?: boolean
     createdAt?: boolean
     formulario?: boolean | FormularioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formularioResposta"]>
@@ -25818,6 +25947,7 @@ export namespace Prisma {
     respostas?: boolean
     nomeRespondente?: boolean
     identificadorCookie?: boolean
+    pontuacao?: boolean
     createdAt?: boolean
     formulario?: boolean | FormularioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formularioResposta"]>
@@ -25828,6 +25958,7 @@ export namespace Prisma {
     respostas?: boolean
     nomeRespondente?: boolean
     identificadorCookie?: boolean
+    pontuacao?: boolean
     createdAt?: boolean
     formulario?: boolean | FormularioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formularioResposta"]>
@@ -25838,10 +25969,11 @@ export namespace Prisma {
     respostas?: boolean
     nomeRespondente?: boolean
     identificadorCookie?: boolean
+    pontuacao?: boolean
     createdAt?: boolean
   }
 
-  export type FormularioRespostaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formularioId" | "respostas" | "nomeRespondente" | "identificadorCookie" | "createdAt", ExtArgs["result"]["formularioResposta"]>
+  export type FormularioRespostaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formularioId" | "respostas" | "nomeRespondente" | "identificadorCookie" | "pontuacao" | "createdAt", ExtArgs["result"]["formularioResposta"]>
   export type FormularioRespostaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     formulario?: boolean | FormularioDefaultArgs<ExtArgs>
   }
@@ -25863,6 +25995,7 @@ export namespace Prisma {
       respostas: Prisma.JsonValue
       nomeRespondente: string | null
       identificadorCookie: string | null
+      pontuacao: number | null
       createdAt: Date
     }, ExtArgs["result"]["formularioResposta"]>
     composites: {}
@@ -26293,6 +26426,7 @@ export namespace Prisma {
     readonly respostas: FieldRef<"FormularioResposta", 'Json'>
     readonly nomeRespondente: FieldRef<"FormularioResposta", 'String'>
     readonly identificadorCookie: FieldRef<"FormularioResposta", 'String'>
+    readonly pontuacao: FieldRef<"FormularioResposta", 'Int'>
     readonly createdAt: FieldRef<"FormularioResposta", 'DateTime'>
   }
     
@@ -29006,6 +29140,9 @@ export namespace Prisma {
     sala: 'sala',
     horario: 'horario',
     cor: 'cor',
+    corDestaque: 'corDestaque',
+    corFundo: 'corFundo',
+    fonte: 'fonte',
     semestreId: 'semestreId'
   };
 
@@ -29098,6 +29235,8 @@ export namespace Prisma {
     turmaId: 'turmaId',
     autorId: 'autorId',
     texto: 'texto',
+    imagemUrl: 'imagemUrl',
+    linkUrl: 'linkUrl',
     fixado: 'fixado',
     createdAt: 'createdAt'
   };
@@ -29180,6 +29319,8 @@ export namespace Prisma {
     conteudo: 'conteudo',
     publicado: 'publicado',
     modoResposta: 'modoResposta',
+    limitarPorNavegador: 'limitarPorNavegador',
+    configuracao: 'configuracao',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -29193,6 +29334,7 @@ export namespace Prisma {
     respostas: 'respostas',
     nomeRespondente: 'nomeRespondente',
     identificadorCookie: 'identificadorCookie',
+    pontuacao: 'pontuacao',
     createdAt: 'createdAt'
   };
 
@@ -29234,6 +29376,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -29801,6 +29951,9 @@ export namespace Prisma {
     sala?: StringNullableFilter<"Turma"> | string | null
     horario?: StringNullableFilter<"Turma"> | string | null
     cor?: StringFilter<"Turma"> | string
+    corDestaque?: StringFilter<"Turma"> | string
+    corFundo?: StringFilter<"Turma"> | string
+    fonte?: StringFilter<"Turma"> | string
     semestreId?: StringFilter<"Turma"> | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     professores?: ProfessorTurmaListRelationFilter
@@ -29819,6 +29972,9 @@ export namespace Prisma {
     sala?: SortOrderInput | SortOrder
     horario?: SortOrderInput | SortOrder
     cor?: SortOrder
+    corDestaque?: SortOrder
+    corFundo?: SortOrder
+    fonte?: SortOrder
     semestreId?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
     professores?: ProfessorTurmaOrderByRelationAggregateInput
@@ -29840,6 +29996,9 @@ export namespace Prisma {
     sala?: StringNullableFilter<"Turma"> | string | null
     horario?: StringNullableFilter<"Turma"> | string | null
     cor?: StringFilter<"Turma"> | string
+    corDestaque?: StringFilter<"Turma"> | string
+    corFundo?: StringFilter<"Turma"> | string
+    fonte?: StringFilter<"Turma"> | string
     semestreId?: StringFilter<"Turma"> | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     professores?: ProfessorTurmaListRelationFilter
@@ -29858,6 +30017,9 @@ export namespace Prisma {
     sala?: SortOrderInput | SortOrder
     horario?: SortOrderInput | SortOrder
     cor?: SortOrder
+    corDestaque?: SortOrder
+    corFundo?: SortOrder
+    fonte?: SortOrder
     semestreId?: SortOrder
     _count?: TurmaCountOrderByAggregateInput
     _max?: TurmaMaxOrderByAggregateInput
@@ -29873,6 +30035,9 @@ export namespace Prisma {
     sala?: StringNullableWithAggregatesFilter<"Turma"> | string | null
     horario?: StringNullableWithAggregatesFilter<"Turma"> | string | null
     cor?: StringWithAggregatesFilter<"Turma"> | string
+    corDestaque?: StringWithAggregatesFilter<"Turma"> | string
+    corFundo?: StringWithAggregatesFilter<"Turma"> | string
+    fonte?: StringWithAggregatesFilter<"Turma"> | string
     semestreId?: StringWithAggregatesFilter<"Turma"> | string
   }
 
@@ -30307,6 +30472,8 @@ export namespace Prisma {
     turmaId?: StringFilter<"Aviso"> | string
     autorId?: StringFilter<"Aviso"> | string
     texto?: StringFilter<"Aviso"> | string
+    imagemUrl?: StringNullableFilter<"Aviso"> | string | null
+    linkUrl?: StringNullableFilter<"Aviso"> | string | null
     fixado?: BoolFilter<"Aviso"> | boolean
     createdAt?: DateTimeFilter<"Aviso"> | Date | string
     turma?: XOR<TurmaScalarRelationFilter, TurmaWhereInput>
@@ -30318,6 +30485,8 @@ export namespace Prisma {
     turmaId?: SortOrder
     autorId?: SortOrder
     texto?: SortOrder
+    imagemUrl?: SortOrderInput | SortOrder
+    linkUrl?: SortOrderInput | SortOrder
     fixado?: SortOrder
     createdAt?: SortOrder
     turma?: TurmaOrderByWithRelationInput
@@ -30332,6 +30501,8 @@ export namespace Prisma {
     turmaId?: StringFilter<"Aviso"> | string
     autorId?: StringFilter<"Aviso"> | string
     texto?: StringFilter<"Aviso"> | string
+    imagemUrl?: StringNullableFilter<"Aviso"> | string | null
+    linkUrl?: StringNullableFilter<"Aviso"> | string | null
     fixado?: BoolFilter<"Aviso"> | boolean
     createdAt?: DateTimeFilter<"Aviso"> | Date | string
     turma?: XOR<TurmaScalarRelationFilter, TurmaWhereInput>
@@ -30343,6 +30514,8 @@ export namespace Prisma {
     turmaId?: SortOrder
     autorId?: SortOrder
     texto?: SortOrder
+    imagemUrl?: SortOrderInput | SortOrder
+    linkUrl?: SortOrderInput | SortOrder
     fixado?: SortOrder
     createdAt?: SortOrder
     _count?: AvisoCountOrderByAggregateInput
@@ -30358,6 +30531,8 @@ export namespace Prisma {
     turmaId?: StringWithAggregatesFilter<"Aviso"> | string
     autorId?: StringWithAggregatesFilter<"Aviso"> | string
     texto?: StringWithAggregatesFilter<"Aviso"> | string
+    imagemUrl?: StringNullableWithAggregatesFilter<"Aviso"> | string | null
+    linkUrl?: StringNullableWithAggregatesFilter<"Aviso"> | string | null
     fixado?: BoolWithAggregatesFilter<"Aviso"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Aviso"> | Date | string
   }
@@ -30733,6 +30908,8 @@ export namespace Prisma {
     conteudo?: JsonFilter<"Formulario">
     publicado?: BoolFilter<"Formulario"> | boolean
     modoResposta?: EnumModoRespostaFormularioFilter<"Formulario"> | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFilter<"Formulario"> | boolean
+    configuracao?: JsonNullableFilter<"Formulario">
     createdAt?: DateTimeFilter<"Formulario"> | Date | string
     updatedAt?: DateTimeFilter<"Formulario"> | Date | string
     perguntas?: PerguntaListRelationFilter
@@ -30747,6 +30924,8 @@ export namespace Prisma {
     conteudo?: SortOrder
     publicado?: SortOrder
     modoResposta?: SortOrder
+    limitarPorNavegador?: SortOrder
+    configuracao?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     perguntas?: PerguntaOrderByRelationAggregateInput
@@ -30764,6 +30943,8 @@ export namespace Prisma {
     conteudo?: JsonFilter<"Formulario">
     publicado?: BoolFilter<"Formulario"> | boolean
     modoResposta?: EnumModoRespostaFormularioFilter<"Formulario"> | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFilter<"Formulario"> | boolean
+    configuracao?: JsonNullableFilter<"Formulario">
     createdAt?: DateTimeFilter<"Formulario"> | Date | string
     updatedAt?: DateTimeFilter<"Formulario"> | Date | string
     perguntas?: PerguntaListRelationFilter
@@ -30778,6 +30959,8 @@ export namespace Prisma {
     conteudo?: SortOrder
     publicado?: SortOrder
     modoResposta?: SortOrder
+    limitarPorNavegador?: SortOrder
+    configuracao?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: FormularioCountOrderByAggregateInput
@@ -30796,6 +30979,8 @@ export namespace Prisma {
     conteudo?: JsonWithAggregatesFilter<"Formulario">
     publicado?: BoolWithAggregatesFilter<"Formulario"> | boolean
     modoResposta?: EnumModoRespostaFormularioWithAggregatesFilter<"Formulario"> | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolWithAggregatesFilter<"Formulario"> | boolean
+    configuracao?: JsonNullableWithAggregatesFilter<"Formulario">
     createdAt?: DateTimeWithAggregatesFilter<"Formulario"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Formulario"> | Date | string
   }
@@ -30809,6 +30994,7 @@ export namespace Prisma {
     respostas?: JsonFilter<"FormularioResposta">
     nomeRespondente?: StringNullableFilter<"FormularioResposta"> | string | null
     identificadorCookie?: StringNullableFilter<"FormularioResposta"> | string | null
+    pontuacao?: IntNullableFilter<"FormularioResposta"> | number | null
     createdAt?: DateTimeFilter<"FormularioResposta"> | Date | string
     formulario?: XOR<FormularioScalarRelationFilter, FormularioWhereInput>
   }
@@ -30819,6 +31005,7 @@ export namespace Prisma {
     respostas?: SortOrder
     nomeRespondente?: SortOrderInput | SortOrder
     identificadorCookie?: SortOrderInput | SortOrder
+    pontuacao?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     formulario?: FormularioOrderByWithRelationInput
   }
@@ -30833,6 +31020,7 @@ export namespace Prisma {
     respostas?: JsonFilter<"FormularioResposta">
     nomeRespondente?: StringNullableFilter<"FormularioResposta"> | string | null
     identificadorCookie?: StringNullableFilter<"FormularioResposta"> | string | null
+    pontuacao?: IntNullableFilter<"FormularioResposta"> | number | null
     createdAt?: DateTimeFilter<"FormularioResposta"> | Date | string
     formulario?: XOR<FormularioScalarRelationFilter, FormularioWhereInput>
   }, "id" | "formularioId_identificadorCookie">
@@ -30843,10 +31031,13 @@ export namespace Prisma {
     respostas?: SortOrder
     nomeRespondente?: SortOrderInput | SortOrder
     identificadorCookie?: SortOrderInput | SortOrder
+    pontuacao?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: FormularioRespostaCountOrderByAggregateInput
+    _avg?: FormularioRespostaAvgOrderByAggregateInput
     _max?: FormularioRespostaMaxOrderByAggregateInput
     _min?: FormularioRespostaMinOrderByAggregateInput
+    _sum?: FormularioRespostaSumOrderByAggregateInput
   }
 
   export type FormularioRespostaScalarWhereWithAggregatesInput = {
@@ -30858,6 +31049,7 @@ export namespace Prisma {
     respostas?: JsonWithAggregatesFilter<"FormularioResposta">
     nomeRespondente?: StringNullableWithAggregatesFilter<"FormularioResposta"> | string | null
     identificadorCookie?: StringNullableWithAggregatesFilter<"FormularioResposta"> | string | null
+    pontuacao?: IntNullableWithAggregatesFilter<"FormularioResposta"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"FormularioResposta"> | Date | string
   }
 
@@ -31369,6 +31561,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
@@ -31386,6 +31581,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -31403,6 +31601,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
@@ -31420,6 +31621,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -31437,6 +31641,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestreId: string
   }
 
@@ -31446,6 +31653,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
   }
 
   export type TurmaUncheckedUpdateManyInput = {
@@ -31454,6 +31664,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -31903,6 +32116,8 @@ export namespace Prisma {
   export type AvisoCreateInput = {
     id?: string
     texto: string
+    imagemUrl?: string | null
+    linkUrl?: string | null
     fixado?: boolean
     createdAt?: Date | string
     turma: TurmaCreateNestedOneWithoutAvisosInput
@@ -31914,6 +32129,8 @@ export namespace Prisma {
     turmaId: string
     autorId: string
     texto: string
+    imagemUrl?: string | null
+    linkUrl?: string | null
     fixado?: boolean
     createdAt?: Date | string
   }
@@ -31921,6 +32138,8 @@ export namespace Prisma {
   export type AvisoUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fixado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     turma?: TurmaUpdateOneRequiredWithoutAvisosNestedInput
@@ -31932,6 +32151,8 @@ export namespace Prisma {
     turmaId?: StringFieldUpdateOperationsInput | string
     autorId?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fixado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31941,6 +32162,8 @@ export namespace Prisma {
     turmaId: string
     autorId: string
     texto: string
+    imagemUrl?: string | null
+    linkUrl?: string | null
     fixado?: boolean
     createdAt?: Date | string
   }
@@ -31948,6 +32171,8 @@ export namespace Prisma {
   export type AvisoUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fixado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31957,6 +32182,8 @@ export namespace Prisma {
     turmaId?: StringFieldUpdateOperationsInput | string
     autorId?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fixado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32314,6 +32541,8 @@ export namespace Prisma {
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
     modoResposta?: $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaCreateNestedManyWithoutFormularioInput
@@ -32328,6 +32557,8 @@ export namespace Prisma {
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
     modoResposta?: $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaUncheckedCreateNestedManyWithoutFormularioInput
@@ -32342,6 +32573,8 @@ export namespace Prisma {
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUpdateManyWithoutFormularioNestedInput
@@ -32356,6 +32589,8 @@ export namespace Prisma {
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUncheckedUpdateManyWithoutFormularioNestedInput
@@ -32370,6 +32605,8 @@ export namespace Prisma {
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
     modoResposta?: $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -32382,6 +32619,8 @@ export namespace Prisma {
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32394,6 +32633,8 @@ export namespace Prisma {
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32403,6 +32644,7 @@ export namespace Prisma {
     respostas: JsonNullValueInput | InputJsonValue
     nomeRespondente?: string | null
     identificadorCookie?: string | null
+    pontuacao?: number | null
     createdAt?: Date | string
     formulario: FormularioCreateNestedOneWithoutRespostasInput
   }
@@ -32413,6 +32655,7 @@ export namespace Prisma {
     respostas: JsonNullValueInput | InputJsonValue
     nomeRespondente?: string | null
     identificadorCookie?: string | null
+    pontuacao?: number | null
     createdAt?: Date | string
   }
 
@@ -32421,6 +32664,7 @@ export namespace Prisma {
     respostas?: JsonNullValueInput | InputJsonValue
     nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
     identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
+    pontuacao?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formulario?: FormularioUpdateOneRequiredWithoutRespostasNestedInput
   }
@@ -32431,6 +32675,7 @@ export namespace Prisma {
     respostas?: JsonNullValueInput | InputJsonValue
     nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
     identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
+    pontuacao?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -32440,6 +32685,7 @@ export namespace Prisma {
     respostas: JsonNullValueInput | InputJsonValue
     nomeRespondente?: string | null
     identificadorCookie?: string | null
+    pontuacao?: number | null
     createdAt?: Date | string
   }
 
@@ -32448,6 +32694,7 @@ export namespace Prisma {
     respostas?: JsonNullValueInput | InputJsonValue
     nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
     identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
+    pontuacao?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -32457,6 +32704,7 @@ export namespace Prisma {
     respostas?: JsonNullValueInput | InputJsonValue
     nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
     identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
+    pontuacao?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -33085,6 +33333,9 @@ export namespace Prisma {
     sala?: SortOrder
     horario?: SortOrder
     cor?: SortOrder
+    corDestaque?: SortOrder
+    corFundo?: SortOrder
+    fonte?: SortOrder
     semestreId?: SortOrder
   }
 
@@ -33094,6 +33345,9 @@ export namespace Prisma {
     sala?: SortOrder
     horario?: SortOrder
     cor?: SortOrder
+    corDestaque?: SortOrder
+    corFundo?: SortOrder
+    fonte?: SortOrder
     semestreId?: SortOrder
   }
 
@@ -33103,6 +33357,9 @@ export namespace Prisma {
     sala?: SortOrder
     horario?: SortOrder
     cor?: SortOrder
+    corDestaque?: SortOrder
+    corFundo?: SortOrder
+    fonte?: SortOrder
     semestreId?: SortOrder
   }
 
@@ -33369,6 +33626,8 @@ export namespace Prisma {
     turmaId?: SortOrder
     autorId?: SortOrder
     texto?: SortOrder
+    imagemUrl?: SortOrder
+    linkUrl?: SortOrder
     fixado?: SortOrder
     createdAt?: SortOrder
   }
@@ -33378,6 +33637,8 @@ export namespace Prisma {
     turmaId?: SortOrder
     autorId?: SortOrder
     texto?: SortOrder
+    imagemUrl?: SortOrder
+    linkUrl?: SortOrder
     fixado?: SortOrder
     createdAt?: SortOrder
   }
@@ -33387,6 +33648,8 @@ export namespace Prisma {
     turmaId?: SortOrder
     autorId?: SortOrder
     texto?: SortOrder
+    imagemUrl?: SortOrder
+    linkUrl?: SortOrder
     fixado?: SortOrder
     createdAt?: SortOrder
   }
@@ -33626,6 +33889,29 @@ export namespace Prisma {
     notIn?: $Enums.ModoRespostaFormulario[] | ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel>
     not?: NestedEnumModoRespostaFormularioFilter<$PrismaModel> | $Enums.ModoRespostaFormulario
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type PerguntaListRelationFilter = {
     every?: PerguntaWhereInput
@@ -33655,6 +33941,8 @@ export namespace Prisma {
     conteudo?: SortOrder
     publicado?: SortOrder
     modoResposta?: SortOrder
+    limitarPorNavegador?: SortOrder
+    configuracao?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33666,6 +33954,7 @@ export namespace Prisma {
     slug?: SortOrder
     publicado?: SortOrder
     modoResposta?: SortOrder
+    limitarPorNavegador?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33677,6 +33966,7 @@ export namespace Prisma {
     slug?: SortOrder
     publicado?: SortOrder
     modoResposta?: SortOrder
+    limitarPorNavegador?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33716,6 +34006,32 @@ export namespace Prisma {
     _min?: NestedEnumModoRespostaFormularioFilter<$PrismaModel>
     _max?: NestedEnumModoRespostaFormularioFilter<$PrismaModel>
   }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
 
   export type FormularioScalarRelationFilter = {
     is?: FormularioWhereInput
@@ -33733,7 +34049,12 @@ export namespace Prisma {
     respostas?: SortOrder
     nomeRespondente?: SortOrder
     identificadorCookie?: SortOrder
+    pontuacao?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type FormularioRespostaAvgOrderByAggregateInput = {
+    pontuacao?: SortOrder
   }
 
   export type FormularioRespostaMaxOrderByAggregateInput = {
@@ -33741,6 +34062,7 @@ export namespace Prisma {
     formularioId?: SortOrder
     nomeRespondente?: SortOrder
     identificadorCookie?: SortOrder
+    pontuacao?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -33749,7 +34071,12 @@ export namespace Prisma {
     formularioId?: SortOrder
     nomeRespondente?: SortOrder
     identificadorCookie?: SortOrder
+    pontuacao?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type FormularioRespostaSumOrderByAggregateInput = {
+    pontuacao?: SortOrder
   }
 
   export type EnumTipoPerguntaFilter<$PrismaModel = never> = {
@@ -35749,6 +36076,29 @@ export namespace Prisma {
     _min?: NestedEnumModoRespostaFormularioFilter<$PrismaModel>
     _max?: NestedEnumModoRespostaFormularioFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedEnumTipoPerguntaFilter<$PrismaModel = never> = {
     equals?: $Enums.TipoPergunta | EnumTipoPerguntaFieldRefInput<$PrismaModel>
@@ -36087,6 +36437,8 @@ export namespace Prisma {
   export type AvisoCreateWithoutAutorInput = {
     id?: string
     texto: string
+    imagemUrl?: string | null
+    linkUrl?: string | null
     fixado?: boolean
     createdAt?: Date | string
     turma: TurmaCreateNestedOneWithoutAvisosInput
@@ -36096,6 +36448,8 @@ export namespace Prisma {
     id?: string
     turmaId: string
     texto: string
+    imagemUrl?: string | null
+    linkUrl?: string | null
     fixado?: boolean
     createdAt?: Date | string
   }
@@ -36313,6 +36667,8 @@ export namespace Prisma {
     turmaId?: StringFilter<"Aviso"> | string
     autorId?: StringFilter<"Aviso"> | string
     texto?: StringFilter<"Aviso"> | string
+    imagemUrl?: StringNullableFilter<"Aviso"> | string | null
+    linkUrl?: StringNullableFilter<"Aviso"> | string | null
     fixado?: BoolFilter<"Aviso"> | boolean
     createdAt?: DateTimeFilter<"Aviso"> | Date | string
   }
@@ -36403,6 +36759,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
     alunos?: AlunoTurmaCreateNestedManyWithoutTurmaInput
@@ -36419,6 +36778,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     alunos?: AlunoTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -36572,6 +36934,9 @@ export namespace Prisma {
     sala?: StringNullableFilter<"Turma"> | string | null
     horario?: StringNullableFilter<"Turma"> | string | null
     cor?: StringFilter<"Turma"> | string
+    corDestaque?: StringFilter<"Turma"> | string
+    corFundo?: StringFilter<"Turma"> | string
+    fonte?: StringFilter<"Turma"> | string
     semestreId?: StringFilter<"Turma"> | string
   }
 
@@ -36787,6 +37152,8 @@ export namespace Prisma {
   export type AvisoCreateWithoutTurmaInput = {
     id?: string
     texto: string
+    imagemUrl?: string | null
+    linkUrl?: string | null
     fixado?: boolean
     createdAt?: Date | string
     autor: UserCreateNestedOneWithoutAvisosInput
@@ -36796,6 +37163,8 @@ export namespace Prisma {
     id?: string
     autorId: string
     texto: string
+    imagemUrl?: string | null
+    linkUrl?: string | null
     fixado?: boolean
     createdAt?: Date | string
   }
@@ -37110,6 +37479,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
     alunos?: AlunoTurmaCreateNestedManyWithoutTurmaInput
@@ -37126,6 +37498,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestreId: string
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     alunos?: AlunoTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -37209,6 +37584,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
     alunos?: AlunoTurmaUpdateManyWithoutTurmaNestedInput
@@ -37225,6 +37603,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     alunos?: AlunoTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -37286,6 +37667,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
     alunos?: AlunoTurmaCreateNestedManyWithoutTurmaInput
@@ -37302,6 +37686,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     alunos?: AlunoTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -37385,6 +37772,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
     alunos?: AlunoTurmaUpdateManyWithoutTurmaNestedInput
@@ -37401,6 +37791,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     alunos?: AlunoTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -37486,6 +37879,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
@@ -37502,6 +37898,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -37609,6 +38008,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
@@ -37625,6 +38027,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -37775,6 +38180,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
@@ -37791,6 +38199,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -37823,6 +38234,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
@@ -37839,6 +38253,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -37855,6 +38272,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
@@ -37871,6 +38291,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -37903,6 +38326,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
@@ -37919,6 +38345,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -37935,6 +38364,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
@@ -37951,6 +38383,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -38028,6 +38463,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
@@ -38044,6 +38482,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -38111,6 +38552,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
@@ -38127,6 +38571,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -38204,6 +38651,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
@@ -38220,6 +38670,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -38287,6 +38740,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
@@ -38303,6 +38759,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -38401,6 +38860,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
@@ -38417,6 +38879,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -39040,6 +39505,7 @@ export namespace Prisma {
     respostas: JsonNullValueInput | InputJsonValue
     nomeRespondente?: string | null
     identificadorCookie?: string | null
+    pontuacao?: number | null
     createdAt?: Date | string
   }
 
@@ -39048,6 +39514,7 @@ export namespace Prisma {
     respostas: JsonNullValueInput | InputJsonValue
     nomeRespondente?: string | null
     identificadorCookie?: string | null
+    pontuacao?: number | null
     createdAt?: Date | string
   }
 
@@ -39114,6 +39581,7 @@ export namespace Prisma {
     respostas?: JsonFilter<"FormularioResposta">
     nomeRespondente?: StringNullableFilter<"FormularioResposta"> | string | null
     identificadorCookie?: StringNullableFilter<"FormularioResposta"> | string | null
+    pontuacao?: IntNullableFilter<"FormularioResposta"> | number | null
     createdAt?: DateTimeFilter<"FormularioResposta"> | Date | string
   }
 
@@ -39125,6 +39593,8 @@ export namespace Prisma {
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
     modoResposta?: $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaCreateNestedManyWithoutFormularioInput
@@ -39138,6 +39608,8 @@ export namespace Prisma {
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
     modoResposta?: $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaUncheckedCreateNestedManyWithoutFormularioInput
@@ -39167,6 +39639,8 @@ export namespace Prisma {
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUpdateManyWithoutFormularioNestedInput
@@ -39180,6 +39654,8 @@ export namespace Prisma {
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUncheckedUpdateManyWithoutFormularioNestedInput
@@ -39193,6 +39669,8 @@ export namespace Prisma {
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
     modoResposta?: $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     respostas?: FormularioRespostaCreateNestedManyWithoutFormularioInput
@@ -39206,6 +39684,8 @@ export namespace Prisma {
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
     modoResposta?: $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     respostas?: FormularioRespostaUncheckedCreateNestedManyWithoutFormularioInput
@@ -39257,6 +39737,8 @@ export namespace Prisma {
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     respostas?: FormularioRespostaUpdateManyWithoutFormularioNestedInput
@@ -39270,6 +39752,8 @@ export namespace Prisma {
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     respostas?: FormularioRespostaUncheckedUpdateManyWithoutFormularioNestedInput
@@ -39386,6 +39870,8 @@ export namespace Prisma {
     id?: string
     turmaId: string
     texto: string
+    imagemUrl?: string | null
+    linkUrl?: string | null
     fixado?: boolean
     createdAt?: Date | string
   }
@@ -39500,6 +39986,8 @@ export namespace Prisma {
   export type AvisoUpdateWithoutAutorInput = {
     id?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fixado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     turma?: TurmaUpdateOneRequiredWithoutAvisosNestedInput
@@ -39509,6 +39997,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     turmaId?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fixado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39517,6 +40007,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     turmaId?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fixado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39587,6 +40079,9 @@ export namespace Prisma {
     sala?: string | null
     horario?: string | null
     cor?: string
+    corDestaque?: string
+    corFundo?: string
+    fonte?: string
   }
 
   export type AlunoCreateManySemestreInput = {
@@ -39637,6 +40132,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
     alunos?: AlunoTurmaUpdateManyWithoutTurmaNestedInput
@@ -39653,6 +40151,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     alunos?: AlunoTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -39669,6 +40170,9 @@ export namespace Prisma {
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
   }
 
   export type AlunoUpdateWithoutSemestreInput = {
@@ -39832,6 +40336,8 @@ export namespace Prisma {
     id?: string
     autorId: string
     texto: string
+    imagemUrl?: string | null
+    linkUrl?: string | null
     fixado?: boolean
     createdAt?: Date | string
   }
@@ -39933,6 +40439,8 @@ export namespace Prisma {
   export type AvisoUpdateWithoutTurmaInput = {
     id?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fixado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     autor?: UserUpdateOneRequiredWithoutAvisosNestedInput
@@ -39942,6 +40450,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     autorId?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fixado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39950,6 +40460,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     autorId?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fixado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -40124,6 +40636,7 @@ export namespace Prisma {
     respostas: JsonNullValueInput | InputJsonValue
     nomeRespondente?: string | null
     identificadorCookie?: string | null
+    pontuacao?: number | null
     createdAt?: Date | string
   }
 
@@ -40158,6 +40671,7 @@ export namespace Prisma {
     respostas?: JsonNullValueInput | InputJsonValue
     nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
     identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
+    pontuacao?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -40166,6 +40680,7 @@ export namespace Prisma {
     respostas?: JsonNullValueInput | InputJsonValue
     nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
     identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
+    pontuacao?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -40174,6 +40689,7 @@ export namespace Prisma {
     respostas?: JsonNullValueInput | InputJsonValue
     nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
     identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
+    pontuacao?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

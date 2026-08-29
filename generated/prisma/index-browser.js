@@ -176,6 +176,9 @@ exports.Prisma.TurmaScalarFieldEnum = {
   sala: 'sala',
   horario: 'horario',
   cor: 'cor',
+  corDestaque: 'corDestaque',
+  corFundo: 'corFundo',
+  fonte: 'fonte',
   semestreId: 'semestreId'
 };
 
@@ -247,6 +250,8 @@ exports.Prisma.AvisoScalarFieldEnum = {
   turmaId: 'turmaId',
   autorId: 'autorId',
   texto: 'texto',
+  imagemUrl: 'imagemUrl',
+  linkUrl: 'linkUrl',
   fixado: 'fixado',
   createdAt: 'createdAt'
 };
@@ -308,6 +313,8 @@ exports.Prisma.FormularioScalarFieldEnum = {
   conteudo: 'conteudo',
   publicado: 'publicado',
   modoResposta: 'modoResposta',
+  limitarPorNavegador: 'limitarPorNavegador',
+  configuracao: 'configuracao',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -318,6 +325,7 @@ exports.Prisma.FormularioRespostaScalarFieldEnum = {
   respostas: 'respostas',
   nomeRespondente: 'nomeRespondente',
   identificadorCookie: 'identificadorCookie',
+  pontuacao: 'pontuacao',
   createdAt: 'createdAt'
 };
 
@@ -343,6 +351,11 @@ exports.Prisma.SortOrder = {
 };
 
 exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 

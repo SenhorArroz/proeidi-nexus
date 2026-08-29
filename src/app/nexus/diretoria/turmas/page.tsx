@@ -58,6 +58,10 @@ interface Turma {
 	alunoIds: string[];
 	materiais: Material[];
 	aulas: Aula[];
+	cor: string;
+	corDestaque: string;
+	corFundo: string;
+	fonte: "SANS" | "SERIF" | "MONO";
 }
 
 const turmaVazia = (): Turma => ({
@@ -73,6 +77,10 @@ const turmaVazia = (): Turma => ({
 	alunoIds: [],
 	materiais: [],
 	aulas: [],
+	cor: "#1A73E8",
+	corDestaque: "#ea580c",
+	corFundo: "#f8fafc",
+	fonte: "SANS",
 });
 
 // Preenche com valores padrão qualquer campo ausente — protege contra dados
@@ -91,6 +99,10 @@ function normalizarTurma(t: Partial<Turma> & { id: string }): Turma {
 		alunoIds: t.alunoIds ?? [],
 		materiais: t.materiais ?? [],
 		aulas: t.aulas ?? [],
+		cor: t.cor ?? "#1A73E8",
+		corDestaque: t.corDestaque ?? "#ea580c",
+		corFundo: t.corFundo ?? "#f8fafc",
+		fonte: t.fonte ?? "SANS",
 	};
 }
 
@@ -462,9 +474,9 @@ function TurmaCard({
 	duplicando: boolean;
 }) {
 	return (
-		<div className="group min-w-0 overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,132,199,.14)]">
-			<div className="relative overflow-hidden bg-sky-600 px-5 py-4">
-				<div className="absolute -right-6 -bottom-8 h-24 w-24 rounded-full bg-orange-500" />
+		<div className="group min-w-0 overflow-hidden rounded-2xl shadow-[0_10px_24px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5" style={{ backgroundColor: turma.corFundo, fontFamily: turma.fonte === "SERIF" ? "Georgia, serif" : turma.fonte === "MONO" ? "ui-monospace, SFMono-Regular, Menlo, monospace" : undefined, boxShadow: `0 16px 30px ${turma.cor}24` }}>
+			<div className="relative overflow-hidden px-5 py-4" style={{ backgroundColor: turma.cor }}>
+				<div className="absolute -right-6 -bottom-8 h-24 w-24 rounded-full" style={{ backgroundColor: turma.corDestaque }} />
 				<div className="relative flex items-start justify-between gap-2">
 					<div className="flex items-center gap-2.5 min-w-0">
 						<div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
@@ -513,16 +525,16 @@ function TurmaCard({
 
 				<div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold text-slate-500">
 					<span className="flex items-center gap-1.5">
-						<Users className="w-3.5 h-3.5" />
+						<Users className="w-3.5 h-3.5" style={{ color: turma.corDestaque }} />
 						{turma.alunos?.length ?? 0} alunos
 					</span>
 					<span className="flex items-center gap-1.5">
-						<CalendarDays className="w-3.5 h-3.5" />
+						<CalendarDays className="w-3.5 h-3.5" style={{ color: turma.corDestaque }} />
 						{turma.aulas?.length ?? 0} aulas
 					</span>
 					{turma.materiais?.length > 0 && (
 						<span className="flex items-center gap-1.5">
-							<FolderOpen className="w-3.5 h-3.5" />
+							<FolderOpen className="w-3.5 h-3.5" style={{ color: turma.corDestaque }} />
 							{turma.materiais.length} materiais
 						</span>
 					)}
@@ -589,6 +601,10 @@ export default function TurmasDiretoria() {
 				titulo: t.titulo,
 				sala: t.sala ?? "",
 				horario: t.horario ?? "",
+				cor: t.cor,
+				corDestaque: t.corDestaque,
+				corFundo: t.corFundo,
+				fonte: t.fonte as Turma["fonte"],
 				professores: t.professores.map((v) => v.user.nome),
 				professorIds: t.professores.map((v) => v.user.id),
 				monitores: t.monitores.map((v) => v.user.nome),
@@ -636,7 +652,10 @@ export default function TurmasDiretoria() {
 			titulo: rascunho.titulo,
 			sala: rascunho.sala.trim() || null,
 			horario: rascunho.horario.trim() || null,
-			cor: "#1A73E8",
+			cor: rascunho.cor,
+			corDestaque: rascunho.corDestaque,
+			corFundo: rascunho.corFundo,
+			fonte: rascunho.fonte,
 			professorIds: rascunho.professorIds,
 			monitorIds: rascunho.monitorIds,
 			alunoIds: rascunho.alunoIds,
@@ -791,6 +810,31 @@ export default function TurmasDiretoria() {
 								<div><label className="mb-2 block text-xs font-medium uppercase tracking-wide text-gray-500">Local</label><input value={rascunho.sala} onChange={(e) => setRascunho({ ...rascunho, sala: e.target.value })} placeholder="Ex: Sala 204" className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm font-medium focus:border-sky-300 focus:bg-white focus:outline-none" /></div>
 								<div><label className="mb-2 block text-xs font-medium uppercase tracking-wide text-gray-500">Horário</label><input value={rascunho.horario} onChange={(e) => setRascunho({ ...rascunho, horario: e.target.value })} placeholder="Ex: Seg e Qua · 14:00 – 16:00" className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm font-medium focus:border-sky-300 focus:bg-white focus:outline-none" /></div>
 							</div>
+
+							<section className="rounded-xl border border-gray-200 bg-gray-50 p-4">
+								<h3 className="text-sm font-semibold text-gray-900">Personalização da turma</h3>
+								<p className="mt-1 text-xs text-gray-500">Essas cores aparecem nos cards da Dashboard, da Diretoria e dentro da turma.</p>
+								<div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+									{([
+										["cor", "Cor principal"],
+										["corDestaque", "Cor de destaque"],
+										["corFundo", "Fundo do card"],
+									] as const).map(([campo, label]) => (
+										<label key={campo} className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-2.5 py-2 text-xs font-medium text-gray-600">
+											<input type="color" value={rascunho[campo]} onChange={(e) => setRascunho({ ...rascunho, [campo]: e.target.value })} className="h-8 w-8 cursor-pointer rounded border-0 bg-transparent p-0" aria-label={label} />
+											<span>{label}</span>
+										</label>
+									))}
+									<label className="rounded-lg border border-gray-200 bg-white px-2.5 py-2 text-xs font-medium text-gray-600">
+										<span className="block">Fonte</span>
+										<select value={rascunho.fonte} onChange={(e) => setRascunho({ ...rascunho, fonte: e.target.value as Turma["fonte"] })} className="mt-1 w-full bg-transparent text-sm text-gray-800 outline-none">
+											<option value="SANS">Sem serifa</option>
+											<option value="SERIF">Com serifa</option>
+											<option value="MONO">Monoespaçada</option>
+										</select>
+									</label>
+								</div>
+							</section>
 
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 								<SearchSelect

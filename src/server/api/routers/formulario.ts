@@ -25,6 +25,14 @@ const conteudoSchema = z.object({
 	perguntas: z.array(perguntaSchema).min(1).max(100),
 });
 const modoRespostaSchema = z.enum(["ANONIMO", "IDENTIFICADO_POR_COOKIE"]);
+const configuracaoSchema = z.object({
+	corPrimaria: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#0284c7"),
+	corDestaque: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#ea580c"),
+	corFundo: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#f8fafc"),
+	fonte: z.enum(["SANS", "SERIF", "MONO"]).default("SANS"),
+	mostrarProgresso: z.boolean().default(true),
+	atribuirPontuacao: z.boolean().default(false),
+});
 const diretorProcedure = protectedProcedure.use(({ ctx, next }) => {
 	if (
 		ctx.session.user.role !== "DIRETOR" &&
@@ -58,6 +66,8 @@ export const formularioRouter = createTRPCRouter({
 				conteudo: conteudoSchema,
 				publicado: z.boolean().default(false),
 				modoResposta: modoRespostaSchema.default("ANONIMO"),
+				limitarPorNavegador: z.boolean().default(false),
+				configuracao: configuracaoSchema.default({}),
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
@@ -84,6 +94,8 @@ export const formularioRouter = createTRPCRouter({
 				conteudo: conteudoSchema,
 				publicado: z.boolean(),
 				modoResposta: modoRespostaSchema,
+				limitarPorNavegador: z.boolean(),
+				configuracao: configuracaoSchema,
 			}),
 		)
 		.mutation(({ ctx, input }) =>
@@ -95,6 +107,8 @@ export const formularioRouter = createTRPCRouter({
 					conteudo: input.conteudo,
 					publicado: input.publicado,
 					modoResposta: input.modoResposta,
+					limitarPorNavegador: input.limitarPorNavegador,
+					configuracao: input.configuracao,
 				},
 			}),
 		),
@@ -125,6 +139,8 @@ export const formularioRouter = createTRPCRouter({
 					conteudo: true,
 					publicado: true,
 					modoResposta: true,
+					limitarPorNavegador: true,
+					configuracao: true,
 				},
 			});
 			if (!formulario?.publicado) throw new TRPCError({ code: "NOT_FOUND" });
@@ -144,7 +160,7 @@ export const formularioRouter = createTRPCRouter({
 		.mutation(async ({ ctx, input }) => {
 			const formulario = await ctx.db.formulario.findUnique({
 				where: { slug: input.slug },
-				select: { id: true, conteudo: true, publicado: true, modoResposta: true },
+				select: { id: true, conteudo: true, publicado: true, modoResposta: true, limitarPorNavegador: true, configuracao: true },
 			});
 			if (!formulario?.publicado) throw new TRPCError({ code: "NOT_FOUND" });
 			const conteudo = conteudoSchema.parse(formulario.conteudo);
@@ -154,25 +170,38 @@ export const formularioRouter = createTRPCRouter({
 						code: "BAD_REQUEST",
 						message: "Preencha as perguntas obrigatórias.",
 					});
-			const respostaIdentificada =
-				formulario.modoResposta === "IDENTIFICADO_POR_COOKIE";
+			const respostaIdentificada = formulario.modoResposta === "IDENTIFICADO_POR_COOKIE";
+			const limitarPorNavegador = formulario.limitarPorNavegador || respostaIdentificada;
+			const configuracao = configuracaoSchema.parse(formulario.configuracao ?? {});
 			if (respostaIdentificada && !input.nomeRespondente)
 				throw new TRPCError({
 					code: "BAD_REQUEST",
 					message: "Informe seu nome para responder a este questionário.",
 				});
-			if (respostaIdentificada && !input.identificadorCookie)
+			if (limitarPorNavegador && !input.identificadorCookie)
 				throw new TRPCError({
 					code: "BAD_REQUEST",
 					message: "Não foi possível identificar este navegador. Recarregue a página e tente novamente.",
 				});
+			const pontuacao = configuracao.atribuirPontuacao
+				? conteudo.perguntas.reduce((total, pergunta) => {
+					const correta = pergunta.respostaCorreta;
+					if (!correta) return total;
+					const recebida = input.respostas[pergunta.id];
+					const iguais = Array.isArray(correta)
+						? Array.isArray(recebida) && correta.length === recebida.length && [...correta].sort().every((valor, indice) => valor === [...recebida].sort()[indice])
+						: recebida === correta;
+					return total + (iguais ? 1 : 0);
+				}, 0)
+				: null;
 			try {
 				return await ctx.db.formularioResposta.create({
 					data: {
 						formularioId: formulario.id,
 						respostas: input.respostas,
 						nomeRespondente: respostaIdentificada ? input.nomeRespondente : null,
-						identificadorCookie: respostaIdentificada ? input.identificadorCookie : null,
+						identificadorCookie: limitarPorNavegador ? input.identificadorCookie : null,
+						pontuacao,
 					},
 				});
 			} catch (error) {

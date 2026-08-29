@@ -99,6 +99,9 @@ const turmaInput = z.object({
 		.string()
 		.regex(/^#[0-9a-fA-F]{6}$/)
 		.default("#1A73E8"),
+	corDestaque: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#ea580c"),
+	corFundo: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#f8fafc"),
+	fonte: z.enum(["SANS", "SERIF", "MONO"]).default("SANS"),
 	professorIds: z.array(id).max(20),
 	monitorIds: z.array(id).max(30),
 	alunoIds: z.array(id).max(300),
@@ -657,6 +660,9 @@ export const diretoriaRouter = createTRPCRouter({
 						sala: true,
 						horario: true,
 						cor: true,
+						corDestaque: true,
+						corFundo: true,
+						fonte: true,
 						semestreId: true,
 						professores: {
 							select: {
@@ -688,6 +694,9 @@ export const diretoriaRouter = createTRPCRouter({
 						sala: input.sala,
 						horario: input.horario,
 						cor: input.cor,
+						corDestaque: input.corDestaque,
+						corFundo: input.corFundo,
+						fonte: input.fonte,
 						professores: {
 							create: input.professorIds.map((userId) => ({ userId })),
 						},
@@ -714,6 +723,9 @@ export const diretoriaRouter = createTRPCRouter({
 						sala: true,
 						horario: true,
 						cor: true,
+						corDestaque: true,
+						corFundo: true,
+						fonte: true,
 						professores: { select: { userId: true } },
 						monitores: { select: { userId: true } },
 						materiais: { select: { titulo: true, tipo: true, url: true } },
@@ -739,6 +751,9 @@ export const diretoriaRouter = createTRPCRouter({
 						sala: origem.sala,
 						horario: origem.horario,
 						cor: origem.cor,
+						corDestaque: origem.corDestaque,
+						corFundo: origem.corFundo,
+						fonte: origem.fonte,
 						professores: { create: origem.professores.map(({ userId }) => ({ userId })) },
 						monitores: { create: origem.monitores.map(({ userId }) => ({ userId })) },
 						materiais: { create: origem.materiais },
@@ -805,6 +820,9 @@ export const diretoriaRouter = createTRPCRouter({
 							sala: input.sala,
 							horario: input.horario,
 							cor: input.cor,
+							corDestaque: input.corDestaque,
+							corFundo: input.corFundo,
+							fonte: input.fonte,
 							professores: {
 								create: input.professorIds.map((userId) => ({ userId })),
 							},

@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Tema individual da turma: links, ícones e ações herdam a cor de destaque. */
+.turma-tema :is(.text-sky-600, .text-sky-700, .text-blue-600, .text-blue-700) { color: var(--turma-destaque) !important; }
+.turma-tema :is(.bg-sky-600, .bg-blue-600) { background-color: var(--turma-destaque) !important; }
+.turma-tema :is(.border-sky-200, .border-sky-300) { border-color: color-mix(in srgb, var(--turma-destaque) 35%, white) !important; }
+.turma-tema :is(.bg-sky-50, .bg-blue-50) { background-color: color-mix(in srgb, var(--turma-destaque) 10%, white) !important; }
+
 @theme {
 	--font-sans:
 		var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,

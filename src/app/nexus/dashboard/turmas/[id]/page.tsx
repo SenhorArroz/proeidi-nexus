@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { api } from "~/trpc/react";
+import { generateUploadButton } from "@uploadthing/react";
+import type { OurFileRouter } from "~/app/api/uploadthing/core";
 import {
 	Home,
 	FolderOpen,
@@ -32,6 +34,8 @@ import {
 	AlertTriangle,
 	Ban,
 } from "lucide-react";
+
+const UploadButton = generateUploadButton<OurFileRouter>();
 
 // ---------------------------------------------------------------------------
 // Tipos
@@ -66,6 +70,8 @@ interface Aviso {
 	autor: string;
 	fixado: boolean;
 	texto: string;
+	imagemUrl: string | null;
+	linkUrl: string | null;
 	quando: string;
 	podeExcluir: boolean;
 	podeFixar: boolean;
@@ -94,6 +100,9 @@ interface DadosTurma {
 	monitores: string[];
 	alunos: string[];
 	cor: string;
+	corDestaque?: string;
+	corFundo?: string;
+	fonte?: "SANS" | "SERIF" | "MONO";
 }
 
 const TURMA_VAZIA: DadosTurma = { nome: "", sala: "", horario: "", professores: [], monitores: [], alunos: [], cor: "#0284c7" };
@@ -211,9 +220,9 @@ function SearchSelect({
 			</label>
 
 			<div className="flex flex-wrap gap-1.5 mb-2 min-h-[1.75rem]">
-				{values.map((v) => (
+				{values.map((v, index) => (
 					<span
-						key={v}
+						key={`${v}-${index}`}
 						className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full text-xs font-medium"
 						style={{ backgroundColor: `${accent}1A`, color: accent }}
 					>
@@ -647,7 +656,7 @@ function EditarTurmaModal({
 	onSalvar: (t: DadosTurma) => void;
 	onFechar: () => void;
 }) {
-	const [rascunho, setRascunho] = useState<DadosTurma>({ ...turma });
+	const [rascunho, setRascunho] = useState<DadosTurma>({ ...turma, corDestaque: turma.corDestaque ?? "#ea580c", corFundo: turma.corFundo ?? "#f8fafc", fonte: turma.fonte ?? "SANS" });
 
 	const salvar = () => {
 		if (!rascunho.nome.trim()) return;
@@ -692,6 +701,7 @@ function EditarTurmaModal({
 							className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm font-medium focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
 						/>
 					</div>
+					<div className="rounded-xl border border-sky-100 bg-sky-50 p-3"><p className="text-sm font-bold text-sky-900">Personalização da turma</p><div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4"><label className="text-xs font-bold text-slate-700">Principal<input type="color" value={rascunho.cor} onChange={(e) => setRascunho({ ...rascunho, cor: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Destaque<input type="color" value={rascunho.corDestaque} onChange={(e) => setRascunho({ ...rascunho, corDestaque: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Fundo<input type="color" value={rascunho.corFundo} onChange={(e) => setRascunho({ ...rascunho, corFundo: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Fonte<select value={rascunho.fonte} onChange={(e) => setRascunho({ ...rascunho, fonte: e.target.value as DadosTurma['fonte'] })} className="mt-1 h-10 w-full rounded-lg border border-sky-200 bg-white px-2"><option value="SANS">Sem serifa</option><option value="SERIF">Com serifa</option><option value="MONO">Monoespaçada</option></select></label></div></div>
 
 					{/* Sala e Horário */}
 					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -796,11 +806,15 @@ function InicioView({
 }) {
 	const [criandoAviso, setCriandoAviso] = useState(false);
 	const [novoAviso, setNovoAviso] = useState("");
+	const [imagemAviso, setImagemAviso] = useState<string | null>(null);
+	const [linkAviso, setLinkAviso] = useState("");
 	const [erro, setErro] = useState<string | null>(null);
 	const utils = api.useUtils();
 	const criarAviso = api.turma.avisos.create.useMutation({
 		onSuccess: () => {
 			setNovoAviso("");
+			setImagemAviso(null);
+			setLinkAviso("");
 			setCriandoAviso(false);
 			setErro(null);
 			void utils.turma.detalhe.invalidate({ id: turmaId });
@@ -818,9 +832,9 @@ function InicioView({
 
 	const adicionarAviso = () => {
 		const texto = novoAviso.trim();
-		if (!texto) return;
+		if (!texto && !imagemAviso && !linkAviso.trim()) return;
 		setErro(null);
-		criarAviso.mutate({ turmaId, texto });
+		criarAviso.mutate({ turmaId, texto, imagemUrl: imagemAviso, linkUrl: linkAviso.trim() || null });
 	};
 
 	const toggleFixar = (aviso: Aviso) => {
@@ -896,7 +910,7 @@ function InicioView({
 
 				{/* Input novo aviso */}
 				{criandoAviso && (
-					<div className="mb-3 flex min-w-0 flex-col gap-2 rounded-2xl border border-gray-200 bg-white p-3 shadow-xs min-[420px]:flex-row min-[420px]:items-center">
+					<div className="mb-3 flex min-w-0 flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-3 shadow-xs">
 						<input
 							autoFocus
 							value={novoAviso}
@@ -905,14 +919,25 @@ function InicioView({
 							placeholder="Escreva um aviso para a turma..."
 							className="flex-1 min-w-0 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
 						/>
+						<input value={linkAviso} onChange={(e) => setLinkAviso(e.target.value)} placeholder="https://... (link opcional)" type="url" className="min-h-11 min-w-0 flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm" />
+						<div className="flex flex-wrap items-center gap-3">
+						<UploadButton
+							endpoint="avisoImagem"
+							onClientUploadComplete={(arquivos) => { setImagemAviso(arquivos[0]?.ufsUrl ?? null); setErro(null); }}
+							onUploadError={(causa) => setErro(`Não foi possível enviar a imagem: ${causa.message}`)}
+							appearance={{ button: "min-h-11 rounded-lg bg-sky-600 px-3 py-2 text-xs font-bold text-white hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50", allowedContent: "hidden" }}
+							content={{ button: imagemAviso ? "Trocar imagem" : "Adicionar imagem" }}
+						/>
+						{imagemAviso && <div className="flex min-w-0 items-center gap-2 rounded-xl border border-sky-100 bg-sky-50 p-2"><img src={imagemAviso} alt="Miniatura da imagem selecionada" className="h-10 w-10 shrink-0 rounded-lg bg-white object-contain" /><span className="min-w-0 flex-1 truncate text-xs font-semibold text-sky-800">Imagem pronta para publicar</span><button type="button" onClick={() => setImagemAviso(null)} className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-sky-700 hover:bg-sky-100" aria-label="Remover imagem selecionada"><X className="h-4 w-4" /></button></div>}
 						<button
 							onClick={adicionarAviso}
-							disabled={!novoAviso.trim() || criarAviso.isPending}
+							disabled={(!novoAviso.trim() && !imagemAviso && !linkAviso.trim()) || criarAviso.isPending}
 							className="flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							<Check className="w-4 h-4" />
 							{criarAviso.isPending ? "Publicando..." : "Publicar"}
 						</button>
+						</div>
 					</div>
 				)}
 				{erro && <p role="alert" className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{erro}</p>}
@@ -960,6 +985,8 @@ function InicioView({
 							<p className="text-sm text-gray-600 leading-relaxed">
 								{aviso.texto}
 							</p>
+							{aviso.imagemUrl && <img src={aviso.imagemUrl} alt={`Imagem do aviso de ${aviso.autor}`} className="mt-3 max-h-72 w-full rounded-xl bg-slate-100 object-contain" />}
+							{aviso.linkUrl && <a href={aviso.linkUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-11 items-center rounded-lg bg-sky-50 px-3 text-sm font-bold text-sky-700 hover:bg-sky-100">Abrir link</a>}
 						</div>
 					))}
 					{avisos.length === 0 && (
@@ -1416,6 +1443,7 @@ const TABS: { id: TabId; label: string; icon: React.ElementType }[] = [
 // ---------------------------------------------------------------------------
 
 export default function TurmaView() {
+	const utils = api.useUtils();
 	const params = useParams<{ id: string }>();
 	const turmaId = Array.isArray(params.id) ? params.id[0] : params.id;
 	const { data: detalhe, isLoading: carregandoTurma } = api.turma.detalhe.useQuery({ id: turmaId }, { enabled: Boolean(turmaId) });
@@ -1457,8 +1485,8 @@ export default function TurmaView() {
 	useEffect(() => {
 		const dados = detalhe?.turma;
 		if (!dados) return;
-		setTurma({ nome: dados.titulo, sala: dados.sala ?? "Local a definir", horario: dados.horario ?? "Horário a definir", cor: dados.cor, professores: dados.professores.map((item) => item.user.nome), monitores: dados.monitores.map((item) => item.user.nome), alunos: dados.alunos.map((item) => item.aluno.nome) });
-		setAvisos(dados.avisos.map((item) => ({ id: item.id, autor: item.autor.nome, fixado: item.fixado, texto: item.texto, quando: item.createdAt.toLocaleDateString("pt-BR"), podeExcluir: detalhe.role !== "MONITOR" || item.autorId === detalhe.usuarioId, podeFixar: detalhe.role !== "MONITOR" })));
+		setTurma({ nome: dados.titulo, sala: dados.sala ?? "Local a definir", horario: dados.horario ?? "Horário a definir", cor: dados.cor, corDestaque: dados.corDestaque, corFundo: dados.corFundo, fonte: dados.fonte as DadosTurma['fonte'], professores: dados.professores.map((item) => item.user.nome), monitores: dados.monitores.map((item) => item.user.nome), alunos: dados.alunos.map((item) => item.aluno.nome) });
+		setAvisos(dados.avisos.map((item) => ({ id: item.id, autor: item.autor.nome, fixado: item.fixado, texto: item.texto, imagemUrl: item.imagemUrl, linkUrl: item.linkUrl, quando: item.createdAt.toLocaleDateString("pt-BR"), podeExcluir: detalhe.role !== "MONITOR" || item.autorId === detalhe.usuarioId, podeFixar: detalhe.role !== "MONITOR" })));
 		setMateriais(dados.materiais.map((item) => ({ id: item.id, nome: item.titulo, url: item.url, quando: item.createdAt.toLocaleDateString("pt-BR") })));
 		setAnotacoes((dados.anotacoes ?? []).map((item) => ({ id: item.id, titulo: item.titulo, conteudo: item.conteudo, data: item.createdAt.toLocaleDateString("pt-BR") })));
 		setEventos(dados.eventos.map((item) => ({ id: item.id, titulo: item.titulo, data: item.data.toISOString().slice(0, 10), tipo: item.tipo.toLowerCase() as TipoEvento })));
@@ -1468,7 +1496,10 @@ export default function TurmaView() {
 	}, [detalhe]);
 
 	// Atualiza presença quando turma muda (editor)
+	const salvarTema = api.turma.configurarTema.useMutation({ onSuccess: () => void utils.turma.detalhe.invalidate({ id: turmaId }) });
 	const salvarTurma = (novaTurma: DadosTurma) => {
+		if (detalhe?.role === "MONITOR") return;
+		void salvarTema.mutateAsync({ turmaId, cor: novaTurma.cor, corDestaque: novaTurma.corDestaque ?? "#ea580c", corFundo: novaTurma.corFundo ?? "#f8fafc", fonte: novaTurma.fonte ?? "SANS" });
 		setTurma(novaTurma);
 		setPresencaAlunos(
 			novaTurma.alunos.map((nome, i) => ({
@@ -1511,6 +1542,7 @@ export default function TurmaView() {
 	}, [menuAberto]);
 	const tabAtual = TABS.find((item) => item.id === tab) ?? TABS[0];
 	const IconeTabAtual = tabAtual?.icon ?? Home;
+	const podeEditarTurma = detalhe?.role !== "MONITOR";
 
 	if (carregandoTurma) {
 		return <div className="flex h-full min-h-0 flex-col animate-pulse bg-slate-50"><div className="h-40 shrink-0 bg-sky-200" /><div className="flex-1 space-y-5 p-6"><div className="h-7 w-48 rounded-lg bg-slate-200" /><div className="grid grid-cols-1 gap-4 sm:grid-cols-2"><div className="h-44 rounded-2xl bg-white" /><div className="h-44 rounded-2xl bg-white" /></div><div className="h-36 rounded-2xl bg-white" /></div><div className="h-16 shrink-0 border-t border-sky-100 bg-white" /></div>;
@@ -1521,12 +1553,13 @@ export default function TurmaView() {
 	}
 
 	return (
-		<div className="flex h-full min-h-0 min-w-0 flex-col overflow-x-clip text-slate-900 bg-[radial-gradient(circle_at_96%_2%,rgba(14,165,233,.12),transparent_24rem),#f8fafc]">
+		<div className={`turma-tema flex h-full min-h-0 min-w-0 flex-col overflow-x-clip text-slate-900 ${turma.fonte === "SERIF" ? "font-serif" : turma.fonte === "MONO" ? "font-mono" : "font-sans"}`} style={{ backgroundColor: turma.corFundo ?? "#f8fafc", "--turma-destaque": turma.corDestaque ?? "#ea580c" } as React.CSSProperties}>
 			{/* Header da turma */}
 			<div
-				className="relative min-w-0 flex-shrink-0 overflow-hidden bg-sky-600 px-3 pb-6 pt-5 shadow-[0_18px_35px_rgba(2,132,199,.2)] sm:px-6 sm:pt-6 lg:px-8"
+				className="relative min-w-0 flex-shrink-0 overflow-hidden px-3 pb-6 pt-5 shadow-[0_18px_35px_rgba(2,132,199,.2)] sm:px-6 sm:pt-6 lg:px-8"
+				style={{ backgroundColor: turma.cor }}
 			>
-				<div className="absolute -right-8 -bottom-10 w-32 h-32 rounded-full bg-orange-500" />
+				<div className="absolute -right-8 -bottom-10 h-32 w-32 rounded-full" style={{ backgroundColor: turma.corDestaque ?? "#ea580c" }} />
 				<div className="absolute right-10 -top-8 w-20 h-20 rounded-full border-[11px] border-sky-200/80" />
 
 				<div className="w-full max-w-6xl mx-auto relative">
@@ -1534,9 +1567,10 @@ export default function TurmaView() {
 						<div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
 							<BookOpen className="w-4.5 h-4.5 text-white" />
 						</div>
-						<div ref={menuRef} className="relative">
+						{podeEditarTurma && <div ref={menuRef} className="relative">
 							<button
 								onClick={() => setMenuAberto((v) => !v)}
+								aria-label="Abrir opções da turma"
 							className="rounded-xl p-2 text-white/80 transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
 							>
 								<MoreVertical className="w-4 h-4" />
@@ -1554,7 +1588,7 @@ export default function TurmaView() {
 										Editar turma
 									</button>
 									<button
-										onClick={() => setMenuAberto(false)}
+										onClick={() => { setEditando(true); setMenuAberto(false); }}
 										className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
 									>
 										<Settings2 className="w-4 h-4" />
@@ -1562,7 +1596,7 @@ export default function TurmaView() {
 									</button>
 								</div>
 							)}
-						</div>
+						</div>}
 					</div>
 
 					<h1 className="mb-1 break-words text-xl font-black leading-snug tracking-[-.035em] text-white sm:text-3xl">
@@ -1669,7 +1703,8 @@ export default function TurmaView() {
 				<button
 					type="button"
 					onClick={() => setMobileNavOpen((open) => !open)}
-					className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-600 text-white shadow-[0_10px_24px_rgb(2_132_199_/_0.34)] transition-transform active:scale-95"
+					className="flex h-12 w-12 items-center justify-center rounded-full text-white shadow-[0_10px_24px_rgb(2_132_199_/_0.34)] transition-transform active:scale-95"
+					style={{ backgroundColor: turma.corDestaque ?? "#ea580c" }}
 					aria-label={mobileNavOpen ? "Fechar navegação da turma" : `Abrir navegação: ${tabAtual?.label ?? "Início"}`}
 					aria-expanded={mobileNavOpen}
 				>
@@ -1712,7 +1747,7 @@ export default function TurmaView() {
 			</nav>
 
 			{/* Modal de edição */}
-			{editando && (
+			{editando && podeEditarTurma && (
 				<EditarTurmaModal
 					turma={turma}
 					onSalvar={salvarTurma}

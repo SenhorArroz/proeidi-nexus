@@ -88,10 +88,21 @@ export default function Dashboard() {
 								<Link
 									key={turma.id}
 									href={`/nexus/dashboard/turmas/${turma.id}`}
-									className="group min-w-0 overflow-hidden rounded-2xl bg-white shadow-[0_12px_27px_rgba(15,23,42,.07)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_20px_35px_rgba(2,132,199,.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-4"
+									className="group min-w-0 overflow-hidden rounded-2xl shadow-[0_12px_27px_rgba(15,23,42,.07)] transition duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4"
+									style={{
+										backgroundColor: turma.corFundo,
+										fontFamily:
+											turma.fonte === "SERIF"
+												? "Georgia, serif"
+												: turma.fonte === "MONO"
+													? "ui-monospace, SFMono-Regular, Menlo, monospace"
+													: undefined,
+										boxShadow: `0 20px 35px ${turma.cor}29`,
+										["--tw-ring-color" as string]: turma.corDestaque,
+									}}
 								>
-									<div className="relative bg-sky-600 px-5 py-5">
-										<div className="absolute -right-6 -bottom-9 h-28 w-28 rounded-full bg-orange-500" />
+									<div className="relative px-5 py-5" style={{ backgroundColor: turma.cor }}>
+										<div className="absolute -right-6 -bottom-9 h-28 w-28 rounded-full" style={{ backgroundColor: turma.corDestaque }} />
 										<div className="relative flex items-start justify-between gap-4">
 											<span className="grid h-10 w-10 place-items-center rounded-xl bg-white/15">
 												<DoorOpen className="h-5 w-5 text-white" />
@@ -101,21 +112,21 @@ export default function Dashboard() {
 										<h3 className="relative mt-5 truncate text-base font-black tracking-[-.02em] text-white">
 											{turma.titulo}
 										</h3>
-										<p className="relative mt-1 text-xs font-semibold text-sky-100">
+										<p className="relative mt-1 text-xs font-semibold text-white/80">
 											{turma.semestre.codigo}
 										</p>
 									</div>
 									<div className="space-y-3 p-5 text-sm text-slate-600">
 										<p className="flex min-w-0 items-center gap-2">
-											<MapPin className="h-4 w-4 text-orange-600" />
+											<MapPin className="h-4 w-4" style={{ color: turma.corDestaque }} />
 											<span className="truncate">{turma.sala || "Local a definir"}</span>
 										</p>
 										<p className="flex items-center gap-2">
-											<Users className="h-4 w-4 text-sky-600" />
+											<Users className="h-4 w-4" style={{ color: turma.corDestaque }} />
 											{turma.alunos.length} alunos
 										</p>
 										<p className="flex items-center gap-2 border-t border-slate-100 pt-3 font-semibold text-slate-700">
-											<Clock3 className="h-4 w-4 text-sky-600" />
+											<Clock3 className="h-4 w-4" style={{ color: turma.corDestaque }} />
 											{dataFormatada(turma.eventos[0]?.data)}
 										</p>
 									</div>

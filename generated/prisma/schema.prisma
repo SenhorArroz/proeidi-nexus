@@ -149,12 +149,15 @@ model Semestre {
 // ---------------------------------------------------------------------------
 
 model Turma {
-  id         String  @id @default(cuid())
-  titulo     String
-  sala       String?
-  horario    String?
-  cor        String  @default("#1A73E8")
-  semestreId String
+  id          String  @id @default(cuid())
+  titulo      String
+  sala        String?
+  horario     String?
+  cor         String  @default("#1A73E8")
+  corDestaque String  @default("#ea580c")
+  corFundo    String  @default("#f8fafc")
+  fonte       String  @default("SANS")
+  semestreId  String
 
   semestre Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
 
@@ -302,6 +305,8 @@ model Aviso {
   turmaId   String
   autorId   String
   texto     String
+  imagemUrl String?
+  linkUrl   String?
   fixado    Boolean  @default(false)
   createdAt DateTime @default(now())
 
@@ -409,15 +414,17 @@ model Candidato {
 // ---------------------------------------------------------------------------
 
 model Formulario {
-  id           String                 @id @default(cuid())
-  titulo       String
-  descricao    String?
-  slug         String                 @unique
-  conteudo     Json // definição inteira do formulário; evita salvar rascunhos parciais em várias tabelas
-  publicado    Boolean                @default(false)
-  modoResposta ModoRespostaFormulario @default(ANONIMO)
-  createdAt    DateTime               @default(now())
-  updatedAt    DateTime               @updatedAt
+  id                  String                 @id @default(cuid())
+  titulo              String
+  descricao           String?
+  slug                String                 @unique
+  conteudo            Json // definição inteira do formulário; evita salvar rascunhos parciais em várias tabelas
+  publicado           Boolean                @default(false)
+  modoResposta        ModoRespostaFormulario @default(ANONIMO)
+  limitarPorNavegador Boolean                @default(false)
+  configuracao        Json?
+  createdAt           DateTime               @default(now())
+  updatedAt           DateTime               @updatedAt
 
   perguntas Pergunta[]
   respostas FormularioResposta[]
@@ -429,6 +436,7 @@ model FormularioResposta {
   respostas           Json // mapa { perguntaId: resposta }, preservando a resposta exatamente como enviada
   nomeRespondente     String?
   identificadorCookie String?
+  pontuacao           Int?
   createdAt           DateTime @default(now())
 
   formulario Formulario @relation(fields: [formularioId], references: [id], onDelete: Cascade)
