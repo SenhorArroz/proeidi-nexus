@@ -789,13 +789,6 @@ export const diretoriaRouter = createTRPCRouter({
 							},
 							data: { semestreId: input.semestreId },
 						});
-						await tx.alunoTurma.deleteMany({
-							where: {
-								alunoId: { in: alunosVinculados },
-								turmaId: { not: input.id },
-								turma: { semestreId: { not: input.semestreId } },
-							},
-						});
 					}
 					await tx.professorTurma.deleteMany({ where: { turmaId: input.id } });
 					await tx.monitorTurma.deleteMany({ where: { turmaId: input.id } });
@@ -927,7 +920,9 @@ export const diretoriaRouter = createTRPCRouter({
 				});
 				if (!existing) throw new TRPCError({ code: "NOT_FOUND" });
 				return ctx.db.$transaction(async (tx: any) => {
-					await tx.alunoTurma.deleteMany({ where: { alunoId } });
+					await tx.alunoTurma.deleteMany({
+						where: { alunoId, turma: { semestreId: input.semestreId } },
+					});
 					return tx.aluno.update({
 						where: { id: alunoId },
 						data: {

@@ -600,10 +600,14 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 		grid-template-columns: minmax(0, 1fr);
 	}
 	.sorteador-history-card {
-		min-height: 22rem;
+		height: clamp(22rem, 58dvh, 36rem);
+		min-height: 0;
+		max-height: 36rem;
 	}
 	.sorteador-history-list {
-		max-height: 18rem;
+		max-height: none;
+		overscroll-behavior: contain;
+		scrollbar-gutter: stable;
 	}
 
 	@container (min-width: 60rem) {
@@ -621,10 +625,8 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 			grid-column: 1 / -1;
 		}
 		.sorteador-history-card {
-			min-height: 0;
-		}
-		.sorteador-history-list {
-			max-height: none;
+			height: clamp(24rem, 62dvh, 38rem);
+			max-height: 38rem;
 		}
 	}
 }

@@ -118,7 +118,13 @@ export const alunoRouter = createTRPCRouter({
 							}
 						: {}),
 				},
-				select: alunoSelect,
+			select: {
+				...alunoSelect,
+				turmas: {
+					where: { turma: { semestreId: input.semestreId } },
+					select: { turma: { select: { id: true, titulo: true } } },
+				},
+			},
 				orderBy: { nome: "asc" },
 				take: 200,
 			}),
@@ -153,7 +159,9 @@ export const alunoRouter = createTRPCRouter({
 					message: "Aluno não encontrado neste semestre.",
 				});
 			return ctx.db.$transaction(async (tx: any) => {
-				await tx.alunoTurma.deleteMany({ where: { alunoId } });
+				await tx.alunoTurma.deleteMany({
+					where: { alunoId, turma: { semestreId } },
+				});
 				return tx.aluno.update({
 					where: { id: alunoId },
 					data: {
@@ -164,6 +172,33 @@ export const alunoRouter = createTRPCRouter({
 					select: { id: true },
 				});
 			});
+		}),
+	detalhe: directorProcedure
+		.input(z.object({ id }))
+		.query(async ({ ctx, input }) => {
+			const aluno = await ctx.db.aluno.findUnique({
+				where: { id: input.id },
+				select: {
+					...alunoSelect,
+					semestre: { select: { codigo: true } },
+					turmas: {
+						select: {
+							turma: {
+								select: {
+									id: true,
+									titulo: true,
+									cor: true,
+									horario: true,
+									sala: true,
+									semestre: { select: { codigo: true } },
+								},
+							},
+						},
+					},
+				},
+			});
+			if (!aluno) throw new TRPCError({ code: "NOT_FOUND" });
+			return aluno;
 		}),
 	remove: directorProcedure
 		.input(z.object({ id, semestreId: id }))

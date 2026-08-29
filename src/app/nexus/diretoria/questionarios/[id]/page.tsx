@@ -1,7 +1,7 @@
 "use client";
 import { use } from "react";
 import Link from "next/link";
-import { BarChart3, CheckCircle2, MessageSquareText } from "lucide-react";
+import { BarChart3, CheckCircle2, MessageSquareText, UserRound } from "lucide-react";
 import { api } from "~/trpc/react";
 import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
 
@@ -138,6 +138,7 @@ export default function EstatisticasQuestionario({
 	const respostas = data.formulario.respostas.map(
 		(item) => item.respostas as Respostas,
 	);
+	const respostasIndividuais = data.formulario.respostas;
 	return (
 		<main className="min-h-full px-3 py-6 sm:px-4 sm:py-8">
 			<div className="mx-auto max-w-4xl">
@@ -163,6 +164,27 @@ export default function EstatisticasQuestionario({
 						/>
 					))}
 				</section>
+				{data.formulario.modoResposta === "IDENTIFICADO_POR_COOKIE" && (
+					<section className="mt-6 overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(15,23,42,.06)]">
+						<div className="border-b border-sky-100 bg-sky-50/60 p-4 sm:p-5">
+							<h2 className="flex items-center gap-2 font-extrabold text-slate-900"><UserRound className="h-5 w-5 text-sky-700" /> Respostas individuais</h2>
+							<p className="mt-1 text-sm text-slate-600">Identificação informada pela pessoa no momento da resposta.</p>
+						</div>
+						<div className="divide-y divide-slate-100">
+							{respostasIndividuais.map((resposta, indice) => (
+								<details key={resposta.id} className="group p-4 sm:p-5">
+									<summary className="flex cursor-pointer list-none items-center justify-between gap-3">
+										<div className="min-w-0"><p className="truncate font-bold text-slate-900">{resposta.nomeRespondente || `Resposta ${respostasIndividuais.length - indice}`}</p><p className="mt-1 text-xs text-slate-500">{new Intl.DateTimeFormat("pt-BR", { dateStyle: "medium", timeStyle: "short" }).format(resposta.createdAt)}</p></div>
+										<span className="text-sm font-bold text-sky-700 group-open:hidden">Ver respostas</span><span className="hidden text-sm font-bold text-sky-700 group-open:inline">Fechar</span>
+									</summary>
+									<dl className="mt-4 space-y-3 border-t border-slate-100 pt-4">
+										{perguntas.map((pergunta) => { const valor = (resposta.respostas as Respostas)[pergunta.id]; return <div key={pergunta.id}><dt className="text-sm font-bold text-slate-800">{pergunta.titulo}</dt><dd className="mt-1 break-words text-sm text-slate-600">{lista(valor).join(", ") || "Não respondida"}</dd></div>; })}
+									</dl>
+								</details>
+							))}
+						</div>
+					</section>
+				)}
 			</div>
 		</main>
 	);

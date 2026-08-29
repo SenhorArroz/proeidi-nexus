@@ -1,4 +1,5 @@
 import { TRPCError } from "@trpc/server";
+import { Prisma } from "../../../../generated/prisma";
 import { z } from "zod";
 import {
 	createTRPCRouter,
@@ -23,6 +24,7 @@ const perguntaSchema = z.object({
 const conteudoSchema = z.object({
 	perguntas: z.array(perguntaSchema).min(1).max(100),
 });
+const modoRespostaSchema = z.enum(["ANONIMO", "IDENTIFICADO_POR_COOKIE"]);
 const diretorProcedure = protectedProcedure.use(({ ctx, next }) => {
 	if (
 		ctx.session.user.role !== "DIRETOR" &&
@@ -55,6 +57,7 @@ export const formularioRouter = createTRPCRouter({
 				descricao: z.string().max(1000).nullable().optional(),
 				conteudo: conteudoSchema,
 				publicado: z.boolean().default(false),
+				modoResposta: modoRespostaSchema.default("ANONIMO"),
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
@@ -80,6 +83,7 @@ export const formularioRouter = createTRPCRouter({
 				descricao: z.string().max(1000).nullable().optional(),
 				conteudo: conteudoSchema,
 				publicado: z.boolean(),
+				modoResposta: modoRespostaSchema,
 			}),
 		)
 		.mutation(({ ctx, input }) =>
@@ -90,6 +94,7 @@ export const formularioRouter = createTRPCRouter({
 					descricao: input.descricao || null,
 					conteudo: input.conteudo,
 					publicado: input.publicado,
+					modoResposta: input.modoResposta,
 				},
 			}),
 		),
@@ -119,6 +124,7 @@ export const formularioRouter = createTRPCRouter({
 					descricao: true,
 					conteudo: true,
 					publicado: true,
+					modoResposta: true,
 				},
 			});
 			if (!formulario?.publicado) throw new TRPCError({ code: "NOT_FOUND" });
@@ -131,12 +137,14 @@ export const formularioRouter = createTRPCRouter({
 				respostas: z.record(
 					z.union([z.string().max(5000), z.array(z.string().max(5000))]),
 				),
+				nomeRespondente: z.string().trim().max(160).optional(),
+				identificadorCookie: z.string().uuid().optional(),
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
 			const formulario = await ctx.db.formulario.findUnique({
 				where: { slug: input.slug },
-				select: { id: true, conteudo: true, publicado: true },
+				select: { id: true, conteudo: true, publicado: true, modoResposta: true },
 			});
 			if (!formulario?.publicado) throw new TRPCError({ code: "NOT_FOUND" });
 			const conteudo = conteudoSchema.parse(formulario.conteudo);
@@ -146,8 +154,37 @@ export const formularioRouter = createTRPCRouter({
 						code: "BAD_REQUEST",
 						message: "Preencha as perguntas obrigatórias.",
 					});
-			return ctx.db.formularioResposta.create({
-				data: { formularioId: formulario.id, respostas: input.respostas },
-			});
+			const respostaIdentificada =
+				formulario.modoResposta === "IDENTIFICADO_POR_COOKIE";
+			if (respostaIdentificada && !input.nomeRespondente)
+				throw new TRPCError({
+					code: "BAD_REQUEST",
+					message: "Informe seu nome para responder a este questionário.",
+				});
+			if (respostaIdentificada && !input.identificadorCookie)
+				throw new TRPCError({
+					code: "BAD_REQUEST",
+					message: "Não foi possível identificar este navegador. Recarregue a página e tente novamente.",
+				});
+			try {
+				return await ctx.db.formularioResposta.create({
+					data: {
+						formularioId: formulario.id,
+						respostas: input.respostas,
+						nomeRespondente: respostaIdentificada ? input.nomeRespondente : null,
+						identificadorCookie: respostaIdentificada ? input.identificadorCookie : null,
+					},
+				});
+			} catch (error) {
+				if (
+					error instanceof Prisma.PrismaClientKnownRequestError &&
+					error.code === "P2002"
+				)
+					throw new TRPCError({
+						code: "CONFLICT",
+						message: "Este navegador já respondeu a este questionário.",
+					});
+				throw error;
+			}
 		}),
 });

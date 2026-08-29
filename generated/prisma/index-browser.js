@@ -307,6 +307,7 @@ exports.Prisma.FormularioScalarFieldEnum = {
   slug: 'slug',
   conteudo: 'conteudo',
   publicado: 'publicado',
+  modoResposta: 'modoResposta',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -315,6 +316,8 @@ exports.Prisma.FormularioRespostaScalarFieldEnum = {
   id: 'id',
   formularioId: 'formularioId',
   respostas: 'respostas',
+  nomeRespondente: 'nomeRespondente',
+  identificadorCookie: 'identificadorCookie',
   createdAt: 'createdAt'
 };
 
@@ -388,6 +391,11 @@ exports.EstadoPresenca = exports.$Enums.EstadoPresenca = {
 exports.CursoSorteio = exports.$Enums.CursoSorteio = {
   SMARTPHONE: 'SMARTPHONE',
   COMPUTADOR: 'COMPUTADOR'
+};
+
+exports.ModoRespostaFormulario = exports.$Enums.ModoRespostaFormulario = {
+  ANONIMO: 'ANONIMO',
+  IDENTIFICADO_POR_COOKIE: 'IDENTIFICADO_POR_COOKIE'
 };
 
 exports.TipoPergunta = exports.$Enums.TipoPergunta = {

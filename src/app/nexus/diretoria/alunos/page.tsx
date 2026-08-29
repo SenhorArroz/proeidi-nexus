@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import * as XLSX from "xlsx";
 import {
 	UserPlus,
@@ -22,6 +23,7 @@ import {
 	FileSpreadsheet,
 	Award,
 	Loader2,
+	ChevronRight,
 } from "lucide-react";
 import { api } from "~/trpc/react";
 import { DiretoriaBackLink, DiretoriaPageIntro } from "~/app/_components/diretoria/page-intro";
@@ -659,6 +661,9 @@ export default function GerenciarAlunos() {
 										{aluno.escolaridade}
 									</p>
 								</div>
+								<Link href={`/nexus/diretoria/alunos/${aluno.id}`} className="mt-5 flex min-h-11 items-center justify-between rounded-xl bg-sky-50 px-3 text-sm font-bold text-sky-800 transition-colors hover:bg-sky-100">
+									Ver perfil e histórico <ChevronRight className="h-4 w-4" />
+								</Link>
 							</div>
 						))
 					)}

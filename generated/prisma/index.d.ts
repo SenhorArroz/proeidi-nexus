@@ -189,6 +189,14 @@ export const TipoPergunta: {
 
 export type TipoPergunta = (typeof TipoPergunta)[keyof typeof TipoPergunta]
 
+
+export const ModoRespostaFormulario: {
+  ANONIMO: 'ANONIMO',
+  IDENTIFICADO_POR_COOKIE: 'IDENTIFICADO_POR_COOKIE'
+};
+
+export type ModoRespostaFormulario = (typeof ModoRespostaFormulario)[keyof typeof ModoRespostaFormulario]
+
 }
 
 export type Role = $Enums.Role
@@ -214,6 +222,10 @@ export const CursoSorteio: typeof $Enums.CursoSorteio
 export type TipoPergunta = $Enums.TipoPergunta
 
 export const TipoPergunta: typeof $Enums.TipoPergunta
+
+export type ModoRespostaFormulario = $Enums.ModoRespostaFormulario
+
+export const ModoRespostaFormulario: typeof $Enums.ModoRespostaFormulario
 
 /**
  * ##  Prisma Client ʲˢ
@@ -24499,6 +24511,7 @@ export namespace Prisma {
     descricao: string | null
     slug: string | null
     publicado: boolean | null
+    modoResposta: $Enums.ModoRespostaFormulario | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -24509,6 +24522,7 @@ export namespace Prisma {
     descricao: string | null
     slug: string | null
     publicado: boolean | null
+    modoResposta: $Enums.ModoRespostaFormulario | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -24520,6 +24534,7 @@ export namespace Prisma {
     slug: number
     conteudo: number
     publicado: number
+    modoResposta: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -24532,6 +24547,7 @@ export namespace Prisma {
     descricao?: true
     slug?: true
     publicado?: true
+    modoResposta?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -24542,6 +24558,7 @@ export namespace Prisma {
     descricao?: true
     slug?: true
     publicado?: true
+    modoResposta?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -24553,6 +24570,7 @@ export namespace Prisma {
     slug?: true
     conteudo?: true
     publicado?: true
+    modoResposta?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -24637,6 +24655,7 @@ export namespace Prisma {
     slug: string
     conteudo: JsonValue
     publicado: boolean
+    modoResposta: $Enums.ModoRespostaFormulario
     createdAt: Date
     updatedAt: Date
     _count: FormularioCountAggregateOutputType | null
@@ -24665,6 +24684,7 @@ export namespace Prisma {
     slug?: boolean
     conteudo?: boolean
     publicado?: boolean
+    modoResposta?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     perguntas?: boolean | Formulario$perguntasArgs<ExtArgs>
@@ -24679,6 +24699,7 @@ export namespace Prisma {
     slug?: boolean
     conteudo?: boolean
     publicado?: boolean
+    modoResposta?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["formulario"]>
@@ -24690,6 +24711,7 @@ export namespace Prisma {
     slug?: boolean
     conteudo?: boolean
     publicado?: boolean
+    modoResposta?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["formulario"]>
@@ -24701,11 +24723,12 @@ export namespace Prisma {
     slug?: boolean
     conteudo?: boolean
     publicado?: boolean
+    modoResposta?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FormularioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "descricao" | "slug" | "conteudo" | "publicado" | "createdAt" | "updatedAt", ExtArgs["result"]["formulario"]>
+  export type FormularioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "descricao" | "slug" | "conteudo" | "publicado" | "modoResposta" | "createdAt" | "updatedAt", ExtArgs["result"]["formulario"]>
   export type FormularioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     perguntas?: boolean | Formulario$perguntasArgs<ExtArgs>
     respostas?: boolean | Formulario$respostasArgs<ExtArgs>
@@ -24727,6 +24750,7 @@ export namespace Prisma {
       slug: string
       conteudo: Prisma.JsonValue
       publicado: boolean
+      modoResposta: $Enums.ModoRespostaFormulario
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["formulario"]>
@@ -25160,6 +25184,7 @@ export namespace Prisma {
     readonly slug: FieldRef<"Formulario", 'String'>
     readonly conteudo: FieldRef<"Formulario", 'Json'>
     readonly publicado: FieldRef<"Formulario", 'Boolean'>
+    readonly modoResposta: FieldRef<"Formulario", 'ModoRespostaFormulario'>
     readonly createdAt: FieldRef<"Formulario", 'DateTime'>
     readonly updatedAt: FieldRef<"Formulario", 'DateTime'>
   }
@@ -25629,12 +25654,16 @@ export namespace Prisma {
   export type FormularioRespostaMinAggregateOutputType = {
     id: string | null
     formularioId: string | null
+    nomeRespondente: string | null
+    identificadorCookie: string | null
     createdAt: Date | null
   }
 
   export type FormularioRespostaMaxAggregateOutputType = {
     id: string | null
     formularioId: string | null
+    nomeRespondente: string | null
+    identificadorCookie: string | null
     createdAt: Date | null
   }
 
@@ -25642,6 +25671,8 @@ export namespace Prisma {
     id: number
     formularioId: number
     respostas: number
+    nomeRespondente: number
+    identificadorCookie: number
     createdAt: number
     _all: number
   }
@@ -25650,12 +25681,16 @@ export namespace Prisma {
   export type FormularioRespostaMinAggregateInputType = {
     id?: true
     formularioId?: true
+    nomeRespondente?: true
+    identificadorCookie?: true
     createdAt?: true
   }
 
   export type FormularioRespostaMaxAggregateInputType = {
     id?: true
     formularioId?: true
+    nomeRespondente?: true
+    identificadorCookie?: true
     createdAt?: true
   }
 
@@ -25663,6 +25698,8 @@ export namespace Prisma {
     id?: true
     formularioId?: true
     respostas?: true
+    nomeRespondente?: true
+    identificadorCookie?: true
     createdAt?: true
     _all?: true
   }
@@ -25743,6 +25780,8 @@ export namespace Prisma {
     id: string
     formularioId: string
     respostas: JsonValue
+    nomeRespondente: string | null
+    identificadorCookie: string | null
     createdAt: Date
     _count: FormularioRespostaCountAggregateOutputType | null
     _min: FormularioRespostaMinAggregateOutputType | null
@@ -25767,6 +25806,8 @@ export namespace Prisma {
     id?: boolean
     formularioId?: boolean
     respostas?: boolean
+    nomeRespondente?: boolean
+    identificadorCookie?: boolean
     createdAt?: boolean
     formulario?: boolean | FormularioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formularioResposta"]>
@@ -25775,6 +25816,8 @@ export namespace Prisma {
     id?: boolean
     formularioId?: boolean
     respostas?: boolean
+    nomeRespondente?: boolean
+    identificadorCookie?: boolean
     createdAt?: boolean
     formulario?: boolean | FormularioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formularioResposta"]>
@@ -25783,6 +25826,8 @@ export namespace Prisma {
     id?: boolean
     formularioId?: boolean
     respostas?: boolean
+    nomeRespondente?: boolean
+    identificadorCookie?: boolean
     createdAt?: boolean
     formulario?: boolean | FormularioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formularioResposta"]>
@@ -25791,10 +25836,12 @@ export namespace Prisma {
     id?: boolean
     formularioId?: boolean
     respostas?: boolean
+    nomeRespondente?: boolean
+    identificadorCookie?: boolean
     createdAt?: boolean
   }
 
-  export type FormularioRespostaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formularioId" | "respostas" | "createdAt", ExtArgs["result"]["formularioResposta"]>
+  export type FormularioRespostaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formularioId" | "respostas" | "nomeRespondente" | "identificadorCookie" | "createdAt", ExtArgs["result"]["formularioResposta"]>
   export type FormularioRespostaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     formulario?: boolean | FormularioDefaultArgs<ExtArgs>
   }
@@ -25814,6 +25861,8 @@ export namespace Prisma {
       id: string
       formularioId: string
       respostas: Prisma.JsonValue
+      nomeRespondente: string | null
+      identificadorCookie: string | null
       createdAt: Date
     }, ExtArgs["result"]["formularioResposta"]>
     composites: {}
@@ -26242,6 +26291,8 @@ export namespace Prisma {
     readonly id: FieldRef<"FormularioResposta", 'String'>
     readonly formularioId: FieldRef<"FormularioResposta", 'String'>
     readonly respostas: FieldRef<"FormularioResposta", 'Json'>
+    readonly nomeRespondente: FieldRef<"FormularioResposta", 'String'>
+    readonly identificadorCookie: FieldRef<"FormularioResposta", 'String'>
     readonly createdAt: FieldRef<"FormularioResposta", 'DateTime'>
   }
     
@@ -29128,6 +29179,7 @@ export namespace Prisma {
     slug: 'slug',
     conteudo: 'conteudo',
     publicado: 'publicado',
+    modoResposta: 'modoResposta',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -29139,6 +29191,8 @@ export namespace Prisma {
     id: 'id',
     formularioId: 'formularioId',
     respostas: 'respostas',
+    nomeRespondente: 'nomeRespondente',
+    identificadorCookie: 'identificadorCookie',
     createdAt: 'createdAt'
   };
 
@@ -29342,6 +29396,20 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'ModoRespostaFormulario'
+   */
+  export type EnumModoRespostaFormularioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ModoRespostaFormulario'>
+    
+
+
+  /**
+   * Reference to a field of type 'ModoRespostaFormulario[]'
+   */
+  export type ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ModoRespostaFormulario[]'>
     
 
 
@@ -30664,6 +30732,7 @@ export namespace Prisma {
     slug?: StringFilter<"Formulario"> | string
     conteudo?: JsonFilter<"Formulario">
     publicado?: BoolFilter<"Formulario"> | boolean
+    modoResposta?: EnumModoRespostaFormularioFilter<"Formulario"> | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeFilter<"Formulario"> | Date | string
     updatedAt?: DateTimeFilter<"Formulario"> | Date | string
     perguntas?: PerguntaListRelationFilter
@@ -30677,6 +30746,7 @@ export namespace Prisma {
     slug?: SortOrder
     conteudo?: SortOrder
     publicado?: SortOrder
+    modoResposta?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     perguntas?: PerguntaOrderByRelationAggregateInput
@@ -30693,6 +30763,7 @@ export namespace Prisma {
     descricao?: StringNullableFilter<"Formulario"> | string | null
     conteudo?: JsonFilter<"Formulario">
     publicado?: BoolFilter<"Formulario"> | boolean
+    modoResposta?: EnumModoRespostaFormularioFilter<"Formulario"> | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeFilter<"Formulario"> | Date | string
     updatedAt?: DateTimeFilter<"Formulario"> | Date | string
     perguntas?: PerguntaListRelationFilter
@@ -30706,6 +30777,7 @@ export namespace Prisma {
     slug?: SortOrder
     conteudo?: SortOrder
     publicado?: SortOrder
+    modoResposta?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: FormularioCountOrderByAggregateInput
@@ -30723,6 +30795,7 @@ export namespace Prisma {
     slug?: StringWithAggregatesFilter<"Formulario"> | string
     conteudo?: JsonWithAggregatesFilter<"Formulario">
     publicado?: BoolWithAggregatesFilter<"Formulario"> | boolean
+    modoResposta?: EnumModoRespostaFormularioWithAggregatesFilter<"Formulario"> | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeWithAggregatesFilter<"Formulario"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Formulario"> | Date | string
   }
@@ -30734,6 +30807,8 @@ export namespace Prisma {
     id?: StringFilter<"FormularioResposta"> | string
     formularioId?: StringFilter<"FormularioResposta"> | string
     respostas?: JsonFilter<"FormularioResposta">
+    nomeRespondente?: StringNullableFilter<"FormularioResposta"> | string | null
+    identificadorCookie?: StringNullableFilter<"FormularioResposta"> | string | null
     createdAt?: DateTimeFilter<"FormularioResposta"> | Date | string
     formulario?: XOR<FormularioScalarRelationFilter, FormularioWhereInput>
   }
@@ -30742,25 +30817,32 @@ export namespace Prisma {
     id?: SortOrder
     formularioId?: SortOrder
     respostas?: SortOrder
+    nomeRespondente?: SortOrderInput | SortOrder
+    identificadorCookie?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     formulario?: FormularioOrderByWithRelationInput
   }
 
   export type FormularioRespostaWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    formularioId_identificadorCookie?: FormularioRespostaFormularioIdIdentificadorCookieCompoundUniqueInput
     AND?: FormularioRespostaWhereInput | FormularioRespostaWhereInput[]
     OR?: FormularioRespostaWhereInput[]
     NOT?: FormularioRespostaWhereInput | FormularioRespostaWhereInput[]
     formularioId?: StringFilter<"FormularioResposta"> | string
     respostas?: JsonFilter<"FormularioResposta">
+    nomeRespondente?: StringNullableFilter<"FormularioResposta"> | string | null
+    identificadorCookie?: StringNullableFilter<"FormularioResposta"> | string | null
     createdAt?: DateTimeFilter<"FormularioResposta"> | Date | string
     formulario?: XOR<FormularioScalarRelationFilter, FormularioWhereInput>
-  }, "id">
+  }, "id" | "formularioId_identificadorCookie">
 
   export type FormularioRespostaOrderByWithAggregationInput = {
     id?: SortOrder
     formularioId?: SortOrder
     respostas?: SortOrder
+    nomeRespondente?: SortOrderInput | SortOrder
+    identificadorCookie?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: FormularioRespostaCountOrderByAggregateInput
     _max?: FormularioRespostaMaxOrderByAggregateInput
@@ -30774,6 +30856,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"FormularioResposta"> | string
     formularioId?: StringWithAggregatesFilter<"FormularioResposta"> | string
     respostas?: JsonWithAggregatesFilter<"FormularioResposta">
+    nomeRespondente?: StringNullableWithAggregatesFilter<"FormularioResposta"> | string | null
+    identificadorCookie?: StringNullableWithAggregatesFilter<"FormularioResposta"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"FormularioResposta"> | Date | string
   }
 
@@ -32229,6 +32313,7 @@ export namespace Prisma {
     slug: string
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
+    modoResposta?: $Enums.ModoRespostaFormulario
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaCreateNestedManyWithoutFormularioInput
@@ -32242,6 +32327,7 @@ export namespace Prisma {
     slug: string
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
+    modoResposta?: $Enums.ModoRespostaFormulario
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaUncheckedCreateNestedManyWithoutFormularioInput
@@ -32255,6 +32341,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUpdateManyWithoutFormularioNestedInput
@@ -32268,6 +32355,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUncheckedUpdateManyWithoutFormularioNestedInput
@@ -32281,6 +32369,7 @@ export namespace Prisma {
     slug: string
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
+    modoResposta?: $Enums.ModoRespostaFormulario
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -32292,6 +32381,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32303,6 +32393,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32310,6 +32401,8 @@ export namespace Prisma {
   export type FormularioRespostaCreateInput = {
     id?: string
     respostas: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: string | null
+    identificadorCookie?: string | null
     createdAt?: Date | string
     formulario: FormularioCreateNestedOneWithoutRespostasInput
   }
@@ -32318,12 +32411,16 @@ export namespace Prisma {
     id?: string
     formularioId: string
     respostas: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: string | null
+    identificadorCookie?: string | null
     createdAt?: Date | string
   }
 
   export type FormularioRespostaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     respostas?: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
+    identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formulario?: FormularioUpdateOneRequiredWithoutRespostasNestedInput
   }
@@ -32332,6 +32429,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     formularioId?: StringFieldUpdateOperationsInput | string
     respostas?: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
+    identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -32339,12 +32438,16 @@ export namespace Prisma {
     id?: string
     formularioId: string
     respostas: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: string | null
+    identificadorCookie?: string | null
     createdAt?: Date | string
   }
 
   export type FormularioRespostaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     respostas?: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
+    identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -32352,6 +32455,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     formularioId?: StringFieldUpdateOperationsInput | string
     respostas?: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
+    identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -33515,6 +33620,13 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type EnumModoRespostaFormularioFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModoRespostaFormulario | EnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    in?: $Enums.ModoRespostaFormulario[] | ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModoRespostaFormulario[] | ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    not?: NestedEnumModoRespostaFormularioFilter<$PrismaModel> | $Enums.ModoRespostaFormulario
+  }
+
   export type PerguntaListRelationFilter = {
     every?: PerguntaWhereInput
     some?: PerguntaWhereInput
@@ -33542,6 +33654,7 @@ export namespace Prisma {
     slug?: SortOrder
     conteudo?: SortOrder
     publicado?: SortOrder
+    modoResposta?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33552,6 +33665,7 @@ export namespace Prisma {
     descricao?: SortOrder
     slug?: SortOrder
     publicado?: SortOrder
+    modoResposta?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33562,6 +33676,7 @@ export namespace Prisma {
     descricao?: SortOrder
     slug?: SortOrder
     publicado?: SortOrder
+    modoResposta?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33592,27 +33707,48 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
+  export type EnumModoRespostaFormularioWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModoRespostaFormulario | EnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    in?: $Enums.ModoRespostaFormulario[] | ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModoRespostaFormulario[] | ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    not?: NestedEnumModoRespostaFormularioWithAggregatesFilter<$PrismaModel> | $Enums.ModoRespostaFormulario
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumModoRespostaFormularioFilter<$PrismaModel>
+    _max?: NestedEnumModoRespostaFormularioFilter<$PrismaModel>
+  }
+
   export type FormularioScalarRelationFilter = {
     is?: FormularioWhereInput
     isNot?: FormularioWhereInput
+  }
+
+  export type FormularioRespostaFormularioIdIdentificadorCookieCompoundUniqueInput = {
+    formularioId: string
+    identificadorCookie: string
   }
 
   export type FormularioRespostaCountOrderByAggregateInput = {
     id?: SortOrder
     formularioId?: SortOrder
     respostas?: SortOrder
+    nomeRespondente?: SortOrder
+    identificadorCookie?: SortOrder
     createdAt?: SortOrder
   }
 
   export type FormularioRespostaMaxOrderByAggregateInput = {
     id?: SortOrder
     formularioId?: SortOrder
+    nomeRespondente?: SortOrder
+    identificadorCookie?: SortOrder
     createdAt?: SortOrder
   }
 
   export type FormularioRespostaMinOrderByAggregateInput = {
     id?: SortOrder
     formularioId?: SortOrder
+    nomeRespondente?: SortOrder
+    identificadorCookie?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -35159,6 +35295,10 @@ export namespace Prisma {
     connect?: FormularioRespostaWhereUniqueInput | FormularioRespostaWhereUniqueInput[]
   }
 
+  export type EnumModoRespostaFormularioFieldUpdateOperationsInput = {
+    set?: $Enums.ModoRespostaFormulario
+  }
+
   export type PerguntaUpdateManyWithoutFormularioNestedInput = {
     create?: XOR<PerguntaCreateWithoutFormularioInput, PerguntaUncheckedCreateWithoutFormularioInput> | PerguntaCreateWithoutFormularioInput[] | PerguntaUncheckedCreateWithoutFormularioInput[]
     connectOrCreate?: PerguntaCreateOrConnectWithoutFormularioInput | PerguntaCreateOrConnectWithoutFormularioInput[]
@@ -35569,6 +35709,13 @@ export namespace Prisma {
     _min?: NestedEnumCursoSorteioFilter<$PrismaModel>
     _max?: NestedEnumCursoSorteioFilter<$PrismaModel>
   }
+
+  export type NestedEnumModoRespostaFormularioFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModoRespostaFormulario | EnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    in?: $Enums.ModoRespostaFormulario[] | ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModoRespostaFormulario[] | ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    not?: NestedEnumModoRespostaFormularioFilter<$PrismaModel> | $Enums.ModoRespostaFormulario
+  }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -35591,6 +35738,16 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumModoRespostaFormularioWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModoRespostaFormulario | EnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    in?: $Enums.ModoRespostaFormulario[] | ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModoRespostaFormulario[] | ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel>
+    not?: NestedEnumModoRespostaFormularioWithAggregatesFilter<$PrismaModel> | $Enums.ModoRespostaFormulario
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumModoRespostaFormularioFilter<$PrismaModel>
+    _max?: NestedEnumModoRespostaFormularioFilter<$PrismaModel>
   }
 
   export type NestedEnumTipoPerguntaFilter<$PrismaModel = never> = {
@@ -38881,12 +39038,16 @@ export namespace Prisma {
   export type FormularioRespostaCreateWithoutFormularioInput = {
     id?: string
     respostas: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: string | null
+    identificadorCookie?: string | null
     createdAt?: Date | string
   }
 
   export type FormularioRespostaUncheckedCreateWithoutFormularioInput = {
     id?: string
     respostas: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: string | null
+    identificadorCookie?: string | null
     createdAt?: Date | string
   }
 
@@ -38951,6 +39112,8 @@ export namespace Prisma {
     id?: StringFilter<"FormularioResposta"> | string
     formularioId?: StringFilter<"FormularioResposta"> | string
     respostas?: JsonFilter<"FormularioResposta">
+    nomeRespondente?: StringNullableFilter<"FormularioResposta"> | string | null
+    identificadorCookie?: StringNullableFilter<"FormularioResposta"> | string | null
     createdAt?: DateTimeFilter<"FormularioResposta"> | Date | string
   }
 
@@ -38961,6 +39124,7 @@ export namespace Prisma {
     slug: string
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
+    modoResposta?: $Enums.ModoRespostaFormulario
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaCreateNestedManyWithoutFormularioInput
@@ -38973,6 +39137,7 @@ export namespace Prisma {
     slug: string
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
+    modoResposta?: $Enums.ModoRespostaFormulario
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaUncheckedCreateNestedManyWithoutFormularioInput
@@ -39001,6 +39166,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUpdateManyWithoutFormularioNestedInput
@@ -39013,6 +39179,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUncheckedUpdateManyWithoutFormularioNestedInput
@@ -39025,6 +39192,7 @@ export namespace Prisma {
     slug: string
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
+    modoResposta?: $Enums.ModoRespostaFormulario
     createdAt?: Date | string
     updatedAt?: Date | string
     respostas?: FormularioRespostaCreateNestedManyWithoutFormularioInput
@@ -39037,6 +39205,7 @@ export namespace Prisma {
     slug: string
     conteudo: JsonNullValueInput | InputJsonValue
     publicado?: boolean
+    modoResposta?: $Enums.ModoRespostaFormulario
     createdAt?: Date | string
     updatedAt?: Date | string
     respostas?: FormularioRespostaUncheckedCreateNestedManyWithoutFormularioInput
@@ -39087,6 +39256,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     respostas?: FormularioRespostaUpdateManyWithoutFormularioNestedInput
@@ -39099,6 +39269,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     conteudo?: JsonNullValueInput | InputJsonValue
     publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     respostas?: FormularioRespostaUncheckedUpdateManyWithoutFormularioNestedInput
@@ -39951,6 +40122,8 @@ export namespace Prisma {
   export type FormularioRespostaCreateManyFormularioInput = {
     id?: string
     respostas: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: string | null
+    identificadorCookie?: string | null
     createdAt?: Date | string
   }
 
@@ -39983,18 +40156,24 @@ export namespace Prisma {
   export type FormularioRespostaUpdateWithoutFormularioInput = {
     id?: StringFieldUpdateOperationsInput | string
     respostas?: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
+    identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FormularioRespostaUncheckedUpdateWithoutFormularioInput = {
     id?: StringFieldUpdateOperationsInput | string
     respostas?: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
+    identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FormularioRespostaUncheckedUpdateManyWithoutFormularioInput = {
     id?: StringFieldUpdateOperationsInput | string
     respostas?: JsonNullValueInput | InputJsonValue
+    nomeRespondente?: NullableStringFieldUpdateOperationsInput | string | null
+    identificadorCookie?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

@@ -44,6 +44,9 @@ export default function QuestionariosPage() {
 										>
 											{formulario.publicado ? "Publicado" : "Rascunho"}
 										</p>
+										{formulario.modoResposta === "IDENTIFICADO_POR_COOKIE" && (
+											<p className="mb-2 ml-1 inline-flex rounded-full bg-sky-50 px-2.5 py-1 text-xs font-bold text-sky-800">Identificado por navegador</p>
+										)}
 										<h2 className="break-words font-extrabold text-slate-900">
 											{formulario.titulo}
 										</h2>

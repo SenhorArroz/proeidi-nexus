@@ -22,6 +22,7 @@ import { api } from "~/trpc/react";
 // ---------------------------------------------------------------------------
 
 type TipoPergunta = "short_text" | "paragraph" | "multiple_choice" | "checkbox";
+type ModoResposta = "ANONIMO" | "IDENTIFICADO_POR_COOKIE";
 
 interface Opcao {
     id: string;
@@ -62,6 +63,7 @@ export default function EditorFormulario() {
 	const utils = api.useUtils();
     const [titulo, setTitulo] = useState("Pesquisa de Satisfação");
     const [descricao, setDescricao] = useState("Deixe sua opinião sobre o módulo.");
+	const [modoResposta, setModoResposta] = useState<ModoResposta>("ANONIMO");
     const [ativoId, setAtivoId] = useState<string | null>("header");
 	const salvarFormulario = api.formulario.create.useMutation({ onSuccess: () => utils.formulario.list.invalidate() });
 
@@ -142,7 +144,7 @@ export default function EditorFormulario() {
         }));
     };
 
-	const salvar = () => salvarFormulario.mutate({ titulo: titulo.trim(), descricao: descricao.trim() || null, conteudo: { perguntas: perguntas.filter((pergunta) => pergunta.titulo.trim()).map((pergunta) => ({ ...pergunta, titulo: pergunta.titulo.trim(), opcoes: pergunta.opcoes.filter((opcao) => opcao.texto.trim()).map((opcao) => ({ ...opcao, texto: opcao.texto.trim() })) })) }, publicado: true });
+	const salvar = () => salvarFormulario.mutate({ titulo: titulo.trim(), descricao: descricao.trim() || null, conteudo: { perguntas: perguntas.filter((pergunta) => pergunta.titulo.trim()).map((pergunta) => ({ ...pergunta, titulo: pergunta.titulo.trim(), opcoes: pergunta.opcoes.filter((opcao) => opcao.texto.trim()).map((opcao) => ({ ...opcao, texto: opcao.texto.trim() })) })) }, publicado: true, modoResposta });
 
     return (
         <div className="flex min-h-full w-full flex-col items-center overflow-x-clip bg-gray-50 px-3 py-6 pb-32 font-sans sm:px-4 sm:py-10">
@@ -216,6 +218,17 @@ export default function EditorFormulario() {
                         )}
                     </div>
                 </div>
+
+				<section className="rounded-2xl border border-sky-100 bg-sky-50/60 p-4 sm:p-5">
+					<h2 className="font-extrabold text-slate-900">Coleta de respostas</h2>
+					<p className="mt-1 text-sm text-slate-600">Escolha se o questionário será livre ou se pedirá o nome e aceitará uma resposta por navegador.</p>
+					<label className="mt-4 block text-sm font-bold text-slate-800" htmlFor="modo-resposta">Modo de resposta</label>
+					<select id="modo-resposta" value={modoResposta} onChange={(event) => setModoResposta(event.target.value as ModoResposta)} className="mt-2 min-h-11 w-full rounded-xl border border-sky-200 bg-white px-3 text-sm font-semibold text-slate-800 outline-none focus:border-sky-600 focus:ring-2 focus:ring-sky-100">
+						<option value="ANONIMO">Anônima — várias respostas permitidas</option>
+						<option value="IDENTIFICADO_POR_COOKIE">Identificada — uma resposta por navegador</option>
+					</select>
+					{modoResposta === "IDENTIFICADO_POR_COOKIE" && <p className="mt-3 rounded-xl bg-white px-3 py-2 text-sm text-sky-800">A pessoa informará o nome. O bloqueio usa um cookie persistente e pode ser removido ao apagar os dados do navegador.</p>}
+				</section>
 
                 {/* Lista de Perguntas */}
                 {perguntas.map((pergunta) => {

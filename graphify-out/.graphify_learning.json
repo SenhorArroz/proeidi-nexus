@@ -1,6 +1,128 @@
 {
-  "generated_at": "2026-08-28T22:16:06.322600+00:00",
+  "generated_at": "2026-08-29T13:27:49.844762+00:00",
   "nodes": {
+    "generated_prisma_index_d_alunoturma": {
+      "code_fingerprint": "a6edefe11d5f4bb07e9dac52f2beb134470993b94a58e594cf3ba3a153de65e2",
+      "label": "AlunoTurma",
+      "last": "2026-08-29T13:23:47.498699+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-29T13:23:47.498699+00:00",
+          "outcome": "useful",
+          "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
+        }
+      ],
+      "score": 0.999935194,
+      "source_file": "generated/prisma/index.d.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "generated_prisma_index_d_formulario": {
+      "code_fingerprint": "a6edefe11d5f4bb07e9dac52f2beb134470993b94a58e594cf3ba3a153de65e2",
+      "label": "Formulario",
+      "last": "2026-08-29T13:23:47.498699+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-29T13:23:47.498699+00:00",
+          "outcome": "useful",
+          "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
+        },
+        {
+          "date": "2026-08-29T12:01:43.710012+00:00",
+          "outcome": "useful",
+          "q": "Questionários identificados com resposta única e estatísticas individuais"
+        }
+      ],
+      "score": 1.998554631,
+      "source_file": "generated/prisma/index.d.ts",
+      "status": "preferred",
+      "uses": 2
+    },
+    "generated_prisma_index_d_formularioresposta": {
+      "code_fingerprint": "a6edefe11d5f4bb07e9dac52f2beb134470993b94a58e594cf3ba3a153de65e2",
+      "label": "FormularioResposta",
+      "last": "2026-08-29T13:23:47.498699+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-29T13:23:47.498699+00:00",
+          "outcome": "useful",
+          "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
+        },
+        {
+          "date": "2026-08-29T12:01:43.710012+00:00",
+          "outcome": "useful",
+          "q": "Questionários identificados com resposta única e estatísticas individuais"
+        }
+      ],
+      "score": 1.998554631,
+      "source_file": "generated/prisma/index.d.ts",
+      "status": "preferred",
+      "uses": 2
+    },
+    "src_app_components_diretoria_workspace": {
+      "code_fingerprint": "4a46dc69691a20bc5e86c280ddb6508a9759e3e51d4f4e664ac1ebcf350e9609",
+      "label": "diretoria-workspace.tsx",
+      "last": "2026-08-28T22:32:07.905898+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T22:32:07.905898+00:00",
+          "outcome": "useful",
+          "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
+        }
+      ],
+      "score": 0.985731222,
+      "source_file": "src/app/_components/diretoria-workspace.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_components_diretoria_workspace_diretoriaworkspace": {
+      "code_fingerprint": "4a46dc69691a20bc5e86c280ddb6508a9759e3e51d4f4e664ac1ebcf350e9609",
+      "label": "DiretoriaWorkspace()",
+      "last": "2026-08-28T22:26:55.898690+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T22:26:55.898690+00:00",
+          "outcome": "useful",
+          "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
+        }
+      ],
+      "score": 0.985648979,
+      "source_file": "src/app/_components/diretoria-workspace.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_components_sidebar_sidebar": {
+      "code_fingerprint": "c56b0123791468e5e2b6b503fd1a215fca2d1cf39da9192c7be4c8a33e30416f",
+      "label": "Sidebar()",
+      "last": "2026-08-28T22:26:55.898690+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T22:26:55.898690+00:00",
+          "outcome": "useful",
+          "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
+        }
+      ],
+      "score": 0.985648979,
+      "source_file": "src/app/_components/sidebar.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_diretoria_layout": {
+      "code_fingerprint": "7c0bbb4b86a068dd88da61ea19031a506088bd17ca8437ef74c06041a3b513c5",
+      "label": "diretoria/layout.tsx",
+      "last": "2026-08-28T22:32:07.905898+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T22:32:07.905898+00:00",
+          "outcome": "useful",
+          "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
+        }
+      ],
+      "score": 0.985731222,
+      "source_file": "src/app/nexus/diretoria/layout.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
     "src_app_nexus_diretoria_layout_diretorialayout": {
       "code_fingerprint": "7c0bbb4b86a068dd88da61ea19031a506088bd17ca8437ef74c06041a3b513c5",
       "label": "DiretoriaLayout()",
@@ -12,8 +134,40 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 0.997576224,
+      "score": 0.983089202,
       "source_file": "src/app/nexus/diretoria/layout.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_diretoria_questionarios_id_page_estatisticasquestionario": {
+      "code_fingerprint": "cc7d3f39dc7af872c7fd89ee8b21f919fd1b9af9e743b4ee88f432dfb98e406b",
+      "label": "EstatisticasQuestionario()",
+      "last": "2026-08-29T12:01:43.710012+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-29T12:01:43.710012+00:00",
+          "outcome": "useful",
+          "q": "Questionários identificados com resposta única e estatísticas individuais"
+        }
+      ],
+      "score": 0.998619437,
+      "source_file": "src/app/nexus/diretoria/questionarios/[id]/page.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_diretoria_questionarios_id_page_respostas": {
+      "code_fingerprint": "cc7d3f39dc7af872c7fd89ee8b21f919fd1b9af9e743b4ee88f432dfb98e406b",
+      "label": "Respostas",
+      "last": "2026-08-29T12:01:43.710012+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-29T12:01:43.710012+00:00",
+          "outcome": "useful",
+          "q": "Questionários identificados com resposta única e estatísticas individuais"
+        }
+      ],
+      "score": 0.998619437,
+      "source_file": "src/app/nexus/diretoria/questionarios/[id]/page.tsx",
       "status": "tentative",
       "uses": 1
     },
@@ -33,7 +187,7 @@
           "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
         }
       ],
-      "score": 1.999189401,
+      "score": 1.970156731,
       "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -59,16 +213,21 @@
           "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
         }
       ],
-      "score": 2.999014548,
+      "score": 2.955462196,
       "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
       "status": "preferred",
       "uses": 3
     },
     "src_app_nexus_diretoria_sorteio_sorteador_page": {
-      "code_fingerprint": "356f80fdb0589de6c94581e79df0de1add94bbd786eea4c6b016a590e5e929a6",
+      "code_fingerprint": "fb4b1e4e16dcaf71ace813f39e0aa2723ae1634d9cfe90581feac9049d3777a0",
       "label": "sorteador/page.tsx",
-      "last": "2026-08-28T22:09:43.148572+00:00",
+      "last": "2026-08-28T22:32:07.905898+00:00",
       "provenance": [
+        {
+          "date": "2026-08-28T22:32:07.905898+00:00",
+          "outcome": "useful",
+          "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
+        },
         {
           "date": "2026-08-28T22:09:43.148572+00:00",
           "outcome": "useful",
@@ -85,16 +244,26 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 2.995914967,
+      "score": 3.938138849,
       "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
       "status": "preferred",
-      "uses": 3
+      "uses": 4
     },
     "src_app_nexus_diretoria_sorteio_sorteador_page_sorteadororganico": {
-      "code_fingerprint": "356f80fdb0589de6c94581e79df0de1add94bbd786eea4c6b016a590e5e929a6",
+      "code_fingerprint": "fb4b1e4e16dcaf71ace813f39e0aa2723ae1634d9cfe90581feac9049d3777a0",
       "label": "SorteadorOrganico()",
-      "last": "2026-08-28T22:09:43.148572+00:00",
+      "last": "2026-08-28T22:32:07.905898+00:00",
       "provenance": [
+        {
+          "date": "2026-08-28T22:32:07.905898+00:00",
+          "outcome": "useful",
+          "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
+        },
+        {
+          "date": "2026-08-28T22:26:55.898690+00:00",
+          "outcome": "useful",
+          "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
+        },
         {
           "date": "2026-08-28T22:09:43.148572+00:00",
           "outcome": "useful",
@@ -111,10 +280,26 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 2.995914967,
+      "score": 4.923787829,
       "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
       "status": "preferred",
-      "uses": 3
+      "uses": 5
+    },
+    "src_app_nexus_layout": {
+      "code_fingerprint": "f1605e6840d0bfd6b13183c7114205d5620429edaf5a8d359709eb0b0e75c3c1",
+      "label": "nexus/layout.tsx",
+      "last": "2026-08-28T22:26:55.898690+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-28T22:26:55.898690+00:00",
+          "outcome": "useful",
+          "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
+        }
+      ],
+      "score": 0.985648979,
+      "source_file": "src/app/nexus/layout.tsx",
+      "status": "tentative",
+      "uses": 1
     },
     "src_env_env": {
       "code_fingerprint": "84db5c676d082c800eed966f6e4e971f21aa94dc7a8953fd5a1c86eb5d541b9a",
@@ -127,10 +312,47 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.994406512,
+      "score": 0.979965521,
       "source_file": "src/env.js",
       "status": "tentative",
       "uses": 1
+    },
+    "src_server_api_routers_aluno": {
+      "code_fingerprint": "c4d69636c56d63b0f4afc3e757504fb7314460554ea1a5c740e7ce7d754c745f",
+      "label": "aluno.ts",
+      "last": "2026-08-29T13:23:47.498699+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-29T13:23:47.498699+00:00",
+          "outcome": "useful",
+          "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
+        }
+      ],
+      "score": 0.999935194,
+      "source_file": "src/server/api/routers/aluno.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_server_api_routers_formulario": {
+      "code_fingerprint": "8c1b6301ee1bdbf6125df5fb93d15ec9fc11450b82cb3838d539f8b6316d7f36",
+      "label": "formulario.ts",
+      "last": "2026-08-29T13:23:47.498699+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-29T13:23:47.498699+00:00",
+          "outcome": "useful",
+          "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
+        },
+        {
+          "date": "2026-08-29T12:01:43.710012+00:00",
+          "outcome": "useful",
+          "q": "Questionários identificados com resposta única e estatísticas individuais"
+        }
+      ],
+      "score": 1.998554631,
+      "source_file": "src/server/api/routers/formulario.ts",
+      "status": "preferred",
+      "uses": 2
     },
     "src_server_api_routers_turma_turmarouter": {
       "code_fingerprint": "de735b04d2378533c50868da7d37192e5de49ebf3d20bf7a1303fa74ec5dac2c",
@@ -143,7 +365,7 @@
           "q": "Persist avisos materiais notas da turma no banco"
         }
       ],
-      "score": 0.994872055,
+      "score": 0.980424303,
       "source_file": "src/server/api/routers/turma.ts",
       "status": "tentative",
       "uses": 1
@@ -159,7 +381,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.994406512,
+      "score": 0.979965521,
       "source_file": "src/server/auth/config.ts",
       "status": "tentative",
       "uses": 1
@@ -175,7 +397,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.994406512,
+      "score": 0.979965521,
       "source_file": "src/server/auth/index.ts",
       "status": "tentative",
       "uses": 1
