@@ -86,10 +86,25 @@ interface Anotacao {
 
 type EstadoPresenca = "presente" | "ausente" | "justificado" | "a_registrar";
 
+const PRESENCA_CONFIG: Record<
+	EstadoPresenca,
+	{ label: string; curta: string; cor: string; fundo: string; icone: React.ElementType }
+> = {
+	presente: { label: "Presente", curta: "Presentes", cor: "#15803d", fundo: "#dcfce7", icone: Check },
+	ausente: { label: "Ausente", curta: "Ausentes", cor: "#dc2626", fundo: "#fee2e2", icone: X },
+	justificado: { label: "Justificado", curta: "Justificados", cor: "#b45309", fundo: "#fef3c7", icone: FileText },
+	a_registrar: { label: "Não marcado", curta: "Em aberto", cor: "#64748b", fundo: "#e2e8f0", icone: Ban },
+};
+
 interface Pessoa {
 	id: string;
 	nome: string;
 	presente: EstadoPresenca;
+}
+
+interface ConfirmacaoPresenca {
+	data: string;
+	total: number;
 }
 
 interface DadosTurma {
@@ -102,6 +117,9 @@ interface DadosTurma {
 	cor: string;
 	corDestaque?: string;
 	corFundo?: string;
+	corTexto?: string;
+	corTitulo?: string;
+	corDescricao?: string;
 	fonte?: "SANS" | "SERIF" | "MONO";
 }
 
@@ -145,6 +163,74 @@ const NOMES_MES = [
 	"Novembro",
 	"Dezembro",
 ];
+
+function hexParaRgb(cor: string) {
+	const hex = cor.replace("#", "").trim();
+	const valor = hex.length === 3 ? hex.split("").map((item) => item + item).join("") : hex;
+	if (!/^[0-9a-f]{6}$/i.test(valor)) return null;
+	return {
+		r: Number.parseInt(valor.slice(0, 2), 16),
+		g: Number.parseInt(valor.slice(2, 4), 16),
+		b: Number.parseInt(valor.slice(4, 6), 16),
+	};
+}
+
+function luminancia(cor: string) {
+	const rgb = hexParaRgb(cor);
+	if (!rgb) return 0;
+	const canal = (valor: number) => {
+		const normalizado = valor / 255;
+		return normalizado <= 0.04045 ? normalizado / 12.92 : ((normalizado + 0.055) / 1.055) ** 2.4;
+	};
+	return 0.2126 * canal(rgb.r) + 0.7152 * canal(rgb.g) + 0.0722 * canal(rgb.b);
+}
+
+function contraste(corA: string, corB: string) {
+	const luminosidadeA = luminancia(corA);
+	const luminosidadeB = luminancia(corB);
+	const maisClara = Math.max(luminosidadeA, luminosidadeB);
+	const maisEscura = Math.min(luminosidadeA, luminosidadeB);
+	return (maisClara + 0.05) / (maisEscura + 0.05);
+}
+
+function misturarCores(corBase: string, corMistura: string, proporcaoMistura: number) {
+	const base = hexParaRgb(corBase);
+	const mistura = hexParaRgb(corMistura);
+	if (!base || !mistura) return corBase;
+	const canal = (nome: keyof typeof base) => Math.round(base[nome] * (1 - proporcaoMistura) + mistura[nome] * proporcaoMistura).toString(16).padStart(2, "0");
+	return `#${canal("r")}${canal("g")}${canal("b")}`;
+}
+
+function corLegivel(corPreferida: string, fundo: string, minimo = 4.5) {
+	if (contraste(corPreferida, fundo) >= minimo) return corPreferida;
+	return luminancia(fundo) > 0.35 ? "#0f172a" : "#f8fafc";
+}
+
+function corDeAcaoLegivel(corPreferida: string, temaEscuro: boolean, superficie: string) {
+	const brilho = luminancia(corPreferida);
+	if (temaEscuro && brilho > 0.84) return "#38bdf8";
+	if (temaEscuro && brilho < 0.16) return misturarCores(corPreferida, "#7dd3fc", 0.72);
+	if (!temaEscuro && brilho > 0.88) return "#0369a1";
+	if (!temaEscuro && brilho < 0.08) return "#0369a1";
+	return contraste(corPreferida, superficie) >= 3
+		? corPreferida
+		: misturarCores(corPreferida, temaEscuro ? "#7dd3fc" : "#0369a1", 0.58);
+}
+
+function useTemaEscuro() {
+	const [escuro, setEscuro] = useState(false);
+
+	useEffect(() => {
+		const html = document.documentElement;
+		const atualizar = () => setEscuro(html.dataset.theme === "dark");
+		atualizar();
+		const observador = new MutationObserver(atualizar);
+		observador.observe(html, { attributes: true, attributeFilter: ["data-theme"] });
+		return () => observador.disconnect();
+	}, []);
+
+	return escuro;
+}
 
 const DIAS_SEMANA = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
@@ -354,10 +440,10 @@ function CalendarioAulas({
 				{/* Header do calendário */}
 				<div className="flex min-w-0 flex-col gap-3 border-b border-gray-100 bg-gray-50/60 px-3 py-3.5 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:px-6">
 					<div className="flex min-w-0 flex-wrap items-center gap-2 sm:gap-3">
-						<h4 className="text-sm sm:text-base font-bold text-gray-800 tracking-tight">
+						<h4 className="turma-semantic-text text-sm sm:text-base font-bold tracking-tight">
 							{NOMES_MES[mes]} {ano}
 						</h4>
-						<span className="text-xs text-gray-500 bg-white border border-gray-200 px-2 py-0.5 rounded-full font-medium shadow-2xs">
+						<span className="turma-semantic-description text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-full font-medium shadow-2xs">
 							{eventosDoMes.length}{" "}
 							{eventosDoMes.length === 1 ? "evento" : "eventos"}
 						</span>
@@ -366,7 +452,7 @@ function CalendarioAulas({
 					<div className="flex items-center justify-end gap-1.5">
 						<button
 							onClick={irParaHoje}
-							className="min-h-11 rounded-lg px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-200/60 hover:text-gray-900"
+							className="turma-semantic-text min-h-11 rounded-lg px-3 py-1 text-xs font-medium transition-colors hover:bg-gray-200/60"
 						>
 							Hoje
 						</button>
@@ -374,14 +460,14 @@ function CalendarioAulas({
 						<button
 							onClick={mesAnterior}
 							aria-label="Mês anterior"
-							className="grid min-h-11 min-w-11 place-items-center rounded-lg text-gray-500 transition-colors hover:bg-gray-200/70 hover:text-gray-800"
+							className="turma-semantic-accent grid min-h-11 min-w-11 place-items-center rounded-lg transition-colors hover:bg-gray-200/70"
 						>
 							<ChevronLeft className="w-4 h-4" />
 						</button>
 						<button
 							onClick={mesProximo}
 							aria-label="Próximo mês"
-							className="grid min-h-11 min-w-11 place-items-center rounded-lg text-gray-500 transition-colors hover:bg-gray-200/70 hover:text-gray-800"
+							className="turma-semantic-accent grid min-h-11 min-w-11 place-items-center rounded-lg transition-colors hover:bg-gray-200/70"
 						>
 							<ChevronRight className="w-4 h-4" />
 						</button>
@@ -395,7 +481,7 @@ function CalendarioAulas({
 						{DIAS_SEMANA.map((d) => (
 							<div
 								key={d}
-								className="text-center text-[11px] font-semibold text-gray-400 uppercase tracking-wider py-1"
+								className="turma-semantic-accent text-center text-[11px] font-bold uppercase tracking-wider py-1"
 							>
 								{d}
 							</div>
@@ -491,8 +577,8 @@ function CalendarioAulas({
 			<div className="lg:col-span-4 flex flex-col gap-4 w-full">
 				{/* Detalhe do dia selecionado */}
 				<div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
-					<h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-						<CalendarDays className="w-3.5 h-3.5 text-gray-400" />
+					<h5 className="turma-semantic-description text-xs font-semibold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+						<CalendarDays className="turma-semantic-accent w-3.5 h-3.5" />
 						{diaSelecionado
 							? `Dia ${diaSelecionado.split("-").reverse().join("/")}`
 							: "Dia Selecionado"}
@@ -541,14 +627,14 @@ function CalendarioAulas({
 							})()
 						) : (
 							<div className="p-3 bg-gray-50 rounded-xl text-center">
-								<p className="text-xs text-gray-500">
+								<p className="turma-semantic-description text-xs">
 									Nenhuma aula ou evento programado para esta data.
 								</p>
 							</div>
 						)
 					) : (
 						<div className="p-3.5 bg-gray-50 rounded-xl text-center">
-							<p className="text-xs text-gray-500">
+							<p className="turma-semantic-description text-xs">
 								Clique em qualquer dia do calendário para ver suas informações
 								detalhadas.
 							</p>
@@ -558,7 +644,7 @@ function CalendarioAulas({
 
 				{/* Lista de Eventos do Mês */}
 				<div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm flex flex-col">
-					<h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+					<h5 className="turma-semantic-description text-xs font-semibold uppercase tracking-wider mb-3">
 						Atividades de {NOMES_MES[mes]}
 					</h5>
 
@@ -590,22 +676,22 @@ function CalendarioAulas({
 									</div>
 									<div className="flex-1 min-w-0">
 										<p
-											className="font-medium truncate text-gray-800"
+											className="font-medium truncate"
 											style={{ color: isAtivo ? cfg.cor : undefined }}
 										>
 											{ev.titulo}
 										</p>
-										<span className="text-[10px] text-gray-400">
+										<span className="turma-semantic-description text-[10px]">
 											{cfg.label}
 										</span>
 									</div>
-									<EvIcon className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
+									<EvIcon className="turma-semantic-accent w-3.5 h-3.5 flex-shrink-0" />
 								</button>
 							);
 						})}
 
 						{eventosDoMes.length === 0 && (
-							<p className="text-xs text-gray-400 text-center py-4">
+							<p className="turma-semantic-description text-xs text-center py-4">
 								Nenhum evento registrado neste mês.
 							</p>
 						)}
@@ -614,7 +700,7 @@ function CalendarioAulas({
 
 				{/* Legenda */}
 				<div className="bg-white rounded-2xl border border-gray-200 p-3.5 shadow-sm">
-					<h5 className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">
+					<h5 className="turma-semantic-description text-[11px] font-semibold uppercase tracking-wider mb-2">
 						Legenda
 					</h5>
 					<div className="grid grid-cols-2 gap-2">
@@ -629,7 +715,7 @@ function CalendarioAulas({
 									className="w-2.5 h-2.5 rounded-full flex-shrink-0"
 									style={{ backgroundColor: cfg.cor }}
 								/>
-								<span className="text-xs text-gray-600 font-medium">
+								<span className="turma-semantic-text text-xs font-medium">
 									{cfg.label}
 								</span>
 							</div>
@@ -656,7 +742,7 @@ function EditarTurmaModal({
 	onSalvar: (t: DadosTurma) => void;
 	onFechar: () => void;
 }) {
-	const [rascunho, setRascunho] = useState<DadosTurma>({ ...turma, corDestaque: turma.corDestaque ?? "#ea580c", corFundo: turma.corFundo ?? "#f8fafc", fonte: turma.fonte ?? "SANS" });
+	const [rascunho, setRascunho] = useState<DadosTurma>({ ...turma, corDestaque: turma.corDestaque ?? "#ea580c", corFundo: turma.corFundo ?? "#f8fafc", corTexto: turma.corTexto ?? "#0f172a", corTitulo: turma.corTitulo ?? "#ffffff", corDescricao: turma.corDescricao ?? "#64748b", fonte: turma.fonte ?? "SANS" });
 
 	const salvar = () => {
 		if (!rascunho.nome.trim()) return;
@@ -701,7 +787,7 @@ function EditarTurmaModal({
 							className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm font-medium focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
 						/>
 					</div>
-					<div className="rounded-xl border border-sky-100 bg-sky-50 p-3"><p className="text-sm font-bold text-sky-900">Personalização da turma</p><div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4"><label className="text-xs font-bold text-slate-700">Principal<input type="color" value={rascunho.cor} onChange={(e) => setRascunho({ ...rascunho, cor: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Destaque<input type="color" value={rascunho.corDestaque} onChange={(e) => setRascunho({ ...rascunho, corDestaque: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Fundo<input type="color" value={rascunho.corFundo} onChange={(e) => setRascunho({ ...rascunho, corFundo: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Fonte<select value={rascunho.fonte} onChange={(e) => setRascunho({ ...rascunho, fonte: e.target.value as DadosTurma['fonte'] })} className="mt-1 h-10 w-full rounded-lg border border-sky-200 bg-white px-2"><option value="SANS">Sem serifa</option><option value="SERIF">Com serifa</option><option value="MONO">Monoespaçada</option></select></label></div></div>
+					<div className="rounded-xl border border-sky-100 bg-sky-50 p-3"><p className="text-sm font-bold text-sky-900">Personalização da turma</p><div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3"><label className="text-xs font-bold text-slate-700">Principal<input type="color" value={rascunho.cor} onChange={(e) => setRascunho({ ...rascunho, cor: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Destaque<input type="color" value={rascunho.corDestaque} onChange={(e) => setRascunho({ ...rascunho, corDestaque: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Fundo<input type="color" value={rascunho.corFundo} onChange={(e) => setRascunho({ ...rascunho, corFundo: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Texto<input type="color" value={rascunho.corTexto} onChange={(e) => setRascunho({ ...rascunho, corTexto: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Título do banner<input type="color" value={rascunho.corTitulo} onChange={(e) => setRascunho({ ...rascunho, corTitulo: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Descrição<input type="color" value={rascunho.corDescricao} onChange={(e) => setRascunho({ ...rascunho, corDescricao: e.target.value })} className="mt-1 h-10 w-full" /></label><label className="text-xs font-bold text-slate-700">Fonte<select value={rascunho.fonte} onChange={(e) => setRascunho({ ...rascunho, fonte: e.target.value as DadosTurma['fonte'] })} className="mt-1 h-10 w-full rounded-lg border border-sky-200 bg-white px-2"><option value="SANS">Sem serifa</option><option value="SERIF">Com serifa</option><option value="MONO">Monoespaçada</option></select></label></div></div>
 
 					{/* Sala e Horário */}
 					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -921,22 +1007,22 @@ function InicioView({
 						/>
 						<input value={linkAviso} onChange={(e) => setLinkAviso(e.target.value)} placeholder="https://... (link opcional)" type="url" className="min-h-11 min-w-0 flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm" />
 						<div className="flex flex-wrap items-center gap-3">
-						<UploadButton
-							endpoint="avisoImagem"
-							onClientUploadComplete={(arquivos) => { setImagemAviso(arquivos[0]?.ufsUrl ?? null); setErro(null); }}
-							onUploadError={(causa) => setErro(`Não foi possível enviar a imagem: ${causa.message}`)}
-							appearance={{ button: "min-h-11 rounded-lg bg-sky-600 px-3 py-2 text-xs font-bold text-white hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50", allowedContent: "hidden" }}
-							content={{ button: imagemAviso ? "Trocar imagem" : "Adicionar imagem" }}
-						/>
-						{imagemAviso && <div className="flex min-w-0 items-center gap-2 rounded-xl border border-sky-100 bg-sky-50 p-2"><img src={imagemAviso} alt="Miniatura da imagem selecionada" className="h-10 w-10 shrink-0 rounded-lg bg-white object-contain" /><span className="min-w-0 flex-1 truncate text-xs font-semibold text-sky-800">Imagem pronta para publicar</span><button type="button" onClick={() => setImagemAviso(null)} className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-sky-700 hover:bg-sky-100" aria-label="Remover imagem selecionada"><X className="h-4 w-4" /></button></div>}
-						<button
-							onClick={adicionarAviso}
-							disabled={(!novoAviso.trim() && !imagemAviso && !linkAviso.trim()) || criarAviso.isPending}
-							className="flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
-						>
-							<Check className="w-4 h-4" />
-							{criarAviso.isPending ? "Publicando..." : "Publicar"}
-						</button>
+							<UploadButton
+								endpoint="avisoImagem"
+								onClientUploadComplete={(arquivos) => { setImagemAviso(arquivos[0]?.ufsUrl ?? null); setErro(null); }}
+								onUploadError={(causa) => setErro(`Não foi possível enviar a imagem: ${causa.message}`)}
+								appearance={{ button: "min-h-11 rounded-lg bg-sky-600 px-3 py-2 text-xs font-bold text-white hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50", allowedContent: "hidden" }}
+								content={{ button: imagemAviso ? "Trocar imagem" : "Adicionar imagem" }}
+							/>
+							{imagemAviso && <div className="flex min-w-0 items-center gap-2 rounded-xl border border-sky-100 bg-sky-50 p-2"><img src={imagemAviso} alt="Miniatura da imagem selecionada" className="h-10 w-10 shrink-0 rounded-lg bg-white object-contain" /><span className="min-w-0 flex-1 truncate text-xs font-semibold text-sky-800">Imagem pronta para publicar</span><button type="button" onClick={() => setImagemAviso(null)} className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-sky-700 hover:bg-sky-100" aria-label="Remover imagem selecionada"><X className="h-4 w-4" /></button></div>}
+							<button
+								onClick={adicionarAviso}
+								disabled={(!novoAviso.trim() && !imagemAviso && !linkAviso.trim()) || criarAviso.isPending}
+								className="flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
+							>
+								<Check className="w-4 h-4" />
+								{criarAviso.isPending ? "Publicando..." : "Publicar"}
+							</button>
 						</div>
 					</div>
 				)}
@@ -1051,12 +1137,12 @@ function MateriaisView({
 	return (
 		<div className="mx-auto w-full max-w-6xl min-w-0 space-y-3 px-3 py-5 sm:px-6 lg:px-8">
 			<div className="flex items-center justify-between mb-1">
-				<h3 className="text-sm font-semibold text-gray-700">
+				<h3 className="turma-semantic-text text-sm font-semibold">
 					Materiais da turma
 				</h3>
 				{podeGerenciar && <button
 					onClick={() => setCriando((v) => !v)}
-					className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
+					className="turma-semantic-accent flex items-center gap-1 text-xs font-medium transition-colors hover:opacity-80"
 				>
 					{criando ? (
 						<X className="w-3.5 h-3.5" />
@@ -1112,16 +1198,16 @@ function MateriaisView({
 							href={m.url}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-sm font-medium text-blue-600 hover:underline truncate block"
+							className="turma-semantic-accent text-sm font-medium hover:underline truncate block"
 						>
 							{m.nome}
 						</a>
-						<p className="text-xs text-gray-400 truncate mt-0.5">{m.url}</p>
+						<p className="turma-semantic-description text-xs truncate mt-0.5">{m.url}</p>
 					</div>
 					<button
 						onClick={() => excluir(m.id)}
 						disabled={removerMaterial.isPending}
-					className="grid min-h-11 min-w-11 shrink-0 place-items-center rounded-full text-gray-400 opacity-100 transition-all hover:bg-red-50 hover:text-red-500 sm:min-h-0 sm:min-w-0 sm:p-1.5 sm:text-gray-300 sm:opacity-0 sm:group-hover:opacity-100"
+						className="grid min-h-11 min-w-11 shrink-0 place-items-center rounded-full text-gray-400 opacity-100 transition-all hover:bg-red-50 hover:text-red-500 sm:min-h-0 sm:min-w-0 sm:p-1.5 sm:text-gray-300 sm:opacity-0 sm:group-hover:opacity-100"
 						title="Remover"
 					>
 						<Trash2 className="w-4 h-4" />
@@ -1129,7 +1215,7 @@ function MateriaisView({
 				</div>
 			))}
 			{materiais.length === 0 && (
-				<p className="text-center py-12 text-sm text-gray-400">
+				<p className="turma-semantic-description text-center py-12 text-sm">
 					Nenhum material adicionado ainda
 				</p>
 			)}
@@ -1189,12 +1275,12 @@ function AnotacoesView({
 	return (
 		<div className="mx-auto w-full max-w-6xl min-w-0 space-y-3 px-3 py-5 sm:px-6 lg:px-8">
 			<div className="flex items-center justify-between mb-1">
-				<h3 className="text-sm font-semibold text-gray-700">
+				<h3 className="turma-semantic-text text-sm font-semibold">
 					Minhas anotações
 				</h3>
 				<button
 					onClick={() => setCriando((v) => !v)}
-					className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
+					className="turma-semantic-accent flex items-center gap-1 text-xs font-medium transition-colors hover:opacity-80"
 				>
 					{criando ? (
 						<X className="w-3.5 h-3.5" />
@@ -1252,22 +1338,21 @@ function AnotacoesView({
 							<NotebookPen className="w-5 h-5" style={{ color: cor }} />
 						</div>
 						<div className="flex-1 min-w-0">
-							<p className="text-sm font-medium text-gray-900 truncate">
+							<p className="turma-semantic-text text-sm font-medium truncate">
 								{a.titulo}
 							</p>
-							<p className="text-xs text-gray-400">{a.data}</p>
+							<p className="turma-semantic-description text-xs">{a.data}</p>
 						</div>
 					</button>
 
 					{/* Conteúdo expandido */}
 					<div
-						className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
-							expandido === a.id ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-						}`}
+						className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${expandido === a.id ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+							}`}
 					>
 						<div className="overflow-hidden">
 							<div className="px-4 pb-4 pt-1">
-								<p className="text-sm text-gray-600 leading-relaxed mb-3">
+								<p className="turma-semantic-text text-sm leading-relaxed mb-3">
 									{a.conteudo || "Sem conteúdo adicional."}
 								</p>
 								<button
@@ -1284,7 +1369,7 @@ function AnotacoesView({
 				</div>
 			))}
 			{anotacoes.length === 0 && (
-				<p className="text-center py-12 text-sm text-gray-400">
+				<p className="turma-semantic-description text-center py-12 text-sm">
 					Nenhuma anotação criada ainda
 				</p>
 			)}
@@ -1303,6 +1388,9 @@ function PresencaView({
 	cor,
 	eventos,
 	onSalvar,
+	erroSalvar,
+	salvando,
+	coresEstado,
 }: {
 	titulo: string;
 	pessoas: Pessoa[];
@@ -1310,12 +1398,29 @@ function PresencaView({
 	cor: string;
 	eventos: EventoCalendario[];
 	onSalvar: (data: string) => void;
+	erroSalvar: string | null;
+	salvando: boolean;
+	coresEstado: { presente: string; ausente: string; justificado: string };
 }) {
-	const presentes = pessoas.filter((p) => p.presente === "presente").length;
-	const hoje = new Date();
-	const hojeISO = toISO(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
-	const dataFormatada = `${pad(hoje.getDate())}/${pad(hoje.getMonth() + 1)}/${hoje.getFullYear()}`;
-	const [dataSelecionada, setDataSelecionada] = useState(hojeISO);
+	const configuracaoPresenca = {
+		...PRESENCA_CONFIG,
+		presente: { ...PRESENCA_CONFIG.presente, cor: coresEstado.presente, fundo: misturarCores(coresEstado.presente, "#ffffff", 0.86) },
+		ausente: { ...PRESENCA_CONFIG.ausente, cor: coresEstado.ausente, fundo: misturarCores(coresEstado.ausente, "#ffffff", 0.86) },
+		justificado: { ...PRESENCA_CONFIG.justificado, cor: coresEstado.justificado, fundo: misturarCores(coresEstado.justificado, "#ffffff", 0.12) },
+	};
+	const totais = useMemo(
+		() =>
+			pessoas.reduce(
+				(acumulado, pessoa) => {
+					acumulado[pessoa.presente] += 1;
+					return acumulado;
+				},
+				{ presente: 0, ausente: 0, justificado: 0, a_registrar: 0 } as Record<EstadoPresenca, number>,
+			),
+		[pessoas],
+	);
+	const corTextoAcao = corLegivel("#ffffff", cor);
+	const [dataSelecionada, setDataSelecionada] = useState("");
 
 	const setPresenca = (id: string, valor: EstadoPresenca) =>
 		setPessoas((prev) =>
@@ -1325,100 +1430,152 @@ function PresencaView({
 	const marcarTodos = (valor: EstadoPresenca) =>
 		setPessoas((prev) => prev.map((p) => ({ ...p, presente: valor })));
 
-	const diasDeAula = eventos
-		.filter((e) => e.tipo === "aula" || e.tipo === "especial")
-		.sort((a, b) => a.data.localeCompare(b.data));
+	const diasDeAula = useMemo(
+		() => eventos.filter((evento) => evento.tipo === "aula").sort((a, b) => a.data.localeCompare(b.data)),
+		[eventos],
+	);
+
+	useEffect(() => {
+		setDataSelecionada((dataAtual) =>
+			diasDeAula.some((aula) => aula.data === dataAtual)
+				? dataAtual
+				: (diasDeAula.at(-1)?.data ?? ""),
+		);
+	}, [diasDeAula]);
 
 	return (
-		<div className="mx-auto w-full max-w-6xl min-w-0 space-y-4 px-3 py-5 sm:px-6 lg:px-8">
-			<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-1">
-				<div className="flex flex-col gap-1.5">
-					<h3 className="text-sm font-semibold text-gray-700">{titulo}</h3>
-					<div className="flex min-w-0 items-center gap-1.5">
-						<CalendarDays className="w-3.5 h-3.5 text-gray-400" />
-						<select
-							value={dataSelecionada}
-							onChange={(e) => setDataSelecionada(e.target.value)}
-							className="min-h-11 w-full min-w-0 cursor-pointer rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1.5 text-base text-gray-700 transition-colors focus:border-sky-300 focus:outline-none sm:w-auto sm:text-xs"
-						>
-							<option value={hojeISO}>Hoje ({dataFormatada})</option>
-							{diasDeAula.map((aula) => (
-								<option key={aula.id} value={aula.data}>
-									{aula.data.split("-").reverse().join("/")} - {aula.titulo}
-								</option>
-							))}
-						</select>
-					</div>
-				</div>
-				<div className="grid grid-cols-1 gap-2 min-[420px]:flex min-[420px]:items-center">
-					<span
-						className="text-xs font-semibold px-3 py-1 rounded-full shadow-2xs"
-						style={{ backgroundColor: `${cor}1A`, color: cor }}
-					>
-						{presentes}/{pessoas.length} presentes
-					</span>
-					<button onClick={() => onSalvar(dataSelecionada)} className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-sky-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"><Check className="h-3.5 w-3.5" />Salvar presenças</button>
-				</div>
-			</div>
-
-			{/* Ações rápidas */}
-			<div className="grid grid-cols-1 gap-2 min-[420px]:flex min-[420px]:items-center">
-				<button
-					onClick={() => marcarTodos("presente")}
-					className="flex min-h-11 items-center justify-center gap-1 rounded-lg bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700 transition-colors hover:bg-green-100"
-				>
-					<Check className="w-3 h-3" />
-					Todos presentes
-				</button>
-				<button
-					onClick={() => marcarTodos("ausente")}
-					className="flex min-h-11 items-center justify-center gap-1 rounded-lg bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-100"
-				>
-					<X className="w-3 h-3" />
-					Todos ausentes
-				</button>
-			</div>
-
-			<div className="bg-white rounded-2xl border border-gray-200 divide-y divide-gray-100 overflow-hidden shadow-xs">
-				{pessoas.map((p) => (
-					<div
-						key={p.id}
-						className="flex min-w-0 flex-col items-stretch gap-2 px-4 py-3 transition-colors hover:bg-gray-50/50 min-[420px]:flex-row min-[420px]:items-center sm:py-3.5"
-					>
-						<div
-							className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white flex-shrink-0"
-							style={{ backgroundColor: cor }}
-						>
-							{p.nome[0]}
+		<div className="mx-auto w-full max-w-6xl min-w-0 space-y-5 px-3 py-5 sm:px-6 lg:px-8">
+			<section
+				className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
+				style={{ "--turma-secao-cor": cor } as React.CSSProperties}
+			>
+				<div className="border-b border-gray-200 p-4 sm:p-5">
+					<div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+						<div className="min-w-0">
+							<div className="flex items-center gap-2">
+								<ClipboardList className="turma-presenca-icone h-5 w-5" />
+								<h3 className="turma-presenca-titulo text-base font-bold sm:text-lg">{titulo}</h3>
+							</div>
+							<p className="turma-semantic-description mt-1 text-sm">
+								Escolha uma data de aula, marque cada pessoa e então registre.
+							</p>
 						</div>
-						<span className="min-w-0 flex-1 truncate text-sm font-medium text-gray-800">
-							{p.nome}
-						</span>
-						<select
-							value={p.presente}
-							onChange={(e) =>
-								setPresenca(p.id, e.target.value as EstadoPresenca)
-							}
-							className={`min-h-11 w-full cursor-pointer rounded-lg border px-2.5 py-1.5 text-center text-base font-medium outline-none transition-colors min-[420px]:w-auto sm:text-xs ${
-								p.presente === "presente"
-									? "bg-green-50 text-green-700 border-green-200"
-									: p.presente === "ausente"
-										? "bg-red-50 text-red-700 border-red-200"
-								: p.presente === "a_registrar" ? "bg-slate-100 text-slate-600 border-slate-200" : "bg-amber-50 text-amber-700 border-amber-200"
-							}`}
-						>
-							<option value="presente">Presente</option>
-							<option value="ausente">Ausente</option>
-							<option value="justificado">Justificado</option>
-							<option value="a_registrar">A registrar</option>
-						</select>
+						<div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+							<label className="flex min-h-11 min-w-0 items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm sm:w-[18rem]">
+								<CalendarDays className="turma-presenca-icone h-4 w-4 shrink-0" />
+								<span className="sr-only">Dia da presença</span>
+								<select
+									value={dataSelecionada}
+									onChange={(e) => setDataSelecionada(e.target.value)}
+									disabled={diasDeAula.length === 0}
+									className="turma-semantic-text min-w-0 flex-1 cursor-pointer bg-transparent text-sm font-medium outline-none"
+								>
+									{diasDeAula.length === 0 && <option value="">Nenhuma aula cadastrada</option>}
+									{diasDeAula.map((aula) => (
+										<option key={aula.id} value={aula.data}>
+											{aula.data.split("-").reverse().join("/")} · {aula.titulo}
+										</option>
+									))}
+								</select>
+							</label>
+							<button
+								onClick={() => onSalvar(dataSelecionada)}
+								disabled={!dataSelecionada || totais.a_registrar > 0 || salvando}
+								style={{ backgroundColor: cor, color: corTextoAcao }}
+								className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg px-4 text-sm font-bold transition hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+							>
+								<Check className="h-4 w-4" />
+								{salvando ? "Salvando..." : "Salvar presença"}
+							</button>
+						</div>
 					</div>
-				))}
-				{pessoas.length === 0 && (
-					<p className="text-center py-10 text-sm text-gray-400">
-						Nenhuma pessoa cadastrada
+
+					<div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+						{(Object.entries(configuracaoPresenca) as [EstadoPresenca, (typeof configuracaoPresenca)[EstadoPresenca]][]).map(([estado, config]) => {
+							const Icone = config.icone;
+							return (
+								<div key={estado} className="rounded-xl border px-3 py-2.5" style={{ backgroundColor: `${cor}0D`, borderColor: `${cor}30` }}>
+									<div className="flex items-center justify-between gap-2 text-xs font-semibold" style={{ color: config.cor }}>
+										<span>{config.curta}</span>
+										<Icone className="h-3.5 w-3.5" aria-hidden="true" />
+									</div>
+									<p className="mt-1 text-2xl font-bold tabular-nums leading-none" style={{ color: cor }}>{totais[estado]}</p>
+								</div>
+							);
+						})}
+					</div>
+				</div>
+
+				<div className="flex flex-col gap-2 border-b border-gray-200 bg-gray-50/70 p-3 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+					<p className="turma-semantic-description text-xs">
+						{pessoas.length} {pessoas.length === 1 ? "pessoa na lista" : "pessoas na lista"} · selecione um estado para cada uma.
 					</p>
-				)}
+					<div className="grid grid-cols-2 gap-2 sm:flex">
+						<button onClick={() => marcarTodos("presente")} className="min-h-11 rounded-lg px-3 text-xs font-bold transition hover:brightness-95" style={{ color: configuracaoPresenca.presente.cor, backgroundColor: configuracaoPresenca.presente.fundo }}>Todos presentes</button>
+						<button onClick={() => marcarTodos("ausente")} className="min-h-11 rounded-lg px-3 text-xs font-bold transition hover:brightness-95" style={{ color: configuracaoPresenca.ausente.cor, backgroundColor: configuracaoPresenca.ausente.fundo }}>Todos ausentes</button>
+						<button onClick={() => marcarTodos("a_registrar")} className="col-span-2 min-h-11 rounded-lg px-3 text-xs font-bold transition hover:brightness-95 sm:col-span-1" style={{ color: configuracaoPresenca.a_registrar.cor, backgroundColor: configuracaoPresenca.a_registrar.fundo }}>Limpar marcações</button>
+					</div>
+				</div>
+				{erroSalvar && <p role="alert" className="mx-4 mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 sm:mx-5">{erroSalvar}</p>}
+
+				<div className="divide-y divide-gray-100">
+					{pessoas.map((p) => (
+						<div
+							key={p.id}
+							className="flex min-w-0 flex-col gap-3 px-4 py-3.5 transition-colors hover:bg-gray-50/50 sm:px-5 lg:flex-row lg:items-center"
+						>
+							<div className="flex min-w-0 flex-1 items-center gap-3">
+								<div className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-sm font-bold" style={{ backgroundColor: cor, color: corTextoAcao }}>{p.nome[0]}</div>
+								<span className="turma-semantic-text min-w-0 truncate text-sm font-semibold">{p.nome}</span>
+							</div>
+							<div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4 lg:w-[27rem]">
+							{(Object.entries(configuracaoPresenca) as [EstadoPresenca, (typeof configuracaoPresenca)[EstadoPresenca]][]).map(([estado, config]) => {
+									const Icone = config.icone;
+									const selecionado = p.presente === estado;
+									return (
+										<button
+											key={estado}
+											onClick={() => setPresenca(p.id, estado)}
+											aria-pressed={selecionado}
+											className="flex min-h-11 items-center justify-center gap-1.5 rounded-lg border px-2 text-xs font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+											style={{ color: config.cor, backgroundColor: selecionado ? config.fundo : "transparent", borderColor: selecionado ? config.cor : `${config.cor}45`, boxShadow: selecionado ? `inset 0 0 0 1px ${config.cor}` : undefined }}
+										>
+											<Icone className="h-3.5 w-3.5" aria-hidden="true" />
+											{config.label}
+										</button>
+									);
+								})}
+							</div>
+						</div>
+					))}
+					{pessoas.length === 0 && (
+						<p className="turma-semantic-description text-center py-10 text-sm">
+							Nenhuma pessoa cadastrada
+						</p>
+					)}
+				</div>
+			</section>
+		</div>
+	);
+}
+
+function ConfirmacaoPresencaModal({
+	confirmacao,
+	onFechar,
+}: {
+	confirmacao: ConfirmacaoPresenca;
+	onFechar: () => void;
+}) {
+	return (
+		<div className="fixed inset-0 z-[70] grid place-items-center p-4" role="dialog" aria-modal="true" aria-labelledby="confirmacao-presenca-titulo">
+			<button className="absolute inset-0 cursor-default bg-slate-950/55 backdrop-blur-[1px]" onClick={onFechar} aria-label="Fechar confirmação" />
+			<div className="relative w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-2xl">
+				<div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-green-100 text-green-700">
+					<Check className="h-6 w-6" aria-hidden="true" />
+				</div>
+				<h2 id="confirmacao-presenca-titulo" className="mt-4 text-lg font-bold text-gray-900">Presença registrada</h2>
+				<p className="mt-1 text-sm text-gray-600">{confirmacao.total === 1 ? "O registro de 1 pessoa foi salvo" : `Os registros de ${confirmacao.total} pessoas foram salvos`} para {confirmacao.data}.</p>
+				<button onClick={onFechar} style={{ backgroundColor: "var(--turma-destaque, #ea580c)", color: "var(--turma-destaque-text, #fff)" }} className="mt-5 min-h-11 w-full rounded-lg px-4 text-sm font-bold transition hover:brightness-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">Concluir</button>
 			</div>
 		</div>
 	);
@@ -1447,7 +1604,19 @@ export default function TurmaView() {
 	const params = useParams<{ id: string }>();
 	const turmaId = Array.isArray(params.id) ? params.id[0] : params.id;
 	const { data: detalhe, isLoading: carregandoTurma } = api.turma.detalhe.useQuery({ id: turmaId }, { enabled: Boolean(turmaId) });
-	const salvarPresencas = api.turma.presencas.salvar.useMutation({ onError: (erro) => alert(`Não foi possível salvar as presenças: ${erro.message}`) });
+	const [erroPresenca, setErroPresenca] = useState<string | null>(null);
+	const [confirmacaoPresenca, setConfirmacaoPresenca] = useState<ConfirmacaoPresenca | null>(null);
+	const salvarPresencas = api.turma.presencas.salvar.useMutation({
+		onSuccess: (_resultado, variaveis) => {
+			setErroPresenca(null);
+			setConfirmacaoPresenca({
+				data: variaveis.data.toLocaleDateString("pt-BR"),
+				total: variaveis.alunos.length + variaveis.monitores.length + variaveis.professores.length,
+			});
+			void utils.turma.presencas.list.invalidate({ turmaId });
+		},
+		onError: (erro) => setErroPresenca(erro.message),
+	});
 	const [tab, setTab] = useState<TabId>("inicio");
 	const [turma, setTurma] = useState<DadosTurma>(TURMA_VAZIA);
 	const [avisos, setAvisos] = useState<Aviso[]>([]);
@@ -1477,7 +1646,11 @@ export default function TurmaView() {
 	);
 	const salvarNaData = (data: string) => {
 		const todas = [...presencaAlunos, ...presencaMonitores, ...presencaProfessores];
-		if (todas.some((pessoa) => pessoa.presente === "a_registrar")) return alert("Defina a presença de todas as pessoas antes de salvar.");
+		if (todas.some((pessoa) => pessoa.presente === "a_registrar")) {
+			setErroPresenca("Marque a presença de todas as pessoas antes de salvar.");
+			return;
+		}
+		setErroPresenca(null);
 		const estado = (pessoa: Pessoa) => pessoa.presente.toUpperCase() as "PRESENTE" | "AUSENTE" | "JUSTIFICADO";
 		salvarPresencas.mutate({ turmaId, data: new Date(`${data}T12:00:00`), alunos: presencaAlunos.map((pessoa) => ({ id: pessoa.id, estado: estado(pessoa) })), monitores: presencaMonitores.map((pessoa) => ({ id: pessoa.id, estado: estado(pessoa) })), professores: presencaProfessores.map((pessoa) => ({ id: pessoa.id, estado: estado(pessoa) })) });
 	};
@@ -1485,7 +1658,7 @@ export default function TurmaView() {
 	useEffect(() => {
 		const dados = detalhe?.turma;
 		if (!dados) return;
-		setTurma({ nome: dados.titulo, sala: dados.sala ?? "Local a definir", horario: dados.horario ?? "Horário a definir", cor: dados.cor, corDestaque: dados.corDestaque, corFundo: dados.corFundo, fonte: dados.fonte as DadosTurma['fonte'], professores: dados.professores.map((item) => item.user.nome), monitores: dados.monitores.map((item) => item.user.nome), alunos: dados.alunos.map((item) => item.aluno.nome) });
+		setTurma({ nome: dados.titulo, sala: dados.sala ?? "Local a definir", horario: dados.horario ?? "Horário a definir", cor: dados.cor, corDestaque: dados.corDestaque, corFundo: dados.corFundo, corTexto: dados.corTexto, corTitulo: dados.corTitulo, corDescricao: dados.corDescricao, fonte: dados.fonte as DadosTurma['fonte'], professores: dados.professores.map((item) => item.user.nome), monitores: dados.monitores.map((item) => item.user.nome), alunos: dados.alunos.map((item) => item.aluno.nome) });
 		setAvisos(dados.avisos.map((item) => ({ id: item.id, autor: item.autor.nome, fixado: item.fixado, texto: item.texto, imagemUrl: item.imagemUrl, linkUrl: item.linkUrl, quando: item.createdAt.toLocaleDateString("pt-BR"), podeExcluir: detalhe.role !== "MONITOR" || item.autorId === detalhe.usuarioId, podeFixar: detalhe.role !== "MONITOR" })));
 		setMateriais(dados.materiais.map((item) => ({ id: item.id, nome: item.titulo, url: item.url, quando: item.createdAt.toLocaleDateString("pt-BR") })));
 		setAnotacoes((dados.anotacoes ?? []).map((item) => ({ id: item.id, titulo: item.titulo, conteudo: item.conteudo, data: item.createdAt.toLocaleDateString("pt-BR") })));
@@ -1499,7 +1672,7 @@ export default function TurmaView() {
 	const salvarTema = api.turma.configurarTema.useMutation({ onSuccess: () => void utils.turma.detalhe.invalidate({ id: turmaId }) });
 	const salvarTurma = (novaTurma: DadosTurma) => {
 		if (detalhe?.role === "MONITOR") return;
-		void salvarTema.mutateAsync({ turmaId, cor: novaTurma.cor, corDestaque: novaTurma.corDestaque ?? "#ea580c", corFundo: novaTurma.corFundo ?? "#f8fafc", fonte: novaTurma.fonte ?? "SANS" });
+		void salvarTema.mutateAsync({ turmaId, cor: novaTurma.cor, corDestaque: novaTurma.corDestaque ?? "#ea580c", corFundo: novaTurma.corFundo ?? "#f8fafc", corTexto: novaTurma.corTexto ?? "#0f172a", corTitulo: novaTurma.corTitulo ?? "#ffffff", corDescricao: novaTurma.corDescricao ?? "#64748b", fonte: novaTurma.fonte ?? "SANS" });
 		setTurma(novaTurma);
 		setPresencaAlunos(
 			novaTurma.alunos.map((nome, i) => ({
@@ -1543,6 +1716,17 @@ export default function TurmaView() {
 	const tabAtual = TABS.find((item) => item.id === tab) ?? TABS[0];
 	const IconeTabAtual = tabAtual?.icon ?? Home;
 	const podeEditarTurma = detalhe?.role !== "MONITOR";
+	const temaEscuro = useTemaEscuro();
+	const fundoTurma = temaEscuro
+		? misturarCores(turma.corFundo ?? "#f8fafc", "#0b1220", 0.82)
+		: (turma.corFundo ?? "#f8fafc");
+	const superficieDosCards = temaEscuro ? "#162033" : "#ffffff";
+	const corTextoLegivel = corLegivel(turma.corTexto ?? "#0f172a", superficieDosCards);
+	const corDescricaoLegivel = corLegivel(turma.corDescricao ?? "#64748b", superficieDosCards, 3);
+	const corDestaqueLegivel = corDeAcaoLegivel(turma.corDestaque ?? "#ea580c", temaEscuro, superficieDosCards);
+	const corTextoDestaque = corLegivel("#ffffff", corDestaqueLegivel);
+	const corTituloLegivel = corLegivel(turma.corTitulo ?? "#ffffff", turma.cor, 3);
+	const corDescricaoBannerLegivel = corLegivel(turma.corDescricao ?? "#64748b", turma.cor, 3);
 
 	if (carregandoTurma) {
 		return <div className="flex h-full min-h-0 flex-col animate-pulse bg-slate-50"><div className="h-40 shrink-0 bg-sky-200" /><div className="flex-1 space-y-5 p-6"><div className="h-7 w-48 rounded-lg bg-slate-200" /><div className="grid grid-cols-1 gap-4 sm:grid-cols-2"><div className="h-44 rounded-2xl bg-white" /><div className="h-44 rounded-2xl bg-white" /></div><div className="h-36 rounded-2xl bg-white" /></div><div className="h-16 shrink-0 border-t border-sky-100 bg-white" /></div>;
@@ -1553,10 +1737,10 @@ export default function TurmaView() {
 	}
 
 	return (
-		<div className={`turma-tema flex h-full min-h-0 min-w-0 flex-col overflow-x-clip text-slate-900 ${turma.fonte === "SERIF" ? "font-serif" : turma.fonte === "MONO" ? "font-mono" : "font-sans"}`} style={{ backgroundColor: turma.corFundo ?? "#f8fafc", "--turma-destaque": turma.corDestaque ?? "#ea580c" } as React.CSSProperties}>
+		<div className={`turma-tema flex h-full min-h-0 min-w-0 flex-col overflow-x-clip text-slate-900 ${turma.fonte === "SERIF" ? "font-serif" : turma.fonte === "MONO" ? "font-mono" : "font-sans"}`} style={{ backgroundColor: fundoTurma, "--turma-destaque": corDestaqueLegivel, "--turma-destaque-text": corTextoDestaque, "--turma-texto": corTextoLegivel, "--turma-descricao": corDescricaoLegivel } as React.CSSProperties}>
 			{/* Header da turma */}
 			<div
-				className="relative min-w-0 flex-shrink-0 overflow-hidden px-3 pb-6 pt-5 shadow-[0_18px_35px_rgba(2,132,199,.2)] sm:px-6 sm:pt-6 lg:px-8"
+				className="turma-tema__cabecalho relative min-w-0 flex-shrink-0 overflow-hidden px-3 pb-6 pt-5 shadow-[0_18px_35px_rgba(2,132,199,.2)] sm:px-6 sm:pt-6 lg:px-8"
 				style={{ backgroundColor: turma.cor }}
 			>
 				<div className="absolute -right-8 -bottom-10 h-32 w-32 rounded-full" style={{ backgroundColor: turma.corDestaque ?? "#ea580c" }} />
@@ -1571,7 +1755,7 @@ export default function TurmaView() {
 							<button
 								onClick={() => setMenuAberto((v) => !v)}
 								aria-label="Abrir opções da turma"
-							className="rounded-xl p-2 text-white/80 transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+								className="rounded-xl p-2 text-white/80 transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
 							>
 								<MoreVertical className="w-4 h-4" />
 							</button>
@@ -1599,17 +1783,17 @@ export default function TurmaView() {
 						</div>}
 					</div>
 
-					<h1 className="mb-1 break-words text-xl font-black leading-snug tracking-[-.035em] text-white sm:text-3xl">
+					<h1 className="mb-1 break-words text-xl font-black leading-snug tracking-[-.035em] text-white sm:text-3xl" style={{ color: corTituloLegivel }}>
 						{turma.nome}
 					</h1>
-					<p className="break-words text-xs text-white/85 sm:text-sm">
+					<p className="break-words text-xs text-white/85 sm:text-sm" style={{ color: corDescricaoBannerLegivel }}>
 						{turma.sala} · {turma.professores.join(" e ")}
 					</p>
 				</div>
 			</div>
 
 			{/* Conteúdo */}
-			<div className="min-h-0 flex-1 overflow-y-auto">
+			<div className="turma-tema__conteudo min-h-0 flex-1 overflow-y-auto">
 				{tab === "inicio" && (
 					<InicioView turma={turma} turmaId={turmaId} avisos={avisos} eventos={eventos} />
 				)}
@@ -1617,7 +1801,7 @@ export default function TurmaView() {
 					<MateriaisView
 						materiais={materiais}
 						turmaId={turmaId}
-						cor={turma.cor}
+						cor={corDestaqueLegivel}
 						podeGerenciar={detalhe.role !== "MONITOR"}
 					/>
 				)}
@@ -1625,21 +1809,21 @@ export default function TurmaView() {
 					<AnotacoesView
 						anotacoes={anotacoes}
 						turmaId={turmaId}
-						cor={turma.cor}
+						cor={corDestaqueLegivel}
 					/>
 				)}
 				{tab === "calendario" && (
 					<div className="mx-auto w-full max-w-6xl min-w-0 px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
 						<div className="mb-4">
-							<h3 className="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-2">
-								<CalendarDays className="w-5 h-5" style={{ color: turma.cor }} />
+							<h3 className="turma-semantic-text text-base sm:text-lg font-bold flex items-center gap-2">
+								<CalendarDays className="turma-semantic-accent w-5 h-5" />
 								Calendário de aulas e eventos
 							</h3>
-							<p className="text-xs sm:text-sm text-gray-500 mt-0.5">
+							<p className="turma-semantic-description text-xs sm:text-sm mt-0.5">
 								Acompanhe o cronograma de aulas, reposições e feriados do semestre.
 							</p>
 						</div>
-						<CalendarioAulas eventos={eventos} cor={turma.cor} />
+						<CalendarioAulas eventos={eventos} cor={corDestaqueLegivel} />
 					</div>
 				)}
 				{tab === "presenca-alunos" && (
@@ -1647,9 +1831,12 @@ export default function TurmaView() {
 						titulo="Presença de alunos"
 						pessoas={presencaAlunos}
 						setPessoas={setPresencaAlunos}
-						cor={turma.cor}
+						cor={corDestaqueLegivel}
 						eventos={eventos}
 						onSalvar={salvarNaData}
+						erroSalvar={erroPresenca}
+						salvando={salvarPresencas.isPending}
+						coresEstado={{ presente: turma.cor, ausente: corDestaqueLegivel, justificado: fundoTurma }}
 					/>
 				)}
 				{tab === "presenca-monitores" && (
@@ -1657,9 +1844,12 @@ export default function TurmaView() {
 						titulo="Presença de monitores"
 						pessoas={presencaMonitores}
 						setPessoas={setPresencaMonitores}
-						cor="#188038"
+						cor={corDestaqueLegivel}
 						eventos={eventos}
 						onSalvar={salvarNaData}
+						erroSalvar={erroPresenca}
+						salvando={salvarPresencas.isPending}
+						coresEstado={{ presente: turma.cor, ausente: corDestaqueLegivel, justificado: fundoTurma }}
 					/>
 				)}
 				{tab === "presenca-professores" && (
@@ -1667,12 +1857,17 @@ export default function TurmaView() {
 						titulo="Presença de professores"
 						pessoas={presencaProfessores}
 						setPessoas={setPresencaProfessores}
-						cor="#0284c7"
+						cor={corDestaqueLegivel}
 						eventos={eventos}
 						onSalvar={salvarNaData}
+						erroSalvar={erroPresenca}
+						salvando={salvarPresencas.isPending}
+						coresEstado={{ presente: turma.cor, ausente: corDestaqueLegivel, justificado: fundoTurma }}
 					/>
 				)}
 			</div>
+
+			{confirmacaoPresenca && <ConfirmacaoPresencaModal confirmacao={confirmacaoPresenca} onFechar={() => setConfirmacaoPresenca(null)} />}
 
 			{/* Navegação de turmas: menu flutuante no celular */}
 			<div className="fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 sm:hidden">
@@ -1689,9 +1884,8 @@ export default function TurmaView() {
 										setTab(item.id);
 										setMobileNavOpen(false);
 									}}
-									className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition-colors ${
-										active ? "bg-sky-50 text-sky-700" : "text-gray-600 active:bg-slate-50"
-									}`}
+									className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition-colors ${active ? "bg-sky-50 text-sky-700" : "text-gray-600 active:bg-slate-50"
+										}`}
 								>
 									<Icon className="h-4 w-4" style={active ? { color: turma.cor } : undefined} />
 									{item.label}
@@ -1703,8 +1897,8 @@ export default function TurmaView() {
 				<button
 					type="button"
 					onClick={() => setMobileNavOpen((open) => !open)}
-					className="flex h-12 w-12 items-center justify-center rounded-full text-white shadow-[0_10px_24px_rgb(2_132_199_/_0.34)] transition-transform active:scale-95"
-					style={{ backgroundColor: turma.corDestaque ?? "#ea580c" }}
+					className="flex h-12 w-12 items-center justify-center rounded-full shadow-[0_10px_24px_rgb(2_132_199_/_0.34)] transition-transform active:scale-95"
+					style={{ backgroundColor: corDestaqueLegivel, color: corTextoDestaque }}
 					aria-label={mobileNavOpen ? "Fechar navegação da turma" : `Abrir navegação: ${tabAtual?.label ?? "Início"}`}
 					aria-expanded={mobileNavOpen}
 				>
@@ -1722,7 +1916,7 @@ export default function TurmaView() {
 							<button
 								key={t.id}
 								onClick={() => setTab(t.id)}
-							className="flex min-w-20 flex-1 flex-col items-center justify-center gap-1 py-2.5 sm:py-3 relative transition-colors cursor-pointer"
+								className="flex min-w-20 flex-1 flex-col items-center justify-center gap-1 py-2.5 sm:py-3 relative transition-colors cursor-pointer"
 							>
 								{active && (
 									<span

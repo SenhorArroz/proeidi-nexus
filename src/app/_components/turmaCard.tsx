@@ -13,6 +13,7 @@ interface Turma {
     color: string;
 	accentColor?: string;
 	backgroundColor?: string;
+	textColor?: string;
 	font?: "SANS" | "SERIF" | "MONO";
     progresso?: number; // 0-100, opcional (turmas concluídas podem omitir)
 }
@@ -51,9 +52,10 @@ export default function TurmaCard({ turma }: { turma: Turma }) {
 
     return (
         <div
-			className="group relative min-w-0 cursor-pointer rounded-2xl border transition-all duration-400 hover:-translate-y-0.5 hover:shadow-lg"
+			className="turma-card-tema group relative min-w-0 cursor-pointer rounded-2xl border transition-all duration-400 hover:-translate-y-0.5 hover:shadow-lg"
 			style={{
 				backgroundColor: turma.backgroundColor ?? "#ffffff",
+				["--turma-texto" as string]: turma.textColor ?? "#0f172a",
 				borderColor: turma.color,
 				fontFamily: turma.font === "SERIF" ? "Georgia, serif" : turma.font === "MONO" ? "ui-monospace, SFMono-Regular, Menlo, monospace" : undefined,
 				boxShadow: `0 16px 28px ${hexToRgba(turma.color, 0.14)}`,
@@ -61,7 +63,7 @@ export default function TurmaCard({ turma }: { turma: Turma }) {
 		>
             {/* Banner */}
             <div
-                className="relative h-24 flex items-start justify-between p-3 overflow-hidden rounded-t-2xl"
+				className="turma-card-tema__cabecalho relative h-24 flex items-start justify-between p-3 overflow-hidden rounded-t-2xl"
                 style={{
                     background: `linear-gradient(135deg, ${turma.color} 0%, ${hexToRgba(turma.color, 0.75)} 100%)`,
                 }}

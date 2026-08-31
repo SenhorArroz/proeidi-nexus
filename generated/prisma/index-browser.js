@@ -178,6 +178,9 @@ exports.Prisma.TurmaScalarFieldEnum = {
   cor: 'cor',
   corDestaque: 'corDestaque',
   corFundo: 'corFundo',
+  corTexto: 'corTexto',
+  corTitulo: 'corTitulo',
+  corDescricao: 'corDescricao',
   fonte: 'fonte',
   semestreId: 'semestreId'
 };

@@ -61,6 +61,9 @@ interface Turma {
 	cor: string;
 	corDestaque: string;
 	corFundo: string;
+	corTexto: string;
+	corTitulo: string;
+	corDescricao: string;
 	fonte: "SANS" | "SERIF" | "MONO";
 }
 
@@ -80,6 +83,9 @@ const turmaVazia = (): Turma => ({
 	cor: "#1A73E8",
 	corDestaque: "#ea580c",
 	corFundo: "#f8fafc",
+	corTexto: "#0f172a",
+	corTitulo: "#ffffff",
+	corDescricao: "#64748b",
 	fonte: "SANS",
 });
 
@@ -88,6 +94,7 @@ const turmaVazia = (): Turma => ({
 function normalizarTurma(t: Partial<Turma> & { id: string }): Turma {
 	return {
 		id: t.id,
+		semestreId: t.semestreId,
 		titulo: t.titulo ?? "",
 		sala: t.sala ?? "",
 		horario: t.horario ?? "",
@@ -102,6 +109,9 @@ function normalizarTurma(t: Partial<Turma> & { id: string }): Turma {
 		cor: t.cor ?? "#1A73E8",
 		corDestaque: t.corDestaque ?? "#ea580c",
 		corFundo: t.corFundo ?? "#f8fafc",
+		corTexto: t.corTexto ?? "#0f172a",
+		corTitulo: t.corTitulo ?? "#ffffff",
+		corDescricao: t.corDescricao ?? "#64748b",
 		fonte: t.fonte ?? "SANS",
 	};
 }
@@ -277,6 +287,12 @@ function AulasEditor({
 	};
 
 	const remover = (id: string) => onChange(aulas.filter((a) => a.id !== id));
+	const atualizar = (id: string, alteracoes: Partial<Omit<Aula, "id">>) =>
+		onChange(
+			aulas
+				.map((aula) => (aula.id === id ? { ...aula, ...alteracoes } : aula))
+				.sort((a, b) => a.data.localeCompare(b.data)),
+		);
 
 	return (
 		<div>
@@ -289,22 +305,19 @@ function AulasEditor({
 				{aulas.map((aula) => (
 					<div
 						key={aula.id}
-						className="flex min-w-0 flex-wrap items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 sm:flex-nowrap sm:gap-3"
+						className="min-w-0 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2"
 					>
-						<span className="text-xs font-semibold text-sky-600 bg-sky-50 rounded-md px-2 py-1 flex-shrink-0">
-							{formatarData(aula.data)}
-						</span>
-						<span className="min-w-0 flex-[1_1_10rem] truncate text-sm text-gray-700">
-							{aula.titulo}
-						</span>
-						<span className="rounded-full bg-orange-50 px-2 py-1 text-[10px] font-bold text-orange-800">{aula.tipo.charAt(0) + aula.tipo.slice(1).toLowerCase()}</span>
-						<button
-							onClick={() => remover(aula.id)}
-							className="flex-shrink-0 p-1 rounded-md text-gray-400 hover:bg-red-50 hover:text-red-500"
-							aria-label="Remover aula"
-						>
-							<Trash2 className="w-3.5 h-3.5" />
-						</button>
+						<div className="mb-2 flex min-w-0 flex-wrap items-center gap-2">
+							<span className="rounded-md bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600">{formatarData(aula.data)}</span>
+							<span className="min-w-0 flex-1 truncate text-sm text-gray-700">{aula.titulo}</span>
+							<span className="rounded-full bg-orange-50 px-2 py-1 text-[10px] font-bold text-orange-800">{aula.tipo.charAt(0) + aula.tipo.slice(1).toLowerCase()}</span>
+						</div>
+						<div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center">
+							<input type="date" value={aula.data} onChange={(e) => atualizar(aula.id, { data: e.target.value })} className="min-h-9 w-full rounded-md border border-sky-200 bg-white px-2 text-xs font-semibold text-sky-700 outline-none focus:border-sky-500 sm:w-auto" aria-label={`Data de ${aula.titulo}`} />
+							<input value={aula.titulo} onChange={(e) => atualizar(aula.id, { titulo: e.target.value })} className="min-h-9 min-w-0 flex-1 rounded-md border border-gray-200 bg-white px-2 text-sm text-gray-700 outline-none focus:border-sky-500" aria-label="Nome da aula" />
+							<select value={aula.tipo} onChange={(e) => atualizar(aula.id, { tipo: e.target.value as Aula["tipo"] })} className="min-h-9 rounded-md border border-orange-200 bg-white px-2 text-[10px] font-bold text-orange-800 outline-none focus:border-orange-500" aria-label="Tipo da aula"><option value="AULA">Aula</option><option value="FERIADO">Feriado</option><option value="CANCELADA">Cancelada</option><option value="ESPECIAL">Especial</option></select>
+							<button onClick={() => remover(aula.id)} className="grid min-h-9 min-w-9 place-items-center rounded-md text-gray-400 hover:bg-red-50 hover:text-red-500" aria-label="Remover aula"><Trash2 className="w-3.5 h-3.5" /></button>
+						</div>
 					</div>
 				))}
 				{aulas.length === 0 && (
@@ -474,15 +487,15 @@ function TurmaCard({
 	duplicando: boolean;
 }) {
 	return (
-		<div className="group min-w-0 overflow-hidden rounded-2xl shadow-[0_10px_24px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5" style={{ backgroundColor: turma.corFundo, fontFamily: turma.fonte === "SERIF" ? "Georgia, serif" : turma.fonte === "MONO" ? "ui-monospace, SFMono-Regular, Menlo, monospace" : undefined, boxShadow: `0 16px 30px ${turma.cor}24` }}>
-			<div className="relative overflow-hidden px-5 py-4" style={{ backgroundColor: turma.cor }}>
+		<div className="turma-card-tema group min-w-0 overflow-hidden rounded-2xl shadow-[0_10px_24px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5" style={{ backgroundColor: turma.corFundo, "--turma-texto": turma.corTexto, "--turma-descricao": turma.corDescricao, fontFamily: turma.fonte === "SERIF" ? "Georgia, serif" : turma.fonte === "MONO" ? "ui-monospace, SFMono-Regular, Menlo, monospace" : undefined, boxShadow: `0 16px 30px ${turma.cor}24` } as React.CSSProperties}>
+			<div className="turma-card-tema__cabecalho relative overflow-hidden px-5 py-4" style={{ backgroundColor: turma.cor }}>
 				<div className="absolute -right-6 -bottom-8 h-24 w-24 rounded-full" style={{ backgroundColor: turma.corDestaque }} />
 				<div className="relative flex items-start justify-between gap-2">
 					<div className="flex items-center gap-2.5 min-w-0">
 						<div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
 							<DoorOpen className="w-4.5 h-4.5 text-white" />
 						</div>
-						<span className="text-sm font-semibold text-white truncate">
+						<span className="text-sm font-semibold text-white truncate" style={{ color: turma.corTitulo }}>
 							{turma.titulo}
 						</span>
 					</div>
@@ -515,7 +528,7 @@ function TurmaCard({
 			</div>
 
 			<div className="p-5">
-				<p className="mb-3 truncate text-xs font-medium text-slate-600">
+				<p className="turma-card-descricao mb-3 truncate text-xs font-medium !text-[color:var(--turma-descricao)]">
 					{turma.professores?.length > 0
 						? turma.professores.join(", ")
 						: "Sem professor definido"}
@@ -523,17 +536,17 @@ function TurmaCard({
 						` · ${turma.monitores.join(", ")} (monitor)`}
 				</p>
 
-				<div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold text-slate-500">
-					<span className="flex items-center gap-1.5">
+				<div className="turma-card-descricao flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold text-slate-500">
+					<span className="flex items-center gap-1.5 !text-[color:var(--turma-descricao)]">
 						<Users className="w-3.5 h-3.5" style={{ color: turma.corDestaque }} />
 						{turma.alunos?.length ?? 0} alunos
 					</span>
-					<span className="flex items-center gap-1.5">
+					<span className="flex items-center gap-1.5 !text-[color:var(--turma-descricao)]">
 						<CalendarDays className="w-3.5 h-3.5" style={{ color: turma.corDestaque }} />
 						{turma.aulas?.length ?? 0} aulas
 					</span>
 					{turma.materiais?.length > 0 && (
-						<span className="flex items-center gap-1.5">
+						<span className="flex items-center gap-1.5 !text-[color:var(--turma-descricao)]">
 							<FolderOpen className="w-3.5 h-3.5" style={{ color: turma.corDestaque }} />
 							{turma.materiais.length} materiais
 						</span>
@@ -604,6 +617,9 @@ export default function TurmasDiretoria() {
 				cor: t.cor,
 				corDestaque: t.corDestaque,
 				corFundo: t.corFundo,
+				corTexto: t.corTexto,
+				corTitulo: t.corTitulo,
+				corDescricao: t.corDescricao,
 				fonte: t.fonte as Turma["fonte"],
 				professores: t.professores.map((v) => v.user.nome),
 				professorIds: t.professores.map((v) => v.user.id),
@@ -645,7 +661,7 @@ export default function TurmasDiretoria() {
 
 	const cancelar = () => setModo("lista");
 
-	const salvar = () => {
+	const salvar = async () => {
 		if (!rascunho.titulo.trim() || !rascunho.semestreId) return;
 		const payload = {
 			semestreId: rascunho.semestreId,
@@ -655,6 +671,9 @@ export default function TurmasDiretoria() {
 			cor: rascunho.cor,
 			corDestaque: rascunho.corDestaque,
 			corFundo: rascunho.corFundo,
+			corTexto: rascunho.corTexto,
+			corTitulo: rascunho.corTitulo,
+			corDescricao: rascunho.corDescricao,
 			fonte: rascunho.fonte,
 			professorIds: rascunho.professorIds,
 			monitorIds: rascunho.monitorIds,
@@ -670,12 +689,28 @@ export default function TurmasDiretoria() {
 				tipo: a.tipo,
 			})),
 		};
-		if (editandoId) {
-			atualizar.mutate({ ...payload, id: editandoId });
-		} else {
-			criar.mutate(payload);
+		try {
+			if (editandoId) {
+				await atualizar.mutateAsync({ ...payload, id: editandoId });
+				setTurmas((atuais) =>
+					atuais.map((turma) =>
+						turma.id === editandoId
+							? { ...rascunho, id: editandoId }
+							: turma,
+					),
+				);
+			} else {
+				await criar.mutateAsync(payload);
+			}
+			await utils.diretoria.turmas.list.invalidate();
+			setModo("lista");
+		} catch (erro) {
+			alert(
+				`Não foi possível salvar a turma: ${
+					erro instanceof Error ? erro.message : "tente novamente"
+				}`,
+			);
 		}
-		setModo("lista");
 	};
 
 	const excluir = (id: string) => {
@@ -814,11 +849,14 @@ export default function TurmasDiretoria() {
 							<section className="rounded-xl border border-gray-200 bg-gray-50 p-4">
 								<h3 className="text-sm font-semibold text-gray-900">Personalização da turma</h3>
 								<p className="mt-1 text-xs text-gray-500">Essas cores aparecem nos cards da Dashboard, da Diretoria e dentro da turma.</p>
-								<div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+								<div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-6">
 									{([
 										["cor", "Cor principal"],
 										["corDestaque", "Cor de destaque"],
 										["corFundo", "Fundo do card"],
+										["corTexto", "Cor do texto"],
+										["corTitulo", "Título do banner"],
+										["corDescricao", "Descrição"],
 									] as const).map(([campo, label]) => (
 										<label key={campo} className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-2.5 py-2 text-xs font-medium text-gray-600">
 											<input type="color" value={rascunho[campo]} onChange={(e) => setRascunho({ ...rascunho, [campo]: e.target.value })} className="h-8 w-8 cursor-pointer rounded border-0 bg-transparent p-0" aria-label={label} />
@@ -894,11 +932,11 @@ export default function TurmasDiretoria() {
 							</button>
 							<button
 								onClick={salvar}
-								disabled={!rascunho.titulo.trim() || !rascunho.semestreId}
+								disabled={!rascunho.titulo.trim() || !rascunho.semestreId || criar.isPending || atualizar.isPending}
 								className="flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-700 disabled:opacity-50"
 							>
 								<Check className="w-4 h-4" />
-								Salvar turma
+								{criar.isPending || atualizar.isPending ? "Salvando..." : "Salvar turma"}
 							</button>
 						</div>
 					</div>

@@ -156,6 +156,9 @@ model Turma {
   cor        String  @default("#1A73E8")
   corDestaque String @default("#ea580c")
   corFundo String @default("#f8fafc")
+  corTexto String @default("#0f172a")
+  corTitulo String @default("#ffffff")
+  corDescricao String @default("#64748b")
   fonte String @default("SANS")
   semestreId String
 

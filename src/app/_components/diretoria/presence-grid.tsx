@@ -15,13 +15,21 @@ export function PresenceGrid({
 	datas,
 	estadoNaData,
 	onAlterar,
+	cores,
 }: {
 	titulo: string;
 	pessoas: PessoaPresenca[];
 	datas: string[];
 	estadoNaData: (id: string, data: string) => EstadoPresenca;
 	onAlterar: (id: string, data: string, estado: EstadoPresenca) => void;
+	cores: { presente: string; ausente: string; justificado: string };
 }) {
+	const estados = ["PRESENTE", "AUSENTE", "JUSTIFICADO"] as const;
+	const totais = estados.map((estado) => ({
+		estado,
+		total: pessoas.reduce((acumulado, pessoa) => acumulado + datas.filter((dia) => estadoNaData(pessoa.id, dia) === estado).length, 0),
+	}));
+	const corDoEstado = (estado: EstadoPresenca) => estado === "PRESENTE" ? cores.presente : estado === "AUSENTE" ? cores.ausente : cores.justificado;
 	return (
 		<section className="min-w-0 overflow-hidden rounded-2xl bg-white shadow-[0_12px_30px_rgba(15,23,42,.06)]">
 			<div className="flex items-center justify-between gap-3 border-b border-sky-100 bg-sky-50/70 px-4 py-3 sm:px-5">
@@ -29,6 +37,9 @@ export function PresenceGrid({
 				<span className="shrink-0 text-xs font-semibold text-sky-700">
 					{pessoas.length} pessoa(s)
 				</span>
+			</div>
+			<div className="grid grid-cols-3 gap-2 border-b border-slate-100 p-3 sm:px-5">
+				{totais.map(({ estado, total }) => <div key={estado} className="rounded-lg border px-3 py-2" style={{ borderColor: `${corDoEstado(estado)}55`, backgroundColor: `${corDoEstado(estado)}12` }}><p className="text-xs font-semibold" style={{ color: corDoEstado(estado) }}>{estado === "PRESENTE" ? "Presentes" : estado === "AUSENTE" ? "Ausentes" : "Justificados"}</p><p className="mt-1 text-lg font-bold" style={{ color: corDoEstado(estado) }}>{total}</p></div>)}
 			</div>
 			{pessoas.length ? (
 				<div className="overflow-x-auto">
@@ -63,7 +74,8 @@ export function PresenceGrid({
 													<select
 														value={estado}
 														onChange={(event) => onAlterar(pessoa.id, dia, event.target.value as EstadoPresenca)}
-														className={`w-full rounded-lg border px-2 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-1 ${estado === "PRESENTE" ? "border-green-300 bg-green-50 text-green-800 focus:ring-green-600" : estado === "AUSENTE" ? "border-red-300 bg-red-50 text-red-800 focus:ring-red-600" : "border-amber-300 bg-amber-50 text-amber-800 focus:ring-amber-600"}`}
+													className="w-full rounded-lg border px-2 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-1"
+													style={{ color: corDoEstado(estado), borderColor: `${corDoEstado(estado)}66`, backgroundColor: `${corDoEstado(estado)}12` }}
 													>
 														<option value="PRESENTE">Presente</option>
 														<option value="AUSENTE">Ausente</option>

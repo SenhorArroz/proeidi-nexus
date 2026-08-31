@@ -2,7 +2,7 @@
 
 /* Tema individual da turma: links, ícones e ações herdam a cor de destaque. */
 .turma-tema :is(.text-sky-600, .text-sky-700, .text-blue-600, .text-blue-700) { color: var(--turma-destaque) !important; }
-.turma-tema :is(.bg-sky-600, .bg-blue-600) { background-color: var(--turma-destaque) !important; }
+.turma-tema :is(.bg-sky-600, .bg-blue-600) { background-color: var(--turma-destaque) !important; color: var(--turma-destaque-text, #fff) !important; }
 .turma-tema :is(.border-sky-200, .border-sky-300) { border-color: color-mix(in srgb, var(--turma-destaque) 35%, white) !important; }
 .turma-tema :is(.bg-sky-50, .bg-blue-50) { background-color: color-mix(in srgb, var(--turma-destaque) 10%, white) !important; }
 
@@ -276,7 +276,7 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 		--contrast-ink: #000;
 		--contrast-border: #000;
 	}
-	html[data-contrast="high"][data-theme="dark"] {
+html[data-contrast="high"][data-theme="dark"] {
 		--contrast-surface: #000;
 		--contrast-ink: #fff;
 		--contrast-border: #fff;
@@ -340,6 +340,33 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 		outline-offset: 3px;
 	}
 }
+
+/* Cor tipográfica definida por turma: precisa prevalecer inclusive no tema escuro. */
+.turma-tema__conteudo {
+	color: var(--turma-texto, #0f172a) !important;
+}
+
+.turma-tema__conteudo :is(.text-slate-500, .text-slate-600, .text-slate-700, .text-slate-800, .text-slate-900, .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900) {
+	color: var(--turma-texto, #0f172a) !important;
+}
+
+/* O tema escuro não pode substituir a cor tipográfica escolhida para a turma. */
+html[data-theme="dark"] .turma-card-tema :is(.text-slate-500, .text-slate-600, .text-slate-700, .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700),
+html[data-theme="dark"] .turma-tema__conteudo :is(.text-slate-500, .text-slate-600, .text-slate-700, .text-slate-800, .text-slate-900, .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900) {
+	color: var(--turma-texto, #0f172a) !important;
+}
+
+/* Contadores e metadados dos cards usam a cor de descrição escolhida. */
+.turma-card-tema .turma-card-descricao,
+.turma-card-tema .turma-card-descricao :is(p, span) {
+	color: var(--turma-descricao, #64748b) !important;
+}
+
+html[data-theme="dark"] .turma-card-tema .turma-card-descricao,
+html[data-theme="dark"] .turma-card-tema .turma-card-descricao :is(p, span) {
+	color: var(--turma-descricao, #64748b) !important;
+}
+
 
 @layer components {
 	.diretoria-workspace {
@@ -689,4 +716,23 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 	.sorteador-footer {
 		display: none;
 	}
+}
+
+/* Cores semânticas da página interna de turmas. Mantêm a personalização da
+   turma no modo escuro, mesmo quando as regras globais reajustam o Tailwind. */
+.turma-tema .turma-semantic-text {
+	color: var(--turma-texto, #0f172a) !important;
+}
+
+.turma-tema .turma-semantic-description {
+	color: var(--turma-descricao, #64748b) !important;
+}
+
+.turma-tema .turma-semantic-accent {
+	color: var(--turma-destaque, #ea580c) !important;
+}
+
+.turma-tema .turma-presenca-titulo,
+.turma-tema .turma-presenca-icone {
+	color: var(--turma-secao-cor, var(--turma-destaque, #ea580c)) !important;
 }

@@ -9033,6 +9033,9 @@ export namespace Prisma {
     cor: string | null
     corDestaque: string | null
     corFundo: string | null
+    corTexto: string | null
+    corTitulo: string | null
+    corDescricao: string | null
     fonte: string | null
     semestreId: string | null
   }
@@ -9045,6 +9048,9 @@ export namespace Prisma {
     cor: string | null
     corDestaque: string | null
     corFundo: string | null
+    corTexto: string | null
+    corTitulo: string | null
+    corDescricao: string | null
     fonte: string | null
     semestreId: string | null
   }
@@ -9057,6 +9063,9 @@ export namespace Prisma {
     cor: number
     corDestaque: number
     corFundo: number
+    corTexto: number
+    corTitulo: number
+    corDescricao: number
     fonte: number
     semestreId: number
     _all: number
@@ -9071,6 +9080,9 @@ export namespace Prisma {
     cor?: true
     corDestaque?: true
     corFundo?: true
+    corTexto?: true
+    corTitulo?: true
+    corDescricao?: true
     fonte?: true
     semestreId?: true
   }
@@ -9083,6 +9095,9 @@ export namespace Prisma {
     cor?: true
     corDestaque?: true
     corFundo?: true
+    corTexto?: true
+    corTitulo?: true
+    corDescricao?: true
     fonte?: true
     semestreId?: true
   }
@@ -9095,6 +9110,9 @@ export namespace Prisma {
     cor?: true
     corDestaque?: true
     corFundo?: true
+    corTexto?: true
+    corTitulo?: true
+    corDescricao?: true
     fonte?: true
     semestreId?: true
     _all?: true
@@ -9180,6 +9198,9 @@ export namespace Prisma {
     cor: string
     corDestaque: string
     corFundo: string
+    corTexto: string
+    corTitulo: string
+    corDescricao: string
     fonte: string
     semestreId: string
     _count: TurmaCountAggregateOutputType | null
@@ -9209,6 +9230,9 @@ export namespace Prisma {
     cor?: boolean
     corDestaque?: boolean
     corFundo?: boolean
+    corTexto?: boolean
+    corTitulo?: boolean
+    corDescricao?: boolean
     fonte?: boolean
     semestreId?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
@@ -9231,6 +9255,9 @@ export namespace Prisma {
     cor?: boolean
     corDestaque?: boolean
     corFundo?: boolean
+    corTexto?: boolean
+    corTitulo?: boolean
+    corDescricao?: boolean
     fonte?: boolean
     semestreId?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
@@ -9244,6 +9271,9 @@ export namespace Prisma {
     cor?: boolean
     corDestaque?: boolean
     corFundo?: boolean
+    corTexto?: boolean
+    corTitulo?: boolean
+    corDescricao?: boolean
     fonte?: boolean
     semestreId?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
@@ -9257,11 +9287,14 @@ export namespace Prisma {
     cor?: boolean
     corDestaque?: boolean
     corFundo?: boolean
+    corTexto?: boolean
+    corTitulo?: boolean
+    corDescricao?: boolean
     fonte?: boolean
     semestreId?: boolean
   }
 
-  export type TurmaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "sala" | "horario" | "cor" | "corDestaque" | "corFundo" | "fonte" | "semestreId", ExtArgs["result"]["turma"]>
+  export type TurmaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "sala" | "horario" | "cor" | "corDestaque" | "corFundo" | "corTexto" | "corTitulo" | "corDescricao" | "fonte" | "semestreId", ExtArgs["result"]["turma"]>
   export type TurmaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     professores?: boolean | Turma$professoresArgs<ExtArgs>
@@ -9302,6 +9335,9 @@ export namespace Prisma {
       cor: string
       corDestaque: string
       corFundo: string
+      corTexto: string
+      corTitulo: string
+      corDescricao: string
       fonte: string
       semestreId: string
     }, ExtArgs["result"]["turma"]>
@@ -9743,6 +9779,9 @@ export namespace Prisma {
     readonly cor: FieldRef<"Turma", 'String'>
     readonly corDestaque: FieldRef<"Turma", 'String'>
     readonly corFundo: FieldRef<"Turma", 'String'>
+    readonly corTexto: FieldRef<"Turma", 'String'>
+    readonly corTitulo: FieldRef<"Turma", 'String'>
+    readonly corDescricao: FieldRef<"Turma", 'String'>
     readonly fonte: FieldRef<"Turma", 'String'>
     readonly semestreId: FieldRef<"Turma", 'String'>
   }
@@ -29142,6 +29181,9 @@ export namespace Prisma {
     cor: 'cor',
     corDestaque: 'corDestaque',
     corFundo: 'corFundo',
+    corTexto: 'corTexto',
+    corTitulo: 'corTitulo',
+    corDescricao: 'corDescricao',
     fonte: 'fonte',
     semestreId: 'semestreId'
   };
@@ -29953,6 +29995,9 @@ export namespace Prisma {
     cor?: StringFilter<"Turma"> | string
     corDestaque?: StringFilter<"Turma"> | string
     corFundo?: StringFilter<"Turma"> | string
+    corTexto?: StringFilter<"Turma"> | string
+    corTitulo?: StringFilter<"Turma"> | string
+    corDescricao?: StringFilter<"Turma"> | string
     fonte?: StringFilter<"Turma"> | string
     semestreId?: StringFilter<"Turma"> | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
@@ -29974,6 +30019,9 @@ export namespace Prisma {
     cor?: SortOrder
     corDestaque?: SortOrder
     corFundo?: SortOrder
+    corTexto?: SortOrder
+    corTitulo?: SortOrder
+    corDescricao?: SortOrder
     fonte?: SortOrder
     semestreId?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
@@ -29998,6 +30046,9 @@ export namespace Prisma {
     cor?: StringFilter<"Turma"> | string
     corDestaque?: StringFilter<"Turma"> | string
     corFundo?: StringFilter<"Turma"> | string
+    corTexto?: StringFilter<"Turma"> | string
+    corTitulo?: StringFilter<"Turma"> | string
+    corDescricao?: StringFilter<"Turma"> | string
     fonte?: StringFilter<"Turma"> | string
     semestreId?: StringFilter<"Turma"> | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
@@ -30019,6 +30070,9 @@ export namespace Prisma {
     cor?: SortOrder
     corDestaque?: SortOrder
     corFundo?: SortOrder
+    corTexto?: SortOrder
+    corTitulo?: SortOrder
+    corDescricao?: SortOrder
     fonte?: SortOrder
     semestreId?: SortOrder
     _count?: TurmaCountOrderByAggregateInput
@@ -30037,6 +30091,9 @@ export namespace Prisma {
     cor?: StringWithAggregatesFilter<"Turma"> | string
     corDestaque?: StringWithAggregatesFilter<"Turma"> | string
     corFundo?: StringWithAggregatesFilter<"Turma"> | string
+    corTexto?: StringWithAggregatesFilter<"Turma"> | string
+    corTitulo?: StringWithAggregatesFilter<"Turma"> | string
+    corDescricao?: StringWithAggregatesFilter<"Turma"> | string
     fonte?: StringWithAggregatesFilter<"Turma"> | string
     semestreId?: StringWithAggregatesFilter<"Turma"> | string
   }
@@ -31563,6 +31620,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
@@ -31583,6 +31643,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -31603,6 +31666,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
@@ -31623,6 +31689,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -31643,6 +31712,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestreId: string
   }
@@ -31655,6 +31727,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
   }
 
@@ -31666,6 +31741,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
   }
@@ -33335,6 +33413,9 @@ export namespace Prisma {
     cor?: SortOrder
     corDestaque?: SortOrder
     corFundo?: SortOrder
+    corTexto?: SortOrder
+    corTitulo?: SortOrder
+    corDescricao?: SortOrder
     fonte?: SortOrder
     semestreId?: SortOrder
   }
@@ -33347,6 +33428,9 @@ export namespace Prisma {
     cor?: SortOrder
     corDestaque?: SortOrder
     corFundo?: SortOrder
+    corTexto?: SortOrder
+    corTitulo?: SortOrder
+    corDescricao?: SortOrder
     fonte?: SortOrder
     semestreId?: SortOrder
   }
@@ -33359,6 +33443,9 @@ export namespace Prisma {
     cor?: SortOrder
     corDestaque?: SortOrder
     corFundo?: SortOrder
+    corTexto?: SortOrder
+    corTitulo?: SortOrder
+    corDescricao?: SortOrder
     fonte?: SortOrder
     semestreId?: SortOrder
   }
@@ -36761,6 +36848,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
@@ -36780,6 +36870,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -36936,6 +37029,9 @@ export namespace Prisma {
     cor?: StringFilter<"Turma"> | string
     corDestaque?: StringFilter<"Turma"> | string
     corFundo?: StringFilter<"Turma"> | string
+    corTexto?: StringFilter<"Turma"> | string
+    corTitulo?: StringFilter<"Turma"> | string
+    corDescricao?: StringFilter<"Turma"> | string
     fonte?: StringFilter<"Turma"> | string
     semestreId?: StringFilter<"Turma"> | string
   }
@@ -37481,6 +37577,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
@@ -37500,6 +37599,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestreId: string
     monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -37586,6 +37688,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
@@ -37605,6 +37710,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -37669,6 +37777,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
@@ -37688,6 +37799,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -37774,6 +37888,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
@@ -37793,6 +37910,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -37881,6 +38001,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
@@ -37900,6 +38023,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -38010,6 +38136,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
@@ -38029,6 +38158,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -38182,6 +38314,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
@@ -38201,6 +38336,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -38236,6 +38374,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
@@ -38255,6 +38396,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -38274,6 +38418,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
@@ -38293,6 +38440,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -38328,6 +38478,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
@@ -38347,6 +38500,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -38366,6 +38522,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
@@ -38385,6 +38544,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -38465,6 +38627,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
@@ -38484,6 +38649,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -38554,6 +38722,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
@@ -38573,6 +38744,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -38653,6 +38827,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
@@ -38672,6 +38849,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -38742,6 +38922,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestre: SemestreCreateNestedOneWithoutTurmasInput
     professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
@@ -38761,6 +38944,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
     semestreId: string
     professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
@@ -38862,6 +39048,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
@@ -38881,6 +39070,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -40081,6 +40273,9 @@ export namespace Prisma {
     cor?: string
     corDestaque?: string
     corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
     fonte?: string
   }
 
@@ -40134,6 +40329,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
@@ -40153,6 +40351,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
     monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
@@ -40172,6 +40373,9 @@ export namespace Prisma {
     cor?: StringFieldUpdateOperationsInput | string
     corDestaque?: StringFieldUpdateOperationsInput | string
     corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
   }
 
