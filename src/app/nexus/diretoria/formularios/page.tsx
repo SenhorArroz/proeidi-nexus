@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
     FileText,
     Plus,
@@ -64,7 +64,9 @@ function IconeOpcao({ tipo, className }: { tipo: TipoPergunta; className?: strin
 
 export default function EditorFormulario() {
 	const searchParams = useSearchParams();
-	const formularioId = searchParams.get("id");
+	const router = useRouter();
+	const [idPublicado, setIdPublicado] = useState<string | null>(null);
+	const formularioId = searchParams.get("id") ?? idPublicado;
 	const utils = api.useUtils();
     const [titulo, setTitulo] = useState("Pesquisa de Satisfação");
     const [descricao, setDescricao] = useState("Deixe sua opinião sobre o módulo.");
@@ -74,7 +76,7 @@ export default function EditorFormulario() {
 	const [configuracao, setConfiguracao] = useState<ConfiguracaoFormulario>(CONFIGURACAO_PADRAO);
     const [ativoId, setAtivoId] = useState<string | null>("header");
 	const { data: formularioExistente, isLoading: carregandoFormulario } = api.formulario.stats.useQuery({ id: formularioId! }, { enabled: Boolean(formularioId) });
-	const criarFormulario = api.formulario.create.useMutation({ onSuccess: () => utils.formulario.list.invalidate() });
+	const criarFormulario = api.formulario.create.useMutation({ onSuccess: async (formulario) => { setIdPublicado(formulario.id); router.replace(`/nexus/diretoria/formularios?id=${formulario.id}`); await utils.formulario.list.invalidate(); } });
 	const atualizarFormulario = api.formulario.update.useMutation({ onSuccess: () => utils.formulario.list.invalidate() });
 
     const [perguntas, setPerguntas] = useState<Pergunta[]>([

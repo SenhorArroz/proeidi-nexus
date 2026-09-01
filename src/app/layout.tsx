@@ -27,7 +27,7 @@ export default function RootLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
-		<html className={`${geist.variable}`} lang="en">
+		<html className={`${geist.variable}`} data-theme="light" lang="pt-BR">
 			<body>
 				<AccessibilityProvider>
 					<TRPCReactProvider>{children}</TRPCReactProvider>

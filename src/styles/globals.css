@@ -48,6 +48,14 @@ html[data-theme="dark"] .sidebar-user-name {
 	color: #e0f2fe !important;
 }
 
+html[data-theme="light"] {
+	color-scheme: light;
+	background: #f8fafc;
+}
+html[data-theme="light"] body {
+	background: #f8fafc;
+}
+
 html[data-theme="dark"] .sidebar-user-name .terminal-cursor {
 	color: #fbbf24 !important;
 }
