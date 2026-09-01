@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import {
     FileText,
     Plus,
@@ -24,6 +25,7 @@ import { api } from "~/trpc/react";
 type TipoPergunta = "short_text" | "paragraph" | "multiple_choice" | "checkbox";
 type ModoResposta = "ANONIMO" | "IDENTIFICADO_POR_COOKIE";
 type ConfiguracaoFormulario = { corPrimaria: string; corDestaque: string; corFundo: string; fonte: "SANS" | "SERIF" | "MONO"; mostrarProgresso: boolean; atribuirPontuacao: boolean };
+const CONFIGURACAO_PADRAO: ConfiguracaoFormulario = { corPrimaria: "#0284c7", corDestaque: "#ea580c", corFundo: "#f8fafc", fonte: "SANS", mostrarProgresso: true, atribuirPontuacao: false };
 
 interface Opcao {
     id: string;
@@ -61,15 +63,19 @@ function IconeOpcao({ tipo, className }: { tipo: TipoPergunta; className?: strin
 // ---------------------------------------------------------------------------
 
 export default function EditorFormulario() {
+	const searchParams = useSearchParams();
+	const formularioId = searchParams.get("id");
 	const utils = api.useUtils();
     const [titulo, setTitulo] = useState("Pesquisa de Satisfação");
     const [descricao, setDescricao] = useState("Deixe sua opinião sobre o módulo.");
 	const [modoResposta, setModoResposta] = useState<ModoResposta>("ANONIMO");
 	const [limitarPorNavegador, setLimitarPorNavegador] = useState(false);
 	const [configuracoesAbertas, setConfiguracoesAbertas] = useState(false);
-	const [configuracao, setConfiguracao] = useState<ConfiguracaoFormulario>({ corPrimaria: "#0284c7", corDestaque: "#ea580c", corFundo: "#f8fafc", fonte: "SANS", mostrarProgresso: true, atribuirPontuacao: false });
+	const [configuracao, setConfiguracao] = useState<ConfiguracaoFormulario>(CONFIGURACAO_PADRAO);
     const [ativoId, setAtivoId] = useState<string | null>("header");
-	const salvarFormulario = api.formulario.create.useMutation({ onSuccess: () => utils.formulario.list.invalidate() });
+	const { data: formularioExistente, isLoading: carregandoFormulario } = api.formulario.stats.useQuery({ id: formularioId! }, { enabled: Boolean(formularioId) });
+	const criarFormulario = api.formulario.create.useMutation({ onSuccess: () => utils.formulario.list.invalidate() });
+	const atualizarFormulario = api.formulario.update.useMutation({ onSuccess: () => utils.formulario.list.invalidate() });
 
     const [perguntas, setPerguntas] = useState<Pergunta[]>([
         {
@@ -84,6 +90,19 @@ export default function EditorFormulario() {
             obrigatoria: true,
         }
     ]);
+
+	useEffect(() => {
+		if (!formularioExistente?.formulario) return;
+		const formulario = formularioExistente.formulario;
+		const conteudo = formulario.conteudo as { perguntas?: Pergunta[] };
+		setTitulo(formulario.titulo);
+		setDescricao(formulario.descricao ?? "");
+		setModoResposta(formulario.modoResposta);
+		setLimitarPorNavegador(formulario.limitarPorNavegador);
+		setConfiguracao({ ...CONFIGURACAO_PADRAO, ...(formulario.configuracao as Partial<ConfiguracaoFormulario> | null) });
+		if (conteudo.perguntas?.length) setPerguntas(conteudo.perguntas);
+		setAtivoId("header");
+	}, [formularioExistente]);
 
     // Funções de manipulação
     const adicionarPergunta = () => {
@@ -148,10 +167,17 @@ export default function EditorFormulario() {
         }));
     };
 
-	const salvar = () => salvarFormulario.mutate({ titulo: titulo.trim(), descricao: descricao.trim() || null, conteudo: { perguntas: perguntas.filter((pergunta) => pergunta.titulo.trim()).map((pergunta) => ({ ...pergunta, titulo: pergunta.titulo.trim(), opcoes: pergunta.opcoes.filter((opcao) => opcao.texto.trim()).map((opcao) => ({ ...opcao, texto: opcao.texto.trim() })) })) }, publicado: true, modoResposta, limitarPorNavegador, configuracao });
+	const salvar = () => {
+		const dados = { titulo: titulo.trim(), descricao: descricao.trim() || null, conteudo: { perguntas: perguntas.filter((pergunta) => pergunta.titulo.trim()).map((pergunta) => ({ ...pergunta, titulo: pergunta.titulo.trim(), opcoes: pergunta.opcoes.filter((opcao) => opcao.texto.trim()).map((opcao) => ({ ...opcao, texto: opcao.texto.trim() })) })) }, publicado: true, modoResposta, limitarPorNavegador, configuracao };
+		if (formularioId) atualizarFormulario.mutate({ id: formularioId, ...dados });
+		else criarFormulario.mutate(dados);
+	};
+	const salvando = criarFormulario.isPending || atualizarFormulario.isPending;
+	const erroSalvar = criarFormulario.error ?? atualizarFormulario.error;
+	const formularioSalvo = criarFormulario.data ?? atualizarFormulario.data;
 
     return (
-        <div className="flex min-h-full w-full flex-col items-center overflow-x-clip bg-gray-50 px-3 py-6 pb-32 font-sans sm:px-4 sm:py-10">
+        <div className="flex min-h-full w-full flex-col items-center overflow-x-clip  px-3 py-6 pb-32 font-sans sm:px-4 sm:py-10">
             
             <div className="w-full max-w-3xl">
                 <BotaoVoltar href="/nexus/diretoria/questionarios" label="Voltar para Questionários" />
@@ -169,10 +195,10 @@ export default function EditorFormulario() {
                         </div>
                         <div className="min-w-0">
                             <h1 className="text-[clamp(1rem,1.8vw,1.375rem)] font-semibold text-white leading-tight truncate">
-                                Editor de Formulário
+                                {formularioId ? "Editar questionário" : "Editor de Formulário"}
                             </h1>
                             <p className="text-[clamp(0.65rem,1vw,0.8rem)] text-white/70 truncate">
-                                Criando novo formulário de avaliação
+                                {formularioId ? "Atualize perguntas, configurações e publicação" : "Criando novo formulário de avaliação"}
                             </p>
                         </div>
                     </div>
@@ -408,9 +434,10 @@ export default function EditorFormulario() {
                         Adicionar pergunta
                     </button>
                 </div>
-				<div className="sticky bottom-4 flex justify-end"><button onClick={salvar} disabled={salvarFormulario.isPending || !titulo.trim() || !perguntas.some((pergunta) => pergunta.titulo.trim())} className="min-h-11 w-full rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-sky-200 hover:bg-sky-700 disabled:opacity-50 sm:w-auto">{salvarFormulario.isPending ? "Publicando…" : "Publicar questionário"}</button></div>
-				{salvarFormulario.error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{salvarFormulario.error.message}</p>}
-				{salvarFormulario.data && <p role="status" className="rounded-xl bg-green-50 p-3 text-sm text-green-800">Questionário publicado. Link: <a className="font-bold underline" href={`/questionarios/${salvarFormulario.data.slug}`} target="_blank">/questionarios/{salvarFormulario.data.slug}</a></p>}
+				{formularioId && carregandoFormulario && <p className="rounded-xl bg-sky-50 p-3 text-sm text-sky-800">Carregando questionário…</p>}
+				<div className="sticky bottom-4 flex justify-end"><button onClick={salvar} disabled={salvando || carregandoFormulario || !titulo.trim() || !perguntas.some((pergunta) => pergunta.titulo.trim())} className="min-h-11 w-full rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-sky-200 hover:bg-sky-700 disabled:opacity-50 sm:w-auto">{salvando ? "Salvando…" : formularioId ? "Salvar alterações" : "Publicar questionário"}</button></div>
+				{erroSalvar && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{erroSalvar.message}</p>}
+				{formularioSalvo && <p role="status" className="rounded-xl bg-green-50 p-3 text-sm text-green-800">{formularioId ? "Alterações salvas." : "Questionário publicado."} Link: <a className="font-bold underline" href={`/questionarios/${formularioSalvo.slug}`} target="_blank">/questionarios/{formularioSalvo.slug}</a></p>}
 
             </div>
         </div>

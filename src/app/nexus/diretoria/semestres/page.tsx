@@ -38,7 +38,7 @@ export default function SemestresDiretoria() {
 	});
 
 	return (
-		<div className="min-h-screen w-full min-w-0 bg-gray-50 px-3 py-6 font-sans sm:px-4 sm:py-10">
+		<div className="diretoria-page-canvas min-h-full w-full min-w-0 px-3font-sans sm:px-4 sm:py-5">
 			<div className="mx-auto w-full max-w-5xl">
 				<DiretoriaBackLink />
 				<div className="mb-6"><DiretoriaPageIntro icon={CalendarDays} title="Gerenciar semestres" description="Defina o período ativo e acompanhe as pessoas vinculadas pelas turmas." /></div>

@@ -684,6 +684,7 @@ export const diretoriaRouter = createTRPCRouter({
 						materiais: {
 							select: { id: true, titulo: true, tipo: true, url: true },
 						},
+						_count: { select: { anotacoes: true } },
 						eventos: { select: { id: true, data: true, titulo: true, tipo: true } },
 					},
 					orderBy: { titulo: "asc" },

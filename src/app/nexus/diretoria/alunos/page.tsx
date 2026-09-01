@@ -516,7 +516,7 @@ export default function GerenciarAlunos() {
 	};
 
 	return (
-		<div className="min-h-screen min-w-0 bg-gray-50 flex flex-col font-sans p-3 pb-32 sm:p-8">
+		<div className="diretoria-page-canvas min-h-full min-w-0 flex flex-col font-sans p-3 pb-32 sm:p-8">
 			<div className="max-w-7xl w-full mx-auto space-y-6">
 				<DiretoriaBackLink />
 				<DiretoriaPageIntro icon={GraduationCap} title="Gerenciar alunos" description="Cadastro completo, perfil demográfico e emissão de certificados." />

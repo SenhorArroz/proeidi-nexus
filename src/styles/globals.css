@@ -1,10 +1,26 @@
 @import "tailwindcss";
 
+/* O modo visual é uma escolha do usuário no Nexus, não do sistema operacional. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* Tema individual da turma: links, ícones e ações herdam a cor de destaque. */
-.turma-tema :is(.text-sky-600, .text-sky-700, .text-blue-600, .text-blue-700) { color: var(--turma-destaque) !important; }
-.turma-tema :is(.bg-sky-600, .bg-blue-600) { background-color: var(--turma-destaque) !important; color: var(--turma-destaque-text, #fff) !important; }
-.turma-tema :is(.border-sky-200, .border-sky-300) { border-color: color-mix(in srgb, var(--turma-destaque) 35%, white) !important; }
-.turma-tema :is(.bg-sky-50, .bg-blue-50) { background-color: color-mix(in srgb, var(--turma-destaque) 10%, white) !important; }
+.turma-tema :is(.text-sky-600, .text-sky-700, .text-blue-600, .text-blue-700) {
+	color: var(--turma-destaque) !important;
+}
+.turma-tema :is(.bg-sky-600, .bg-blue-600) {
+	background-color: var(--turma-destaque) !important;
+	color: var(--turma-destaque-text, #fff) !important;
+}
+.turma-tema :is(.border-sky-200, .border-sky-300) {
+	border-color: color-mix(in srgb, var(--turma-destaque) 35%, white) !important;
+}
+.turma-tema :is(.bg-sky-50, .bg-blue-50) {
+	background-color: color-mix(
+		in srgb,
+		var(--turma-destaque) 10%,
+		white
+	) !important;
+}
 
 @theme {
 	--font-sans:
@@ -44,9 +60,22 @@ html[data-theme="dark"] .sidebar-user-name .terminal-cursor {
 
 /* Accessibility overrides stay outside Tailwind's layers so custom Directorate
    component styles and utility classes cannot overwrite the selected theme. */
-html[data-theme="dark"]
-:is(.bg-white, .bg-white\/95, .bg-slate-50, .bg-gray-50) {
+html[data-theme="dark"] :is(.bg-white, .bg-white\/95) {
 	background-color: #162033 !important;
+}
+html[data-theme="dark"] :is(.bg-slate-50, .bg-gray-50) {
+	background-color: #0b1220 !important;
+}
+
+html[data-theme="dark"] .nexus-dashboard {
+	background:
+		radial-gradient(circle at 95% 0%, rgb(14 165 233 / 0.14), transparent 25rem),
+		radial-gradient(
+			circle at 76% 12rem,
+			rgb(249 115 22 / 0.1),
+			transparent 19rem
+		),
+		#0b1220 !important;
 }
 html[data-theme="dark"]
 	:is(
@@ -61,6 +90,11 @@ html[data-theme="dark"]
 		.bg-emerald-50,
 		.bg-green-50
 	) {
+	background-color: #1e2b40 !important;
+}
+/* Inclui utilitários com transparência (ex.: bg-sky-50/60), que não são
+   alcançados pelo seletor .bg-sky-50 puro. */
+html[data-theme="dark"] [class*="bg-sky-50/"] {
 	background-color: #1e2b40 !important;
 }
 html[data-theme="dark"]
@@ -163,6 +197,9 @@ html[data-contrast="high"]
 		.bg-emerald-50,
 		.bg-green-50
 	) {
+	background-color: var(--contrast-surface) !important;
+}
+html[data-contrast="high"] [class*="bg-sky-50/"] {
 	background-color: var(--contrast-surface) !important;
 }
 html[data-contrast="high"]
@@ -276,7 +313,7 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 		--contrast-ink: #000;
 		--contrast-border: #000;
 	}
-html[data-contrast="high"][data-theme="dark"] {
+	html[data-contrast="high"][data-theme="dark"] {
 		--contrast-surface: #000;
 		--contrast-ink: #fff;
 		--contrast-border: #fff;
@@ -346,13 +383,50 @@ html[data-contrast="high"][data-theme="dark"] {
 	color: var(--turma-texto, #0f172a) !important;
 }
 
-.turma-tema__conteudo :is(.text-slate-500, .text-slate-600, .text-slate-700, .text-slate-800, .text-slate-900, .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900) {
+.turma-tema__conteudo
+	:is(
+		.text-slate-500,
+		.text-slate-600,
+		.text-slate-700,
+		.text-slate-800,
+		.text-slate-900,
+		.text-gray-400,
+		.text-gray-500,
+		.text-gray-600,
+		.text-gray-700,
+		.text-gray-800,
+		.text-gray-900
+	) {
 	color: var(--turma-texto, #0f172a) !important;
 }
 
 /* O tema escuro não pode substituir a cor tipográfica escolhida para a turma. */
-html[data-theme="dark"] .turma-card-tema :is(.text-slate-500, .text-slate-600, .text-slate-700, .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700),
-html[data-theme="dark"] .turma-tema__conteudo :is(.text-slate-500, .text-slate-600, .text-slate-700, .text-slate-800, .text-slate-900, .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900) {
+html[data-theme="dark"]
+	.turma-card-tema
+	:is(
+		.text-slate-500,
+		.text-slate-600,
+		.text-slate-700,
+		.text-gray-400,
+		.text-gray-500,
+		.text-gray-600,
+		.text-gray-700
+	),
+html[data-theme="dark"]
+	.turma-tema__conteudo
+	:is(
+		.text-slate-500,
+		.text-slate-600,
+		.text-slate-700,
+		.text-slate-800,
+		.text-slate-900,
+		.text-gray-400,
+		.text-gray-500,
+		.text-gray-600,
+		.text-gray-700,
+		.text-gray-800,
+		.text-gray-900
+	) {
 	color: var(--turma-texto, #0f172a) !important;
 }
 
@@ -367,8 +441,14 @@ html[data-theme="dark"] .turma-card-tema .turma-card-descricao :is(p, span) {
 	color: var(--turma-descricao, #64748b) !important;
 }
 
-
 @layer components {
+	.diretoria-page-canvas {
+		background: transparent !important;
+		min-width: 0;
+		max-width: 100%;
+		overflow-x: clip;
+	}
+
 	.diretoria-workspace {
 		background:
 			radial-gradient(
@@ -395,6 +475,10 @@ html[data-theme="dark"] .turma-card-tema .turma-card-descricao :is(p, span) {
 		background: rgb(248 250 252 / 0.88);
 		border-bottom: 1px solid rgb(186 230 253 / 0.8);
 		backdrop-filter: blur(14px);
+	}
+	.diretoria-workspace__content {
+		min-width: 0;
+		padding-top: 0.2rem;
 	}
 	.diretoria-workspace__crumb {
 		display: flex;
@@ -504,10 +588,13 @@ html[data-theme="dark"] .turma-card-tema .turma-card-descricao :is(p, span) {
 		line-height: 1.5;
 	}
 	.diretoria-back-link {
-		display: inline-flex;
+		display: flex;
+		position: relative;
+		z-index: 1;
+		width: fit-content;
 		align-items: center;
 		gap: 0.45rem;
-		margin-bottom: 0.9rem;
+		margin: 0.25rem 0 0.8rem;
 		color: #0369a1;
 		font-size: 0.82rem;
 		font-weight: 800;
@@ -571,6 +658,9 @@ html[data-theme="dark"] .turma-card-tema .turma-card-descricao :is(p, span) {
 	.diretoria-workspace__bar {
 		padding: 0.75rem 1rem;
 	}
+	.diretoria-workspace__content {
+		padding-top: 0.1rem;
+	}
 	.diretoria-workspace__crumb {
 		font-size: 0.82rem;
 	}
@@ -607,7 +697,13 @@ html[data-theme="dark"] .turma-card-tema .turma-card-descricao :is(p, span) {
 }
 
 @media (pointer: coarse) {
-	.nexus-main :where(button, a[href], input:not([type="checkbox"]):not([type="radio"]), select) {
+	.nexus-main
+		:where(
+			button,
+			a[href],
+			input:not([type="checkbox"]):not([type="radio"]),
+			select
+		) {
 		min-height: 2.75rem;
 	}
 }

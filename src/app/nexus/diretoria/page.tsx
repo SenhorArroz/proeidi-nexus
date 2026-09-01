@@ -35,7 +35,7 @@ interface Ferramenta {
 const FERRAMENTAS: Ferramenta[] = [
 	{
 		id: "semestres",
-		nome: "Gerenciar semestres",
+		nome: "Gerenciar Semestres",
 		descricao: "Períodos letivos, semestre ativo e equipes vinculadas",
 		link: "/nexus/diretoria/semestres",
 		icon: Briefcase,
@@ -43,7 +43,7 @@ const FERRAMENTAS: Ferramenta[] = [
 	},
 	{
 		id: "turmas",
-		nome: "Gerenciar turmas",
+		nome: "Gerenciar Turmas",
 		descricao: "Criar, editar e arquivar turmas",
 		link: "/nexus/diretoria/turmas",
 		icon: DoorOpen,
@@ -51,7 +51,7 @@ const FERRAMENTAS: Ferramenta[] = [
 	},
 	{
 		id: "professores",
-		nome: "Gerenciar professores",
+		nome: "Gerenciar Professores",
 		descricao: "Cadastro, turmas atribuídas e permissões",
 		link: "/nexus/diretoria/professores",
 		icon: Users,
@@ -59,7 +59,7 @@ const FERRAMENTAS: Ferramenta[] = [
 	},
 	{
 		id: "diretores",
-		nome: "Gerenciar diretores",
+		nome: "Gerenciar Diretores",
 		descricao: "Cadastro e controle de acesso dos diretores",
 		link: "/nexus/diretoria/diretores",
 		icon: Building2,
@@ -67,7 +67,7 @@ const FERRAMENTAS: Ferramenta[] = [
 	},
 	{
 		id: "monitores",
-		nome: "Gerenciar monitores",
+		nome: "Gerenciar Monitores",
 		descricao: "Cadastro e vínculo com turmas",
 		link: "/nexus/diretoria/monitores",
 		icon: ShieldCheck,
@@ -75,7 +75,7 @@ const FERRAMENTAS: Ferramenta[] = [
 	},
 	{
 		id: "alunos",
-		nome: "Gerenciar alunos",
+		nome: "Gerenciar Alunos",
 		descricao: "Lista geral de alunos e seus dados",
 		link: "/nexus/diretoria/alunos",
 		icon: FileText,
@@ -83,7 +83,7 @@ const FERRAMENTAS: Ferramenta[] = [
 	},
 	{
 		id: "presencas",
-		nome: "Gerenciar presenças",
+		nome: "Gerenciar Presenças",
 		descricao: "Alunos, monitores, professores e diretores docentes",
 		link: "/nexus/diretoria/presencas",
 		icon: ClipboardCheck,
@@ -91,7 +91,7 @@ const FERRAMENTAS: Ferramenta[] = [
 	},
 	{
 		id: "sorteio",
-		nome: "Gerenciar sorteio",
+		nome: "Gerenciar Sorteio",
 		descricao: "Sorteio de alunos para turmas",
 		link: "/nexus/diretoria/sorteio",
 		icon: Dices,
@@ -99,7 +99,7 @@ const FERRAMENTAS: Ferramenta[] = [
 	},
 	{
 		id: "questionarios",
-		nome: "Gerenciar questionários",
+		nome: "Gerenciar Questionários",
 		descricao: "Questionários aplicados aos alunos",
 		link: "/nexus/diretoria/questionarios",
 		icon: FileText,
@@ -177,7 +177,7 @@ function AcessoRapido({
 export default function PainelDiretor() {
 	const { data: resumo, isLoading } = api.diretoria.overview.useQuery();
 	return (
-		<div className="min-h-full w-full px-4 py-6 sm:px-6 lg:px-8">
+		<div className="min-h-full w-full px-4 py-5 sm:px-6 lg:px-8">
 			{/* Banner de topo */}
 			<div className="mx-auto w-full max-w-6xl space-y-6">
 				<section className="relative overflow-hidden rounded-[1.75rem] bg-sky-600 px-5 py-6 text-white shadow-[0_20px_45px_rgba(2,132,199,0.25)] sm:px-7">

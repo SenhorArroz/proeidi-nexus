@@ -544,7 +544,7 @@ export default function ProfessoresDiretoria() {
     rascunho.email.trim();
 
   return (
-    <div className="min-h-screen w-full min-w-0 bg-gray-50 flex flex-col items-center font-sans px-3 py-6 sm:px-4 sm:py-10">
+    <div className="diretoria-page-canvas min-h-full w-full min-w-0 flex flex-col items-center font-sans px-3 py-6 sm:px-4 sm:py-6">
       <div className="w-full max-w-5xl">
 		<DiretoriaBackLink />
       </div>

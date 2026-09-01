@@ -146,6 +146,45 @@ export const formularioRouter = createTRPCRouter({
 			if (!formulario?.publicado) throw new TRPCError({ code: "NOT_FOUND" });
 			return formulario;
 		}),
+	publicResponseStatus: publicProcedure
+		.input(
+			z.object({
+				slug: z.string().min(1),
+				identificadorCookie: z.string().uuid(),
+			}),
+		)
+		.query(async ({ ctx, input }) => {
+			const formulario = await ctx.db.formulario.findUnique({
+				where: { slug: input.slug },
+				select: {
+					id: true,
+					publicado: true,
+					modoResposta: true,
+					limitarPorNavegador: true,
+				},
+			});
+			if (!formulario?.publicado) throw new TRPCError({ code: "NOT_FOUND" });
+			const exigeIdentificador =
+				formulario.limitarPorNavegador ||
+				formulario.modoResposta === "IDENTIFICADO_POR_COOKIE";
+			if (!exigeIdentificador) return { resposta: null };
+			const resposta = await ctx.db.formularioResposta.findUnique({
+				where: {
+					formularioId_identificadorCookie: {
+						formularioId: formulario.id,
+						identificadorCookie: input.identificadorCookie,
+					},
+				},
+				select: {
+					id: true,
+					respostas: true,
+					nomeRespondente: true,
+					pontuacao: true,
+					createdAt: true,
+				},
+			});
+			return { resposta };
+		}),
 	publicSubmit: publicProcedure
 		.input(
 			z.object({
@@ -155,6 +194,7 @@ export const formularioRouter = createTRPCRouter({
 				),
 				nomeRespondente: z.string().trim().max(160).optional(),
 				identificadorCookie: z.string().uuid().optional(),
+				editarUltima: z.boolean().default(false),
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
@@ -194,14 +234,45 @@ export const formularioRouter = createTRPCRouter({
 					return total + (iguais ? 1 : 0);
 				}, 0)
 				: null;
+			const dadosResposta = {
+				respostas: input.respostas,
+				nomeRespondente: respostaIdentificada ? input.nomeRespondente : null,
+				identificadorCookie: limitarPorNavegador ? input.identificadorCookie : null,
+				pontuacao,
+			};
+			if (input.editarUltima) {
+				if (!limitarPorNavegador || !input.identificadorCookie)
+					throw new TRPCError({
+						code: "BAD_REQUEST",
+						message: "Esta resposta não pode ser editada.",
+					});
+				try {
+					return await ctx.db.formularioResposta.update({
+						where: {
+							formularioId_identificadorCookie: {
+								formularioId: formulario.id,
+								identificadorCookie: input.identificadorCookie,
+							},
+						},
+						data: dadosResposta,
+					});
+				} catch (error) {
+					if (
+						error instanceof Prisma.PrismaClientKnownRequestError &&
+						error.code === "P2025"
+					)
+						throw new TRPCError({
+							code: "NOT_FOUND",
+							message: "A resposta anterior não foi encontrada.",
+						});
+					throw error;
+				}
+			}
 			try {
 				return await ctx.db.formularioResposta.create({
 					data: {
 						formularioId: formulario.id,
-						respostas: input.respostas,
-						nomeRespondente: respostaIdentificada ? input.nomeRespondente : null,
-						identificadorCookie: limitarPorNavegador ? input.identificadorCookie : null,
-						pontuacao,
+						...dadosResposta,
 					},
 				});
 			} catch (error) {

@@ -311,7 +311,7 @@ export default function GerenciarSorteio() {
 	};
 
 	return (
-		<div className="min-h-screen bg-gray-50 flex flex-col font-sans p-4 sm:p-8 pb-32">
+		<div className="diretoria-page-canvas min-h-full min-w-0 flex flex-col font-sans p-4 sm:p-8 pb-32">
 			<div className="max-w-7xl w-full mx-auto space-y-6">
 				<DiretoriaBackLink />
 				<input ref={inputImportacaoRef} type="file" accept=".xlsx,.xls" className="sr-only" onChange={(evento) => void importarInscricoes(evento)} />
