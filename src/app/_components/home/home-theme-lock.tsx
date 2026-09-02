@@ -9,8 +9,14 @@ export default function HomeThemeLock() {
 
 	useEffect(() => {
 		const root = document.documentElement;
-		root.dataset.theme = "light";
+		const aplicarTemaClaro = () => {
+			if (root.dataset.theme !== "light") root.dataset.theme = "light";
+		};
+		aplicarTemaClaro();
+		const observador = new MutationObserver(aplicarTemaClaro);
+		observador.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
 		return () => {
+			observador.disconnect();
 			root.dataset.theme = theme;
 		};
 	}, [theme]);
