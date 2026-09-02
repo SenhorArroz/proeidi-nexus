@@ -22,6 +22,7 @@ import {
 import { DiretoriaBackLink, DiretoriaPageIntro } from "~/app/_components/diretoria/page-intro";
 import { PersonManagementCard } from "~/app/_components/diretoria/people-management-card";
 import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
+import { ProjectCodeModal } from "~/app/_components/diretoria/project-code-modal";
 import { api } from "~/trpc/react";
 
 // ---------------------------------------------------------------------------
@@ -181,15 +182,19 @@ export default function MonitoresDiretoria() {
 		onSuccess: (data) => downloadBase64Pdf(data.arquivoBase64, data.nomeArquivo || "Certificado_PM.pdf"),
 		onError: (err) => alert(`Erro ao gerar certificado PM: ${err.message}`),
 	});
-	const gerarLoteDeclaracoes = api.declaracao.gerarLoteUsuarios.useMutation({
-		onSuccess: (data) => downloadBase64Pdf(data.arquivoBase64, data.nomeArquivo),
-		onError: (err) => alert(`Erro ao gerar o lote de certificados: ${err.message}`),
-	});
   const [monitores, setMonitores] = useState<Monitor[]>([]);
   const [modo, setModo] = useState<"lista" | "form">("lista");
   const [editandoId, setEditandoId] = useState<string | null>(null);
   const [rascunho, setRascunho] = useState<Monitor>(monitorVazio());
   const [mostrarSenha, setMostrarSenha] = useState(false);
+	const [modalLoteAberto, setModalLoteAberto] = useState(false);
+	const gerarLoteDeclaracoes = api.declaracao.gerarLoteUsuarios.useMutation({
+		onSuccess: (data) => {
+			downloadBase64Pdf(data.arquivoBase64, data.nomeArquivo);
+			setModalLoteAberto(false);
+		},
+		onError: (err) => alert(`Erro ao gerar o lote de certificados: ${err.message}`),
+	});
 
 	useEffect(() => {
 		if (!monitoresDb) return;
@@ -198,7 +203,11 @@ export default function MonitoresDiretoria() {
 
 	const gerarLote = () => {
 		if (!monitores.length) return;
-		gerarLoteDeclaracoes.mutate({ usuarioIds: monitores.map((monitor) => monitor.id), tipo: "monitor" });
+		setModalLoteAberto(true);
+	};
+
+	const confirmarLote = (codigoProjeto: string) => {
+		gerarLoteDeclaracoes.mutate({ usuarioIds: monitores.map((monitor) => monitor.id), tipo: "monitor", codigoProjeto });
 	};
 
   const abrirNovo = () => {
@@ -401,6 +410,14 @@ export default function MonitoresDiretoria() {
           </div>
         )}
       </div>
+	  <ProjectCodeModal
+		  isOpen={modalLoteAberto}
+		  isSubmitting={gerarLoteDeclaracoes.isPending}
+		  personLabel="monitores"
+		  totalCertificates={monitores.length}
+		  onClose={() => setModalLoteAberto(false)}
+		  onConfirm={confirmarLote}
+	  />
     </div>
   );
 }

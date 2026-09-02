@@ -60,6 +60,22 @@ html[data-theme="dark"] .sidebar-user-name .terminal-cursor {
 	color: #fbbf24 !important;
 }
 
+/* Ações do card de alunos: fundos explícitos para não herdarem superfícies claras. */
+html[data-theme="dark"] .aluno-card-action-info {
+	background-color: rgb(76 29 149 / 0.72) !important;
+	color: #ddd6fe !important;
+}
+html[data-theme="dark"] .aluno-card-action-info:hover {
+	background-color: rgb(91 33 182 / 0.82) !important;
+}
+html[data-theme="dark"] .aluno-card-action-delete {
+	background-color: rgb(127 29 29 / 0.72) !important;
+	color: #fecaca !important;
+}
+html[data-theme="dark"] .aluno-card-action-delete:hover {
+	background-color: rgb(153 27 27 / 0.82) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.terminal-cursor {
 		animation-duration: 1.8s;

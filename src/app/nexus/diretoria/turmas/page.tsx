@@ -558,12 +558,14 @@ function TurmaCard({
 	turma,
 	onEditar,
 	onDuplicar,
+	onLimparAlunos,
 	onExcluir,
 	duplicando,
 }: {
 	turma: Turma;
 	onEditar: () => void;
 	onDuplicar: () => void;
+	onLimparAlunos: () => void;
 	onExcluir: () => void;
 	duplicando: boolean;
 }) {
@@ -667,6 +669,11 @@ function TurmaCard({
 						</span>
 					)}
 				</div>
+				{turma.alunos.length > 0 && (
+					<button type="button" onClick={onLimparAlunos} className="mt-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-red-200 px-3 text-xs font-bold text-red-700 transition hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2">
+						<ClipboardCheck className="h-4 w-4" /> Limpar alunos registrados
+					</button>
+				)}
 			</div>
 		</div>
 	);
@@ -1408,6 +1415,10 @@ export default function TurmasDiretoria() {
 		onError: (erro) =>
 			alert(`Não foi possível duplicar a turma: ${erro.message}`),
 	});
+	const limparAlunos = api.diretoria.turmas.limparAlunos.useMutation({
+		onSuccess: () => utils.diretoria.turmas.list.invalidate(),
+		onError: (erro) => alert(`Não foi possível limpar os alunos: ${erro.message}`),
+	});
 	const [turmas, setTurmas] = useState<Turma[]>([]);
 	const [modo, setModo] = useState<"lista" | "form">("lista");
 	const [editandoId, setEditandoId] = useState<string | null>(null);
@@ -1528,6 +1539,10 @@ export default function TurmasDiretoria() {
 	};
 
 	const duplicarTurma = (id: string) => duplicar.mutate({ id });
+	const limparAlunosDaTurma = (turma: Turma) => {
+		if (!confirm(`Remover os ${turma.alunos.length} aluno(s) desta turma? As presenças e o histórico serão preservados.`)) return;
+		limparAlunos.mutate({ turmaId: turma.id });
+	};
 
 	if (modo === "form") {
 		return (
@@ -1602,6 +1617,7 @@ export default function TurmasDiretoria() {
 										turma={turma}
 										onEditar={() => abrirEdicao(turma)}
 										onDuplicar={() => duplicarTurma(turma.id)}
+										onLimparAlunos={() => limparAlunosDaTurma(turma)}
 										onExcluir={() => excluir(turma.id)}
 										duplicando={duplicar.isPending}
 									/>

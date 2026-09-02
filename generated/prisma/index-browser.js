@@ -206,6 +206,9 @@ exports.Prisma.AlunoScalarFieldEnum = {
   nome: 'nome',
   dataNascimento: 'dataNascimento',
   cpf: 'cpf',
+  alunoOrigemId: 'alunoOrigemId',
+  etapaTrilha: 'etapaTrilha',
+  statusMatricula: 'statusMatricula',
   corRaca: 'corRaca',
   identidadeGenero: 'identidadeGenero',
   lgbtqiapn: 'lgbtqiapn',
@@ -229,6 +232,11 @@ exports.Prisma.AlunoScalarFieldEnum = {
   temSmartphone: 'temSmartphone',
   sistemaSmartphone: 'sistemaSmartphone',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.VinculoEquipeSemestreScalarFieldEnum = {
+  userId: 'userId',
+  semestreId: 'semestreId'
 };
 
 exports.Prisma.MaterialScalarFieldEnum = {
@@ -384,6 +392,13 @@ exports.Role = exports.$Enums.Role = {
   MONITOR: 'MONITOR'
 };
 
+exports.StatusMatricula = exports.$Enums.StatusMatricula = {
+  ATIVO: 'ATIVO',
+  CONCLUIDO: 'CONCLUIDO',
+  DESISTENTE: 'DESISTENTE',
+  TRANSFERIDO: 'TRANSFERIDO'
+};
+
 exports.TipoMaterial = exports.$Enums.TipoMaterial = {
   LINK: 'LINK',
   PDF: 'PDF',
@@ -432,6 +447,7 @@ exports.Prisma.ModelName = {
   MonitorTurma: 'MonitorTurma',
   AlunoTurma: 'AlunoTurma',
   Aluno: 'Aluno',
+  VinculoEquipeSemestre: 'VinculoEquipeSemestre',
   Material: 'Material',
   EventoCalendario: 'EventoCalendario',
   Aviso: 'Aviso',

@@ -271,6 +271,109 @@ export const diretoriaRouter = createTRPCRouter({
 				await ctx.db.semestre.delete({ where: { id: input.id } });
 				return { id: input.id };
 			}),
+		duplicate: directorProcedure
+			.input(
+				z.object({
+					semestreOrigemId: id,
+					codigoDestino: z.string().regex(/^\d{4}\.[12]$/, "Use o formato AAAA.1 ou AAAA.2."),
+					continuarAlunos: z.boolean().default(true),
+					copiarMateriais: z.boolean().default(true),
+				}),
+			)
+			.mutation(async ({ ctx, input }) => {
+				const origem = await ctx.db.semestre.findUnique({
+					where: { id: input.semestreOrigemId },
+					include: {
+						alunos: true,
+						turmas: {
+							include: {
+								professores: { select: { userId: true } },
+								monitores: { select: { userId: true } },
+								alunos: { select: { alunoId: true } },
+								materiais: { select: { titulo: true, tipo: true, url: true } },
+							},
+						},
+					},
+				});
+				if (!origem) throw new TRPCError({ code: "NOT_FOUND" });
+				const existente = await ctx.db.semestre.findUnique({ where: { codigo: input.codigoDestino }, select: { id: true } });
+				if (existente) throw new TRPCError({ code: "CONFLICT", message: "Já existe um semestre com esse código." });
+
+				return ctx.db.$transaction(async (tx) => {
+					const destino = await tx.semestre.create({ data: { codigo: input.codigoDestino }, select: { id: true, codigo: true } });
+					const alunoDestinoPorOrigem = new Map<string, string>();
+					if (input.continuarAlunos) {
+						for (const aluno of origem.alunos) {
+							const novoAluno = await tx.aluno.create({
+								data: {
+									semestreId: destino.id,
+									alunoOrigemId: aluno.id,
+									nome: aluno.nome,
+									dataNascimento: aluno.dataNascimento,
+									cpf: aluno.cpf,
+									corRaca: aluno.corRaca,
+									identidadeGenero: aluno.identidadeGenero,
+									lgbtqiapn: aluno.lgbtqiapn,
+									telefone: aluno.telefone,
+									contatoEmergencia: aluno.contatoEmergencia,
+									email: aluno.email,
+									escolaridade: aluno.escolaridade,
+									cuidaTerceiros: aluno.cuidaTerceiros,
+									trabalha: aluno.trabalha,
+									trabalhoLocal: aluno.trabalhoLocal,
+									trabalhoFuncao: aluno.trabalhoFuncao,
+									estuda: aluno.estuda,
+									estudoLocal: aluno.estudoLocal,
+									estudoCurso: aluno.estudoCurso,
+									problemaSaude: aluno.problemaSaude,
+									problemaSaudeQual: aluno.problemaSaudeQual,
+									necessidadeEspecial: aluno.necessidadeEspecial,
+									necessidadeEspecialQual: aluno.necessidadeEspecialQual,
+									acessoInternet: aluno.acessoInternet,
+									temComputador: aluno.temComputador,
+									temSmartphone: aluno.temSmartphone,
+									sistemaSmartphone: aluno.sistemaSmartphone,
+									etapaTrilha: aluno.etapaTrilha,
+								},
+								select: { id: true },
+							});
+							alunoDestinoPorOrigem.set(aluno.id, novoAluno.id);
+						}
+					}
+
+					const equipe = new Set<string>();
+					for (const turma of origem.turmas) {
+						const novaTurma = await tx.turma.create({
+							data: {
+								semestreId: destino.id,
+								titulo: turma.titulo,
+								sala: turma.sala,
+								horario: turma.horario,
+								cor: turma.cor,
+								corDestaque: turma.corDestaque,
+								corFundo: turma.corFundo,
+								corTexto: turma.corTexto,
+								corTitulo: turma.corTitulo,
+								corDescricao: turma.corDescricao,
+								fonte: turma.fonte,
+							},
+							select: { id: true },
+						});
+						await Promise.all([
+							tx.professorTurma.createMany({ data: turma.professores.map(({ userId }) => ({ userId, turmaId: novaTurma.id })) }),
+							tx.monitorTurma.createMany({ data: turma.monitores.map(({ userId }) => ({ userId, turmaId: novaTurma.id })) }),
+							...(input.continuarAlunos ? [tx.alunoTurma.createMany({ data: turma.alunos.flatMap(({ alunoId }) => {
+								const alunoDestinoId = alunoDestinoPorOrigem.get(alunoId);
+								return alunoDestinoId ? [{ alunoId: alunoDestinoId, turmaId: novaTurma.id }] : [];
+							}) })] : []),
+							...(input.copiarMateriais ? [tx.material.createMany({ data: turma.materiais.map((material) => ({ ...material, turmaId: novaTurma.id })) })] : []),
+						]);
+						for (const { userId } of [...turma.professores, ...turma.monitores]) equipe.add(userId);
+					}
+					if (equipe.size) await tx.vinculoEquipeSemestre.createMany({ data: [...equipe].map((userId) => ({ userId, semestreId: destino.id })) });
+					return { ...destino, totalAlunosContinuados: alunoDestinoPorOrigem.size, totalTurmas: origem.turmas.length };
+				});
+			}),
 	}),
 
 	usuarios: createTRPCRouter({
@@ -869,9 +972,42 @@ export const diretoriaRouter = createTRPCRouter({
 				if (!result.count) throw new TRPCError({ code: "NOT_FOUND" });
 				return { id: input.id };
 			}),
+		limparAlunos: directorProcedure
+			.input(z.object({ turmaId: id }))
+			.mutation(async ({ ctx, input }) => {
+				const result = await ctx.db.alunoTurma.deleteMany({ where: { turmaId: input.turmaId } });
+				return { removidos: result.count };
+			}),
 	}),
 
 	alunos: createTRPCRouter({
+		continuar: directorProcedure
+			.input(z.object({ alunoId: id, semestreDestinoId: id, turmaIds: z.array(id).min(1).max(20), etapaTrilha: z.string().trim().max(80).nullable().optional() }))
+			.mutation(async ({ ctx, input }) => {
+				const aluno = await ctx.db.aluno.findUnique({ where: { id: input.alunoId } });
+				if (!aluno) throw new TRPCError({ code: "NOT_FOUND" });
+				const [destino, turmasValidas, jaExiste] = await Promise.all([
+					ctx.db.semestre.findUnique({ where: { id: input.semestreDestinoId }, select: { id: true } }),
+					ctx.db.turma.count({ where: { id: { in: input.turmaIds }, semestreId: input.semestreDestinoId } }),
+					ctx.db.aluno.findFirst({ where: { cpf: aluno.cpf, semestreId: input.semestreDestinoId }, select: { id: true } }),
+				]);
+				if (!destino || turmasValidas !== new Set(input.turmaIds).size) throw new TRPCError({ code: "BAD_REQUEST", message: "Selecione turmas válidas do semestre de destino." });
+				if (jaExiste) throw new TRPCError({ code: "CONFLICT", message: "Este aluno já possui matrícula no semestre de destino." });
+				return ctx.db.aluno.create({
+					data: {
+						semestreId: input.semestreDestinoId, alunoOrigemId: aluno.id, etapaTrilha: input.etapaTrilha ?? aluno.etapaTrilha,
+						nome: aluno.nome, dataNascimento: aluno.dataNascimento, cpf: aluno.cpf, corRaca: aluno.corRaca, identidadeGenero: aluno.identidadeGenero, lgbtqiapn: aluno.lgbtqiapn, telefone: aluno.telefone, contatoEmergencia: aluno.contatoEmergencia, email: aluno.email, escolaridade: aluno.escolaridade, cuidaTerceiros: aluno.cuidaTerceiros, trabalha: aluno.trabalha, trabalhoLocal: aluno.trabalhoLocal, trabalhoFuncao: aluno.trabalhoFuncao, estuda: aluno.estuda, estudoLocal: aluno.estudoLocal, estudoCurso: aluno.estudoCurso, problemaSaude: aluno.problemaSaude, problemaSaudeQual: aluno.problemaSaudeQual, necessidadeEspecial: aluno.necessidadeEspecial, necessidadeEspecialQual: aluno.necessidadeEspecialQual, acessoInternet: aluno.acessoInternet, temComputador: aluno.temComputador, temSmartphone: aluno.temSmartphone, sistemaSmartphone: aluno.sistemaSmartphone,
+						turmas: { create: input.turmaIds.map((turmaId) => ({ turmaId })) },
+					}, select: { id: true },
+				});
+			}),
+		historico: directorProcedure
+			.input(z.object({ alunoId: id }))
+			.query(async ({ ctx, input }) => {
+				const aluno = await ctx.db.aluno.findUnique({ where: { id: input.alunoId }, select: { cpf: true } });
+				if (!aluno) throw new TRPCError({ code: "NOT_FOUND" });
+				return ctx.db.aluno.findMany({ where: { cpf: aluno.cpf }, select: { id: true, nome: true, etapaTrilha: true, statusMatricula: true, semestre: { select: { codigo: true } }, turmas: { select: { turma: { select: { titulo: true } } } } }, orderBy: { semestre: { codigo: "asc" } } });
+			}),
 		list: directorProcedure
 			.input(
 				z.object({

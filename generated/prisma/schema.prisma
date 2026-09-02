@@ -117,8 +117,9 @@ model User {
   sessions Session[]
 
   // Relações de turma
-  turmasProfessor ProfessorTurma[]
-  turmasMonitor   MonitorTurma[]
+  turmasProfessor  ProfessorTurma[]
+  turmasMonitor    MonitorTurma[]
+  vinculosSemestre VinculoEquipeSemestre[]
 
   // Conteúdo
   avisos    Aviso[]
@@ -139,9 +140,10 @@ model Semestre {
   ativo     Boolean  @default(false)
   createdAt DateTime @default(now())
 
-  turmas     Turma[]
-  alunos     Aluno[]
-  candidatos Candidato[]
+  turmas         Turma[]
+  alunos         Aluno[]
+  candidatos     Candidato[]
+  vinculosEquipe VinculoEquipeSemestre[]
 }
 
 // ---------------------------------------------------------------------------
@@ -220,11 +222,14 @@ model AlunoTurma {
 // ---------------------------------------------------------------------------
 
 model Aluno {
-  id                String   @id @default(cuid())
+  id                String          @id @default(cuid())
   semestreId        String
   nome              String
   dataNascimento    DateTime
-  cpf               String   @unique
+  cpf               String
+  alunoOrigemId     String?
+  etapaTrilha       String?
+  statusMatricula   StatusMatricula @default(ATIVO)
   corRaca           String
   identidadeGenero  String
   lgbtqiapn         String
@@ -232,7 +237,7 @@ model Aluno {
   contatoEmergencia String?
   email             String?
   escolaridade      String
-  cuidaTerceiros    Boolean  @default(false)
+  cuidaTerceiros    Boolean         @default(false)
 
   // Trabalho (condicionais)
   trabalha       Boolean @default(false)
@@ -258,12 +263,34 @@ model Aluno {
 
   createdAt DateTime @default(now())
 
-  semestre  Semestre        @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  turmas    AlunoTurma[]
-  presencas PresencaAluno[]
+  semestre      Semestre        @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  alunoOrigem   Aluno?          @relation("ContinuidadesAluno", fields: [alunoOrigemId], references: [id], onDelete: SetNull)
+  continuidades Aluno[]         @relation("ContinuidadesAluno")
+  turmas        AlunoTurma[]
+  presencas     PresencaAluno[]
 
+  @@unique([cpf, semestreId])
   @@index([semestreId])
   @@index([cpf])
+  @@index([alunoOrigemId])
+}
+
+enum StatusMatricula {
+  ATIVO
+  CONCLUIDO
+  DESISTENTE
+  TRANSFERIDO
+}
+
+model VinculoEquipeSemestre {
+  userId     String
+  semestreId String
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  semestre Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+
+  @@id([userId, semestreId])
+  @@index([semestreId])
 }
 
 // ---------------------------------------------------------------------------

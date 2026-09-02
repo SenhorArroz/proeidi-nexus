@@ -6,7 +6,6 @@ import {
 	ArrowLeft,
 	CalendarDays,
 	GraduationCap,
-	MapPin,
 	UserRound,
 } from "lucide-react";
 import { api } from "~/trpc/react";
@@ -21,6 +20,7 @@ export default function DetalheAluno({
 }) {
 	const { id } = use(params);
 	const { data: aluno, isLoading, error } = api.aluno.detalhe.useQuery({ id });
+	const { data: historico, isLoading: carregandoHistorico } = api.diretoria.alunos.historico.useQuery({ alunoId: id });
 	if (isLoading)
 		return (
 			<main className="min-h-full px-4 py-8">
@@ -35,11 +35,6 @@ export default function DetalheAluno({
 				Aluno não encontrado.
 			</main>
 		);
-	const turmas = [...aluno.turmas].sort(
-		(a, b) =>
-			b.turma.semestre.codigo.localeCompare(a.turma.semestre.codigo) ||
-			a.turma.titulo.localeCompare(b.turma.titulo),
-	);
 	const dadosPessoais = [
 		["CPF", aluno.cpf],
 		[
@@ -176,33 +171,31 @@ export default function DetalheAluno({
 							Todas as turmas às quais este aluno já foi vinculado.
 						</p>
 						<div className="mt-4 space-y-3">
-							{turmas.length ? (
-								turmas.map(({ turma }) => (
+							{carregandoHistorico ? (
+								<p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
+									Carregando histórico...
+								</p>
+							) : historico?.length ? (
+								historico.map((registro) => (
 									<article
-										key={turma.id}
+										key={registro.id}
 										className="rounded-xl border border-slate-100 p-3"
 									>
 										<div className="flex items-start gap-3">
 											<span
 												className="mt-1 h-3 w-3 shrink-0 rounded-full"
-												style={{ backgroundColor: turma.cor }}
+												style={{ backgroundColor: "#0284c7" }}
 											/>
 											<div className="min-w-0">
 												<h3 className="break-words font-bold text-slate-900">
-													{turma.titulo}
+													{registro.semestre.codigo}
 												</h3>
 												<p className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-500">
 													<span className="inline-flex items-center gap-1">
 														<CalendarDays className="h-3.5 w-3.5" />
-														{turma.semestre.codigo}
+														{registro.turmas.map(({ turma }) => turma.titulo).join(", ") || "Sem turma"}
 													</span>
-													{turma.horario && <span>{turma.horario}</span>}
-													{turma.sala && (
-														<span className="inline-flex items-center gap-1">
-															<MapPin className="h-3.5 w-3.5" />
-															{turma.sala}
-														</span>
-													)}
+													<span>{registro.etapaTrilha || "Etapa não definida"} · {registro.statusMatricula.toLowerCase()}</span>
 												</p>
 											</div>
 										</div>

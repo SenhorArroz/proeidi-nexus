@@ -23,11 +23,12 @@ import {
 	FileSpreadsheet,
 	Award,
 	Loader2,
-	ChevronRight,
+	GitBranch,
 } from "lucide-react";
 import { api } from "~/trpc/react";
 import { DiretoriaBackLink, DiretoriaPageIntro } from "~/app/_components/diretoria/page-intro";
 import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
+import { useAccessibility } from "~/app/_components/accessibility-preferences";
 import { normalizarBusca } from "~/lib/texto";
 
 function downloadBase64Pdf(base64Data: string, filename: string) {
@@ -104,6 +105,7 @@ interface Aluno {
 // Componente Principal
 // ---------------------------------------------------------------------------
 export default function GerenciarAlunos() {
+	const { theme } = useAccessibility();
 	const utils = api.useUtils();
 	const [semestreFiltro, setSemestreFiltro] = useState<string>("2026.1");
 	const [busca, setBusca] = useState("");
@@ -116,6 +118,24 @@ export default function GerenciarAlunos() {
 	const removerAluno = api.aluno.remove.useMutation({ onSuccess: () => utils.aluno.list.invalidate() });
 	const importarAlunos = api.aluno.import.useMutation({ onSuccess: () => utils.aluno.list.invalidate() });
 	const [alunos, setAlunos] = useState<Aluno[]>([]);
+	const [alunosParaContinuar, setAlunosParaContinuar] = useState<Aluno[]>([]);
+	const [alunosSelecionados, setAlunosSelecionados] = useState<string[]>([]);
+	const [semestreDestinoId, setSemestreDestinoId] = useState("");
+	const [turmaDestinoIds, setTurmaDestinoIds] = useState<string[]>([]);
+	const [etapaTrilha, setEtapaTrilha] = useState("");
+	const semestreDestino = semestresDb?.find((semestre) => semestre.id === semestreDestinoId);
+	const { data: turmasDestino } = api.diretoria.turmas.list.useQuery(
+		semestreDestino ? { semestreId: semestreDestino.id } : undefined,
+		{ enabled: Boolean(semestreDestino) },
+	);
+	const continuarAluno = api.diretoria.alunos.continuar.useMutation({
+		onSuccess: () => {
+			utils.aluno.list.invalidate();
+			utils.diretoria.semestres.list.invalidate();
+			setAlunosParaContinuar([]);
+		},
+		onError: (erro) => alert(`Não foi possível continuar o aluno: ${erro.message}`),
+	});
 
 	// Controle de Geração de Certificados
 	const [gerandoAlunoId, setGerandoAlunoId] = useState<string | null>(null);
@@ -467,6 +487,13 @@ export default function GerenciarAlunos() {
 	const buscaNormalizada = normalizarBusca(busca);
 	const cpfBuscado = busca.replace(/\D/g, "");
 	const alunosFiltrados = alunos.filter((aluno) => aluno.semestre === semestreFiltro && (!buscaNormalizada || normalizarBusca(aluno.nome).includes(buscaNormalizada) || (cpfBuscado.length > 0 && aluno.cpf.replace(/\D/g, "").includes(cpfBuscado))));
+	const todosSelecionados = alunosFiltrados.length > 0 && alunosFiltrados.every((aluno) => alunosSelecionados.includes(aluno.id));
+	const estiloVerInformacoes = theme === "dark"
+		? { backgroundColor: "#3b0764", color: "#ede9fe" }
+		: undefined;
+	const estiloExcluirAluno = theme === "dark"
+		? { backgroundColor: "#7f1d1d", color: "#fee2e2" }
+		: undefined;
 
 	// Ações CRUD
 	const abrirModalNovo = () => {
@@ -480,6 +507,15 @@ export default function GerenciarAlunos() {
 		setAlunoEditando(aluno);
 		setIsModalOpen(true);
 	};
+	const abrirContinuidade = (alunosSelecionadosParaContinuar: Aluno[]) => {
+		setAlunosParaContinuar(alunosSelecionadosParaContinuar);
+		setSemestreDestinoId("");
+		setTurmaDestinoIds([]);
+		setEtapaTrilha("");
+	};
+	const alternarSelecao = (alunoId: string) => setAlunosSelecionados((ids) => ids.includes(alunoId) ? ids.filter((id) => id !== alunoId) : [...ids, alunoId]);
+	const alternarTodos = () => setAlunosSelecionados(todosSelecionados ? [] : alunosFiltrados.map((aluno) => aluno.id));
+	const abrirContinuidadeEmLote = () => abrirContinuidade(alunosFiltrados.filter((aluno) => alunosSelecionados.includes(aluno.id)));
 
 	const excluirAluno = (id: string) => {
 		if (confirm("Tem certeza que deseja remover este aluno?")) {
@@ -596,6 +632,14 @@ export default function GerenciarAlunos() {
 							</button>
 						</div>
 					</div>
+					<div className="flex w-full flex-col gap-2 sm:flex-row lg:w-auto">
+						<button onClick={alternarTodos} disabled={!alunosFiltrados.length} className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 text-sm font-bold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800">
+							<Users className="h-4 w-4" /> {todosSelecionados ? "Limpar seleção" : "Selecionar todos"}
+						</button>
+						{alunosSelecionados.length > 0 && (
+							<button onClick={abrirContinuidadeEmLote} className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 text-sm font-bold text-white hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500"><GitBranch className="h-4 w-4" /> Continuar {alunosSelecionados.length} aluno(s)</button>
+						)}
+					</div>
 				</div>
 
 				{/* Lista de Alunos (Grid) */}
@@ -611,37 +655,11 @@ export default function GerenciarAlunos() {
 						alunosFiltrados.map((aluno) => (
 							<div
 								key={aluno.id}
-								className="group relative overflow-hidden rounded-2xl bg-white p-5 shadow-[0_10px_24px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,132,199,.13)]"
+								className="group relative overflow-hidden rounded-2xl bg-white p-5 shadow-[0_10px_24px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,132,199,.13)] dark:bg-slate-900 dark:shadow-[0_10px_24px_rgba(0,0,0,.24)]"
 							>
-								<div className="absolute top-4 right-4 flex items-center gap-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
-									<button
-										onClick={() => handleGerarCertificadoIndividual(aluno)}
-										disabled={gerandoAlunoId === aluno.id}
-										className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
-										title="Gerar certificado PDF deste aluno"
-									>
-										{gerandoAlunoId === aluno.id ? (
-											<Loader2 className="w-4 h-4 animate-spin text-amber-600" />
-										) : (
-											<Award className="w-4 h-4" />
-										)}
-									</button>
-									<button
-										onClick={() => abrirModalEdicao(aluno)}
-										className="p-2 text-gray-400 hover:text-sky-600 hover:bg-sky-50 rounded-lg"
-									>
-										<Pencil className="w-4 h-4" />
-									</button>
-									<button
-										onClick={() => excluirAluno(aluno.id)}
-										className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg"
-									>
-										<Trash2 className="w-4 h-4" />
-									</button>
-								</div>
-
+								<label className="absolute right-4 top-4 flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg bg-slate-50 text-slate-600 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700" title="Selecionar para continuidade em lote"><input type="checkbox" checked={alunosSelecionados.includes(aluno.id)} onChange={() => alternarSelecao(aluno.id)} className="h-4 w-4 accent-emerald-700" /><span className="sr-only">Selecionar {aluno.nome}</span></label>
 								<div className="absolute left-0 top-0 h-1.5 w-24 rounded-br-full bg-sky-500" />
-								<h3 className="mb-1 pr-24 text-lg font-extrabold text-slate-900 truncate">
+								<h3 className="mb-1 pr-14 text-lg font-extrabold text-slate-900 truncate dark:text-slate-100">
 									{aluno.nome}
 								</h3>
 								<p className="mb-4 inline-block rounded-full bg-orange-50 px-2.5 py-1 text-xs font-bold text-orange-800">
@@ -653,23 +671,69 @@ export default function GerenciarAlunos() {
 										<User className="w-4 h-4 text-gray-400" /> {aluno.cpf}
 									</p>
 									<p className="flex items-center gap-2">
-										<Smartphone className="w-4 h-4 text-gray-400" />{" "}
-										{aluno.telefone}
+										<Smartphone className="w-4 h-4 text-gray-400" /> {aluno.telefone}
 									</p>
 									<p className="flex items-center gap-2">
-										<BookOpen className="w-4 h-4 text-gray-400" />{" "}
-										{aluno.escolaridade}
+										<BookOpen className="w-4 h-4 text-gray-400" /> {aluno.escolaridade}
 									</p>
 								</div>
-								<Link href={`/nexus/diretoria/alunos/${aluno.id}`} className="mt-5 flex min-h-11 items-center justify-between rounded-xl bg-sky-50 px-3 text-sm font-bold text-sky-800 transition-colors hover:bg-sky-100">
-									Ver perfil e histórico <ChevronRight className="h-4 w-4" />
-								</Link>
+								<section className="mt-5 border-t border-slate-100 pt-4 dark:border-slate-800">
+									<p className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">Ações do aluno</p>
+									<div className="grid grid-cols-2 gap-2">
+									<button
+										onClick={() => abrirContinuidade([aluno])}
+										className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-emerald-50 px-3 text-xs font-bold text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-950/60 dark:text-emerald-300 dark:hover:bg-emerald-900"
+										title="Continuar em outro semestre"
+									>
+										<GitBranch className="w-4 h-4" /> Continuar
+									</button>
+									<Link
+										href={`/nexus/diretoria/alunos/${aluno.id}`}
+										className="aluno-card-action-info flex min-h-11 items-center justify-center gap-2 rounded-xl bg-violet-100 px-3 text-xs font-bold text-violet-900 hover:bg-violet-200 dark:bg-violet-950/60 dark:text-violet-300 dark:hover:bg-violet-900"
+										style={estiloVerInformacoes}
+										title="Ver todas as informações e o histórico do aluno"
+									>
+										<User className="w-4 h-4" /> Ver informações
+									</Link>
+									<button
+										onClick={() => handleGerarCertificadoIndividual(aluno)}
+										disabled={gerandoAlunoId === aluno.id}
+										className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-amber-50 px-3 text-xs font-bold text-amber-800 hover:bg-amber-100 disabled:cursor-wait disabled:opacity-60 dark:bg-amber-950/60 dark:text-amber-300 dark:hover:bg-amber-900"
+										title="Gerar certificado PDF deste aluno"
+									>
+										{gerandoAlunoId === aluno.id ? (
+											<><Loader2 className="w-4 h-4 animate-spin" /> Gerando...</>
+										) : (
+											<><Award className="w-4 h-4" /> Certificado</>
+										)}
+									</button>
+									<button
+										onClick={() => abrirModalEdicao(aluno)}
+										className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-sky-50 px-3 text-xs font-bold text-sky-800 hover:bg-sky-100 dark:bg-sky-950/60 dark:text-sky-300 dark:hover:bg-sky-900"
+										title="Editar aluno"
+									>
+										<Pencil className="w-4 h-4" /> Editar
+									</button>
+								</div>
+									<button onClick={() => excluirAluno(aluno.id)} className="aluno-card-action-delete mt-3 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-red-100 text-xs font-bold text-red-800 hover:bg-red-200 dark:bg-red-950/60 dark:text-red-300 dark:hover:bg-red-900" style={estiloExcluirAluno} title="Excluir aluno"><Trash2 className="w-4 h-4" /> Excluir aluno</button>
+								</section>
 							</div>
 						))
 					)}
 				</div>
 			</div>
 
+			{alunosParaContinuar.length > 0 && (
+				<div className="fixed inset-0 z-[60] flex items-end justify-center bg-slate-950/45 p-0 sm:items-center sm:p-5">
+					<form onSubmit={async (event) => { event.preventDefault(); if (semestreDestinoId && turmaDestinoIds.length) { for (const aluno of alunosParaContinuar) await continuarAluno.mutateAsync({ alunoId: aluno.id, semestreDestinoId, turmaIds: turmaDestinoIds, etapaTrilha: etapaTrilha.trim() || null }); setAlunosSelecionados([]); } }} className="w-full max-w-lg rounded-t-2xl bg-white p-5 shadow-2xl sm:rounded-2xl">
+						<div className="flex items-start justify-between gap-4"><div><h2 className="text-lg font-bold text-slate-900">Continuar {alunosParaContinuar.length} aluno(s)</h2><p className="mt-1 text-sm text-slate-600">Cria matrículas no novo semestre, preservando o histórico atual.</p></div><button type="button" onClick={() => setAlunosParaContinuar([])} className="grid h-11 w-11 place-items-center rounded-lg text-slate-500 hover:bg-slate-100" aria-label="Fechar"><X className="h-5 w-5" /></button></div>
+						<label className="mt-5 block text-sm font-semibold text-slate-800">Semestre de destino<select required value={semestreDestinoId} onChange={(event) => { setSemestreDestinoId(event.target.value); setTurmaDestinoIds([]); }} className="mt-2 min-h-11 w-full rounded-xl border border-slate-300 px-3 text-sm"><option value="">Selecione o semestre</option>{semestresDb?.filter((semestre) => semestre.id !== semestreSelecionado?.id).map((semestre) => <option key={semestre.id} value={semestre.id}>{semestre.codigo}</option>)}</select></label>
+						<label className="mt-4 block text-sm font-semibold text-slate-800">Etapa da trilha<input value={etapaTrilha} onChange={(event) => setEtapaTrilha(event.target.value)} placeholder="Ex.: Intermediária" className="mt-2 min-h-11 w-full rounded-xl border border-slate-300 px-3 text-sm" /></label>
+						<fieldset className="mt-4"><legend className="text-sm font-semibold text-slate-800">Turma(s) de destino</legend><div className="mt-2 space-y-2">{semestreDestino && !turmasDestino?.length && <p className="text-sm text-amber-800">Não há turmas neste semestre.</p>}{turmasDestino?.map((turma) => <label key={turma.id} className="flex min-h-11 items-center gap-3 rounded-xl border border-slate-200 px-3 text-sm text-slate-700"><input type="checkbox" checked={turmaDestinoIds.includes(turma.id)} onChange={(event) => setTurmaDestinoIds((ids) => event.target.checked ? [...ids, turma.id] : ids.filter((id) => id !== turma.id))} />{turma.titulo}</label>)}</div></fieldset>
+						<div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"><button type="button" onClick={() => setAlunosParaContinuar([])} className="min-h-11 rounded-xl px-4 text-sm font-semibold text-slate-600 hover:bg-slate-100">Cancelar</button><button type="submit" disabled={!semestreDestinoId || !turmaDestinoIds.length || continuarAluno.isPending} className="min-h-11 rounded-xl bg-emerald-700 px-5 text-sm font-bold text-white hover:bg-emerald-800 disabled:opacity-50">{continuarAluno.isPending ? "Salvando..." : "Criar continuidades"}</button></div>
+					</form>
+				</div>
+			)}
 			{/* ---------------------------------------------------------------------------
                 MODAL GIGANTE COM CAMPOS CONDICIONAIS
             --------------------------------------------------------------------------- */}

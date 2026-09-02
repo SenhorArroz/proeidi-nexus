@@ -64,6 +64,11 @@ export type AlunoTurma = $Result.DefaultSelection<Prisma.$AlunoTurmaPayload>
  */
 export type Aluno = $Result.DefaultSelection<Prisma.$AlunoPayload>
 /**
+ * Model VinculoEquipeSemestre
+ * 
+ */
+export type VinculoEquipeSemestre = $Result.DefaultSelection<Prisma.$VinculoEquipeSemestrePayload>
+/**
  * Model Material
  * 
  */
@@ -190,6 +195,16 @@ export const TipoPergunta: {
 export type TipoPergunta = (typeof TipoPergunta)[keyof typeof TipoPergunta]
 
 
+export const StatusMatricula: {
+  ATIVO: 'ATIVO',
+  CONCLUIDO: 'CONCLUIDO',
+  DESISTENTE: 'DESISTENTE',
+  TRANSFERIDO: 'TRANSFERIDO'
+};
+
+export type StatusMatricula = (typeof StatusMatricula)[keyof typeof StatusMatricula]
+
+
 export const ModoRespostaFormulario: {
   ANONIMO: 'ANONIMO',
   IDENTIFICADO_POR_COOKIE: 'IDENTIFICADO_POR_COOKIE'
@@ -222,6 +237,10 @@ export const CursoSorteio: typeof $Enums.CursoSorteio
 export type TipoPergunta = $Enums.TipoPergunta
 
 export const TipoPergunta: typeof $Enums.TipoPergunta
+
+export type StatusMatricula = $Enums.StatusMatricula
+
+export const StatusMatricula: typeof $Enums.StatusMatricula
 
 export type ModoRespostaFormulario = $Enums.ModoRespostaFormulario
 
@@ -444,6 +463,16 @@ export class PrismaClient<
     * ```
     */
   get aluno(): Prisma.AlunoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.vinculoEquipeSemestre`: Exposes CRUD operations for the **VinculoEquipeSemestre** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VinculoEquipeSemestres
+    * const vinculoEquipeSemestres = await prisma.vinculoEquipeSemestre.findMany()
+    * ```
+    */
+  get vinculoEquipeSemestre(): Prisma.VinculoEquipeSemestreDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.material`: Exposes CRUD operations for the **Material** model.
@@ -1025,6 +1054,7 @@ export namespace Prisma {
     MonitorTurma: 'MonitorTurma',
     AlunoTurma: 'AlunoTurma',
     Aluno: 'Aluno',
+    VinculoEquipeSemestre: 'VinculoEquipeSemestre',
     Material: 'Material',
     EventoCalendario: 'EventoCalendario',
     Aviso: 'Aviso',
@@ -1056,7 +1086,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "semestre" | "turma" | "professorTurma" | "monitorTurma" | "alunoTurma" | "aluno" | "material" | "eventoCalendario" | "aviso" | "anotacao" | "registroPresenca" | "presencaAluno" | "presencaMonitor" | "presencaProfessor" | "candidato" | "formulario" | "formularioResposta" | "pergunta" | "opcao"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "semestre" | "turma" | "professorTurma" | "monitorTurma" | "alunoTurma" | "aluno" | "vinculoEquipeSemestre" | "material" | "eventoCalendario" | "aviso" | "anotacao" | "registroPresenca" | "presencaAluno" | "presencaMonitor" | "presencaProfessor" | "candidato" | "formulario" | "formularioResposta" | "pergunta" | "opcao"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1797,6 +1827,80 @@ export namespace Prisma {
           count: {
             args: Prisma.AlunoCountArgs<ExtArgs>
             result: $Utils.Optional<AlunoCountAggregateOutputType> | number
+          }
+        }
+      }
+      VinculoEquipeSemestre: {
+        payload: Prisma.$VinculoEquipeSemestrePayload<ExtArgs>
+        fields: Prisma.VinculoEquipeSemestreFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VinculoEquipeSemestreFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VinculoEquipeSemestreFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload>
+          }
+          findFirst: {
+            args: Prisma.VinculoEquipeSemestreFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VinculoEquipeSemestreFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload>
+          }
+          findMany: {
+            args: Prisma.VinculoEquipeSemestreFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload>[]
+          }
+          create: {
+            args: Prisma.VinculoEquipeSemestreCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload>
+          }
+          createMany: {
+            args: Prisma.VinculoEquipeSemestreCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VinculoEquipeSemestreCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload>[]
+          }
+          delete: {
+            args: Prisma.VinculoEquipeSemestreDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload>
+          }
+          update: {
+            args: Prisma.VinculoEquipeSemestreUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload>
+          }
+          deleteMany: {
+            args: Prisma.VinculoEquipeSemestreDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VinculoEquipeSemestreUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VinculoEquipeSemestreUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload>[]
+          }
+          upsert: {
+            args: Prisma.VinculoEquipeSemestreUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VinculoEquipeSemestrePayload>
+          }
+          aggregate: {
+            args: Prisma.VinculoEquipeSemestreAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVinculoEquipeSemestre>
+          }
+          groupBy: {
+            args: Prisma.VinculoEquipeSemestreGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VinculoEquipeSemestreGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VinculoEquipeSemestreCountArgs<ExtArgs>
+            result: $Utils.Optional<VinculoEquipeSemestreCountAggregateOutputType> | number
           }
         }
       }
@@ -2868,6 +2972,7 @@ export namespace Prisma {
     monitorTurma?: MonitorTurmaOmit
     alunoTurma?: AlunoTurmaOmit
     aluno?: AlunoOmit
+    vinculoEquipeSemestre?: VinculoEquipeSemestreOmit
     material?: MaterialOmit
     eventoCalendario?: EventoCalendarioOmit
     aviso?: AvisoOmit
@@ -2965,6 +3070,7 @@ export namespace Prisma {
     sessions: number
     turmasProfessor: number
     turmasMonitor: number
+    vinculosSemestre: number
     avisos: number
     anotacoes: number
     presencasMonitor: number
@@ -2976,6 +3082,7 @@ export namespace Prisma {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     turmasProfessor?: boolean | UserCountOutputTypeCountTurmasProfessorArgs
     turmasMonitor?: boolean | UserCountOutputTypeCountTurmasMonitorArgs
+    vinculosSemestre?: boolean | UserCountOutputTypeCountVinculosSemestreArgs
     avisos?: boolean | UserCountOutputTypeCountAvisosArgs
     anotacoes?: boolean | UserCountOutputTypeCountAnotacoesArgs
     presencasMonitor?: boolean | UserCountOutputTypeCountPresencasMonitorArgs
@@ -3024,6 +3131,13 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountVinculosSemestreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VinculoEquipeSemestreWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountAvisosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AvisoWhereInput
   }
@@ -3058,12 +3172,14 @@ export namespace Prisma {
     turmas: number
     alunos: number
     candidatos: number
+    vinculosEquipe: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     turmas?: boolean | SemestreCountOutputTypeCountTurmasArgs
     alunos?: boolean | SemestreCountOutputTypeCountAlunosArgs
     candidatos?: boolean | SemestreCountOutputTypeCountCandidatosArgs
+    vinculosEquipe?: boolean | SemestreCountOutputTypeCountVinculosEquipeArgs
   }
 
   // Custom InputTypes
@@ -3096,6 +3212,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountCandidatosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CandidatoWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountVinculosEquipeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VinculoEquipeSemestreWhereInput
   }
 
 
@@ -3198,11 +3321,13 @@ export namespace Prisma {
    */
 
   export type AlunoCountOutputType = {
+    continuidades: number
     turmas: number
     presencas: number
   }
 
   export type AlunoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    continuidades?: boolean | AlunoCountOutputTypeCountContinuidadesArgs
     turmas?: boolean | AlunoCountOutputTypeCountTurmasArgs
     presencas?: boolean | AlunoCountOutputTypeCountPresencasArgs
   }
@@ -3216,6 +3341,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the AlunoCountOutputType
      */
     select?: AlunoCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AlunoCountOutputType without action
+   */
+  export type AlunoCountOutputTypeCountContinuidadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AlunoWhereInput
   }
 
   /**
@@ -6779,6 +6911,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     turmasProfessor?: boolean | User$turmasProfessorArgs<ExtArgs>
     turmasMonitor?: boolean | User$turmasMonitorArgs<ExtArgs>
+    vinculosSemestre?: boolean | User$vinculosSemestreArgs<ExtArgs>
     avisos?: boolean | User$avisosArgs<ExtArgs>
     anotacoes?: boolean | User$anotacoesArgs<ExtArgs>
     presencasMonitor?: boolean | User$presencasMonitorArgs<ExtArgs>
@@ -6831,6 +6964,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     turmasProfessor?: boolean | User$turmasProfessorArgs<ExtArgs>
     turmasMonitor?: boolean | User$turmasMonitorArgs<ExtArgs>
+    vinculosSemestre?: boolean | User$vinculosSemestreArgs<ExtArgs>
     avisos?: boolean | User$avisosArgs<ExtArgs>
     anotacoes?: boolean | User$anotacoesArgs<ExtArgs>
     presencasMonitor?: boolean | User$presencasMonitorArgs<ExtArgs>
@@ -6847,6 +6981,7 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       turmasProfessor: Prisma.$ProfessorTurmaPayload<ExtArgs>[]
       turmasMonitor: Prisma.$MonitorTurmaPayload<ExtArgs>[]
+      vinculosSemestre: Prisma.$VinculoEquipeSemestrePayload<ExtArgs>[]
       avisos: Prisma.$AvisoPayload<ExtArgs>[]
       anotacoes: Prisma.$AnotacaoPayload<ExtArgs>[]
       presencasMonitor: Prisma.$PresencaMonitorPayload<ExtArgs>[]
@@ -7261,6 +7396,7 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     turmasProfessor<T extends User$turmasProfessorArgs<ExtArgs> = {}>(args?: Subset<T, User$turmasProfessorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessorTurmaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     turmasMonitor<T extends User$turmasMonitorArgs<ExtArgs> = {}>(args?: Subset<T, User$turmasMonitorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonitorTurmaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vinculosSemestre<T extends User$vinculosSemestreArgs<ExtArgs> = {}>(args?: Subset<T, User$vinculosSemestreArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     avisos<T extends User$avisosArgs<ExtArgs> = {}>(args?: Subset<T, User$avisosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvisoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     anotacoes<T extends User$anotacoesArgs<ExtArgs> = {}>(args?: Subset<T, User$anotacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnotacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     presencasMonitor<T extends User$presencasMonitorArgs<ExtArgs> = {}>(args?: Subset<T, User$presencasMonitorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PresencaMonitorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7788,6 +7924,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.vinculosSemestre
+   */
+  export type User$vinculosSemestreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    where?: VinculoEquipeSemestreWhereInput
+    orderBy?: VinculoEquipeSemestreOrderByWithRelationInput | VinculoEquipeSemestreOrderByWithRelationInput[]
+    cursor?: VinculoEquipeSemestreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VinculoEquipeSemestreScalarFieldEnum | VinculoEquipeSemestreScalarFieldEnum[]
+  }
+
+  /**
    * User.avisos
    */
   export type User$avisosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8061,6 +8221,7 @@ export namespace Prisma {
     turmas?: boolean | Semestre$turmasArgs<ExtArgs>
     alunos?: boolean | Semestre$alunosArgs<ExtArgs>
     candidatos?: boolean | Semestre$candidatosArgs<ExtArgs>
+    vinculosEquipe?: boolean | Semestre$vinculosEquipeArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -8090,6 +8251,7 @@ export namespace Prisma {
     turmas?: boolean | Semestre$turmasArgs<ExtArgs>
     alunos?: boolean | Semestre$alunosArgs<ExtArgs>
     candidatos?: boolean | Semestre$candidatosArgs<ExtArgs>
+    vinculosEquipe?: boolean | Semestre$vinculosEquipeArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8101,6 +8263,7 @@ export namespace Prisma {
       turmas: Prisma.$TurmaPayload<ExtArgs>[]
       alunos: Prisma.$AlunoPayload<ExtArgs>[]
       candidatos: Prisma.$CandidatoPayload<ExtArgs>[]
+      vinculosEquipe: Prisma.$VinculoEquipeSemestrePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8504,6 +8667,7 @@ export namespace Prisma {
     turmas<T extends Semestre$turmasArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$turmasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TurmaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     alunos<T extends Semestre$alunosArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$alunosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlunoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     candidatos<T extends Semestre$candidatosArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$candidatosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CandidatoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vinculosEquipe<T extends Semestre$vinculosEquipeArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$vinculosEquipeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8994,6 +9158,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CandidatoScalarFieldEnum | CandidatoScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.vinculosEquipe
+   */
+  export type Semestre$vinculosEquipeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    where?: VinculoEquipeSemestreWhereInput
+    orderBy?: VinculoEquipeSemestreOrderByWithRelationInput | VinculoEquipeSemestreOrderByWithRelationInput[]
+    cursor?: VinculoEquipeSemestreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VinculoEquipeSemestreScalarFieldEnum | VinculoEquipeSemestreScalarFieldEnum[]
   }
 
   /**
@@ -13487,6 +13675,9 @@ export namespace Prisma {
     nome: string | null
     dataNascimento: Date | null
     cpf: string | null
+    alunoOrigemId: string | null
+    etapaTrilha: string | null
+    statusMatricula: $Enums.StatusMatricula | null
     corRaca: string | null
     identidadeGenero: string | null
     lgbtqiapn: string | null
@@ -13518,6 +13709,9 @@ export namespace Prisma {
     nome: string | null
     dataNascimento: Date | null
     cpf: string | null
+    alunoOrigemId: string | null
+    etapaTrilha: string | null
+    statusMatricula: $Enums.StatusMatricula | null
     corRaca: string | null
     identidadeGenero: string | null
     lgbtqiapn: string | null
@@ -13549,6 +13743,9 @@ export namespace Prisma {
     nome: number
     dataNascimento: number
     cpf: number
+    alunoOrigemId: number
+    etapaTrilha: number
+    statusMatricula: number
     corRaca: number
     identidadeGenero: number
     lgbtqiapn: number
@@ -13582,6 +13779,9 @@ export namespace Prisma {
     nome?: true
     dataNascimento?: true
     cpf?: true
+    alunoOrigemId?: true
+    etapaTrilha?: true
+    statusMatricula?: true
     corRaca?: true
     identidadeGenero?: true
     lgbtqiapn?: true
@@ -13613,6 +13813,9 @@ export namespace Prisma {
     nome?: true
     dataNascimento?: true
     cpf?: true
+    alunoOrigemId?: true
+    etapaTrilha?: true
+    statusMatricula?: true
     corRaca?: true
     identidadeGenero?: true
     lgbtqiapn?: true
@@ -13644,6 +13847,9 @@ export namespace Prisma {
     nome?: true
     dataNascimento?: true
     cpf?: true
+    alunoOrigemId?: true
+    etapaTrilha?: true
+    statusMatricula?: true
     corRaca?: true
     identidadeGenero?: true
     lgbtqiapn?: true
@@ -13748,6 +13954,9 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date
     cpf: string
+    alunoOrigemId: string | null
+    etapaTrilha: string | null
+    statusMatricula: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -13796,6 +14005,9 @@ export namespace Prisma {
     nome?: boolean
     dataNascimento?: boolean
     cpf?: boolean
+    alunoOrigemId?: boolean
+    etapaTrilha?: boolean
+    statusMatricula?: boolean
     corRaca?: boolean
     identidadeGenero?: boolean
     lgbtqiapn?: boolean
@@ -13820,6 +14032,8 @@ export namespace Prisma {
     sistemaSmartphone?: boolean
     createdAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    alunoOrigem?: boolean | Aluno$alunoOrigemArgs<ExtArgs>
+    continuidades?: boolean | Aluno$continuidadesArgs<ExtArgs>
     turmas?: boolean | Aluno$turmasArgs<ExtArgs>
     presencas?: boolean | Aluno$presencasArgs<ExtArgs>
     _count?: boolean | AlunoCountOutputTypeDefaultArgs<ExtArgs>
@@ -13831,6 +14045,9 @@ export namespace Prisma {
     nome?: boolean
     dataNascimento?: boolean
     cpf?: boolean
+    alunoOrigemId?: boolean
+    etapaTrilha?: boolean
+    statusMatricula?: boolean
     corRaca?: boolean
     identidadeGenero?: boolean
     lgbtqiapn?: boolean
@@ -13855,6 +14072,7 @@ export namespace Prisma {
     sistemaSmartphone?: boolean
     createdAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    alunoOrigem?: boolean | Aluno$alunoOrigemArgs<ExtArgs>
   }, ExtArgs["result"]["aluno"]>
 
   export type AlunoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13863,6 +14081,9 @@ export namespace Prisma {
     nome?: boolean
     dataNascimento?: boolean
     cpf?: boolean
+    alunoOrigemId?: boolean
+    etapaTrilha?: boolean
+    statusMatricula?: boolean
     corRaca?: boolean
     identidadeGenero?: boolean
     lgbtqiapn?: boolean
@@ -13887,6 +14108,7 @@ export namespace Prisma {
     sistemaSmartphone?: boolean
     createdAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    alunoOrigem?: boolean | Aluno$alunoOrigemArgs<ExtArgs>
   }, ExtArgs["result"]["aluno"]>
 
   export type AlunoSelectScalar = {
@@ -13895,6 +14117,9 @@ export namespace Prisma {
     nome?: boolean
     dataNascimento?: boolean
     cpf?: boolean
+    alunoOrigemId?: boolean
+    etapaTrilha?: boolean
+    statusMatricula?: boolean
     corRaca?: boolean
     identidadeGenero?: boolean
     lgbtqiapn?: boolean
@@ -13920,24 +14145,30 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type AlunoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "nome" | "dataNascimento" | "cpf" | "corRaca" | "identidadeGenero" | "lgbtqiapn" | "telefone" | "contatoEmergencia" | "email" | "escolaridade" | "cuidaTerceiros" | "trabalha" | "trabalhoLocal" | "trabalhoFuncao" | "estuda" | "estudoLocal" | "estudoCurso" | "problemaSaude" | "problemaSaudeQual" | "necessidadeEspecial" | "necessidadeEspecialQual" | "acessoInternet" | "temComputador" | "temSmartphone" | "sistemaSmartphone" | "createdAt", ExtArgs["result"]["aluno"]>
+  export type AlunoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "nome" | "dataNascimento" | "cpf" | "alunoOrigemId" | "etapaTrilha" | "statusMatricula" | "corRaca" | "identidadeGenero" | "lgbtqiapn" | "telefone" | "contatoEmergencia" | "email" | "escolaridade" | "cuidaTerceiros" | "trabalha" | "trabalhoLocal" | "trabalhoFuncao" | "estuda" | "estudoLocal" | "estudoCurso" | "problemaSaude" | "problemaSaudeQual" | "necessidadeEspecial" | "necessidadeEspecialQual" | "acessoInternet" | "temComputador" | "temSmartphone" | "sistemaSmartphone" | "createdAt", ExtArgs["result"]["aluno"]>
   export type AlunoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    alunoOrigem?: boolean | Aluno$alunoOrigemArgs<ExtArgs>
+    continuidades?: boolean | Aluno$continuidadesArgs<ExtArgs>
     turmas?: boolean | Aluno$turmasArgs<ExtArgs>
     presencas?: boolean | Aluno$presencasArgs<ExtArgs>
     _count?: boolean | AlunoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AlunoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    alunoOrigem?: boolean | Aluno$alunoOrigemArgs<ExtArgs>
   }
   export type AlunoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    alunoOrigem?: boolean | Aluno$alunoOrigemArgs<ExtArgs>
   }
 
   export type $AlunoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Aluno"
     objects: {
       semestre: Prisma.$SemestrePayload<ExtArgs>
+      alunoOrigem: Prisma.$AlunoPayload<ExtArgs> | null
+      continuidades: Prisma.$AlunoPayload<ExtArgs>[]
       turmas: Prisma.$AlunoTurmaPayload<ExtArgs>[]
       presencas: Prisma.$PresencaAlunoPayload<ExtArgs>[]
     }
@@ -13947,6 +14178,9 @@ export namespace Prisma {
       nome: string
       dataNascimento: Date
       cpf: string
+      alunoOrigemId: string | null
+      etapaTrilha: string | null
+      statusMatricula: $Enums.StatusMatricula
       corRaca: string
       identidadeGenero: string
       lgbtqiapn: string
@@ -14365,6 +14599,8 @@ export namespace Prisma {
   export interface Prisma__AlunoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    alunoOrigem<T extends Aluno$alunoOrigemArgs<ExtArgs> = {}>(args?: Subset<T, Aluno$alunoOrigemArgs<ExtArgs>>): Prisma__AlunoClient<$Result.GetResult<Prisma.$AlunoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    continuidades<T extends Aluno$continuidadesArgs<ExtArgs> = {}>(args?: Subset<T, Aluno$continuidadesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlunoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     turmas<T extends Aluno$turmasArgs<ExtArgs> = {}>(args?: Subset<T, Aluno$turmasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlunoTurmaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     presencas<T extends Aluno$presencasArgs<ExtArgs> = {}>(args?: Subset<T, Aluno$presencasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PresencaAlunoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -14401,6 +14637,9 @@ export namespace Prisma {
     readonly nome: FieldRef<"Aluno", 'String'>
     readonly dataNascimento: FieldRef<"Aluno", 'DateTime'>
     readonly cpf: FieldRef<"Aluno", 'String'>
+    readonly alunoOrigemId: FieldRef<"Aluno", 'String'>
+    readonly etapaTrilha: FieldRef<"Aluno", 'String'>
+    readonly statusMatricula: FieldRef<"Aluno", 'StatusMatricula'>
     readonly corRaca: FieldRef<"Aluno", 'String'>
     readonly identidadeGenero: FieldRef<"Aluno", 'String'>
     readonly lgbtqiapn: FieldRef<"Aluno", 'String'>
@@ -14820,6 +15059,49 @@ export namespace Prisma {
   }
 
   /**
+   * Aluno.alunoOrigem
+   */
+  export type Aluno$alunoOrigemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aluno
+     */
+    select?: AlunoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aluno
+     */
+    omit?: AlunoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlunoInclude<ExtArgs> | null
+    where?: AlunoWhereInput
+  }
+
+  /**
+   * Aluno.continuidades
+   */
+  export type Aluno$continuidadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aluno
+     */
+    select?: AlunoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aluno
+     */
+    omit?: AlunoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlunoInclude<ExtArgs> | null
+    where?: AlunoWhereInput
+    orderBy?: AlunoOrderByWithRelationInput | AlunoOrderByWithRelationInput[]
+    cursor?: AlunoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AlunoScalarFieldEnum | AlunoScalarFieldEnum[]
+  }
+
+  /**
    * Aluno.turmas
    */
   export type Aluno$turmasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14883,6 +15165,1033 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AlunoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VinculoEquipeSemestre
+   */
+
+  export type AggregateVinculoEquipeSemestre = {
+    _count: VinculoEquipeSemestreCountAggregateOutputType | null
+    _min: VinculoEquipeSemestreMinAggregateOutputType | null
+    _max: VinculoEquipeSemestreMaxAggregateOutputType | null
+  }
+
+  export type VinculoEquipeSemestreMinAggregateOutputType = {
+    userId: string | null
+    semestreId: string | null
+  }
+
+  export type VinculoEquipeSemestreMaxAggregateOutputType = {
+    userId: string | null
+    semestreId: string | null
+  }
+
+  export type VinculoEquipeSemestreCountAggregateOutputType = {
+    userId: number
+    semestreId: number
+    _all: number
+  }
+
+
+  export type VinculoEquipeSemestreMinAggregateInputType = {
+    userId?: true
+    semestreId?: true
+  }
+
+  export type VinculoEquipeSemestreMaxAggregateInputType = {
+    userId?: true
+    semestreId?: true
+  }
+
+  export type VinculoEquipeSemestreCountAggregateInputType = {
+    userId?: true
+    semestreId?: true
+    _all?: true
+  }
+
+  export type VinculoEquipeSemestreAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VinculoEquipeSemestre to aggregate.
+     */
+    where?: VinculoEquipeSemestreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VinculoEquipeSemestres to fetch.
+     */
+    orderBy?: VinculoEquipeSemestreOrderByWithRelationInput | VinculoEquipeSemestreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VinculoEquipeSemestreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VinculoEquipeSemestres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VinculoEquipeSemestres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VinculoEquipeSemestres
+    **/
+    _count?: true | VinculoEquipeSemestreCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VinculoEquipeSemestreMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VinculoEquipeSemestreMaxAggregateInputType
+  }
+
+  export type GetVinculoEquipeSemestreAggregateType<T extends VinculoEquipeSemestreAggregateArgs> = {
+        [P in keyof T & keyof AggregateVinculoEquipeSemestre]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVinculoEquipeSemestre[P]>
+      : GetScalarType<T[P], AggregateVinculoEquipeSemestre[P]>
+  }
+
+
+
+
+  export type VinculoEquipeSemestreGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VinculoEquipeSemestreWhereInput
+    orderBy?: VinculoEquipeSemestreOrderByWithAggregationInput | VinculoEquipeSemestreOrderByWithAggregationInput[]
+    by: VinculoEquipeSemestreScalarFieldEnum[] | VinculoEquipeSemestreScalarFieldEnum
+    having?: VinculoEquipeSemestreScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VinculoEquipeSemestreCountAggregateInputType | true
+    _min?: VinculoEquipeSemestreMinAggregateInputType
+    _max?: VinculoEquipeSemestreMaxAggregateInputType
+  }
+
+  export type VinculoEquipeSemestreGroupByOutputType = {
+    userId: string
+    semestreId: string
+    _count: VinculoEquipeSemestreCountAggregateOutputType | null
+    _min: VinculoEquipeSemestreMinAggregateOutputType | null
+    _max: VinculoEquipeSemestreMaxAggregateOutputType | null
+  }
+
+  type GetVinculoEquipeSemestreGroupByPayload<T extends VinculoEquipeSemestreGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VinculoEquipeSemestreGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VinculoEquipeSemestreGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VinculoEquipeSemestreGroupByOutputType[P]>
+            : GetScalarType<T[P], VinculoEquipeSemestreGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VinculoEquipeSemestreSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    semestreId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vinculoEquipeSemestre"]>
+
+  export type VinculoEquipeSemestreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    semestreId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vinculoEquipeSemestre"]>
+
+  export type VinculoEquipeSemestreSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    semestreId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vinculoEquipeSemestre"]>
+
+  export type VinculoEquipeSemestreSelectScalar = {
+    userId?: boolean
+    semestreId?: boolean
+  }
+
+  export type VinculoEquipeSemestreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "semestreId", ExtArgs["result"]["vinculoEquipeSemestre"]>
+  export type VinculoEquipeSemestreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type VinculoEquipeSemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type VinculoEquipeSemestreIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+
+  export type $VinculoEquipeSemestrePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VinculoEquipeSemestre"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      semestreId: string
+    }, ExtArgs["result"]["vinculoEquipeSemestre"]>
+    composites: {}
+  }
+
+  type VinculoEquipeSemestreGetPayload<S extends boolean | null | undefined | VinculoEquipeSemestreDefaultArgs> = $Result.GetResult<Prisma.$VinculoEquipeSemestrePayload, S>
+
+  type VinculoEquipeSemestreCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VinculoEquipeSemestreFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VinculoEquipeSemestreCountAggregateInputType | true
+    }
+
+  export interface VinculoEquipeSemestreDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VinculoEquipeSemestre'], meta: { name: 'VinculoEquipeSemestre' } }
+    /**
+     * Find zero or one VinculoEquipeSemestre that matches the filter.
+     * @param {VinculoEquipeSemestreFindUniqueArgs} args - Arguments to find a VinculoEquipeSemestre
+     * @example
+     * // Get one VinculoEquipeSemestre
+     * const vinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VinculoEquipeSemestreFindUniqueArgs>(args: SelectSubset<T, VinculoEquipeSemestreFindUniqueArgs<ExtArgs>>): Prisma__VinculoEquipeSemestreClient<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VinculoEquipeSemestre that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VinculoEquipeSemestreFindUniqueOrThrowArgs} args - Arguments to find a VinculoEquipeSemestre
+     * @example
+     * // Get one VinculoEquipeSemestre
+     * const vinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VinculoEquipeSemestreFindUniqueOrThrowArgs>(args: SelectSubset<T, VinculoEquipeSemestreFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VinculoEquipeSemestreClient<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VinculoEquipeSemestre that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VinculoEquipeSemestreFindFirstArgs} args - Arguments to find a VinculoEquipeSemestre
+     * @example
+     * // Get one VinculoEquipeSemestre
+     * const vinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VinculoEquipeSemestreFindFirstArgs>(args?: SelectSubset<T, VinculoEquipeSemestreFindFirstArgs<ExtArgs>>): Prisma__VinculoEquipeSemestreClient<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VinculoEquipeSemestre that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VinculoEquipeSemestreFindFirstOrThrowArgs} args - Arguments to find a VinculoEquipeSemestre
+     * @example
+     * // Get one VinculoEquipeSemestre
+     * const vinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VinculoEquipeSemestreFindFirstOrThrowArgs>(args?: SelectSubset<T, VinculoEquipeSemestreFindFirstOrThrowArgs<ExtArgs>>): Prisma__VinculoEquipeSemestreClient<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VinculoEquipeSemestres that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VinculoEquipeSemestreFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VinculoEquipeSemestres
+     * const vinculoEquipeSemestres = await prisma.vinculoEquipeSemestre.findMany()
+     * 
+     * // Get first 10 VinculoEquipeSemestres
+     * const vinculoEquipeSemestres = await prisma.vinculoEquipeSemestre.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const vinculoEquipeSemestreWithUserIdOnly = await prisma.vinculoEquipeSemestre.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends VinculoEquipeSemestreFindManyArgs>(args?: SelectSubset<T, VinculoEquipeSemestreFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VinculoEquipeSemestre.
+     * @param {VinculoEquipeSemestreCreateArgs} args - Arguments to create a VinculoEquipeSemestre.
+     * @example
+     * // Create one VinculoEquipeSemestre
+     * const VinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.create({
+     *   data: {
+     *     // ... data to create a VinculoEquipeSemestre
+     *   }
+     * })
+     * 
+     */
+    create<T extends VinculoEquipeSemestreCreateArgs>(args: SelectSubset<T, VinculoEquipeSemestreCreateArgs<ExtArgs>>): Prisma__VinculoEquipeSemestreClient<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VinculoEquipeSemestres.
+     * @param {VinculoEquipeSemestreCreateManyArgs} args - Arguments to create many VinculoEquipeSemestres.
+     * @example
+     * // Create many VinculoEquipeSemestres
+     * const vinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VinculoEquipeSemestreCreateManyArgs>(args?: SelectSubset<T, VinculoEquipeSemestreCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VinculoEquipeSemestres and returns the data saved in the database.
+     * @param {VinculoEquipeSemestreCreateManyAndReturnArgs} args - Arguments to create many VinculoEquipeSemestres.
+     * @example
+     * // Create many VinculoEquipeSemestres
+     * const vinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VinculoEquipeSemestres and only return the `userId`
+     * const vinculoEquipeSemestreWithUserIdOnly = await prisma.vinculoEquipeSemestre.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VinculoEquipeSemestreCreateManyAndReturnArgs>(args?: SelectSubset<T, VinculoEquipeSemestreCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VinculoEquipeSemestre.
+     * @param {VinculoEquipeSemestreDeleteArgs} args - Arguments to delete one VinculoEquipeSemestre.
+     * @example
+     * // Delete one VinculoEquipeSemestre
+     * const VinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.delete({
+     *   where: {
+     *     // ... filter to delete one VinculoEquipeSemestre
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VinculoEquipeSemestreDeleteArgs>(args: SelectSubset<T, VinculoEquipeSemestreDeleteArgs<ExtArgs>>): Prisma__VinculoEquipeSemestreClient<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VinculoEquipeSemestre.
+     * @param {VinculoEquipeSemestreUpdateArgs} args - Arguments to update one VinculoEquipeSemestre.
+     * @example
+     * // Update one VinculoEquipeSemestre
+     * const vinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VinculoEquipeSemestreUpdateArgs>(args: SelectSubset<T, VinculoEquipeSemestreUpdateArgs<ExtArgs>>): Prisma__VinculoEquipeSemestreClient<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VinculoEquipeSemestres.
+     * @param {VinculoEquipeSemestreDeleteManyArgs} args - Arguments to filter VinculoEquipeSemestres to delete.
+     * @example
+     * // Delete a few VinculoEquipeSemestres
+     * const { count } = await prisma.vinculoEquipeSemestre.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VinculoEquipeSemestreDeleteManyArgs>(args?: SelectSubset<T, VinculoEquipeSemestreDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VinculoEquipeSemestres.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VinculoEquipeSemestreUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VinculoEquipeSemestres
+     * const vinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VinculoEquipeSemestreUpdateManyArgs>(args: SelectSubset<T, VinculoEquipeSemestreUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VinculoEquipeSemestres and returns the data updated in the database.
+     * @param {VinculoEquipeSemestreUpdateManyAndReturnArgs} args - Arguments to update many VinculoEquipeSemestres.
+     * @example
+     * // Update many VinculoEquipeSemestres
+     * const vinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VinculoEquipeSemestres and only return the `userId`
+     * const vinculoEquipeSemestreWithUserIdOnly = await prisma.vinculoEquipeSemestre.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VinculoEquipeSemestreUpdateManyAndReturnArgs>(args: SelectSubset<T, VinculoEquipeSemestreUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VinculoEquipeSemestre.
+     * @param {VinculoEquipeSemestreUpsertArgs} args - Arguments to update or create a VinculoEquipeSemestre.
+     * @example
+     * // Update or create a VinculoEquipeSemestre
+     * const vinculoEquipeSemestre = await prisma.vinculoEquipeSemestre.upsert({
+     *   create: {
+     *     // ... data to create a VinculoEquipeSemestre
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VinculoEquipeSemestre we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VinculoEquipeSemestreUpsertArgs>(args: SelectSubset<T, VinculoEquipeSemestreUpsertArgs<ExtArgs>>): Prisma__VinculoEquipeSemestreClient<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VinculoEquipeSemestres.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VinculoEquipeSemestreCountArgs} args - Arguments to filter VinculoEquipeSemestres to count.
+     * @example
+     * // Count the number of VinculoEquipeSemestres
+     * const count = await prisma.vinculoEquipeSemestre.count({
+     *   where: {
+     *     // ... the filter for the VinculoEquipeSemestres we want to count
+     *   }
+     * })
+    **/
+    count<T extends VinculoEquipeSemestreCountArgs>(
+      args?: Subset<T, VinculoEquipeSemestreCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VinculoEquipeSemestreCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VinculoEquipeSemestre.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VinculoEquipeSemestreAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VinculoEquipeSemestreAggregateArgs>(args: Subset<T, VinculoEquipeSemestreAggregateArgs>): Prisma.PrismaPromise<GetVinculoEquipeSemestreAggregateType<T>>
+
+    /**
+     * Group by VinculoEquipeSemestre.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VinculoEquipeSemestreGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VinculoEquipeSemestreGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VinculoEquipeSemestreGroupByArgs['orderBy'] }
+        : { orderBy?: VinculoEquipeSemestreGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VinculoEquipeSemestreGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVinculoEquipeSemestreGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VinculoEquipeSemestre model
+   */
+  readonly fields: VinculoEquipeSemestreFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VinculoEquipeSemestre.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VinculoEquipeSemestreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VinculoEquipeSemestre model
+   */
+  interface VinculoEquipeSemestreFieldRefs {
+    readonly userId: FieldRef<"VinculoEquipeSemestre", 'String'>
+    readonly semestreId: FieldRef<"VinculoEquipeSemestre", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VinculoEquipeSemestre findUnique
+   */
+  export type VinculoEquipeSemestreFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    /**
+     * Filter, which VinculoEquipeSemestre to fetch.
+     */
+    where: VinculoEquipeSemestreWhereUniqueInput
+  }
+
+  /**
+   * VinculoEquipeSemestre findUniqueOrThrow
+   */
+  export type VinculoEquipeSemestreFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    /**
+     * Filter, which VinculoEquipeSemestre to fetch.
+     */
+    where: VinculoEquipeSemestreWhereUniqueInput
+  }
+
+  /**
+   * VinculoEquipeSemestre findFirst
+   */
+  export type VinculoEquipeSemestreFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    /**
+     * Filter, which VinculoEquipeSemestre to fetch.
+     */
+    where?: VinculoEquipeSemestreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VinculoEquipeSemestres to fetch.
+     */
+    orderBy?: VinculoEquipeSemestreOrderByWithRelationInput | VinculoEquipeSemestreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VinculoEquipeSemestres.
+     */
+    cursor?: VinculoEquipeSemestreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VinculoEquipeSemestres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VinculoEquipeSemestres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VinculoEquipeSemestres.
+     */
+    distinct?: VinculoEquipeSemestreScalarFieldEnum | VinculoEquipeSemestreScalarFieldEnum[]
+  }
+
+  /**
+   * VinculoEquipeSemestre findFirstOrThrow
+   */
+  export type VinculoEquipeSemestreFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    /**
+     * Filter, which VinculoEquipeSemestre to fetch.
+     */
+    where?: VinculoEquipeSemestreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VinculoEquipeSemestres to fetch.
+     */
+    orderBy?: VinculoEquipeSemestreOrderByWithRelationInput | VinculoEquipeSemestreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VinculoEquipeSemestres.
+     */
+    cursor?: VinculoEquipeSemestreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VinculoEquipeSemestres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VinculoEquipeSemestres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VinculoEquipeSemestres.
+     */
+    distinct?: VinculoEquipeSemestreScalarFieldEnum | VinculoEquipeSemestreScalarFieldEnum[]
+  }
+
+  /**
+   * VinculoEquipeSemestre findMany
+   */
+  export type VinculoEquipeSemestreFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    /**
+     * Filter, which VinculoEquipeSemestres to fetch.
+     */
+    where?: VinculoEquipeSemestreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VinculoEquipeSemestres to fetch.
+     */
+    orderBy?: VinculoEquipeSemestreOrderByWithRelationInput | VinculoEquipeSemestreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VinculoEquipeSemestres.
+     */
+    cursor?: VinculoEquipeSemestreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VinculoEquipeSemestres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VinculoEquipeSemestres.
+     */
+    skip?: number
+    distinct?: VinculoEquipeSemestreScalarFieldEnum | VinculoEquipeSemestreScalarFieldEnum[]
+  }
+
+  /**
+   * VinculoEquipeSemestre create
+   */
+  export type VinculoEquipeSemestreCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VinculoEquipeSemestre.
+     */
+    data: XOR<VinculoEquipeSemestreCreateInput, VinculoEquipeSemestreUncheckedCreateInput>
+  }
+
+  /**
+   * VinculoEquipeSemestre createMany
+   */
+  export type VinculoEquipeSemestreCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VinculoEquipeSemestres.
+     */
+    data: VinculoEquipeSemestreCreateManyInput | VinculoEquipeSemestreCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VinculoEquipeSemestre createManyAndReturn
+   */
+  export type VinculoEquipeSemestreCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * The data used to create many VinculoEquipeSemestres.
+     */
+    data: VinculoEquipeSemestreCreateManyInput | VinculoEquipeSemestreCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VinculoEquipeSemestre update
+   */
+  export type VinculoEquipeSemestreUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VinculoEquipeSemestre.
+     */
+    data: XOR<VinculoEquipeSemestreUpdateInput, VinculoEquipeSemestreUncheckedUpdateInput>
+    /**
+     * Choose, which VinculoEquipeSemestre to update.
+     */
+    where: VinculoEquipeSemestreWhereUniqueInput
+  }
+
+  /**
+   * VinculoEquipeSemestre updateMany
+   */
+  export type VinculoEquipeSemestreUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VinculoEquipeSemestres.
+     */
+    data: XOR<VinculoEquipeSemestreUpdateManyMutationInput, VinculoEquipeSemestreUncheckedUpdateManyInput>
+    /**
+     * Filter which VinculoEquipeSemestres to update
+     */
+    where?: VinculoEquipeSemestreWhereInput
+    /**
+     * Limit how many VinculoEquipeSemestres to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VinculoEquipeSemestre updateManyAndReturn
+   */
+  export type VinculoEquipeSemestreUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * The data used to update VinculoEquipeSemestres.
+     */
+    data: XOR<VinculoEquipeSemestreUpdateManyMutationInput, VinculoEquipeSemestreUncheckedUpdateManyInput>
+    /**
+     * Filter which VinculoEquipeSemestres to update
+     */
+    where?: VinculoEquipeSemestreWhereInput
+    /**
+     * Limit how many VinculoEquipeSemestres to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VinculoEquipeSemestre upsert
+   */
+  export type VinculoEquipeSemestreUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VinculoEquipeSemestre to update in case it exists.
+     */
+    where: VinculoEquipeSemestreWhereUniqueInput
+    /**
+     * In case the VinculoEquipeSemestre found by the `where` argument doesn't exist, create a new VinculoEquipeSemestre with this data.
+     */
+    create: XOR<VinculoEquipeSemestreCreateInput, VinculoEquipeSemestreUncheckedCreateInput>
+    /**
+     * In case the VinculoEquipeSemestre was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VinculoEquipeSemestreUpdateInput, VinculoEquipeSemestreUncheckedUpdateInput>
+  }
+
+  /**
+   * VinculoEquipeSemestre delete
+   */
+  export type VinculoEquipeSemestreDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
+    /**
+     * Filter which VinculoEquipeSemestre to delete.
+     */
+    where: VinculoEquipeSemestreWhereUniqueInput
+  }
+
+  /**
+   * VinculoEquipeSemestre deleteMany
+   */
+  export type VinculoEquipeSemestreDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VinculoEquipeSemestres to delete
+     */
+    where?: VinculoEquipeSemestreWhereInput
+    /**
+     * Limit how many VinculoEquipeSemestres to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VinculoEquipeSemestre without action
+   */
+  export type VinculoEquipeSemestreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VinculoEquipeSemestre
+     */
+    select?: VinculoEquipeSemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VinculoEquipeSemestre
+     */
+    omit?: VinculoEquipeSemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VinculoEquipeSemestreInclude<ExtArgs> | null
   }
 
 
@@ -29221,6 +30530,9 @@ export namespace Prisma {
     nome: 'nome',
     dataNascimento: 'dataNascimento',
     cpf: 'cpf',
+    alunoOrigemId: 'alunoOrigemId',
+    etapaTrilha: 'etapaTrilha',
+    statusMatricula: 'statusMatricula',
     corRaca: 'corRaca',
     identidadeGenero: 'identidadeGenero',
     lgbtqiapn: 'lgbtqiapn',
@@ -29247,6 +30559,14 @@ export namespace Prisma {
   };
 
   export type AlunoScalarFieldEnum = (typeof AlunoScalarFieldEnum)[keyof typeof AlunoScalarFieldEnum]
+
+
+  export const VinculoEquipeSemestreScalarFieldEnum: {
+    userId: 'userId',
+    semestreId: 'semestreId'
+  };
+
+  export type VinculoEquipeSemestreScalarFieldEnum = (typeof VinculoEquipeSemestreScalarFieldEnum)[keyof typeof VinculoEquipeSemestreScalarFieldEnum]
 
 
   export const MaterialScalarFieldEnum: {
@@ -29518,6 +30838,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'StatusMatricula'
+   */
+  export type EnumStatusMatriculaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusMatricula'>
+    
+
+
+  /**
+   * Reference to a field of type 'StatusMatricula[]'
+   */
+  export type ListEnumStatusMatriculaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusMatricula[]'>
     
 
 
@@ -29845,6 +31179,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     turmasProfessor?: ProfessorTurmaListRelationFilter
     turmasMonitor?: MonitorTurmaListRelationFilter
+    vinculosSemestre?: VinculoEquipeSemestreListRelationFilter
     avisos?: AvisoListRelationFilter
     anotacoes?: AnotacaoListRelationFilter
     presencasMonitor?: PresencaMonitorListRelationFilter
@@ -29866,6 +31201,7 @@ export namespace Prisma {
     sessions?: SessionOrderByRelationAggregateInput
     turmasProfessor?: ProfessorTurmaOrderByRelationAggregateInput
     turmasMonitor?: MonitorTurmaOrderByRelationAggregateInput
+    vinculosSemestre?: VinculoEquipeSemestreOrderByRelationAggregateInput
     avisos?: AvisoOrderByRelationAggregateInput
     anotacoes?: AnotacaoOrderByRelationAggregateInput
     presencasMonitor?: PresencaMonitorOrderByRelationAggregateInput
@@ -29890,6 +31226,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     turmasProfessor?: ProfessorTurmaListRelationFilter
     turmasMonitor?: MonitorTurmaListRelationFilter
+    vinculosSemestre?: VinculoEquipeSemestreListRelationFilter
     avisos?: AvisoListRelationFilter
     anotacoes?: AnotacaoListRelationFilter
     presencasMonitor?: PresencaMonitorListRelationFilter
@@ -29939,6 +31276,7 @@ export namespace Prisma {
     turmas?: TurmaListRelationFilter
     alunos?: AlunoListRelationFilter
     candidatos?: CandidatoListRelationFilter
+    vinculosEquipe?: VinculoEquipeSemestreListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -29949,6 +31287,7 @@ export namespace Prisma {
     turmas?: TurmaOrderByRelationAggregateInput
     alunos?: AlunoOrderByRelationAggregateInput
     candidatos?: CandidatoOrderByRelationAggregateInput
+    vinculosEquipe?: VinculoEquipeSemestreOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -29962,6 +31301,7 @@ export namespace Prisma {
     turmas?: TurmaListRelationFilter
     alunos?: AlunoListRelationFilter
     candidatos?: CandidatoListRelationFilter
+    vinculosEquipe?: VinculoEquipeSemestreListRelationFilter
   }, "id" | "codigo">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -30239,6 +31579,9 @@ export namespace Prisma {
     nome?: StringFilter<"Aluno"> | string
     dataNascimento?: DateTimeFilter<"Aluno"> | Date | string
     cpf?: StringFilter<"Aluno"> | string
+    alunoOrigemId?: StringNullableFilter<"Aluno"> | string | null
+    etapaTrilha?: StringNullableFilter<"Aluno"> | string | null
+    statusMatricula?: EnumStatusMatriculaFilter<"Aluno"> | $Enums.StatusMatricula
     corRaca?: StringFilter<"Aluno"> | string
     identidadeGenero?: StringFilter<"Aluno"> | string
     lgbtqiapn?: StringFilter<"Aluno"> | string
@@ -30263,6 +31606,8 @@ export namespace Prisma {
     sistemaSmartphone?: StringNullableFilter<"Aluno"> | string | null
     createdAt?: DateTimeFilter<"Aluno"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    alunoOrigem?: XOR<AlunoNullableScalarRelationFilter, AlunoWhereInput> | null
+    continuidades?: AlunoListRelationFilter
     turmas?: AlunoTurmaListRelationFilter
     presencas?: PresencaAlunoListRelationFilter
   }
@@ -30273,6 +31618,9 @@ export namespace Prisma {
     nome?: SortOrder
     dataNascimento?: SortOrder
     cpf?: SortOrder
+    alunoOrigemId?: SortOrderInput | SortOrder
+    etapaTrilha?: SortOrderInput | SortOrder
+    statusMatricula?: SortOrder
     corRaca?: SortOrder
     identidadeGenero?: SortOrder
     lgbtqiapn?: SortOrder
@@ -30297,19 +31645,25 @@ export namespace Prisma {
     sistemaSmartphone?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
+    alunoOrigem?: AlunoOrderByWithRelationInput
+    continuidades?: AlunoOrderByRelationAggregateInput
     turmas?: AlunoTurmaOrderByRelationAggregateInput
     presencas?: PresencaAlunoOrderByRelationAggregateInput
   }
 
   export type AlunoWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    cpf?: string
+    cpf_semestreId?: AlunoCpfSemestreIdCompoundUniqueInput
     AND?: AlunoWhereInput | AlunoWhereInput[]
     OR?: AlunoWhereInput[]
     NOT?: AlunoWhereInput | AlunoWhereInput[]
     semestreId?: StringFilter<"Aluno"> | string
     nome?: StringFilter<"Aluno"> | string
     dataNascimento?: DateTimeFilter<"Aluno"> | Date | string
+    cpf?: StringFilter<"Aluno"> | string
+    alunoOrigemId?: StringNullableFilter<"Aluno"> | string | null
+    etapaTrilha?: StringNullableFilter<"Aluno"> | string | null
+    statusMatricula?: EnumStatusMatriculaFilter<"Aluno"> | $Enums.StatusMatricula
     corRaca?: StringFilter<"Aluno"> | string
     identidadeGenero?: StringFilter<"Aluno"> | string
     lgbtqiapn?: StringFilter<"Aluno"> | string
@@ -30334,9 +31688,11 @@ export namespace Prisma {
     sistemaSmartphone?: StringNullableFilter<"Aluno"> | string | null
     createdAt?: DateTimeFilter<"Aluno"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    alunoOrigem?: XOR<AlunoNullableScalarRelationFilter, AlunoWhereInput> | null
+    continuidades?: AlunoListRelationFilter
     turmas?: AlunoTurmaListRelationFilter
     presencas?: PresencaAlunoListRelationFilter
-  }, "id" | "cpf">
+  }, "id" | "cpf_semestreId">
 
   export type AlunoOrderByWithAggregationInput = {
     id?: SortOrder
@@ -30344,6 +31700,9 @@ export namespace Prisma {
     nome?: SortOrder
     dataNascimento?: SortOrder
     cpf?: SortOrder
+    alunoOrigemId?: SortOrderInput | SortOrder
+    etapaTrilha?: SortOrderInput | SortOrder
+    statusMatricula?: SortOrder
     corRaca?: SortOrder
     identidadeGenero?: SortOrder
     lgbtqiapn?: SortOrder
@@ -30381,6 +31740,9 @@ export namespace Prisma {
     nome?: StringWithAggregatesFilter<"Aluno"> | string
     dataNascimento?: DateTimeWithAggregatesFilter<"Aluno"> | Date | string
     cpf?: StringWithAggregatesFilter<"Aluno"> | string
+    alunoOrigemId?: StringNullableWithAggregatesFilter<"Aluno"> | string | null
+    etapaTrilha?: StringNullableWithAggregatesFilter<"Aluno"> | string | null
+    statusMatricula?: EnumStatusMatriculaWithAggregatesFilter<"Aluno"> | $Enums.StatusMatricula
     corRaca?: StringWithAggregatesFilter<"Aluno"> | string
     identidadeGenero?: StringWithAggregatesFilter<"Aluno"> | string
     lgbtqiapn?: StringWithAggregatesFilter<"Aluno"> | string
@@ -30404,6 +31766,50 @@ export namespace Prisma {
     temSmartphone?: BoolWithAggregatesFilter<"Aluno"> | boolean
     sistemaSmartphone?: StringNullableWithAggregatesFilter<"Aluno"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Aluno"> | Date | string
+  }
+
+  export type VinculoEquipeSemestreWhereInput = {
+    AND?: VinculoEquipeSemestreWhereInput | VinculoEquipeSemestreWhereInput[]
+    OR?: VinculoEquipeSemestreWhereInput[]
+    NOT?: VinculoEquipeSemestreWhereInput | VinculoEquipeSemestreWhereInput[]
+    userId?: StringFilter<"VinculoEquipeSemestre"> | string
+    semestreId?: StringFilter<"VinculoEquipeSemestre"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+  }
+
+  export type VinculoEquipeSemestreOrderByWithRelationInput = {
+    userId?: SortOrder
+    semestreId?: SortOrder
+    user?: UserOrderByWithRelationInput
+    semestre?: SemestreOrderByWithRelationInput
+  }
+
+  export type VinculoEquipeSemestreWhereUniqueInput = Prisma.AtLeast<{
+    userId_semestreId?: VinculoEquipeSemestreUserIdSemestreIdCompoundUniqueInput
+    AND?: VinculoEquipeSemestreWhereInput | VinculoEquipeSemestreWhereInput[]
+    OR?: VinculoEquipeSemestreWhereInput[]
+    NOT?: VinculoEquipeSemestreWhereInput | VinculoEquipeSemestreWhereInput[]
+    userId?: StringFilter<"VinculoEquipeSemestre"> | string
+    semestreId?: StringFilter<"VinculoEquipeSemestre"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+  }, "userId_semestreId">
+
+  export type VinculoEquipeSemestreOrderByWithAggregationInput = {
+    userId?: SortOrder
+    semestreId?: SortOrder
+    _count?: VinculoEquipeSemestreCountOrderByAggregateInput
+    _max?: VinculoEquipeSemestreMaxOrderByAggregateInput
+    _min?: VinculoEquipeSemestreMinOrderByAggregateInput
+  }
+
+  export type VinculoEquipeSemestreScalarWhereWithAggregatesInput = {
+    AND?: VinculoEquipeSemestreScalarWhereWithAggregatesInput | VinculoEquipeSemestreScalarWhereWithAggregatesInput[]
+    OR?: VinculoEquipeSemestreScalarWhereWithAggregatesInput[]
+    NOT?: VinculoEquipeSemestreScalarWhereWithAggregatesInput | VinculoEquipeSemestreScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"VinculoEquipeSemestre"> | string
+    semestreId?: StringWithAggregatesFilter<"VinculoEquipeSemestre"> | string
   }
 
   export type MaterialWhereInput = {
@@ -31443,6 +32849,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
@@ -31464,6 +32871,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
@@ -31485,6 +32893,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
@@ -31506,6 +32915,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
@@ -31559,6 +32969,7 @@ export namespace Prisma {
     turmas?: TurmaCreateNestedManyWithoutSemestreInput
     alunos?: AlunoCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -31569,6 +32980,7 @@ export namespace Prisma {
     turmas?: TurmaUncheckedCreateNestedManyWithoutSemestreInput
     alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -31579,6 +32991,7 @@ export namespace Prisma {
     turmas?: TurmaUpdateManyWithoutSemestreNestedInput
     alunos?: AlunoUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -31589,6 +33002,7 @@ export namespace Prisma {
     turmas?: TurmaUncheckedUpdateManyWithoutSemestreNestedInput
     alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -31855,6 +33269,8 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date | string
     cpf: string
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -31879,6 +33295,8 @@ export namespace Prisma {
     sistemaSmartphone?: string | null
     createdAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutAlunosInput
+    alunoOrigem?: AlunoCreateNestedOneWithoutContinuidadesInput
+    continuidades?: AlunoCreateNestedManyWithoutAlunoOrigemInput
     turmas?: AlunoTurmaCreateNestedManyWithoutAlunoInput
     presencas?: PresencaAlunoCreateNestedManyWithoutAlunoInput
   }
@@ -31889,6 +33307,9 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date | string
     cpf: string
+    alunoOrigemId?: string | null
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -31912,6 +33333,7 @@ export namespace Prisma {
     temSmartphone?: boolean
     sistemaSmartphone?: string | null
     createdAt?: Date | string
+    continuidades?: AlunoUncheckedCreateNestedManyWithoutAlunoOrigemInput
     turmas?: AlunoTurmaUncheckedCreateNestedManyWithoutAlunoInput
     presencas?: PresencaAlunoUncheckedCreateNestedManyWithoutAlunoInput
   }
@@ -31921,6 +33343,8 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -31945,6 +33369,8 @@ export namespace Prisma {
     sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutAlunosNestedInput
+    alunoOrigem?: AlunoUpdateOneWithoutContinuidadesNestedInput
+    continuidades?: AlunoUpdateManyWithoutAlunoOrigemNestedInput
     turmas?: AlunoTurmaUpdateManyWithoutAlunoNestedInput
     presencas?: PresencaAlunoUpdateManyWithoutAlunoNestedInput
   }
@@ -31955,6 +33381,9 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    alunoOrigemId?: NullableStringFieldUpdateOperationsInput | string | null
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -31978,6 +33407,7 @@ export namespace Prisma {
     temSmartphone?: BoolFieldUpdateOperationsInput | boolean
     sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    continuidades?: AlunoUncheckedUpdateManyWithoutAlunoOrigemNestedInput
     turmas?: AlunoTurmaUncheckedUpdateManyWithoutAlunoNestedInput
     presencas?: PresencaAlunoUncheckedUpdateManyWithoutAlunoNestedInput
   }
@@ -31988,6 +33418,9 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date | string
     cpf: string
+    alunoOrigemId?: string | null
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -32018,6 +33451,8 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -32049,6 +33484,9 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    alunoOrigemId?: NullableStringFieldUpdateOperationsInput | string | null
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -32072,6 +33510,40 @@ export namespace Prisma {
     temSmartphone?: BoolFieldUpdateOperationsInput | boolean
     sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VinculoEquipeSemestreCreateInput = {
+    user: UserCreateNestedOneWithoutVinculosSemestreInput
+    semestre: SemestreCreateNestedOneWithoutVinculosEquipeInput
+  }
+
+  export type VinculoEquipeSemestreUncheckedCreateInput = {
+    userId: string
+    semestreId: string
+  }
+
+  export type VinculoEquipeSemestreUpdateInput = {
+    user?: UserUpdateOneRequiredWithoutVinculosSemestreNestedInput
+    semestre?: SemestreUpdateOneRequiredWithoutVinculosEquipeNestedInput
+  }
+
+  export type VinculoEquipeSemestreUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VinculoEquipeSemestreCreateManyInput = {
+    userId: string
+    semestreId: string
+  }
+
+  export type VinculoEquipeSemestreUpdateManyMutationInput = {
+
+  }
+
+  export type VinculoEquipeSemestreUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MaterialCreateInput = {
@@ -33177,6 +34649,12 @@ export namespace Prisma {
     none?: MonitorTurmaWhereInput
   }
 
+  export type VinculoEquipeSemestreListRelationFilter = {
+    every?: VinculoEquipeSemestreWhereInput
+    some?: VinculoEquipeSemestreWhereInput
+    none?: VinculoEquipeSemestreWhereInput
+  }
+
   export type AvisoListRelationFilter = {
     every?: AvisoWhereInput
     some?: AvisoWhereInput
@@ -33214,6 +34692,10 @@ export namespace Prisma {
   }
 
   export type MonitorTurmaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VinculoEquipeSemestreOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -33520,6 +35002,18 @@ export namespace Prisma {
     turmaId?: SortOrder
   }
 
+  export type EnumStatusMatriculaFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusMatricula | EnumStatusMatriculaFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusMatricula[] | ListEnumStatusMatriculaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusMatricula[] | ListEnumStatusMatriculaFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusMatriculaFilter<$PrismaModel> | $Enums.StatusMatricula
+  }
+
+  export type AlunoNullableScalarRelationFilter = {
+    is?: AlunoWhereInput | null
+    isNot?: AlunoWhereInput | null
+  }
+
   export type PresencaAlunoListRelationFilter = {
     every?: PresencaAlunoWhereInput
     some?: PresencaAlunoWhereInput
@@ -33530,12 +35024,20 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type AlunoCpfSemestreIdCompoundUniqueInput = {
+    cpf: string
+    semestreId: string
+  }
+
   export type AlunoCountOrderByAggregateInput = {
     id?: SortOrder
     semestreId?: SortOrder
     nome?: SortOrder
     dataNascimento?: SortOrder
     cpf?: SortOrder
+    alunoOrigemId?: SortOrder
+    etapaTrilha?: SortOrder
+    statusMatricula?: SortOrder
     corRaca?: SortOrder
     identidadeGenero?: SortOrder
     lgbtqiapn?: SortOrder
@@ -33567,6 +35069,9 @@ export namespace Prisma {
     nome?: SortOrder
     dataNascimento?: SortOrder
     cpf?: SortOrder
+    alunoOrigemId?: SortOrder
+    etapaTrilha?: SortOrder
+    statusMatricula?: SortOrder
     corRaca?: SortOrder
     identidadeGenero?: SortOrder
     lgbtqiapn?: SortOrder
@@ -33598,6 +35103,9 @@ export namespace Prisma {
     nome?: SortOrder
     dataNascimento?: SortOrder
     cpf?: SortOrder
+    alunoOrigemId?: SortOrder
+    etapaTrilha?: SortOrder
+    statusMatricula?: SortOrder
     corRaca?: SortOrder
     identidadeGenero?: SortOrder
     lgbtqiapn?: SortOrder
@@ -33621,6 +35129,36 @@ export namespace Prisma {
     temSmartphone?: SortOrder
     sistemaSmartphone?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type EnumStatusMatriculaWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusMatricula | EnumStatusMatriculaFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusMatricula[] | ListEnumStatusMatriculaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusMatricula[] | ListEnumStatusMatriculaFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusMatriculaWithAggregatesFilter<$PrismaModel> | $Enums.StatusMatricula
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusMatriculaFilter<$PrismaModel>
+    _max?: NestedEnumStatusMatriculaFilter<$PrismaModel>
+  }
+
+  export type VinculoEquipeSemestreUserIdSemestreIdCompoundUniqueInput = {
+    userId: string
+    semestreId: string
+  }
+
+  export type VinculoEquipeSemestreCountOrderByAggregateInput = {
+    userId?: SortOrder
+    semestreId?: SortOrder
+  }
+
+  export type VinculoEquipeSemestreMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    semestreId?: SortOrder
+  }
+
+  export type VinculoEquipeSemestreMinOrderByAggregateInput = {
+    userId?: SortOrder
+    semestreId?: SortOrder
   }
 
   export type EnumTipoMaterialFilter<$PrismaModel = never> = {
@@ -34365,6 +35903,13 @@ export namespace Prisma {
     connect?: MonitorTurmaWhereUniqueInput | MonitorTurmaWhereUniqueInput[]
   }
 
+  export type VinculoEquipeSemestreCreateNestedManyWithoutUserInput = {
+    create?: XOR<VinculoEquipeSemestreCreateWithoutUserInput, VinculoEquipeSemestreUncheckedCreateWithoutUserInput> | VinculoEquipeSemestreCreateWithoutUserInput[] | VinculoEquipeSemestreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VinculoEquipeSemestreCreateOrConnectWithoutUserInput | VinculoEquipeSemestreCreateOrConnectWithoutUserInput[]
+    createMany?: VinculoEquipeSemestreCreateManyUserInputEnvelope
+    connect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+  }
+
   export type AvisoCreateNestedManyWithoutAutorInput = {
     create?: XOR<AvisoCreateWithoutAutorInput, AvisoUncheckedCreateWithoutAutorInput> | AvisoCreateWithoutAutorInput[] | AvisoUncheckedCreateWithoutAutorInput[]
     connectOrCreate?: AvisoCreateOrConnectWithoutAutorInput | AvisoCreateOrConnectWithoutAutorInput[]
@@ -34419,6 +35964,13 @@ export namespace Prisma {
     connectOrCreate?: MonitorTurmaCreateOrConnectWithoutUserInput | MonitorTurmaCreateOrConnectWithoutUserInput[]
     createMany?: MonitorTurmaCreateManyUserInputEnvelope
     connect?: MonitorTurmaWhereUniqueInput | MonitorTurmaWhereUniqueInput[]
+  }
+
+  export type VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<VinculoEquipeSemestreCreateWithoutUserInput, VinculoEquipeSemestreUncheckedCreateWithoutUserInput> | VinculoEquipeSemestreCreateWithoutUserInput[] | VinculoEquipeSemestreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VinculoEquipeSemestreCreateOrConnectWithoutUserInput | VinculoEquipeSemestreCreateOrConnectWithoutUserInput[]
+    createMany?: VinculoEquipeSemestreCreateManyUserInputEnvelope
+    connect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
   }
 
   export type AvisoUncheckedCreateNestedManyWithoutAutorInput = {
@@ -34511,6 +36063,20 @@ export namespace Prisma {
     update?: MonitorTurmaUpdateWithWhereUniqueWithoutUserInput | MonitorTurmaUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: MonitorTurmaUpdateManyWithWhereWithoutUserInput | MonitorTurmaUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: MonitorTurmaScalarWhereInput | MonitorTurmaScalarWhereInput[]
+  }
+
+  export type VinculoEquipeSemestreUpdateManyWithoutUserNestedInput = {
+    create?: XOR<VinculoEquipeSemestreCreateWithoutUserInput, VinculoEquipeSemestreUncheckedCreateWithoutUserInput> | VinculoEquipeSemestreCreateWithoutUserInput[] | VinculoEquipeSemestreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VinculoEquipeSemestreCreateOrConnectWithoutUserInput | VinculoEquipeSemestreCreateOrConnectWithoutUserInput[]
+    upsert?: VinculoEquipeSemestreUpsertWithWhereUniqueWithoutUserInput | VinculoEquipeSemestreUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VinculoEquipeSemestreCreateManyUserInputEnvelope
+    set?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    disconnect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    delete?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    connect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    update?: VinculoEquipeSemestreUpdateWithWhereUniqueWithoutUserInput | VinculoEquipeSemestreUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: VinculoEquipeSemestreUpdateManyWithWhereWithoutUserInput | VinculoEquipeSemestreUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: VinculoEquipeSemestreScalarWhereInput | VinculoEquipeSemestreScalarWhereInput[]
   }
 
   export type AvisoUpdateManyWithoutAutorNestedInput = {
@@ -34625,6 +36191,20 @@ export namespace Prisma {
     deleteMany?: MonitorTurmaScalarWhereInput | MonitorTurmaScalarWhereInput[]
   }
 
+  export type VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<VinculoEquipeSemestreCreateWithoutUserInput, VinculoEquipeSemestreUncheckedCreateWithoutUserInput> | VinculoEquipeSemestreCreateWithoutUserInput[] | VinculoEquipeSemestreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VinculoEquipeSemestreCreateOrConnectWithoutUserInput | VinculoEquipeSemestreCreateOrConnectWithoutUserInput[]
+    upsert?: VinculoEquipeSemestreUpsertWithWhereUniqueWithoutUserInput | VinculoEquipeSemestreUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VinculoEquipeSemestreCreateManyUserInputEnvelope
+    set?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    disconnect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    delete?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    connect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    update?: VinculoEquipeSemestreUpdateWithWhereUniqueWithoutUserInput | VinculoEquipeSemestreUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: VinculoEquipeSemestreUpdateManyWithWhereWithoutUserInput | VinculoEquipeSemestreUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: VinculoEquipeSemestreScalarWhereInput | VinculoEquipeSemestreScalarWhereInput[]
+  }
+
   export type AvisoUncheckedUpdateManyWithoutAutorNestedInput = {
     create?: XOR<AvisoCreateWithoutAutorInput, AvisoUncheckedCreateWithoutAutorInput> | AvisoCreateWithoutAutorInput[] | AvisoUncheckedCreateWithoutAutorInput[]
     connectOrCreate?: AvisoCreateOrConnectWithoutAutorInput | AvisoCreateOrConnectWithoutAutorInput[]
@@ -34702,6 +36282,13 @@ export namespace Prisma {
     connect?: CandidatoWhereUniqueInput | CandidatoWhereUniqueInput[]
   }
 
+  export type VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<VinculoEquipeSemestreCreateWithoutSemestreInput, VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput> | VinculoEquipeSemestreCreateWithoutSemestreInput[] | VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput | VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput[]
+    createMany?: VinculoEquipeSemestreCreateManySemestreInputEnvelope
+    connect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+  }
+
   export type TurmaUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<TurmaCreateWithoutSemestreInput, TurmaUncheckedCreateWithoutSemestreInput> | TurmaCreateWithoutSemestreInput[] | TurmaUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: TurmaCreateOrConnectWithoutSemestreInput | TurmaCreateOrConnectWithoutSemestreInput[]
@@ -34721,6 +36308,13 @@ export namespace Prisma {
     connectOrCreate?: CandidatoCreateOrConnectWithoutSemestreInput | CandidatoCreateOrConnectWithoutSemestreInput[]
     createMany?: CandidatoCreateManySemestreInputEnvelope
     connect?: CandidatoWhereUniqueInput | CandidatoWhereUniqueInput[]
+  }
+
+  export type VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<VinculoEquipeSemestreCreateWithoutSemestreInput, VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput> | VinculoEquipeSemestreCreateWithoutSemestreInput[] | VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput | VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput[]
+    createMany?: VinculoEquipeSemestreCreateManySemestreInputEnvelope
+    connect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -34769,6 +36363,20 @@ export namespace Prisma {
     deleteMany?: CandidatoScalarWhereInput | CandidatoScalarWhereInput[]
   }
 
+  export type VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<VinculoEquipeSemestreCreateWithoutSemestreInput, VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput> | VinculoEquipeSemestreCreateWithoutSemestreInput[] | VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput | VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput[]
+    upsert?: VinculoEquipeSemestreUpsertWithWhereUniqueWithoutSemestreInput | VinculoEquipeSemestreUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: VinculoEquipeSemestreCreateManySemestreInputEnvelope
+    set?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    disconnect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    delete?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    connect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    update?: VinculoEquipeSemestreUpdateWithWhereUniqueWithoutSemestreInput | VinculoEquipeSemestreUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: VinculoEquipeSemestreUpdateManyWithWhereWithoutSemestreInput | VinculoEquipeSemestreUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: VinculoEquipeSemestreScalarWhereInput | VinculoEquipeSemestreScalarWhereInput[]
+  }
+
   export type TurmaUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<TurmaCreateWithoutSemestreInput, TurmaUncheckedCreateWithoutSemestreInput> | TurmaCreateWithoutSemestreInput[] | TurmaUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: TurmaCreateOrConnectWithoutSemestreInput | TurmaCreateOrConnectWithoutSemestreInput[]
@@ -34809,6 +36417,20 @@ export namespace Prisma {
     update?: CandidatoUpdateWithWhereUniqueWithoutSemestreInput | CandidatoUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: CandidatoUpdateManyWithWhereWithoutSemestreInput | CandidatoUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: CandidatoScalarWhereInput | CandidatoScalarWhereInput[]
+  }
+
+  export type VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<VinculoEquipeSemestreCreateWithoutSemestreInput, VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput> | VinculoEquipeSemestreCreateWithoutSemestreInput[] | VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput | VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput[]
+    upsert?: VinculoEquipeSemestreUpsertWithWhereUniqueWithoutSemestreInput | VinculoEquipeSemestreUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: VinculoEquipeSemestreCreateManySemestreInputEnvelope
+    set?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    disconnect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    delete?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    connect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+    update?: VinculoEquipeSemestreUpdateWithWhereUniqueWithoutSemestreInput | VinculoEquipeSemestreUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: VinculoEquipeSemestreUpdateManyWithWhereWithoutSemestreInput | VinculoEquipeSemestreUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: VinculoEquipeSemestreScalarWhereInput | VinculoEquipeSemestreScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutTurmasInput = {
@@ -35251,6 +36873,19 @@ export namespace Prisma {
     connect?: SemestreWhereUniqueInput
   }
 
+  export type AlunoCreateNestedOneWithoutContinuidadesInput = {
+    create?: XOR<AlunoCreateWithoutContinuidadesInput, AlunoUncheckedCreateWithoutContinuidadesInput>
+    connectOrCreate?: AlunoCreateOrConnectWithoutContinuidadesInput
+    connect?: AlunoWhereUniqueInput
+  }
+
+  export type AlunoCreateNestedManyWithoutAlunoOrigemInput = {
+    create?: XOR<AlunoCreateWithoutAlunoOrigemInput, AlunoUncheckedCreateWithoutAlunoOrigemInput> | AlunoCreateWithoutAlunoOrigemInput[] | AlunoUncheckedCreateWithoutAlunoOrigemInput[]
+    connectOrCreate?: AlunoCreateOrConnectWithoutAlunoOrigemInput | AlunoCreateOrConnectWithoutAlunoOrigemInput[]
+    createMany?: AlunoCreateManyAlunoOrigemInputEnvelope
+    connect?: AlunoWhereUniqueInput | AlunoWhereUniqueInput[]
+  }
+
   export type AlunoTurmaCreateNestedManyWithoutAlunoInput = {
     create?: XOR<AlunoTurmaCreateWithoutAlunoInput, AlunoTurmaUncheckedCreateWithoutAlunoInput> | AlunoTurmaCreateWithoutAlunoInput[] | AlunoTurmaUncheckedCreateWithoutAlunoInput[]
     connectOrCreate?: AlunoTurmaCreateOrConnectWithoutAlunoInput | AlunoTurmaCreateOrConnectWithoutAlunoInput[]
@@ -35263,6 +36898,13 @@ export namespace Prisma {
     connectOrCreate?: PresencaAlunoCreateOrConnectWithoutAlunoInput | PresencaAlunoCreateOrConnectWithoutAlunoInput[]
     createMany?: PresencaAlunoCreateManyAlunoInputEnvelope
     connect?: PresencaAlunoWhereUniqueInput | PresencaAlunoWhereUniqueInput[]
+  }
+
+  export type AlunoUncheckedCreateNestedManyWithoutAlunoOrigemInput = {
+    create?: XOR<AlunoCreateWithoutAlunoOrigemInput, AlunoUncheckedCreateWithoutAlunoOrigemInput> | AlunoCreateWithoutAlunoOrigemInput[] | AlunoUncheckedCreateWithoutAlunoOrigemInput[]
+    connectOrCreate?: AlunoCreateOrConnectWithoutAlunoOrigemInput | AlunoCreateOrConnectWithoutAlunoOrigemInput[]
+    createMany?: AlunoCreateManyAlunoOrigemInputEnvelope
+    connect?: AlunoWhereUniqueInput | AlunoWhereUniqueInput[]
   }
 
   export type AlunoTurmaUncheckedCreateNestedManyWithoutAlunoInput = {
@@ -35279,12 +36921,40 @@ export namespace Prisma {
     connect?: PresencaAlunoWhereUniqueInput | PresencaAlunoWhereUniqueInput[]
   }
 
+  export type EnumStatusMatriculaFieldUpdateOperationsInput = {
+    set?: $Enums.StatusMatricula
+  }
+
   export type SemestreUpdateOneRequiredWithoutAlunosNestedInput = {
     create?: XOR<SemestreCreateWithoutAlunosInput, SemestreUncheckedCreateWithoutAlunosInput>
     connectOrCreate?: SemestreCreateOrConnectWithoutAlunosInput
     upsert?: SemestreUpsertWithoutAlunosInput
     connect?: SemestreWhereUniqueInput
     update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutAlunosInput, SemestreUpdateWithoutAlunosInput>, SemestreUncheckedUpdateWithoutAlunosInput>
+  }
+
+  export type AlunoUpdateOneWithoutContinuidadesNestedInput = {
+    create?: XOR<AlunoCreateWithoutContinuidadesInput, AlunoUncheckedCreateWithoutContinuidadesInput>
+    connectOrCreate?: AlunoCreateOrConnectWithoutContinuidadesInput
+    upsert?: AlunoUpsertWithoutContinuidadesInput
+    disconnect?: AlunoWhereInput | boolean
+    delete?: AlunoWhereInput | boolean
+    connect?: AlunoWhereUniqueInput
+    update?: XOR<XOR<AlunoUpdateToOneWithWhereWithoutContinuidadesInput, AlunoUpdateWithoutContinuidadesInput>, AlunoUncheckedUpdateWithoutContinuidadesInput>
+  }
+
+  export type AlunoUpdateManyWithoutAlunoOrigemNestedInput = {
+    create?: XOR<AlunoCreateWithoutAlunoOrigemInput, AlunoUncheckedCreateWithoutAlunoOrigemInput> | AlunoCreateWithoutAlunoOrigemInput[] | AlunoUncheckedCreateWithoutAlunoOrigemInput[]
+    connectOrCreate?: AlunoCreateOrConnectWithoutAlunoOrigemInput | AlunoCreateOrConnectWithoutAlunoOrigemInput[]
+    upsert?: AlunoUpsertWithWhereUniqueWithoutAlunoOrigemInput | AlunoUpsertWithWhereUniqueWithoutAlunoOrigemInput[]
+    createMany?: AlunoCreateManyAlunoOrigemInputEnvelope
+    set?: AlunoWhereUniqueInput | AlunoWhereUniqueInput[]
+    disconnect?: AlunoWhereUniqueInput | AlunoWhereUniqueInput[]
+    delete?: AlunoWhereUniqueInput | AlunoWhereUniqueInput[]
+    connect?: AlunoWhereUniqueInput | AlunoWhereUniqueInput[]
+    update?: AlunoUpdateWithWhereUniqueWithoutAlunoOrigemInput | AlunoUpdateWithWhereUniqueWithoutAlunoOrigemInput[]
+    updateMany?: AlunoUpdateManyWithWhereWithoutAlunoOrigemInput | AlunoUpdateManyWithWhereWithoutAlunoOrigemInput[]
+    deleteMany?: AlunoScalarWhereInput | AlunoScalarWhereInput[]
   }
 
   export type AlunoTurmaUpdateManyWithoutAlunoNestedInput = {
@@ -35315,6 +36985,20 @@ export namespace Prisma {
     deleteMany?: PresencaAlunoScalarWhereInput | PresencaAlunoScalarWhereInput[]
   }
 
+  export type AlunoUncheckedUpdateManyWithoutAlunoOrigemNestedInput = {
+    create?: XOR<AlunoCreateWithoutAlunoOrigemInput, AlunoUncheckedCreateWithoutAlunoOrigemInput> | AlunoCreateWithoutAlunoOrigemInput[] | AlunoUncheckedCreateWithoutAlunoOrigemInput[]
+    connectOrCreate?: AlunoCreateOrConnectWithoutAlunoOrigemInput | AlunoCreateOrConnectWithoutAlunoOrigemInput[]
+    upsert?: AlunoUpsertWithWhereUniqueWithoutAlunoOrigemInput | AlunoUpsertWithWhereUniqueWithoutAlunoOrigemInput[]
+    createMany?: AlunoCreateManyAlunoOrigemInputEnvelope
+    set?: AlunoWhereUniqueInput | AlunoWhereUniqueInput[]
+    disconnect?: AlunoWhereUniqueInput | AlunoWhereUniqueInput[]
+    delete?: AlunoWhereUniqueInput | AlunoWhereUniqueInput[]
+    connect?: AlunoWhereUniqueInput | AlunoWhereUniqueInput[]
+    update?: AlunoUpdateWithWhereUniqueWithoutAlunoOrigemInput | AlunoUpdateWithWhereUniqueWithoutAlunoOrigemInput[]
+    updateMany?: AlunoUpdateManyWithWhereWithoutAlunoOrigemInput | AlunoUpdateManyWithWhereWithoutAlunoOrigemInput[]
+    deleteMany?: AlunoScalarWhereInput | AlunoScalarWhereInput[]
+  }
+
   export type AlunoTurmaUncheckedUpdateManyWithoutAlunoNestedInput = {
     create?: XOR<AlunoTurmaCreateWithoutAlunoInput, AlunoTurmaUncheckedCreateWithoutAlunoInput> | AlunoTurmaCreateWithoutAlunoInput[] | AlunoTurmaUncheckedCreateWithoutAlunoInput[]
     connectOrCreate?: AlunoTurmaCreateOrConnectWithoutAlunoInput | AlunoTurmaCreateOrConnectWithoutAlunoInput[]
@@ -35341,6 +37025,34 @@ export namespace Prisma {
     update?: PresencaAlunoUpdateWithWhereUniqueWithoutAlunoInput | PresencaAlunoUpdateWithWhereUniqueWithoutAlunoInput[]
     updateMany?: PresencaAlunoUpdateManyWithWhereWithoutAlunoInput | PresencaAlunoUpdateManyWithWhereWithoutAlunoInput[]
     deleteMany?: PresencaAlunoScalarWhereInput | PresencaAlunoScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutVinculosSemestreInput = {
+    create?: XOR<UserCreateWithoutVinculosSemestreInput, UserUncheckedCreateWithoutVinculosSemestreInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVinculosSemestreInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SemestreCreateNestedOneWithoutVinculosEquipeInput = {
+    create?: XOR<SemestreCreateWithoutVinculosEquipeInput, SemestreUncheckedCreateWithoutVinculosEquipeInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutVinculosEquipeInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutVinculosSemestreNestedInput = {
+    create?: XOR<UserCreateWithoutVinculosSemestreInput, UserUncheckedCreateWithoutVinculosSemestreInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVinculosSemestreInput
+    upsert?: UserUpsertWithoutVinculosSemestreInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVinculosSemestreInput, UserUpdateWithoutVinculosSemestreInput>, UserUncheckedUpdateWithoutVinculosSemestreInput>
+  }
+
+  export type SemestreUpdateOneRequiredWithoutVinculosEquipeNestedInput = {
+    create?: XOR<SemestreCreateWithoutVinculosEquipeInput, SemestreUncheckedCreateWithoutVinculosEquipeInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutVinculosEquipeInput
+    upsert?: SemestreUpsertWithoutVinculosEquipeInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutVinculosEquipeInput, SemestreUpdateWithoutVinculosEquipeInput>, SemestreUncheckedUpdateWithoutVinculosEquipeInput>
   }
 
   export type TurmaCreateNestedOneWithoutMateriaisInput = {
@@ -36056,6 +37768,23 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedEnumStatusMatriculaFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusMatricula | EnumStatusMatriculaFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusMatricula[] | ListEnumStatusMatriculaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusMatricula[] | ListEnumStatusMatriculaFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusMatriculaFilter<$PrismaModel> | $Enums.StatusMatricula
+  }
+
+  export type NestedEnumStatusMatriculaWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusMatricula | EnumStatusMatriculaFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusMatricula[] | ListEnumStatusMatriculaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusMatricula[] | ListEnumStatusMatriculaFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusMatriculaWithAggregatesFilter<$PrismaModel> | $Enums.StatusMatricula
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusMatriculaFilter<$PrismaModel>
+    _max?: NestedEnumStatusMatriculaFilter<$PrismaModel>
+  }
+
   export type NestedEnumTipoMaterialFilter<$PrismaModel = never> = {
     equals?: $Enums.TipoMaterial | EnumTipoMaterialFieldRefInput<$PrismaModel>
     in?: $Enums.TipoMaterial[] | ListEnumTipoMaterialFieldRefInput<$PrismaModel>
@@ -36245,6 +37974,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
@@ -36265,6 +37995,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
@@ -36301,6 +38032,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
@@ -36321,6 +38053,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
@@ -36341,6 +38074,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
@@ -36361,6 +38095,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
@@ -36397,6 +38132,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
@@ -36417,6 +38153,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
@@ -36518,6 +38255,24 @@ export namespace Prisma {
 
   export type MonitorTurmaCreateManyUserInputEnvelope = {
     data: MonitorTurmaCreateManyUserInput | MonitorTurmaCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VinculoEquipeSemestreCreateWithoutUserInput = {
+    semestre: SemestreCreateNestedOneWithoutVinculosEquipeInput
+  }
+
+  export type VinculoEquipeSemestreUncheckedCreateWithoutUserInput = {
+    semestreId: string
+  }
+
+  export type VinculoEquipeSemestreCreateOrConnectWithoutUserInput = {
+    where: VinculoEquipeSemestreWhereUniqueInput
+    create: XOR<VinculoEquipeSemestreCreateWithoutUserInput, VinculoEquipeSemestreUncheckedCreateWithoutUserInput>
+  }
+
+  export type VinculoEquipeSemestreCreateManyUserInputEnvelope = {
+    data: VinculoEquipeSemestreCreateManyUserInput | VinculoEquipeSemestreCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -36730,6 +38485,30 @@ export namespace Prisma {
     turmaId?: StringFilter<"MonitorTurma"> | string
   }
 
+  export type VinculoEquipeSemestreUpsertWithWhereUniqueWithoutUserInput = {
+    where: VinculoEquipeSemestreWhereUniqueInput
+    update: XOR<VinculoEquipeSemestreUpdateWithoutUserInput, VinculoEquipeSemestreUncheckedUpdateWithoutUserInput>
+    create: XOR<VinculoEquipeSemestreCreateWithoutUserInput, VinculoEquipeSemestreUncheckedCreateWithoutUserInput>
+  }
+
+  export type VinculoEquipeSemestreUpdateWithWhereUniqueWithoutUserInput = {
+    where: VinculoEquipeSemestreWhereUniqueInput
+    data: XOR<VinculoEquipeSemestreUpdateWithoutUserInput, VinculoEquipeSemestreUncheckedUpdateWithoutUserInput>
+  }
+
+  export type VinculoEquipeSemestreUpdateManyWithWhereWithoutUserInput = {
+    where: VinculoEquipeSemestreScalarWhereInput
+    data: XOR<VinculoEquipeSemestreUpdateManyMutationInput, VinculoEquipeSemestreUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type VinculoEquipeSemestreScalarWhereInput = {
+    AND?: VinculoEquipeSemestreScalarWhereInput | VinculoEquipeSemestreScalarWhereInput[]
+    OR?: VinculoEquipeSemestreScalarWhereInput[]
+    NOT?: VinculoEquipeSemestreScalarWhereInput | VinculoEquipeSemestreScalarWhereInput[]
+    userId?: StringFilter<"VinculoEquipeSemestre"> | string
+    semestreId?: StringFilter<"VinculoEquipeSemestre"> | string
+  }
+
   export type AvisoUpsertWithWhereUniqueWithoutAutorInput = {
     where: AvisoWhereUniqueInput
     update: XOR<AvisoUpdateWithoutAutorInput, AvisoUncheckedUpdateWithoutAutorInput>
@@ -36899,6 +38678,8 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date | string
     cpf: string
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -36922,6 +38703,8 @@ export namespace Prisma {
     temSmartphone?: boolean
     sistemaSmartphone?: string | null
     createdAt?: Date | string
+    alunoOrigem?: AlunoCreateNestedOneWithoutContinuidadesInput
+    continuidades?: AlunoCreateNestedManyWithoutAlunoOrigemInput
     turmas?: AlunoTurmaCreateNestedManyWithoutAlunoInput
     presencas?: PresencaAlunoCreateNestedManyWithoutAlunoInput
   }
@@ -36931,6 +38714,9 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date | string
     cpf: string
+    alunoOrigemId?: string | null
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -36954,6 +38740,7 @@ export namespace Prisma {
     temSmartphone?: boolean
     sistemaSmartphone?: string | null
     createdAt?: Date | string
+    continuidades?: AlunoUncheckedCreateNestedManyWithoutAlunoOrigemInput
     turmas?: AlunoTurmaUncheckedCreateNestedManyWithoutAlunoInput
     presencas?: PresencaAlunoUncheckedCreateNestedManyWithoutAlunoInput
   }
@@ -36999,6 +38786,24 @@ export namespace Prisma {
 
   export type CandidatoCreateManySemestreInputEnvelope = {
     data: CandidatoCreateManySemestreInput | CandidatoCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VinculoEquipeSemestreCreateWithoutSemestreInput = {
+    user: UserCreateNestedOneWithoutVinculosSemestreInput
+  }
+
+  export type VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput = {
+    userId: string
+  }
+
+  export type VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput = {
+    where: VinculoEquipeSemestreWhereUniqueInput
+    create: XOR<VinculoEquipeSemestreCreateWithoutSemestreInput, VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type VinculoEquipeSemestreCreateManySemestreInputEnvelope = {
+    data: VinculoEquipeSemestreCreateManySemestreInput | VinculoEquipeSemestreCreateManySemestreInput[]
     skipDuplicates?: boolean
   }
 
@@ -37061,6 +38866,9 @@ export namespace Prisma {
     nome?: StringFilter<"Aluno"> | string
     dataNascimento?: DateTimeFilter<"Aluno"> | Date | string
     cpf?: StringFilter<"Aluno"> | string
+    alunoOrigemId?: StringNullableFilter<"Aluno"> | string | null
+    etapaTrilha?: StringNullableFilter<"Aluno"> | string | null
+    statusMatricula?: EnumStatusMatriculaFilter<"Aluno"> | $Enums.StatusMatricula
     corRaca?: StringFilter<"Aluno"> | string
     identidadeGenero?: StringFilter<"Aluno"> | string
     lgbtqiapn?: StringFilter<"Aluno"> | string
@@ -37118,6 +38926,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Candidato"> | Date | string
   }
 
+  export type VinculoEquipeSemestreUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: VinculoEquipeSemestreWhereUniqueInput
+    update: XOR<VinculoEquipeSemestreUpdateWithoutSemestreInput, VinculoEquipeSemestreUncheckedUpdateWithoutSemestreInput>
+    create: XOR<VinculoEquipeSemestreCreateWithoutSemestreInput, VinculoEquipeSemestreUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type VinculoEquipeSemestreUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: VinculoEquipeSemestreWhereUniqueInput
+    data: XOR<VinculoEquipeSemestreUpdateWithoutSemestreInput, VinculoEquipeSemestreUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type VinculoEquipeSemestreUpdateManyWithWhereWithoutSemestreInput = {
+    where: VinculoEquipeSemestreScalarWhereInput
+    data: XOR<VinculoEquipeSemestreUpdateManyMutationInput, VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreInput>
+  }
+
   export type SemestreCreateWithoutTurmasInput = {
     id?: string
     codigo: string
@@ -37125,6 +38949,7 @@ export namespace Prisma {
     createdAt?: Date | string
     alunos?: AlunoCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutTurmasInput = {
@@ -37134,6 +38959,7 @@ export namespace Prisma {
     createdAt?: Date | string
     alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutTurmasInput = {
@@ -37345,6 +39171,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     alunos?: AlunoUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutTurmasInput = {
@@ -37354,6 +39181,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ProfessorTurmaUpsertWithWhereUniqueWithoutTurmaInput = {
@@ -37538,6 +39366,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
@@ -37558,6 +39387,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
@@ -37643,6 +39473,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
@@ -37663,6 +39494,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
@@ -37738,6 +39570,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
@@ -37758,6 +39591,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
@@ -37843,6 +39677,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
@@ -37863,6 +39698,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
@@ -37929,6 +39765,8 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date | string
     cpf: string
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -37953,6 +39791,8 @@ export namespace Prisma {
     sistemaSmartphone?: string | null
     createdAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutAlunosInput
+    alunoOrigem?: AlunoCreateNestedOneWithoutContinuidadesInput
+    continuidades?: AlunoCreateNestedManyWithoutAlunoOrigemInput
     presencas?: PresencaAlunoCreateNestedManyWithoutAlunoInput
   }
 
@@ -37962,6 +39802,9 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date | string
     cpf: string
+    alunoOrigemId?: string | null
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -37985,6 +39828,7 @@ export namespace Prisma {
     temSmartphone?: boolean
     sistemaSmartphone?: string | null
     createdAt?: Date | string
+    continuidades?: AlunoUncheckedCreateNestedManyWithoutAlunoOrigemInput
     presencas?: PresencaAlunoUncheckedCreateNestedManyWithoutAlunoInput
   }
 
@@ -38058,6 +39902,8 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -38082,6 +39928,8 @@ export namespace Prisma {
     sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutAlunosNestedInput
+    alunoOrigem?: AlunoUpdateOneWithoutContinuidadesNestedInput
+    continuidades?: AlunoUpdateManyWithoutAlunoOrigemNestedInput
     presencas?: PresencaAlunoUpdateManyWithoutAlunoNestedInput
   }
 
@@ -38091,6 +39939,9 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    alunoOrigemId?: NullableStringFieldUpdateOperationsInput | string | null
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -38114,6 +39965,7 @@ export namespace Prisma {
     temSmartphone?: BoolFieldUpdateOperationsInput | boolean
     sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    continuidades?: AlunoUncheckedUpdateManyWithoutAlunoOrigemNestedInput
     presencas?: PresencaAlunoUncheckedUpdateManyWithoutAlunoNestedInput
   }
 
@@ -38179,6 +40031,7 @@ export namespace Prisma {
     createdAt?: Date | string
     turmas?: TurmaCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAlunosInput = {
@@ -38188,11 +40041,171 @@ export namespace Prisma {
     createdAt?: Date | string
     turmas?: TurmaUncheckedCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAlunosInput = {
     where: SemestreWhereUniqueInput
     create: XOR<SemestreCreateWithoutAlunosInput, SemestreUncheckedCreateWithoutAlunosInput>
+  }
+
+  export type AlunoCreateWithoutContinuidadesInput = {
+    id?: string
+    nome: string
+    dataNascimento: Date | string
+    cpf: string
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
+    corRaca: string
+    identidadeGenero: string
+    lgbtqiapn: string
+    telefone?: string | null
+    contatoEmergencia?: string | null
+    email?: string | null
+    escolaridade: string
+    cuidaTerceiros?: boolean
+    trabalha?: boolean
+    trabalhoLocal?: string | null
+    trabalhoFuncao?: string | null
+    estuda?: boolean
+    estudoLocal?: string | null
+    estudoCurso?: string | null
+    problemaSaude?: boolean
+    problemaSaudeQual?: string | null
+    necessidadeEspecial?: boolean
+    necessidadeEspecialQual?: string | null
+    acessoInternet?: boolean
+    temComputador?: boolean
+    temSmartphone?: boolean
+    sistemaSmartphone?: string | null
+    createdAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutAlunosInput
+    alunoOrigem?: AlunoCreateNestedOneWithoutContinuidadesInput
+    turmas?: AlunoTurmaCreateNestedManyWithoutAlunoInput
+    presencas?: PresencaAlunoCreateNestedManyWithoutAlunoInput
+  }
+
+  export type AlunoUncheckedCreateWithoutContinuidadesInput = {
+    id?: string
+    semestreId: string
+    nome: string
+    dataNascimento: Date | string
+    cpf: string
+    alunoOrigemId?: string | null
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
+    corRaca: string
+    identidadeGenero: string
+    lgbtqiapn: string
+    telefone?: string | null
+    contatoEmergencia?: string | null
+    email?: string | null
+    escolaridade: string
+    cuidaTerceiros?: boolean
+    trabalha?: boolean
+    trabalhoLocal?: string | null
+    trabalhoFuncao?: string | null
+    estuda?: boolean
+    estudoLocal?: string | null
+    estudoCurso?: string | null
+    problemaSaude?: boolean
+    problemaSaudeQual?: string | null
+    necessidadeEspecial?: boolean
+    necessidadeEspecialQual?: string | null
+    acessoInternet?: boolean
+    temComputador?: boolean
+    temSmartphone?: boolean
+    sistemaSmartphone?: string | null
+    createdAt?: Date | string
+    turmas?: AlunoTurmaUncheckedCreateNestedManyWithoutAlunoInput
+    presencas?: PresencaAlunoUncheckedCreateNestedManyWithoutAlunoInput
+  }
+
+  export type AlunoCreateOrConnectWithoutContinuidadesInput = {
+    where: AlunoWhereUniqueInput
+    create: XOR<AlunoCreateWithoutContinuidadesInput, AlunoUncheckedCreateWithoutContinuidadesInput>
+  }
+
+  export type AlunoCreateWithoutAlunoOrigemInput = {
+    id?: string
+    nome: string
+    dataNascimento: Date | string
+    cpf: string
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
+    corRaca: string
+    identidadeGenero: string
+    lgbtqiapn: string
+    telefone?: string | null
+    contatoEmergencia?: string | null
+    email?: string | null
+    escolaridade: string
+    cuidaTerceiros?: boolean
+    trabalha?: boolean
+    trabalhoLocal?: string | null
+    trabalhoFuncao?: string | null
+    estuda?: boolean
+    estudoLocal?: string | null
+    estudoCurso?: string | null
+    problemaSaude?: boolean
+    problemaSaudeQual?: string | null
+    necessidadeEspecial?: boolean
+    necessidadeEspecialQual?: string | null
+    acessoInternet?: boolean
+    temComputador?: boolean
+    temSmartphone?: boolean
+    sistemaSmartphone?: string | null
+    createdAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutAlunosInput
+    continuidades?: AlunoCreateNestedManyWithoutAlunoOrigemInput
+    turmas?: AlunoTurmaCreateNestedManyWithoutAlunoInput
+    presencas?: PresencaAlunoCreateNestedManyWithoutAlunoInput
+  }
+
+  export type AlunoUncheckedCreateWithoutAlunoOrigemInput = {
+    id?: string
+    semestreId: string
+    nome: string
+    dataNascimento: Date | string
+    cpf: string
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
+    corRaca: string
+    identidadeGenero: string
+    lgbtqiapn: string
+    telefone?: string | null
+    contatoEmergencia?: string | null
+    email?: string | null
+    escolaridade: string
+    cuidaTerceiros?: boolean
+    trabalha?: boolean
+    trabalhoLocal?: string | null
+    trabalhoFuncao?: string | null
+    estuda?: boolean
+    estudoLocal?: string | null
+    estudoCurso?: string | null
+    problemaSaude?: boolean
+    problemaSaudeQual?: string | null
+    necessidadeEspecial?: boolean
+    necessidadeEspecialQual?: string | null
+    acessoInternet?: boolean
+    temComputador?: boolean
+    temSmartphone?: boolean
+    sistemaSmartphone?: string | null
+    createdAt?: Date | string
+    continuidades?: AlunoUncheckedCreateNestedManyWithoutAlunoOrigemInput
+    turmas?: AlunoTurmaUncheckedCreateNestedManyWithoutAlunoInput
+    presencas?: PresencaAlunoUncheckedCreateNestedManyWithoutAlunoInput
+  }
+
+  export type AlunoCreateOrConnectWithoutAlunoOrigemInput = {
+    where: AlunoWhereUniqueInput
+    create: XOR<AlunoCreateWithoutAlunoOrigemInput, AlunoUncheckedCreateWithoutAlunoOrigemInput>
+  }
+
+  export type AlunoCreateManyAlunoOrigemInputEnvelope = {
+    data: AlunoCreateManyAlunoOrigemInput | AlunoCreateManyAlunoOrigemInput[]
+    skipDuplicates?: boolean
   }
 
   export type AlunoTurmaCreateWithoutAlunoInput = {
@@ -38253,6 +40266,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     turmas?: TurmaUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAlunosInput = {
@@ -38262,6 +40276,106 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     turmas?: TurmaUncheckedUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type AlunoUpsertWithoutContinuidadesInput = {
+    update: XOR<AlunoUpdateWithoutContinuidadesInput, AlunoUncheckedUpdateWithoutContinuidadesInput>
+    create: XOR<AlunoCreateWithoutContinuidadesInput, AlunoUncheckedCreateWithoutContinuidadesInput>
+    where?: AlunoWhereInput
+  }
+
+  export type AlunoUpdateToOneWithWhereWithoutContinuidadesInput = {
+    where?: AlunoWhereInput
+    data: XOR<AlunoUpdateWithoutContinuidadesInput, AlunoUncheckedUpdateWithoutContinuidadesInput>
+  }
+
+  export type AlunoUpdateWithoutContinuidadesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
+    corRaca?: StringFieldUpdateOperationsInput | string
+    identidadeGenero?: StringFieldUpdateOperationsInput | string
+    lgbtqiapn?: StringFieldUpdateOperationsInput | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    contatoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    escolaridade?: StringFieldUpdateOperationsInput | string
+    cuidaTerceiros?: BoolFieldUpdateOperationsInput | boolean
+    trabalha?: BoolFieldUpdateOperationsInput | boolean
+    trabalhoLocal?: NullableStringFieldUpdateOperationsInput | string | null
+    trabalhoFuncao?: NullableStringFieldUpdateOperationsInput | string | null
+    estuda?: BoolFieldUpdateOperationsInput | boolean
+    estudoLocal?: NullableStringFieldUpdateOperationsInput | string | null
+    estudoCurso?: NullableStringFieldUpdateOperationsInput | string | null
+    problemaSaude?: BoolFieldUpdateOperationsInput | boolean
+    problemaSaudeQual?: NullableStringFieldUpdateOperationsInput | string | null
+    necessidadeEspecial?: BoolFieldUpdateOperationsInput | boolean
+    necessidadeEspecialQual?: NullableStringFieldUpdateOperationsInput | string | null
+    acessoInternet?: BoolFieldUpdateOperationsInput | boolean
+    temComputador?: BoolFieldUpdateOperationsInput | boolean
+    temSmartphone?: BoolFieldUpdateOperationsInput | boolean
+    sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutAlunosNestedInput
+    alunoOrigem?: AlunoUpdateOneWithoutContinuidadesNestedInput
+    turmas?: AlunoTurmaUpdateManyWithoutAlunoNestedInput
+    presencas?: PresencaAlunoUpdateManyWithoutAlunoNestedInput
+  }
+
+  export type AlunoUncheckedUpdateWithoutContinuidadesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    alunoOrigemId?: NullableStringFieldUpdateOperationsInput | string | null
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
+    corRaca?: StringFieldUpdateOperationsInput | string
+    identidadeGenero?: StringFieldUpdateOperationsInput | string
+    lgbtqiapn?: StringFieldUpdateOperationsInput | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    contatoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    escolaridade?: StringFieldUpdateOperationsInput | string
+    cuidaTerceiros?: BoolFieldUpdateOperationsInput | boolean
+    trabalha?: BoolFieldUpdateOperationsInput | boolean
+    trabalhoLocal?: NullableStringFieldUpdateOperationsInput | string | null
+    trabalhoFuncao?: NullableStringFieldUpdateOperationsInput | string | null
+    estuda?: BoolFieldUpdateOperationsInput | boolean
+    estudoLocal?: NullableStringFieldUpdateOperationsInput | string | null
+    estudoCurso?: NullableStringFieldUpdateOperationsInput | string | null
+    problemaSaude?: BoolFieldUpdateOperationsInput | boolean
+    problemaSaudeQual?: NullableStringFieldUpdateOperationsInput | string | null
+    necessidadeEspecial?: BoolFieldUpdateOperationsInput | boolean
+    necessidadeEspecialQual?: NullableStringFieldUpdateOperationsInput | string | null
+    acessoInternet?: BoolFieldUpdateOperationsInput | boolean
+    temComputador?: BoolFieldUpdateOperationsInput | boolean
+    temSmartphone?: BoolFieldUpdateOperationsInput | boolean
+    sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turmas?: AlunoTurmaUncheckedUpdateManyWithoutAlunoNestedInput
+    presencas?: PresencaAlunoUncheckedUpdateManyWithoutAlunoNestedInput
+  }
+
+  export type AlunoUpsertWithWhereUniqueWithoutAlunoOrigemInput = {
+    where: AlunoWhereUniqueInput
+    update: XOR<AlunoUpdateWithoutAlunoOrigemInput, AlunoUncheckedUpdateWithoutAlunoOrigemInput>
+    create: XOR<AlunoCreateWithoutAlunoOrigemInput, AlunoUncheckedCreateWithoutAlunoOrigemInput>
+  }
+
+  export type AlunoUpdateWithWhereUniqueWithoutAlunoOrigemInput = {
+    where: AlunoWhereUniqueInput
+    data: XOR<AlunoUpdateWithoutAlunoOrigemInput, AlunoUncheckedUpdateWithoutAlunoOrigemInput>
+  }
+
+  export type AlunoUpdateManyWithWhereWithoutAlunoOrigemInput = {
+    where: AlunoScalarWhereInput
+    data: XOR<AlunoUpdateManyMutationInput, AlunoUncheckedUpdateManyWithoutAlunoOrigemInput>
   }
 
   export type AlunoTurmaUpsertWithWhereUniqueWithoutAlunoInput = {
@@ -38304,6 +40418,162 @@ export namespace Prisma {
     registroId?: StringFilter<"PresencaAluno"> | string
     alunoId?: StringFilter<"PresencaAluno"> | string
     estado?: EnumEstadoPresencaFilter<"PresencaAluno"> | $Enums.EstadoPresenca
+  }
+
+  export type UserCreateWithoutVinculosSemestreInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    avisos?: AvisoCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+  }
+
+  export type UserUncheckedCreateWithoutVinculosSemestreInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+  }
+
+  export type UserCreateOrConnectWithoutVinculosSemestreInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutVinculosSemestreInput, UserUncheckedCreateWithoutVinculosSemestreInput>
+  }
+
+  export type SemestreCreateWithoutVinculosEquipeInput = {
+    id?: string
+    codigo: string
+    ativo?: boolean
+    createdAt?: Date | string
+    turmas?: TurmaCreateNestedManyWithoutSemestreInput
+    alunos?: AlunoCreateNestedManyWithoutSemestreInput
+    candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutVinculosEquipeInput = {
+    id?: string
+    codigo: string
+    ativo?: boolean
+    createdAt?: Date | string
+    turmas?: TurmaUncheckedCreateNestedManyWithoutSemestreInput
+    alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
+    candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutVinculosEquipeInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutVinculosEquipeInput, SemestreUncheckedCreateWithoutVinculosEquipeInput>
+  }
+
+  export type UserUpsertWithoutVinculosSemestreInput = {
+    update: XOR<UserUpdateWithoutVinculosSemestreInput, UserUncheckedUpdateWithoutVinculosSemestreInput>
+    create: XOR<UserCreateWithoutVinculosSemestreInput, UserUncheckedCreateWithoutVinculosSemestreInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutVinculosSemestreInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutVinculosSemestreInput, UserUncheckedUpdateWithoutVinculosSemestreInput>
+  }
+
+  export type UserUpdateWithoutVinculosSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutVinculosSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+  }
+
+  export type SemestreUpsertWithoutVinculosEquipeInput = {
+    update: XOR<SemestreUpdateWithoutVinculosEquipeInput, SemestreUncheckedUpdateWithoutVinculosEquipeInput>
+    create: XOR<SemestreCreateWithoutVinculosEquipeInput, SemestreUncheckedCreateWithoutVinculosEquipeInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutVinculosEquipeInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutVinculosEquipeInput, SemestreUncheckedUpdateWithoutVinculosEquipeInput>
+  }
+
+  export type SemestreUpdateWithoutVinculosEquipeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turmas?: TurmaUpdateManyWithoutSemestreNestedInput
+    alunos?: AlunoUpdateManyWithoutSemestreNestedInput
+    candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutVinculosEquipeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turmas?: TurmaUncheckedUpdateManyWithoutSemestreNestedInput
+    alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
+    candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type TurmaCreateWithoutMateriaisInput = {
@@ -38578,6 +40848,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
@@ -38598,6 +40869,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
@@ -38689,6 +40961,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
@@ -38709,6 +40982,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
@@ -38778,6 +41052,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
@@ -38798,6 +41073,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
@@ -38889,6 +41165,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
@@ -38909,6 +41186,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
@@ -39158,6 +41436,8 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date | string
     cpf: string
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -39182,6 +41462,8 @@ export namespace Prisma {
     sistemaSmartphone?: string | null
     createdAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutAlunosInput
+    alunoOrigem?: AlunoCreateNestedOneWithoutContinuidadesInput
+    continuidades?: AlunoCreateNestedManyWithoutAlunoOrigemInput
     turmas?: AlunoTurmaCreateNestedManyWithoutAlunoInput
   }
 
@@ -39191,6 +41473,9 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date | string
     cpf: string
+    alunoOrigemId?: string | null
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -39214,6 +41499,7 @@ export namespace Prisma {
     temSmartphone?: boolean
     sistemaSmartphone?: string | null
     createdAt?: Date | string
+    continuidades?: AlunoUncheckedCreateNestedManyWithoutAlunoOrigemInput
     turmas?: AlunoTurmaUncheckedCreateNestedManyWithoutAlunoInput
   }
 
@@ -39265,6 +41551,8 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -39289,6 +41577,8 @@ export namespace Prisma {
     sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutAlunosNestedInput
+    alunoOrigem?: AlunoUpdateOneWithoutContinuidadesNestedInput
+    continuidades?: AlunoUpdateManyWithoutAlunoOrigemNestedInput
     turmas?: AlunoTurmaUpdateManyWithoutAlunoNestedInput
   }
 
@@ -39298,6 +41588,9 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    alunoOrigemId?: NullableStringFieldUpdateOperationsInput | string | null
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -39321,6 +41614,7 @@ export namespace Prisma {
     temSmartphone?: BoolFieldUpdateOperationsInput | boolean
     sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    continuidades?: AlunoUncheckedUpdateManyWithoutAlunoOrigemNestedInput
     turmas?: AlunoTurmaUncheckedUpdateManyWithoutAlunoNestedInput
   }
 
@@ -39360,6 +41654,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
@@ -39380,6 +41675,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
@@ -39443,6 +41739,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
@@ -39463,6 +41760,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
@@ -39504,6 +41802,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
@@ -39524,6 +41823,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
@@ -39587,6 +41887,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
@@ -39607,6 +41908,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
@@ -39619,6 +41921,7 @@ export namespace Prisma {
     createdAt?: Date | string
     turmas?: TurmaCreateNestedManyWithoutSemestreInput
     alunos?: AlunoCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCandidatosInput = {
@@ -39628,6 +41931,7 @@ export namespace Prisma {
     createdAt?: Date | string
     turmas?: TurmaUncheckedCreateNestedManyWithoutSemestreInput
     alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCandidatosInput = {
@@ -39653,6 +41957,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     turmas?: TurmaUpdateManyWithoutSemestreNestedInput
     alunos?: AlunoUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCandidatosInput = {
@@ -39662,6 +41967,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     turmas?: TurmaUncheckedUpdateManyWithoutSemestreNestedInput
     alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type PerguntaCreateWithoutFormularioInput = {
@@ -40058,6 +42364,10 @@ export namespace Prisma {
     turmaId: string
   }
 
+  export type VinculoEquipeSemestreCreateManyUserInput = {
+    semestreId: string
+  }
+
   export type AvisoCreateManyAutorInput = {
     id?: string
     turmaId: string
@@ -40175,6 +42485,18 @@ export namespace Prisma {
     turmaId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type VinculoEquipeSemestreUpdateWithoutUserInput = {
+    semestre?: SemestreUpdateOneRequiredWithoutVinculosEquipeNestedInput
+  }
+
+  export type VinculoEquipeSemestreUncheckedUpdateWithoutUserInput = {
+    semestreId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VinculoEquipeSemestreUncheckedUpdateManyWithoutUserInput = {
+    semestreId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type AvisoUpdateWithoutAutorInput = {
     id?: StringFieldUpdateOperationsInput | string
     texto?: StringFieldUpdateOperationsInput | string
@@ -40284,6 +42606,9 @@ export namespace Prisma {
     nome: string
     dataNascimento: Date | string
     cpf: string
+    alunoOrigemId?: string | null
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
     corRaca: string
     identidadeGenero: string
     lgbtqiapn: string
@@ -40319,6 +42644,10 @@ export namespace Prisma {
     emergencia: string
     curso: $Enums.CursoSorteio
     createdAt?: Date | string
+  }
+
+  export type VinculoEquipeSemestreCreateManySemestreInput = {
+    userId: string
   }
 
   export type TurmaUpdateWithoutSemestreInput = {
@@ -40384,6 +42713,8 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -40407,6 +42738,8 @@ export namespace Prisma {
     temSmartphone?: BoolFieldUpdateOperationsInput | boolean
     sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    alunoOrigem?: AlunoUpdateOneWithoutContinuidadesNestedInput
+    continuidades?: AlunoUpdateManyWithoutAlunoOrigemNestedInput
     turmas?: AlunoTurmaUpdateManyWithoutAlunoNestedInput
     presencas?: PresencaAlunoUpdateManyWithoutAlunoNestedInput
   }
@@ -40416,6 +42749,9 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    alunoOrigemId?: NullableStringFieldUpdateOperationsInput | string | null
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -40439,6 +42775,7 @@ export namespace Prisma {
     temSmartphone?: BoolFieldUpdateOperationsInput | boolean
     sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    continuidades?: AlunoUncheckedUpdateManyWithoutAlunoOrigemNestedInput
     turmas?: AlunoTurmaUncheckedUpdateManyWithoutAlunoNestedInput
     presencas?: PresencaAlunoUncheckedUpdateManyWithoutAlunoNestedInput
   }
@@ -40448,6 +42785,9 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
     cpf?: StringFieldUpdateOperationsInput | string
+    alunoOrigemId?: NullableStringFieldUpdateOperationsInput | string | null
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
     corRaca?: StringFieldUpdateOperationsInput | string
     identidadeGenero?: StringFieldUpdateOperationsInput | string
     lgbtqiapn?: StringFieldUpdateOperationsInput | string
@@ -40507,6 +42847,18 @@ export namespace Prisma {
     emergencia?: StringFieldUpdateOperationsInput | string
     curso?: EnumCursoSorteioFieldUpdateOperationsInput | $Enums.CursoSorteio
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VinculoEquipeSemestreUpdateWithoutSemestreInput = {
+    user?: UserUpdateOneRequiredWithoutVinculosSemestreNestedInput
+  }
+
+  export type VinculoEquipeSemestreUncheckedUpdateWithoutSemestreInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreInput = {
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfessorTurmaCreateManyTurmaInput = {
@@ -40715,6 +43067,39 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AlunoCreateManyAlunoOrigemInput = {
+    id?: string
+    semestreId: string
+    nome: string
+    dataNascimento: Date | string
+    cpf: string
+    etapaTrilha?: string | null
+    statusMatricula?: $Enums.StatusMatricula
+    corRaca: string
+    identidadeGenero: string
+    lgbtqiapn: string
+    telefone?: string | null
+    contatoEmergencia?: string | null
+    email?: string | null
+    escolaridade: string
+    cuidaTerceiros?: boolean
+    trabalha?: boolean
+    trabalhoLocal?: string | null
+    trabalhoFuncao?: string | null
+    estuda?: boolean
+    estudoLocal?: string | null
+    estudoCurso?: string | null
+    problemaSaude?: boolean
+    problemaSaudeQual?: string | null
+    necessidadeEspecial?: boolean
+    necessidadeEspecialQual?: string | null
+    acessoInternet?: boolean
+    temComputador?: boolean
+    temSmartphone?: boolean
+    sistemaSmartphone?: string | null
+    createdAt?: Date | string
+  }
+
   export type AlunoTurmaCreateManyAlunoInput = {
     turmaId: string
   }
@@ -40723,6 +43108,111 @@ export namespace Prisma {
     id?: string
     registroId: string
     estado: $Enums.EstadoPresenca
+  }
+
+  export type AlunoUpdateWithoutAlunoOrigemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
+    corRaca?: StringFieldUpdateOperationsInput | string
+    identidadeGenero?: StringFieldUpdateOperationsInput | string
+    lgbtqiapn?: StringFieldUpdateOperationsInput | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    contatoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    escolaridade?: StringFieldUpdateOperationsInput | string
+    cuidaTerceiros?: BoolFieldUpdateOperationsInput | boolean
+    trabalha?: BoolFieldUpdateOperationsInput | boolean
+    trabalhoLocal?: NullableStringFieldUpdateOperationsInput | string | null
+    trabalhoFuncao?: NullableStringFieldUpdateOperationsInput | string | null
+    estuda?: BoolFieldUpdateOperationsInput | boolean
+    estudoLocal?: NullableStringFieldUpdateOperationsInput | string | null
+    estudoCurso?: NullableStringFieldUpdateOperationsInput | string | null
+    problemaSaude?: BoolFieldUpdateOperationsInput | boolean
+    problemaSaudeQual?: NullableStringFieldUpdateOperationsInput | string | null
+    necessidadeEspecial?: BoolFieldUpdateOperationsInput | boolean
+    necessidadeEspecialQual?: NullableStringFieldUpdateOperationsInput | string | null
+    acessoInternet?: BoolFieldUpdateOperationsInput | boolean
+    temComputador?: BoolFieldUpdateOperationsInput | boolean
+    temSmartphone?: BoolFieldUpdateOperationsInput | boolean
+    sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutAlunosNestedInput
+    continuidades?: AlunoUpdateManyWithoutAlunoOrigemNestedInput
+    turmas?: AlunoTurmaUpdateManyWithoutAlunoNestedInput
+    presencas?: PresencaAlunoUpdateManyWithoutAlunoNestedInput
+  }
+
+  export type AlunoUncheckedUpdateWithoutAlunoOrigemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
+    corRaca?: StringFieldUpdateOperationsInput | string
+    identidadeGenero?: StringFieldUpdateOperationsInput | string
+    lgbtqiapn?: StringFieldUpdateOperationsInput | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    contatoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    escolaridade?: StringFieldUpdateOperationsInput | string
+    cuidaTerceiros?: BoolFieldUpdateOperationsInput | boolean
+    trabalha?: BoolFieldUpdateOperationsInput | boolean
+    trabalhoLocal?: NullableStringFieldUpdateOperationsInput | string | null
+    trabalhoFuncao?: NullableStringFieldUpdateOperationsInput | string | null
+    estuda?: BoolFieldUpdateOperationsInput | boolean
+    estudoLocal?: NullableStringFieldUpdateOperationsInput | string | null
+    estudoCurso?: NullableStringFieldUpdateOperationsInput | string | null
+    problemaSaude?: BoolFieldUpdateOperationsInput | boolean
+    problemaSaudeQual?: NullableStringFieldUpdateOperationsInput | string | null
+    necessidadeEspecial?: BoolFieldUpdateOperationsInput | boolean
+    necessidadeEspecialQual?: NullableStringFieldUpdateOperationsInput | string | null
+    acessoInternet?: BoolFieldUpdateOperationsInput | boolean
+    temComputador?: BoolFieldUpdateOperationsInput | boolean
+    temSmartphone?: BoolFieldUpdateOperationsInput | boolean
+    sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    continuidades?: AlunoUncheckedUpdateManyWithoutAlunoOrigemNestedInput
+    turmas?: AlunoTurmaUncheckedUpdateManyWithoutAlunoNestedInput
+    presencas?: PresencaAlunoUncheckedUpdateManyWithoutAlunoNestedInput
+  }
+
+  export type AlunoUncheckedUpdateManyWithoutAlunoOrigemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    dataNascimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    etapaTrilha?: NullableStringFieldUpdateOperationsInput | string | null
+    statusMatricula?: EnumStatusMatriculaFieldUpdateOperationsInput | $Enums.StatusMatricula
+    corRaca?: StringFieldUpdateOperationsInput | string
+    identidadeGenero?: StringFieldUpdateOperationsInput | string
+    lgbtqiapn?: StringFieldUpdateOperationsInput | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    contatoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    escolaridade?: StringFieldUpdateOperationsInput | string
+    cuidaTerceiros?: BoolFieldUpdateOperationsInput | boolean
+    trabalha?: BoolFieldUpdateOperationsInput | boolean
+    trabalhoLocal?: NullableStringFieldUpdateOperationsInput | string | null
+    trabalhoFuncao?: NullableStringFieldUpdateOperationsInput | string | null
+    estuda?: BoolFieldUpdateOperationsInput | boolean
+    estudoLocal?: NullableStringFieldUpdateOperationsInput | string | null
+    estudoCurso?: NullableStringFieldUpdateOperationsInput | string | null
+    problemaSaude?: BoolFieldUpdateOperationsInput | boolean
+    problemaSaudeQual?: NullableStringFieldUpdateOperationsInput | string | null
+    necessidadeEspecial?: BoolFieldUpdateOperationsInput | boolean
+    necessidadeEspecialQual?: NullableStringFieldUpdateOperationsInput | string | null
+    acessoInternet?: BoolFieldUpdateOperationsInput | boolean
+    temComputador?: BoolFieldUpdateOperationsInput | boolean
+    temSmartphone?: BoolFieldUpdateOperationsInput | boolean
+    sistemaSmartphone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlunoTurmaUpdateWithoutAlunoInput = {

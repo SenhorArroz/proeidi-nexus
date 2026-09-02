@@ -22,6 +22,7 @@ import {
 import { DiretoriaBackLink, DiretoriaPageIntro } from "~/app/_components/diretoria/page-intro";
 import { PersonManagementCard } from "~/app/_components/diretoria/people-management-card";
 import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
+import { ProjectCodeModal } from "~/app/_components/diretoria/project-code-modal";
 import { api } from "~/trpc/react";
 
 // ---------------------------------------------------------------------------
@@ -109,7 +110,6 @@ function iniciais(nome: string) {
 
 interface DeclaracaoForm {
   matricula: string;
-  genero: "masculino" | "feminino";
   curso: string;
   dataInicio: string;
   dataFim: string;
@@ -121,7 +121,6 @@ interface DeclaracaoForm {
 
 const declaracaoFormPadrao = (): DeclaracaoForm => ({
   matricula: "",
-  genero: "masculino",
   curso: "",
   dataInicio: "11 de abril",
   dataFim: "20 de junho",
@@ -254,7 +253,6 @@ function ModalDeclaracao({
       ano: form.ano,
       cargaHoraria: form.cargaHoraria,
       tipo: "professor",
-      genero: form.genero,
       nomeProjeto: form.nomeProjeto,
       codigoProjeto: form.codigoProjeto,
     });
@@ -294,32 +292,16 @@ function ModalDeclaracao({
 
         {/* Campos */}
         <div className="space-y-4 px-4 py-5 sm:px-6">
-          {/* Linha: Matrícula + Gênero */}
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <div>
-              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
-                Matrícula *
-              </label>
-              <input
-                value={form.matricula}
-                onChange={(e) => setForm({ ...form, matricula: e.target.value })}
-                placeholder="20250032396"
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
-                Gênero
-              </label>
-              <select
-                value={form.genero}
-                onChange={(e) => setForm({ ...form, genero: e.target.value as "masculino" | "feminino" })}
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
-              >
-                <option value="masculino">Masculino</option>
-                <option value="feminino">Feminino</option>
-              </select>
-            </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
+              Matrícula *
+            </label>
+            <input
+              value={form.matricula}
+              onChange={(e) => setForm({ ...form, matricula: e.target.value })}
+              placeholder="20250032396"
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
+            />
           </div>
 
           {/* Cursos */}
@@ -425,15 +407,14 @@ function ModalDeclaracao({
             <p className="text-[11px] font-medium text-gray-400 uppercase tracking-wide mb-1.5">Prévia do texto</p>
             <p className="text-xs text-gray-600 leading-relaxed">
               Declaro, para os fins que se fizerem necessários, que{" "}
-              <strong>{form.genero === "feminino" ? "a" : "o"} discente {professor.nome}</strong>
-              , matrícula <strong>{form.matricula || "___"}</strong>
-              , está {form.genero === "feminino" ? "vinculada" : "vinculado"} ao{" "}
+			  <strong>o(a) discente {professor.nome}</strong>
+			  , matrícula <strong>{form.matricula || "___"}</strong>
+			  , está vinculado(a) ao{" "}
               <strong>{form.nomeProjeto}</strong> (<strong>{form.codigoProjeto}</strong>)
               , no período de <strong>{form.dataInicio}</strong> a <strong>{form.dataFim}</strong> de{" "}
               <strong>{form.ano}</strong>, com uma carga horária total de{" "}
               <strong>{form.cargaHoraria}</strong>.{" "}
-              {form.genero === "feminino" ? "A" : "O"} discente atuou como{" "}
-              <strong>{form.genero === "feminino" ? "professora" : "professor"}</strong>{" "}
+			  O(a) discente atuou como <strong>professor(a)</strong>{" "}
               {form.curso.includes(" e ") ? "dos cursos de" : "do curso de"}{" "}
               <strong>{form.curso || "___"}</strong>.
             </p>
@@ -477,16 +458,20 @@ export default function ProfessoresDiretoria() {
 	const criar = api.diretoria.usuarios.create.useMutation({ onSuccess: () => utils.diretoria.usuarios.list.invalidate() });
 	const atualizar = api.diretoria.usuarios.update.useMutation({ onSuccess: () => utils.diretoria.usuarios.list.invalidate() });
 	const remover = api.diretoria.usuarios.remove.useMutation({ onSuccess: () => utils.diretoria.usuarios.list.invalidate() });
-	const gerarLoteDeclaracoes = api.declaracao.gerarLoteUsuarios.useMutation({
-		onSuccess: (data) => downloadBase64Pdf(data.arquivoBase64, data.nomeArquivo),
-		onError: (err) => alert(`Erro ao gerar o lote de certificados: ${err.message}`),
-	});
   const [professores, setProfessores] = useState<Professor[]>([]);
   const [modo, setModo] = useState<"lista" | "form">("lista");
   const [editandoId, setEditandoId] = useState<string | null>(null);
   const [rascunho, setRascunho] = useState<Professor>(professorVazio());
   const [mostrarSenha, setMostrarSenha] = useState(false);
 	const [professorParaCertificado, setProfessorParaCertificado] = useState<Professor | null>(null);
+	const [modalLoteAberto, setModalLoteAberto] = useState(false);
+	const gerarLoteDeclaracoes = api.declaracao.gerarLoteUsuarios.useMutation({
+		onSuccess: (data) => {
+			downloadBase64Pdf(data.arquivoBase64, data.nomeArquivo);
+			setModalLoteAberto(false);
+		},
+		onError: (err) => alert(`Erro ao gerar o lote de certificados: ${err.message}`),
+	});
 
 	useEffect(() => {
 		if (!professoresDb || !diretoresDb) return;
@@ -495,7 +480,11 @@ export default function ProfessoresDiretoria() {
 
 	const gerarLote = () => {
 		if (!professores.length) return;
-		gerarLoteDeclaracoes.mutate({ usuarioIds: professores.map((professor) => professor.id), tipo: "professor" });
+		setModalLoteAberto(true);
+	};
+
+	const confirmarLote = (codigoProjeto: string) => {
+		gerarLoteDeclaracoes.mutate({ usuarioIds: professores.map((professor) => professor.id), tipo: "professor", codigoProjeto });
 	};
 
   const abrirNovo = () => {
@@ -705,6 +694,14 @@ export default function ProfessoresDiretoria() {
 			  onClose={() => setProfessorParaCertificado(null)}
 		  />
 	  )}
+	  <ProjectCodeModal
+		  isOpen={modalLoteAberto}
+		  isSubmitting={gerarLoteDeclaracoes.isPending}
+		  personLabel="docentes"
+		  totalCertificates={professores.length}
+		  onClose={() => setModalLoteAberto(false)}
+		  onConfirm={confirmarLote}
+	  />
     </div>
   );
 }

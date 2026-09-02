@@ -130,6 +130,22 @@ function formatarPeriodo(
 	};
 }
 
+/** Remove o identificador operacional da turma antes de o nome ir para o certificado. */
+function nomeParaCertificado(titulo: string): string {
+	return titulo
+		.replace(/\s*(?:[-–—,:]\s*)?\bT[123]\b(?:\s*[-–—,:])?\s*/gi, " ")
+		.replace(/\s{2,}/g, " ")
+		.trim();
+}
+
+function nomesDasTurmasParaCertificado(turmas: { titulo: string }[]): string {
+	return [
+		...new Set(
+			turmas.map((turma) => nomeParaCertificado(turma.titulo)).filter(Boolean),
+		),
+	].join(" e ") || "Inclusão Digital";
+}
+
 interface TextSpan {
 	text: string;
 	font: PDFFont;
@@ -263,11 +279,10 @@ export const certificadoRouter = createTRPCRouter({
 		.mutation(async ({ ctx, input }) => {
 			let nome = input.nome ?? "";
 			let matricula = input.matricula ?? "";
-			let curso = input.curso ?? "Inclusão Digital";
+			let curso = nomeParaCertificado(input.curso ?? "Inclusão Digital");
 			let periodo = input.periodo ?? "2026.1";
 			let cargaHoraria = input.cargaHoraria ?? "54 horas";
 			const tipo = input.tipo;
-			const genero = input.genero;
 			const nomeProjeto =
 				input.nomeProjeto ??
 				"Projeto de Extensão de Inclusão Digital para Pessoas Idosas";
@@ -299,7 +314,7 @@ export const certificadoRouter = createTRPCRouter({
 				if (!periodoAulas) throw new Error("As turmas vinculadas ainda não possuem aulas cadastradas.");
 				nome = usuario.nome;
 				matricula = usuario.matricula;
-				curso = [...new Set(turmas.map((turma) => turma.titulo))].join(" e ");
+				curso = nomesDasTurmasParaCertificado(turmas);
 				periodo = turmas.at(-1)?.semestre.codigo || periodo;
 				cargaHoraria = calcularCargaHoraria(
 					input.tipo === "monitor" ? usuario.presencasMonitor : usuario.presencasProfessor,
@@ -331,7 +346,7 @@ export const certificadoRouter = createTRPCRouter({
 				if (aluno) {
 					nome = aluno.nome;
 					cargaHoraria = calcularCargaHoraria(aluno.presencas);
-					curso = aluno.turmas[0]?.turma?.titulo || curso;
+					curso = nomeParaCertificado(aluno.turmas[0]?.turma?.titulo || curso);
 					periodo = aluno.semestre?.codigo || periodo;
 				}
 			}
@@ -362,18 +377,7 @@ export const certificadoRouter = createTRPCRouter({
 				input.ano,
 			);
 
-			// Concordância de gênero
-			const artigo = genero === "feminino" ? "a" : "o";
-			const artigoMaiusculo = genero === "feminino" ? "A" : "O";
-			const vinculado = genero === "feminino" ? "vinculada" : "vinculado";
-			const funcao =
-				tipo === "professor"
-					? genero === "feminino"
-						? "professora"
-						: "professor"
-					: genero === "feminino"
-						? "monitora"
-						: "monitor";
+			const funcao = tipo === "professor" ? "professor(a)" : "monitor(a)";
 			const preposicaoCurso = curso.includes(" e ")
 				? "dos cursos de "
 				: "do curso de ";
@@ -385,12 +389,12 @@ export const certificadoRouter = createTRPCRouter({
 					font: fontNormal,
 					color: corPadrao,
 				},
-				{ text: `${artigo} discente `, font: fontNormal, color: corPadrao },
+				{ text: "o(a) discente ", font: fontNormal, color: corPadrao },
 				{ text: nome, font: fontBold, color: corPadrao },
 				{ text: ", matrícula ", font: fontNormal, color: corPadrao },
 				{ text: matricula, font: fontBold, color: corPadrao },
 				{
-					text: `, está ${vinculado} ao `,
+					text: ", está vinculado(a) ao ",
 					font: fontNormal,
 					color: corPadrao,
 				},
@@ -410,7 +414,7 @@ export const certificadoRouter = createTRPCRouter({
 				},
 				{ text: cargaHoraria, font: fontBold, color: corPadrao },
 				{
-					text: `. ${artigoMaiusculo} discente atuou como `,
+					text: ". O(a) discente atuou como ",
 					font: fontNormal,
 					color: corPadrao,
 				},
@@ -443,6 +447,7 @@ export const certificadoRouter = createTRPCRouter({
 			z.object({
 				usuarioIds: z.array(z.string().cuid()).min(1).max(100),
 				tipo: z.enum(["professor", "monitor"]),
+				codigoProjeto: z.string().trim().min(1, "Informe o código do projeto."),
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
@@ -487,19 +492,19 @@ export const certificadoRouter = createTRPCRouter({
 				const [pagina] = await pdfFinal.copyPages(modeloDoc, [0]);
 				if (!pagina || !periodoAulas) continue;
 				pdfFinal.addPage(pagina);
-				const curso = [...new Set(turmas.map((turma) => turma.titulo))].join(" e ");
+				const curso = nomesDasTurmasParaCertificado(turmas);
 				const cargaHoraria = calcularCargaHoraria(input.tipo === "monitor" ? usuario.presencasMonitor : usuario.presencasProfessor);
-				const funcao = input.tipo === "professor" ? "professor" : "monitor";
+				const funcao = input.tipo === "professor" ? "professor(a)" : "monitor(a)";
 				const preposicaoCurso = curso.includes(" e ") ? "dos cursos de " : "do curso de ";
 				const spans: TextSpan[] = [
-					{ text: "Declaro, para os fins que se fizerem necessários, que o discente ", font: fontNormal, color: corPadrao },
+					{ text: "Declaro, para os fins que se fizerem necessários, que o(a) discente ", font: fontNormal, color: corPadrao },
 					{ text: usuario.nome, font: fontBold, color: corPadrao },
 					{ text: ", matrícula ", font: fontNormal, color: corPadrao },
 					{ text: usuario.matricula, font: fontBold, color: corPadrao },
-					{ text: ", está vinculado ao ", font: fontNormal, color: corPadrao },
+					{ text: ", está vinculado(a) ao ", font: fontNormal, color: corPadrao },
 					{ text: "Projeto de Extensão de Inclusão Digital para Pessoas Idosas", font: fontBold, color: corPadrao },
 					{ text: " (", font: fontNormal, color: corPadrao },
-					{ text: "PJ457-2026", font: fontBold, color: corPadrao },
+					{ text: input.codigoProjeto, font: fontBold, color: corPadrao },
 					{ text: "), no período de ", font: fontNormal, color: corPadrao },
 					{ text: periodoAulas.inicio, font: fontBold, color: corPadrao },
 					{ text: " a ", font: fontNormal, color: corPadrao },
@@ -508,7 +513,7 @@ export const certificadoRouter = createTRPCRouter({
 					{ text: periodoAulas.ano, font: fontBold, color: corPadrao },
 					{ text: ", com uma carga horária total de ", font: fontNormal, color: corPadrao },
 					{ text: cargaHoraria, font: fontBold, color: corPadrao },
-					{ text: `. O discente atuou como ${funcao} ${preposicaoCurso}`, font: fontNormal, color: corPadrao },
+					{ text: `. O(a) discente atuou como ${funcao} ${preposicaoCurso}`, font: fontNormal, color: corPadrao },
 					{ text: curso, font: fontBold, color: corPadrao },
 					{ text: ".", font: fontNormal, color: corPadrao },
 				];
@@ -573,7 +578,7 @@ export const certificadoRouter = createTRPCRouter({
 				listaAlunos = input.alunosManuais.map((a) => ({
 					nome: a.nome,
 					matricula: a.matricula ?? "",
-					curso: a.curso || a.turma || "Inclusão Digital",
+					curso: nomeParaCertificado(a.curso || a.turma || "Inclusão Digital"),
 					periodo: input.semestreId,
 					cargaHoraria:
 						a.cargaHoraria ||
@@ -626,7 +631,7 @@ export const certificadoRouter = createTRPCRouter({
 				listaAlunos = alunosDb.map((aluno) => ({
 					nome: aluno.nome,
 					matricula: aluno.cpf ?? "",
-					curso: aluno.turmas[0]?.turma?.titulo || "Inclusão Digital",
+					curso: nomeParaCertificado(aluno.turmas[0]?.turma?.titulo || "Inclusão Digital"),
 					periodo: aluno.semestre?.codigo || input.semestreId,
 					cargaHoraria: calcularCargaHoraria(aluno.presencas),
 					tipo: input.tipo,
@@ -663,18 +668,7 @@ export const certificadoRouter = createTRPCRouter({
 					input.ano,
 				);
 
-				// Concordância de gênero
-				const artigo = aluno.genero === "feminino" ? "a" : "o";
-				const artigoMaiusculo = aluno.genero === "feminino" ? "A" : "O";
-				const vinculado = aluno.genero === "feminino" ? "vinculada" : "vinculado";
-				const funcao =
-					aluno.tipo === "professor"
-						? aluno.genero === "feminino"
-							? "professora"
-							: "professor"
-						: aluno.genero === "feminino"
-							? "monitora"
-							: "monitor";
+				const funcao = aluno.tipo === "professor" ? "professor(a)" : "monitor(a)";
 				const preposicaoCurso = aluno.curso.includes(" e ")
 					? "dos cursos de "
 					: "do curso de ";
@@ -686,12 +680,12 @@ export const certificadoRouter = createTRPCRouter({
 						font: fontNormal,
 						color: corPadrao,
 					},
-					{ text: `${artigo} discente `, font: fontNormal, color: corPadrao },
+					{ text: "o(a) discente ", font: fontNormal, color: corPadrao },
 					{ text: aluno.nome, font: fontBold, color: corPadrao },
 					{ text: ", matrícula ", font: fontNormal, color: corPadrao },
 					{ text: aluno.matricula, font: fontBold, color: corPadrao },
 					{
-						text: `, está ${vinculado} ao `,
+						text: ", está vinculado(a) ao ",
 						font: fontNormal,
 						color: corPadrao,
 					},
@@ -711,7 +705,7 @@ export const certificadoRouter = createTRPCRouter({
 					},
 					{ text: aluno.cargaHoraria, font: fontBold, color: corPadrao },
 					{
-						text: `. ${artigoMaiusculo} discente atuou como `,
+						text: ". O(a) discente atuou como ",
 						font: fontNormal,
 						color: corPadrao,
 					},

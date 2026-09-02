@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
 	CalendarDays,
 	CheckCircle2,
+	Copy,
 	GraduationCap,
 	Plus,
 	ShieldCheck,
@@ -20,6 +21,8 @@ export default function SemestresDiretoria() {
 		api.diretoria.semestres.list.useQuery();
 	const [codigo, setCodigo] = useState("");
 	const [erro, setErro] = useState("");
+	const [semestreParaDuplicar, setSemestreParaDuplicar] = useState<{ id: string; codigo: string } | null>(null);
+	const [codigoDestino, setCodigoDestino] = useState("");
 	const atualizar = () => utils.diretoria.semestres.list.invalidate();
 	const criar = api.diretoria.semestres.create.useMutation({
 		onSuccess: () => {
@@ -34,6 +37,14 @@ export default function SemestresDiretoria() {
 	});
 	const remover = api.diretoria.semestres.remove.useMutation({
 		onSuccess: atualizar,
+		onError: (e) => setErro(e.message),
+	});
+	const duplicar = api.diretoria.semestres.duplicate.useMutation({
+		onSuccess: () => {
+			setSemestreParaDuplicar(null);
+			setCodigoDestino("");
+			atualizar();
+		},
 		onError: (e) => setErro(e.message),
 	});
 
@@ -124,6 +135,12 @@ export default function SemestresDiretoria() {
 										</button>
 									)}
 									<button
+										onClick={() => { setSemestreParaDuplicar({ id: semestre.id, codigo: semestre.codigo }); setCodigoDestino(""); }}
+										className="flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-50 px-3 py-2 text-xs font-bold text-orange-800 hover:bg-orange-100"
+									>
+										<Copy className="h-3.5 w-3.5" /> Duplicar
+									</button>
+									<button
 										onClick={() => {
 											if (confirm(`Excluir o semestre ${semestre.codigo}?`))
 												remover.mutate({ id: semestre.id });
@@ -147,6 +164,16 @@ export default function SemestresDiretoria() {
 						))
 					)}
 				</div>
+				{semestreParaDuplicar && (
+					<div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/45 p-0 sm:items-center sm:p-4">
+						<form onSubmit={(event) => { event.preventDefault(); duplicar.mutate({ semestreOrigemId: semestreParaDuplicar.id, codigoDestino, continuarAlunos: true, copiarMateriais: true }); }} className="w-full max-w-md rounded-t-2xl bg-white p-5 shadow-2xl sm:rounded-2xl">
+							<h2 className="text-lg font-bold text-slate-900">Duplicar {semestreParaDuplicar.codigo}</h2>
+							<p className="mt-2 text-sm leading-5 text-slate-600">Serão copiadas turmas, materiais, vínculos de docentes e monitores e as matrículas dos alunos. Presenças, aulas, avisos e candidatos de sorteio não serão copiados.</p>
+							<label className="mt-5 block text-sm font-semibold text-slate-800">Código do novo semestre<input autoFocus required value={codigoDestino} onChange={(event) => setCodigoDestino(event.target.value)} placeholder="Ex.: 2026.2" pattern="\d{4}\.[12]" className="mt-2 min-h-11 w-full rounded-xl border border-slate-300 px-3 text-sm outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100" /></label>
+							<div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"><button type="button" onClick={() => setSemestreParaDuplicar(null)} className="min-h-11 rounded-xl px-4 text-sm font-semibold text-slate-600 hover:bg-slate-100">Cancelar</button><button type="submit" disabled={duplicar.isPending} className="min-h-11 rounded-xl bg-orange-700 px-5 text-sm font-bold text-white hover:bg-orange-800 disabled:opacity-50">{duplicar.isPending ? "Duplicando..." : "Duplicar semestre"}</button></div>
+						</form>
+					</div>
+				)}
 			</div>
 		</div>
 	);
