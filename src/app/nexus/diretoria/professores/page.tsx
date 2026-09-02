@@ -477,10 +477,6 @@ export default function ProfessoresDiretoria() {
 	const criar = api.diretoria.usuarios.create.useMutation({ onSuccess: () => utils.diretoria.usuarios.list.invalidate() });
 	const atualizar = api.diretoria.usuarios.update.useMutation({ onSuccess: () => utils.diretoria.usuarios.list.invalidate() });
 	const remover = api.diretoria.usuarios.remove.useMutation({ onSuccess: () => utils.diretoria.usuarios.list.invalidate() });
-	const gerarDeclaracao = api.declaracao.gerarIndividual.useMutation({
-		onSuccess: (data) => downloadBase64Pdf(data.arquivoBase64, data.nomeArquivo || "Certificado_PM.pdf"),
-		onError: (err) => alert(`Erro ao gerar certificado PM: ${err.message}`),
-	});
 	const gerarLoteDeclaracoes = api.declaracao.gerarLoteUsuarios.useMutation({
 		onSuccess: (data) => downloadBase64Pdf(data.arquivoBase64, data.nomeArquivo),
 		onError: (err) => alert(`Erro ao gerar o lote de certificados: ${err.message}`),
@@ -490,6 +486,7 @@ export default function ProfessoresDiretoria() {
   const [editandoId, setEditandoId] = useState<string | null>(null);
   const [rascunho, setRascunho] = useState<Professor>(professorVazio());
   const [mostrarSenha, setMostrarSenha] = useState(false);
+	const [professorParaCertificado, setProfessorParaCertificado] = useState<Professor | null>(null);
 
 	useEffect(() => {
 		if (!professoresDb || !diretoresDb) return;
@@ -574,8 +571,8 @@ export default function ProfessoresDiretoria() {
             </div>
 
 			{carregandoProfessores || carregandoDiretores ? <DataSkeleton cards={4} /> : <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {professores.map((professor) => (
-                <PersonManagementCard key={professor.id} person={professor} role="professor" roleLabel={professor.role === "DIRETOR" ? "Diretor · docente" : undefined} onEdit={professor.role === "PROFESSOR" ? () => abrirEdicao(professor) : undefined} onRemove={professor.role === "PROFESSOR" ? () => excluir(professor.id) : undefined} onCertificate={() => gerarDeclaracao.mutate({ usuarioId: professor.id, tipo: "professor" })} />
+			  {professores.map((professor) => (
+                <PersonManagementCard key={professor.id} person={professor} role="professor" roleLabel={professor.role === "DIRETOR" ? "Diretor · docente" : undefined} onEdit={professor.role === "PROFESSOR" ? () => abrirEdicao(professor) : undefined} onRemove={professor.role === "PROFESSOR" ? () => excluir(professor.id) : undefined} onCertificate={() => setProfessorParaCertificado(professor)} />
               ))}
 			</div>}
 
@@ -702,7 +699,12 @@ export default function ProfessoresDiretoria() {
         )}
       </div>
 
-      {/* Modal de Declaração */}
+	  {professorParaCertificado && (
+		  <ModalDeclaracao
+			  professor={professorParaCertificado}
+			  onClose={() => setProfessorParaCertificado(null)}
+		  />
+	  )}
     </div>
   );
 }
