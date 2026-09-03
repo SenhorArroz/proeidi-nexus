@@ -1,130 +1,219 @@
 "use client";
-import React, { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+
+import { type FormEvent, useState } from "react";
+import {
+	ArrowRight,
+	Eye,
+	EyeOff,
+	LockKeyhole,
+	Mail,
+	ShieldCheck,
+	UsersRound,
+} from "lucide-react";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function LoginProEIDINexus() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [lembrar, setLembrar] = useState(false);
-  const [carregando, setCarregando] = useState(false);
-  const [erro, setErro] = useState("");
-  const router = useRouter();
+	const [email, setEmail] = useState("");
+	const [senha, setSenha] = useState("");
+	const [mostrarSenha, setMostrarSenha] = useState(false);
+	const [carregando, setCarregando] = useState(false);
+	const [erro, setErro] = useState("");
+	const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setCarregando(true);
-    setErro("");
-    const result = await signIn("credentials", { email, senha, redirect: false });
-    setCarregando(false);
-    if (result?.error) { setErro("E-mail ou senha inválidos."); return; }
-    router.replace("/nexus/diretoria");
-    router.refresh();
-  };
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		setCarregando(true);
+		setErro("");
+		const result = await signIn("credentials", {
+			email,
+			senha,
+			redirect: false,
+		});
+		setCarregando(false);
+		if (result?.error) {
+			setErro(
+				"E-mail ou senha inválidos. Revise seus dados e tente novamente.",
+			);
+			return;
+		}
+		router.replace("/nexus/diretoria");
+		router.refresh();
+	};
 
-  return (
-    <div className="relative flex min-h-[100dvh] w-full min-w-0 items-center justify-center overflow-hidden px-3 py-6 font-sans sm:px-4 sm:py-10">
-      {/* Decoração de fundo */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-sky-200 blur-3xl " />
-      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-amber-200 blur-3xl " />
-      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-sky-200 blur-3xl " />
-      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-amber-200 blur-3xl " />
+	return (
+		<main className="relative min-h-[100dvh] overflow-hidden bg-slate-50 font-sans sm:p-5 lg:p-7">
+			<div className="relative mx-auto flex min-h-[100dvh] w-full max-w-7xl overflow-hidden bg-white sm:min-h-[calc(100dvh-2.5rem)] sm:rounded-[1.75rem] sm:shadow-[0_24px_64px_rgba(15,23,42,.14)] lg:min-h-[calc(100dvh-3.5rem)]">
+				<section className="relative hidden min-w-0 overflow-hidden bg-sky-600 p-8 text-white lg:flex lg:w-[52%] lg:flex-col lg:justify-between xl:p-12">
+					<div
+						className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-orange-500"
+						aria-hidden="true"
+					/>
+					<div
+						className="absolute bottom-14 right-12 h-48 w-48 rounded-full border-[18px] border-sky-300/60"
+						aria-hidden="true"
+					/>
+					<div
+						className="absolute -bottom-20 -left-16 h-64 w-64 rounded-full bg-orange-400/90"
+						aria-hidden="true"
+					/>
+					<div className="relative flex items-center gap-3">
+						<Image
+							src="/nexus_logo.png"
+							alt="ProEIDI Nexus"
+							width={200}
+							height={100}
+							className="h-30 w-auto object-contain"
+						/>
+						<span className="h-7 w-px bg-white/35" aria-hidden="true" />
+						<span className="text-sm font-bold tracking-wide text-sky-50">
+							Área do projeto
+						</span>
+					</div>
+					<div className="relative max-w-lg py-14 xl:py-20">
+						<div className="mb-6 grid h-14 w-14 place-items-center rounded-2xl bg-orange-500 shadow-[0_12px_24px_rgba(234,88,12,.3)]">
+							<ShieldCheck className="h-7 w-7" aria-hidden="true" />
+						</div>
+						<h1 className="max-w-md text-4xl font-black tracking-[-.035em] text-white xl:text-5xl">
+							A rotina do ProEIDI, conectada.
+						</h1>
+						<p className="mt-5 max-w-md text-base leading-7 text-sky-100 xl:text-lg">
+							Gerencie turmas, pessoas, atividades e presença em um só lugar.
+						</p>
+					</div>
+					<div className="relative flex max-w-md items-center gap-3 border-t border-white/20 pt-6 text-sm text-sky-100">
+						<UsersRound
+							className="h-5 w-5 shrink-0 text-orange-200"
+							aria-hidden="true"
+						/>
+						<span>
+							Acesso para coordenação, diretoria, professores e monitores.
+						</span>
+					</div>
+				</section>
 
-      <div className="relative w-full max-w-sm">
-        {/* Logo */}
-        <div className="flex flex-col items-center">
-          <img
-            src="/nexus_logo.png"
-            alt="ProEIDI Nexus"
-            className="h-28 max-w-full object-contain sm:h-36 md:h-40"
-          />
-        </div>
-
-        {/* Card de login */}
-        <div className="min-w-0 rounded-2xl border border-gray-200 bg-white p-4 sm:p-8">
-          <form onSubmit={handleSubmit} className="space-y-5">
-			{erro && <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{erro}</p>}
-            <div>
-              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
-                E-mail
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="voce@proeidi.com.br"
-                  required
-                  className="h-11 w-full min-w-0 rounded-lg border border-gray-200 bg-gray-50 pl-10 pr-4 text-base text-gray-800 placeholder-gray-400 transition-colors focus:border-sky-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-100 sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide">
-                  Senha
-                </label>
-
-              </div>
-              <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type={mostrarSenha ? "text" : "password"}
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  className="h-11 w-full min-w-0 rounded-lg border border-gray-200 bg-gray-50 pl-10 pr-12 text-base text-gray-800 placeholder-gray-400 transition-colors focus:border-sky-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-100 sm:text-sm"
-                />
-                <button
-                  type="button"
-                  onClick={() => setMostrarSenha((v) => !v)}
-                  className="absolute right-1 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-                  aria-label={mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
-                >
-                  {mostrarSenha ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-
-            <label className="flex items-center gap-2 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={lembrar}
-                onChange={(e) => setLembrar(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-sky-600 focus:ring-sky-300"
-              />
-              <span className="text-sm text-gray-600">Lembrar de mim</span>
-            </label>
-
-            <button
-              type="submit"
-              disabled={carregando}
-              className="w-full h-11 flex items-center justify-center gap-2 rounded-xl bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 active:translate-y-0 hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0 shadow-sm hover:shadow-md transition-all"
-            >
-              {carregando ? (
-                <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  Entrar
-                  <ArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
-          </form>
-        </div>
-
-        <p className="text-center text-xs text-gray-400 mt-6">
-          Não tem uma conta?{" "}
-          <a href="#" className="font-medium text-sky-600 hover:text-sky-700">
-            Fale com o administrador
-          </a>
-        </p>
-      </div>
-    </div>
-  );
+				<section className="relative flex w-full min-w-0 items-start justify-center px-5 py-8 sm:items-center sm:px-10 sm:py-10 lg:w-[48%] lg:px-12 xl:px-16">
+					<div
+						className="absolute -right-12 top-0 h-36 w-36 rounded-full bg-orange-100 lg:hidden"
+						aria-hidden="true"
+					/>
+					<div
+						className="absolute -left-14 bottom-0 h-44 w-44 rounded-full bg-sky-100 lg:hidden"
+						aria-hidden="true"
+					/>
+					<div className="relative w-full max-w-md">
+						<div className="mb-7 flex justify-center sm:mb-9 lg:hidden">
+							<Image
+								src="/nexus_logo.png"
+								alt="ProEIDI Nexus"
+								width={256}
+								height={96}
+								className="h-20 w-auto object-contain sm:h-24"
+							/>
+						</div>
+						<div className="mb-7 sm:mb-8 text-center">
+							<h2 className="text-2xl font-black tracking-[-.03em] text-slate-900 sm:text-3xl">
+								Acesse sua conta
+							</h2>
+							<p className="mt-2 text-sm leading-6 text-slate-600">
+								Entre com as credenciais cadastradas pela administração do
+								projeto.
+							</p>
+						</div>
+						<form onSubmit={handleSubmit} className="space-y-5">
+							{erro && (
+								<p
+									role="alert"
+									className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium leading-5 text-red-700"
+								>
+									{erro}
+								</p>
+							)}
+							<label className="block">
+								<span className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-600">
+									E-mail
+								</span>
+								<span className="relative block">
+									<Mail
+										className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-sky-700"
+										aria-hidden="true"
+									/>
+									<input
+										type="email"
+										value={email}
+										onChange={(event) => setEmail(event.target.value)}
+										placeholder="voce@proeidi.com.br"
+										autoComplete="email"
+										required
+										className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-4 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-100 sm:text-sm"
+									/>
+								</span>
+							</label>
+							<label className="block">
+								<span className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-600">
+									Senha
+								</span>
+								<span className="relative block">
+									<LockKeyhole
+										className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-sky-700"
+										aria-hidden="true"
+									/>
+									<input
+										type={mostrarSenha ? "text" : "password"}
+										value={senha}
+										onChange={(event) => setSenha(event.target.value)}
+										placeholder="Digite sua senha"
+										autoComplete="current-password"
+										required
+										className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-12 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-100 sm:text-sm"
+									/>
+									<button
+										type="button"
+										onClick={() => setMostrarSenha((visivel) => !visivel)}
+										className="absolute right-1 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-lg text-sky-700 transition hover:bg-sky-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
+										aria-label={
+											mostrarSenha ? "Ocultar senha" : "Mostrar senha"
+										}
+									>
+										{mostrarSenha ? (
+											<EyeOff className="h-4 w-4" />
+										) : (
+											<Eye className="h-4 w-4" />
+										)}
+									</button>
+								</span>
+							</label>
+							<button
+								type="submit"
+								disabled={carregando}
+								className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-sky-600 text-sm font-extrabold text-white shadow-[0_12px_22px_rgba(2,132,199,.24)] transition hover:-translate-y-0.5 hover:bg-sky-700 hover:shadow-[0_16px_28px_rgba(2,132,199,.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+							>
+								{carregando ? (
+									<>
+										<span
+											className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+											aria-hidden="true"
+										/>
+										<span>Entrando...</span>
+									</>
+								) : (
+									<>
+										Entrar no Nexus{" "}
+										<ArrowRight className="h-4 w-4" aria-hidden="true" />
+									</>
+								)}
+							</button>
+						</form>
+						<p className="mt-8 text-sm leading-6 text-slate-600 text-center">
+							Precisa de acesso?{" "}
+							<span className="font-bold text-sky-800">
+								Fale com a administração do projeto.
+							</span>
+						</p>
+					</div>
+				</section>
+			</div>
+		</main>
+	);
 }
