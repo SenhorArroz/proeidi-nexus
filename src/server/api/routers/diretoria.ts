@@ -84,7 +84,10 @@ const candidatoInput = z.object({
 	ficha: z.string().trim().min(1).max(40),
 	nome: text,
 	dataNascimento: z.coerce.date(),
-	cpf: z.string().trim().regex(/^\d{11}$/),
+	cpf: z
+		.string()
+		.trim()
+		.regex(/^\d{11}$/),
 	telefone: z.string().trim().min(8).max(160),
 	emergencia: z.string().trim().min(8).max(160),
 	curso: z.enum(["SMARTPHONE", "COMPUTADOR"]),
@@ -99,11 +102,26 @@ const turmaInput = z.object({
 		.string()
 		.regex(/^#[0-9a-fA-F]{6}$/)
 		.default("#1A73E8"),
-	corDestaque: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#ea580c"),
-	corFundo: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#f8fafc"),
-	corTexto: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#0f172a"),
-	corTitulo: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#ffffff"),
-	corDescricao: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#64748b"),
+	corDestaque: z
+		.string()
+		.regex(/^#[0-9a-fA-F]{6}$/)
+		.default("#ea580c"),
+	corFundo: z
+		.string()
+		.regex(/^#[0-9a-fA-F]{6}$/)
+		.default("#f8fafc"),
+	corTexto: z
+		.string()
+		.regex(/^#[0-9a-fA-F]{6}$/)
+		.default("#0f172a"),
+	corTitulo: z
+		.string()
+		.regex(/^#[0-9a-fA-F]{6}$/)
+		.default("#ffffff"),
+	corDescricao: z
+		.string()
+		.regex(/^#[0-9a-fA-F]{6}$/)
+		.default("#64748b"),
 	fonte: z.enum(["SANS", "SERIF", "MONO"]).default("SANS"),
 	professorIds: z.array(id).max(20),
 	monitorIds: z.array(id).max(30),
@@ -117,7 +135,17 @@ const turmaInput = z.object({
 			}),
 		)
 		.max(100),
-	aulas: z.array(z.object({ data: z.coerce.date(), titulo: text, tipo: z.enum(["AULA", "FERIADO", "CANCELADA", "ESPECIAL"]).default("AULA") })).max(200),
+	aulas: z
+		.array(
+			z.object({
+				data: z.coerce.date(),
+				titulo: text,
+				tipo: z
+					.enum(["AULA", "FERIADO", "CANCELADA", "ESPECIAL"])
+					.default("AULA"),
+			}),
+		)
+		.max(200),
 });
 
 async function validateTurmaRelations(
@@ -275,7 +303,9 @@ export const diretoriaRouter = createTRPCRouter({
 			.input(
 				z.object({
 					semestreOrigemId: id,
-					codigoDestino: z.string().regex(/^\d{4}\.[12]$/, "Use o formato AAAA.1 ou AAAA.2."),
+					codigoDestino: z
+						.string()
+						.regex(/^\d{4}\.[12]$/, "Use o formato AAAA.1 ou AAAA.2."),
 					continuarAlunos: z.boolean().default(true),
 					copiarMateriais: z.boolean().default(true),
 				}),
@@ -296,11 +326,21 @@ export const diretoriaRouter = createTRPCRouter({
 					},
 				});
 				if (!origem) throw new TRPCError({ code: "NOT_FOUND" });
-				const existente = await ctx.db.semestre.findUnique({ where: { codigo: input.codigoDestino }, select: { id: true } });
-				if (existente) throw new TRPCError({ code: "CONFLICT", message: "Já existe um semestre com esse código." });
+				const existente = await ctx.db.semestre.findUnique({
+					where: { codigo: input.codigoDestino },
+					select: { id: true },
+				});
+				if (existente)
+					throw new TRPCError({
+						code: "CONFLICT",
+						message: "Já existe um semestre com esse código.",
+					});
 
 				return ctx.db.$transaction(async (tx) => {
-					const destino = await tx.semestre.create({ data: { codigo: input.codigoDestino }, select: { id: true, codigo: true } });
+					const destino = await tx.semestre.create({
+						data: { codigo: input.codigoDestino },
+						select: { id: true, codigo: true },
+					});
 					const alunoDestinoPorOrigem = new Map<string, string>();
 					if (input.continuarAlunos) {
 						for (const aluno of origem.alunos) {
@@ -360,18 +400,57 @@ export const diretoriaRouter = createTRPCRouter({
 							select: { id: true },
 						});
 						await Promise.all([
-							tx.professorTurma.createMany({ data: turma.professores.map(({ userId }) => ({ userId, turmaId: novaTurma.id })) }),
-							tx.monitorTurma.createMany({ data: turma.monitores.map(({ userId }) => ({ userId, turmaId: novaTurma.id })) }),
-							...(input.continuarAlunos ? [tx.alunoTurma.createMany({ data: turma.alunos.flatMap(({ alunoId }) => {
-								const alunoDestinoId = alunoDestinoPorOrigem.get(alunoId);
-								return alunoDestinoId ? [{ alunoId: alunoDestinoId, turmaId: novaTurma.id }] : [];
-							}) })] : []),
-							...(input.copiarMateriais ? [tx.material.createMany({ data: turma.materiais.map((material) => ({ ...material, turmaId: novaTurma.id })) })] : []),
+							tx.professorTurma.createMany({
+								data: turma.professores.map(({ userId }) => ({
+									userId,
+									turmaId: novaTurma.id,
+								})),
+							}),
+							tx.monitorTurma.createMany({
+								data: turma.monitores.map(({ userId }) => ({
+									userId,
+									turmaId: novaTurma.id,
+								})),
+							}),
+							...(input.continuarAlunos
+								? [
+										tx.alunoTurma.createMany({
+											data: turma.alunos.flatMap(({ alunoId }) => {
+												const alunoDestinoId =
+													alunoDestinoPorOrigem.get(alunoId);
+												return alunoDestinoId
+													? [{ alunoId: alunoDestinoId, turmaId: novaTurma.id }]
+													: [];
+											}),
+										}),
+									]
+								: []),
+							...(input.copiarMateriais
+								? [
+										tx.material.createMany({
+											data: turma.materiais.map((material) => ({
+												...material,
+												turmaId: novaTurma.id,
+											})),
+										}),
+									]
+								: []),
 						]);
-						for (const { userId } of [...turma.professores, ...turma.monitores]) equipe.add(userId);
+						for (const { userId } of [...turma.professores, ...turma.monitores])
+							equipe.add(userId);
 					}
-					if (equipe.size) await tx.vinculoEquipeSemestre.createMany({ data: [...equipe].map((userId) => ({ userId, semestreId: destino.id })) });
-					return { ...destino, totalAlunosContinuados: alunoDestinoPorOrigem.size, totalTurmas: origem.turmas.length };
+					if (equipe.size)
+						await tx.vinculoEquipeSemestre.createMany({
+							data: [...equipe].map((userId) => ({
+								userId,
+								semestreId: destino.id,
+							})),
+						});
+					return {
+						...destino,
+						totalAlunosContinuados: alunoDestinoPorOrigem.size,
+						totalTurmas: origem.turmas.length,
+					};
 				});
 			}),
 	}),
@@ -399,10 +478,26 @@ export const diretoriaRouter = createTRPCRouter({
 						email: true,
 						matricula: true,
 						turmasProfessor: {
-							select: { turma: { select: { id: true, titulo: true, semestre: { select: { codigo: true } } } } },
+							select: {
+								turma: {
+									select: {
+										id: true,
+										titulo: true,
+										semestre: { select: { codigo: true } },
+									},
+								},
+							},
 						},
 						turmasMonitor: {
-							select: { turma: { select: { id: true, titulo: true, semestre: { select: { codigo: true } } } } },
+							select: {
+								turma: {
+									select: {
+										id: true,
+										titulo: true,
+										semestre: { select: { codigo: true } },
+									},
+								},
+							},
 						},
 					},
 					orderBy: { nome: "asc" },
@@ -427,6 +522,66 @@ export const diretoriaRouter = createTRPCRouter({
 					select: { id: true, nome: true, email: true, matricula: true },
 				}),
 			),
+		importMonitors: directorProcedure
+			.input(
+				z.object({
+					monitores: z
+						.array(personInput.omit({ senha: true }))
+						.min(1, "Inclua pelo menos um monitor.")
+						.max(500, "A importação aceita no máximo 500 monitores por vez."),
+				}),
+			)
+			.mutation(async ({ ctx, input }) => {
+				const monitores = input.monitores.map((monitor) => ({
+					...monitor,
+					email: monitor.email.toLowerCase(),
+				}));
+				const emails = monitores.map((monitor) => monitor.email);
+				const matriculas = monitores.map((monitor) => monitor.matricula);
+
+				if (new Set(emails).size !== emails.length)
+					throw new TRPCError({
+						code: "BAD_REQUEST",
+						message: "A planilha possui e-mails duplicados.",
+					});
+				if (new Set(matriculas).size !== matriculas.length)
+					throw new TRPCError({
+						code: "BAD_REQUEST",
+						message: "A planilha possui matrículas duplicadas.",
+					});
+
+				const monitoresComSenha = await Promise.all(
+					monitores.map(async (monitor) => ({
+						...monitor,
+						senha: await hashPassword(monitor.matricula),
+						role: "MONITOR" as const,
+					})),
+				);
+
+				return ctx.db.$transaction(async (tx) => {
+					const existentes = await tx.user.findMany({
+						where: {
+							OR: [
+								{ email: { in: emails } },
+								{ matricula: { in: matriculas } },
+							],
+						},
+						select: { email: true, matricula: true },
+					});
+					if (existentes.length)
+						throw new TRPCError({
+							code: "CONFLICT",
+							message: `Já há usuário cadastrado com: ${existentes
+								.map(
+									(usuario: { email: string; matricula: string }) =>
+										`${usuario.email} / ${usuario.matricula}`,
+								)
+								.join(", ")}.`,
+						});
+					await tx.user.createMany({ data: monitoresComSenha });
+					return { total: monitores.length };
+				});
+			}),
 		update: directorProcedure
 			.input(personInput.extend({ id, role: z.enum(["PROFESSOR", "MONITOR"]) }))
 			.mutation(async ({ ctx, input }) => {
@@ -559,11 +714,14 @@ export const diretoriaRouter = createTRPCRouter({
 			.input(
 				z.object({
 					semestreId: id,
-					registros: z.array(
-						candidatoInput.omit({ semestreId: true }).extend({
-							createdAt: z.coerce.date().optional(),
-						}),
-					).min(1).max(1000),
+					registros: z
+						.array(
+							candidatoInput.omit({ semestreId: true }).extend({
+								createdAt: z.coerce.date().optional(),
+							}),
+						)
+						.min(1)
+						.max(1000),
 				}),
 			)
 			.mutation(async ({ ctx, input }) => {
@@ -571,19 +729,28 @@ export const diretoriaRouter = createTRPCRouter({
 					where: { semestreId: input.semestreId },
 					select: { ficha: true, curso: true },
 				});
-				const chaves = new Set(existentes.map((candidato) => `${candidato.ficha.trim()}::${candidato.curso}`));
-				const novos = input.registros.filter((registro) => {
-					const chave = `${registro.ficha.trim()}::${registro.curso}`;
-					if (chaves.has(chave)) return false;
-					chaves.add(chave);
-					return true;
-				}).map(({ createdAt, ...registro }) => ({
-					...registro,
-					semestreId: input.semestreId,
-					...(createdAt ? { createdAt } : {}),
-				}));
+				const chaves = new Set(
+					existentes.map(
+						(candidato) => `${candidato.ficha.trim()}::${candidato.curso}`,
+					),
+				);
+				const novos = input.registros
+					.filter((registro) => {
+						const chave = `${registro.ficha.trim()}::${registro.curso}`;
+						if (chaves.has(chave)) return false;
+						chaves.add(chave);
+						return true;
+					})
+					.map(({ createdAt, ...registro }) => ({
+						...registro,
+						semestreId: input.semestreId,
+						...(createdAt ? { createdAt } : {}),
+					}));
 				if (novos.length) await ctx.db.candidato.createMany({ data: novos });
-				return { criados: novos.length, ignorados: input.registros.length - novos.length };
+				return {
+					criados: novos.length,
+					ignorados: input.registros.length - novos.length,
+				};
 			}),
 		remove: directorProcedure
 			.input(z.object({ id, semestreId: id }))
@@ -674,8 +841,16 @@ export const diretoriaRouter = createTRPCRouter({
 				inicioDoDia.setUTCHours(0, 0, 0, 0);
 				const fimDoDia = new Date(inicioDoDia);
 				fimDoDia.setUTCDate(fimDoDia.getUTCDate() + 1);
-				if (!turma.eventos.some((evento) => evento.data >= inicioDoDia && evento.data < fimDoDia))
-					throw new TRPCError({ code: "BAD_REQUEST", message: "A presença só pode ser registrada em uma data de aula da turma." });
+				if (
+					!turma.eventos.some(
+						(evento) => evento.data >= inicioDoDia && evento.data < fimDoDia,
+					)
+				)
+					throw new TRPCError({
+						code: "BAD_REQUEST",
+						message:
+							"A presença só pode ser registrada em uma data de aula da turma.",
+					});
 				const conferir = (
 					enviados: { id: string }[],
 					permitidos: { alunoId?: string; userId?: string }[],
@@ -788,7 +963,9 @@ export const diretoriaRouter = createTRPCRouter({
 							select: { id: true, titulo: true, tipo: true, url: true },
 						},
 						_count: { select: { anotacoes: true } },
-						eventos: { select: { id: true, data: true, titulo: true, tipo: true } },
+						eventos: {
+							select: { id: true, data: true, titulo: true, tipo: true },
+						},
 					},
 					orderBy: { titulo: "asc" },
 				}),
@@ -873,8 +1050,12 @@ export const diretoriaRouter = createTRPCRouter({
 						corTitulo: origem.corTitulo,
 						corDescricao: origem.corDescricao,
 						fonte: origem.fonte,
-						professores: { create: origem.professores.map(({ userId }) => ({ userId })) },
-						monitores: { create: origem.monitores.map(({ userId }) => ({ userId })) },
+						professores: {
+							create: origem.professores.map(({ userId }) => ({ userId })),
+						},
+						monitores: {
+							create: origem.monitores.map(({ userId }) => ({ userId })),
+						},
 						materiais: { create: origem.materiais },
 						eventos: { create: origem.eventos },
 					},
@@ -956,7 +1137,7 @@ export const diretoriaRouter = createTRPCRouter({
 							},
 							materiais: { create: input.materiais },
 							eventos: {
-							create: input.aulas,
+								create: input.aulas,
 							},
 						},
 						select: { id: true },
@@ -975,38 +1156,109 @@ export const diretoriaRouter = createTRPCRouter({
 		limparAlunos: directorProcedure
 			.input(z.object({ turmaId: id }))
 			.mutation(async ({ ctx, input }) => {
-				const result = await ctx.db.alunoTurma.deleteMany({ where: { turmaId: input.turmaId } });
+				const result = await ctx.db.alunoTurma.deleteMany({
+					where: { turmaId: input.turmaId },
+				});
 				return { removidos: result.count };
 			}),
 	}),
 
 	alunos: createTRPCRouter({
 		continuar: directorProcedure
-			.input(z.object({ alunoId: id, semestreDestinoId: id, turmaIds: z.array(id).min(1).max(20), etapaTrilha: z.string().trim().max(80).nullable().optional() }))
+			.input(
+				z.object({
+					alunoId: id,
+					semestreDestinoId: id,
+					turmaIds: z.array(id).min(1).max(20),
+					etapaTrilha: z.string().trim().max(80).nullable().optional(),
+				}),
+			)
 			.mutation(async ({ ctx, input }) => {
-				const aluno = await ctx.db.aluno.findUnique({ where: { id: input.alunoId } });
+				const aluno = await ctx.db.aluno.findUnique({
+					where: { id: input.alunoId },
+				});
 				if (!aluno) throw new TRPCError({ code: "NOT_FOUND" });
 				const [destino, turmasValidas, jaExiste] = await Promise.all([
-					ctx.db.semestre.findUnique({ where: { id: input.semestreDestinoId }, select: { id: true } }),
-					ctx.db.turma.count({ where: { id: { in: input.turmaIds }, semestreId: input.semestreDestinoId } }),
-					ctx.db.aluno.findFirst({ where: { cpf: aluno.cpf, semestreId: input.semestreDestinoId }, select: { id: true } }),
+					ctx.db.semestre.findUnique({
+						where: { id: input.semestreDestinoId },
+						select: { id: true },
+					}),
+					ctx.db.turma.count({
+						where: {
+							id: { in: input.turmaIds },
+							semestreId: input.semestreDestinoId,
+						},
+					}),
+					ctx.db.aluno.findFirst({
+						where: { cpf: aluno.cpf, semestreId: input.semestreDestinoId },
+						select: { id: true },
+					}),
 				]);
-				if (!destino || turmasValidas !== new Set(input.turmaIds).size) throw new TRPCError({ code: "BAD_REQUEST", message: "Selecione turmas válidas do semestre de destino." });
-				if (jaExiste) throw new TRPCError({ code: "CONFLICT", message: "Este aluno já possui matrícula no semestre de destino." });
+				if (!destino || turmasValidas !== new Set(input.turmaIds).size)
+					throw new TRPCError({
+						code: "BAD_REQUEST",
+						message: "Selecione turmas válidas do semestre de destino.",
+					});
+				if (jaExiste)
+					throw new TRPCError({
+						code: "CONFLICT",
+						message: "Este aluno já possui matrícula no semestre de destino.",
+					});
 				return ctx.db.aluno.create({
 					data: {
-						semestreId: input.semestreDestinoId, alunoOrigemId: aluno.id, etapaTrilha: input.etapaTrilha ?? aluno.etapaTrilha,
-						nome: aluno.nome, dataNascimento: aluno.dataNascimento, cpf: aluno.cpf, corRaca: aluno.corRaca, identidadeGenero: aluno.identidadeGenero, lgbtqiapn: aluno.lgbtqiapn, telefone: aluno.telefone, contatoEmergencia: aluno.contatoEmergencia, email: aluno.email, escolaridade: aluno.escolaridade, cuidaTerceiros: aluno.cuidaTerceiros, trabalha: aluno.trabalha, trabalhoLocal: aluno.trabalhoLocal, trabalhoFuncao: aluno.trabalhoFuncao, estuda: aluno.estuda, estudoLocal: aluno.estudoLocal, estudoCurso: aluno.estudoCurso, problemaSaude: aluno.problemaSaude, problemaSaudeQual: aluno.problemaSaudeQual, necessidadeEspecial: aluno.necessidadeEspecial, necessidadeEspecialQual: aluno.necessidadeEspecialQual, acessoInternet: aluno.acessoInternet, temComputador: aluno.temComputador, temSmartphone: aluno.temSmartphone, sistemaSmartphone: aluno.sistemaSmartphone,
+						semestreId: input.semestreDestinoId,
+						alunoOrigemId: aluno.id,
+						etapaTrilha: input.etapaTrilha ?? aluno.etapaTrilha,
+						nome: aluno.nome,
+						dataNascimento: aluno.dataNascimento,
+						cpf: aluno.cpf,
+						corRaca: aluno.corRaca,
+						identidadeGenero: aluno.identidadeGenero,
+						lgbtqiapn: aluno.lgbtqiapn,
+						telefone: aluno.telefone,
+						contatoEmergencia: aluno.contatoEmergencia,
+						email: aluno.email,
+						escolaridade: aluno.escolaridade,
+						cuidaTerceiros: aluno.cuidaTerceiros,
+						trabalha: aluno.trabalha,
+						trabalhoLocal: aluno.trabalhoLocal,
+						trabalhoFuncao: aluno.trabalhoFuncao,
+						estuda: aluno.estuda,
+						estudoLocal: aluno.estudoLocal,
+						estudoCurso: aluno.estudoCurso,
+						problemaSaude: aluno.problemaSaude,
+						problemaSaudeQual: aluno.problemaSaudeQual,
+						necessidadeEspecial: aluno.necessidadeEspecial,
+						necessidadeEspecialQual: aluno.necessidadeEspecialQual,
+						acessoInternet: aluno.acessoInternet,
+						temComputador: aluno.temComputador,
+						temSmartphone: aluno.temSmartphone,
+						sistemaSmartphone: aluno.sistemaSmartphone,
 						turmas: { create: input.turmaIds.map((turmaId) => ({ turmaId })) },
-					}, select: { id: true },
+					},
+					select: { id: true },
 				});
 			}),
 		historico: directorProcedure
 			.input(z.object({ alunoId: id }))
 			.query(async ({ ctx, input }) => {
-				const aluno = await ctx.db.aluno.findUnique({ where: { id: input.alunoId }, select: { cpf: true } });
+				const aluno = await ctx.db.aluno.findUnique({
+					where: { id: input.alunoId },
+					select: { cpf: true },
+				});
 				if (!aluno) throw new TRPCError({ code: "NOT_FOUND" });
-				return ctx.db.aluno.findMany({ where: { cpf: aluno.cpf }, select: { id: true, nome: true, etapaTrilha: true, statusMatricula: true, semestre: { select: { codigo: true } }, turmas: { select: { turma: { select: { titulo: true } } } } }, orderBy: { semestre: { codigo: "asc" } } });
+				return ctx.db.aluno.findMany({
+					where: { cpf: aluno.cpf },
+					select: {
+						id: true,
+						nome: true,
+						etapaTrilha: true,
+						statusMatricula: true,
+						semestre: { select: { codigo: true } },
+						turmas: { select: { turma: { select: { titulo: true } } } },
+					},
+					orderBy: { semestre: { codigo: "asc" } },
+				});
 			}),
 		list: directorProcedure
 			.input(
