@@ -18,6 +18,8 @@ import {
 	CalendarDays,
 	Dices,
 	ClipboardCheck,
+	Printer,
+	Wrench,
 	Contrast,
 	Moon,
 	Sun,
@@ -89,6 +91,18 @@ const DIRETORIA_ITEMS: NavItem[] = [
 		label: "Presenças",
 		link: "/nexus/diretoria/presencas",
 		icon: ClipboardCheck,
+	},
+	{
+		id: "impressao",
+		label: "Impressão de apostilas",
+		link: "/nexus/diretoria/impressao",
+		icon: Printer,
+	},
+	{
+		id: "materiais-atualizacao",
+		label: "Atualização de materiais",
+		link: "/nexus/diretoria/materiais-atualizacao",
+		icon: Wrench,
 	},
 	{
 		id: "sorteio",
@@ -236,7 +250,7 @@ export default function Sidebar() {
 			)}
 
 			<aside
-				className={`fixed inset-y-0 left-0 z-40 flex min-h-0 flex-col border-r border-sky-100 bg-white/95 shadow-[10px_0_30px_rgba(14,165,233,0.05)] transition-all duration-500 ease-in-out sm:relative sm:z-20 sm:h-full sm:shrink-0 ${
+				className={`nexus-sidebar fixed inset-y-0 left-0 z-40 flex min-h-0 flex-col border-r border-sky-100 bg-white/95 shadow-[10px_0_30px_rgba(14,165,233,0.05)] transition-all duration-500 ease-in-out sm:relative sm:z-20 sm:h-full sm:shrink-0 ${
 					collapsed
 						? "w-0 -translate-x-full overflow-hidden sm:w-[72px] sm:translate-x-0 sm:overflow-visible"
 						: "w-60 max-w-[calc(100vw-3.5rem)] translate-x-0 sm:w-64 sm:max-w-none"

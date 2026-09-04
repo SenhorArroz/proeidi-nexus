@@ -47,7 +47,7 @@ export const turmaRouter = createTRPCRouter({
 		update: protectedProcedure.input(z.object({ turmaId, id: z.string().cuid(), texto: z.string().trim().max(4000).optional().default(""), imagemUrl: z.string().url().max(2048).optional().nullable(), linkUrl: z.string().trim().url().max(2048).optional().nullable() })).mutation(async ({ ctx, input }) => {
 			if (await acessoTurma(ctx, input.turmaId) !== "PROFESSOR") throw new TRPCError({ code: "FORBIDDEN", message: "Somente professores podem editar avisos." });
 			if (!input.texto.trim() && !input.imagemUrl && !input.linkUrl) throw new TRPCError({ code: "BAD_REQUEST", message: "Escreva um aviso, envie uma imagem ou adicione um link." });
-			const result = await ctx.db.aviso.updateMany({ where: { id: input.id, turmaId: input.turmaId }, data: { texto: input.texto.trim(), imagemUrl: input.imagemUrl ?? null, linkUrl: input.linkUrl ?? null } });
+			const result = await ctx.db.aviso.updateMany({ where: { id: input.id, turmaId: input.turmaId, autorId: ctx.session.user.id }, data: { texto: input.texto.trim(), imagemUrl: input.imagemUrl ?? null, linkUrl: input.linkUrl ?? null } });
 			if (!result.count) throw new TRPCError({ code: "NOT_FOUND" });
 			return { id: input.id };
 		}),

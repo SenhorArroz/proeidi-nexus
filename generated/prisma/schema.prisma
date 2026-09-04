@@ -130,8 +130,10 @@ model User {
   redefinicoesRecebidas   PasswordResetRequest[] @relation("DestinatarioRedefinicao")
 
   // Presença de equipe
-  presencasMonitor   PresencaMonitor[]
-  presencasProfessor PresencaProfessor[]
+  presencasMonitor                PresencaMonitor[]
+  presencasProfessor              PresencaProfessor[]
+  apostilasResponsavel            ResponsavelApostila[]
+  materiaisAtualizacaoResponsavel ResponsavelMaterialAtualizacao[]
 }
 
 // O código é persistido somente como hash e expira após o uso.
@@ -161,10 +163,91 @@ model Semestre {
   ativo     Boolean  @default(false)
   createdAt DateTime @default(now())
 
-  turmas         Turma[]
-  alunos         Aluno[]
-  candidatos     Candidato[]
-  vinculosEquipe VinculoEquipeSemestre[]
+  turmas               Turma[]
+  alunos               Aluno[]
+  candidatos           Candidato[]
+  vinculosEquipe       VinculoEquipeSemestre[]
+  semanasImpressao     SemanaImpressao[]
+  materiaisAtualizacao MaterialAtualizacao[]
+}
+
+// ---------------------------------------------------------------------------
+// Controle de impressão de apostilas
+// ---------------------------------------------------------------------------
+
+model SemanaImpressao {
+  id            String    @id @default(cuid())
+  semestreId    String
+  numero        Int
+  dataAula      DateTime?
+  aulaRealizada Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  semestre  Semestre            @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  apostilas ApostilaImpressao[]
+
+  @@unique([semestreId, numero])
+  @@index([semestreId])
+}
+
+model ApostilaImpressao {
+  id          String    @id @default(cuid())
+  semanaId    String
+  titulo      String
+  curso       String
+  dataEntrega DateTime?
+  pronta      Boolean   @default(false)
+  impressa    Boolean   @default(false)
+  qtdImpressa Int       @default(0)
+  qtdAlvo     Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  semana       SemanaImpressao       @relation(fields: [semanaId], references: [id], onDelete: Cascade)
+  responsaveis ResponsavelApostila[]
+
+  @@index([semanaId])
+}
+
+model ResponsavelApostila {
+  apostilaId String
+  userId     String
+
+  apostila ApostilaImpressao @relation(fields: [apostilaId], references: [id], onDelete: Cascade)
+  user     User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([apostilaId, userId])
+  @@index([userId])
+}
+
+model MaterialAtualizacao {
+  id            String    @id @default(cuid())
+  semestreId    String
+  curso         String
+  titulo        String
+  dataEntrega   DateTime?
+  revisado      Boolean   @default(false)
+  precisaAjuste Boolean   @default(false)
+  ajustado      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  semestre     Semestre                         @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  responsaveis ResponsavelMaterialAtualizacao[]
+
+  @@index([semestreId])
+}
+
+model ResponsavelMaterialAtualizacao {
+  materialId String
+  userId     String
+
+  material MaterialAtualizacao @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  user     User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([materialId, userId])
+  @@index([userId])
 }
 
 // ---------------------------------------------------------------------------

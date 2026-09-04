@@ -10,9 +10,7 @@ import {
 	Dices,
 	GraduationCap,
 	Briefcase,
-	Wifi,
-	HeartPulse,
-	UserX,
+	Printer,
 	ClipboardCheck,
 } from "lucide-react";
 
@@ -105,6 +103,23 @@ const FERRAMENTAS: Ferramenta[] = [
 		icon: FileText,
 		cor: "#999999",
 	},
+	{
+		id: "impressao",
+		nome: "Gerenciar Impressão de Apostilas",
+		descricao: "Gerenciamento de impressões",
+		link: "/nexus/diretoria/impressao",
+		icon: Printer,
+		cor: "#999999",
+	},
+	{
+		id: "materiais",
+		nome: "Atualização de Materiais",
+		descricao: "Atualização dos Materiais",
+		link: "/nexus/diretoria/materiais-atualizacao",
+		icon: Printer,
+		cor: "#999999",
+	},
+	
 ];
 
 // ---------------------------------------------------------------------------

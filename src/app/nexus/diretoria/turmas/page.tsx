@@ -1451,7 +1451,7 @@ export default function TurmasDiretoria() {
 					...m,
 					tipo: m.tipo.toLowerCase() as TipoMaterial,
 				})),
-				notas: t._count.anotacoes,
+				notas: t._count?.anotacoes ?? 0,
 				aulas: t.eventos.map((e) => ({
 					id: e.id,
 					titulo: e.titulo,

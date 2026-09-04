@@ -60,6 +60,27 @@ html[data-theme="dark"] .sidebar-user-name .terminal-cursor {
 	color: #fbbf24 !important;
 }
 
+/* A sidebar tem níveis de superfície próprios no tema escuro, para conservar
+   navegação e ações legíveis sem herdar a conversão genérica das páginas. */
+html[data-theme="dark"] .nexus-sidebar {
+	background-color: #0f172a !important;
+	border-color: #334155 !important;
+	box-shadow: 10px 0 30px rgb(2 6 23 / 0.38) !important;
+}
+html[data-theme="dark"] .nexus-sidebar :is(.border-sky-100, .border-gray-200) {
+	border-color: #334155 !important;
+}
+html[data-theme="dark"] .nexus-sidebar .bg-sky-50 {
+	background-color: #0c4a6e !important;
+	color: #e0f2fe !important;
+}
+html[data-theme="dark"] .nexus-sidebar [class*="bg-sky-50/"] {
+	background-color: #172554 !important;
+}
+html[data-theme="dark"] .nexus-sidebar :is(.hover\:bg-white:hover, .hover\:bg-gray-50:hover, .hover\:bg-sky-50:hover) {
+	background-color: #1e3a5f !important;
+}
+
 /* Ações do card de alunos: fundos explícitos para não herdarem superfícies claras. */
 html[data-theme="dark"] .aluno-card-action-info {
 	background-color: rgb(76 29 149 / 0.72) !important;
@@ -132,7 +153,8 @@ html[data-theme="dark"]
 		.text-slate-800,
 		.text-slate-700,
 		.text-slate-600,
-		.text-slate-500
+		.text-slate-500,
+		.text-sky-800
 	) {
 	color: #dbe7f5 !important;
 }
@@ -308,7 +330,8 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 			.text-slate-800,
 			.text-slate-700,
 			.text-slate-600,
-			.text-slate-500
+			.text-slate-500,
+			.text-sky-800
 		) {
 		color: #dbe7f5 !important;
 	}

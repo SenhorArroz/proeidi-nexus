@@ -39,9 +39,11 @@ export default function Dashboard() {
 					: "Professor";
 	const IconeCargo = usuario?.role === "MONITOR" ? ShieldCheck : GraduationCap;
 	return (
-		<main className="nexus-dashboard relative min-h-full min-w-0 overflow-x-clip bg-[radial-gradient(circle_at_95%_0%,rgba(14,165,233,.14),transparent_25rem),radial-gradient(circle_at_76%_12rem,rgba(249,115,22,.1),transparent_19rem),#f8fafc] px-3 py-5 sm:px-7 sm:py-7 lg:px-10">
-			<span aria-hidden="true" className="pointer-events-none absolute -right-32 -top-24 h-96 w-96 rounded-full bg-sky-600/25 blur-3xl" />
-			<span aria-hidden="true" className="pointer-events-none absolute -bottom-40 -left-28 h-[28rem] w-[28rem] rounded-full bg-amber-600/20 blur-3xl" />
+		<main className="nexus-dashboard relative isolate min-h-full min-w-0 overflow-hidden bg-[radial-gradient(circle_at_95%_0%,rgba(14,165,233,.14),transparent_25rem),radial-gradient(circle_at_76%_12rem,rgba(249,115,22,.1),transparent_19rem),#f8fafc] px-3 py-5 sm:px-7 sm:py-7 lg:px-10">
+			<div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+				<span className="absolute -right-32 -top-24 h-96 w-96 rounded-full bg-sky-600/25 blur-3xl" />
+				<span className="absolute -bottom-40 -left-28 h-[28rem] w-[28rem] rounded-full bg-amber-600/20 blur-3xl" />
+			</div>
 			<div className="relative z-10 mx-auto max-w-6xl">
 				<header className="relative min-w-0 overflow-hidden rounded-2xl bg-sky-600 px-4 py-6 text-white shadow-[0_20px_45px_rgba(2,132,199,.22)] sm:px-8 sm:py-7">
 					<div className="absolute -right-8 -top-10 h-44 w-44 rounded-full bg-orange-500" />
@@ -131,7 +133,7 @@ export default function Dashboard() {
 										</p>
 										<p className="flex items-center gap-2 border-t border-slate-100 pt-3 font-semibold !text-[color:var(--turma-descricao)]">
 											<Clock3 className="h-4 w-4" style={{ color: turma.corDestaque }} />
-											{dataFormatada(turma.eventos[0]?.data)}
+											{turma.horario}
 										</p>
 									</div>
 								</Link>

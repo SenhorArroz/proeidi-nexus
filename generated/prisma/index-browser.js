@@ -181,6 +181,53 @@ exports.Prisma.SemestreScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SemanaImpressaoScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  numero: 'numero',
+  dataAula: 'dataAula',
+  aulaRealizada: 'aulaRealizada',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ApostilaImpressaoScalarFieldEnum = {
+  id: 'id',
+  semanaId: 'semanaId',
+  titulo: 'titulo',
+  curso: 'curso',
+  dataEntrega: 'dataEntrega',
+  pronta: 'pronta',
+  impressa: 'impressa',
+  qtdImpressa: 'qtdImpressa',
+  qtdAlvo: 'qtdAlvo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ResponsavelApostilaScalarFieldEnum = {
+  apostilaId: 'apostilaId',
+  userId: 'userId'
+};
+
+exports.Prisma.MaterialAtualizacaoScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  curso: 'curso',
+  titulo: 'titulo',
+  dataEntrega: 'dataEntrega',
+  revisado: 'revisado',
+  precisaAjuste: 'precisaAjuste',
+  ajustado: 'ajustado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ResponsavelMaterialAtualizacaoScalarFieldEnum = {
+  materialId: 'materialId',
+  userId: 'userId'
+};
+
 exports.Prisma.TurmaScalarFieldEnum = {
   id: 'id',
   titulo: 'titulo',
@@ -461,6 +508,11 @@ exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetRequest: 'PasswordResetRequest',
   Semestre: 'Semestre',
+  SemanaImpressao: 'SemanaImpressao',
+  ApostilaImpressao: 'ApostilaImpressao',
+  ResponsavelApostila: 'ResponsavelApostila',
+  MaterialAtualizacao: 'MaterialAtualizacao',
+  ResponsavelMaterialAtualizacao: 'ResponsavelMaterialAtualizacao',
   Turma: 'Turma',
   ProfessorTurma: 'ProfessorTurma',
   MonitorTurma: 'MonitorTurma',

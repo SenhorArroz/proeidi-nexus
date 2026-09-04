@@ -39,6 +39,8 @@ flowchart TD
   T --> C[Calendário e aulas]
   T --> R[Presenças]
   T --> X[Materiais, avisos e anotações]
+  S --> I[Controle de impressão]
+  S --> U[Atualização de materiais]
   S --> Z[Inscrições e sorteio]
   R --> Q[Carga horária e certificados]
 ```
@@ -82,6 +84,8 @@ A Diretoria é restrita a diretor e coordenador. Ela reúne:
 - **Presenças:** registra alunos, monitores, professores e diretores docentes por data de aula. Estados: `PRESENTE`, `AUSENTE`, `JUSTIFICADO` e `A REGISTRAR` na interface. Datas futuras permanecem como “A registrar”; somente registros salvos entram nos cálculos de carga horária e certificados.
 - **Sorteio:** cadastra fichas de candidatos por semestre, separadas por curso de Smartphone ou Computador. O sorteador usa apenas as fichas disponíveis no semestre selecionado e pode exportar o resultado em CSV.
 - **Questionários:** cria, edita, publica e remove formulários; acompanha respostas, gráficos e resumos por pergunta. Perguntas podem ser curtas, longas, de escolha única ou múltipla e podem ter respostas corretas configuradas para análise.
+- **Impressão de apostilas:** organiza apostilas por semana/aula e semestre. Registra curso, responsáveis, data de entrega, quantidade impressa e meta, além dos estados de preparação, impressão e realização da aula. Os estados de preparação e impressão podem ser atualizados diretamente na listagem. A tela oferece busca por apostila, curso ou responsável, importação de planilhas e download de um modelo padronizado.
+- **Atualização de materiais:** controla, por semestre, a revisão dos materiais de cada curso. Para cada item, registra responsáveis, data de entrega e os estados `Revisado`, `Precisa de ajuste` e `Ajustado`. Também permite cadastrar, editar, remover, importar planilhas e baixar o modelo de importação.
 
 ### Turmas
 
@@ -110,11 +114,13 @@ Questionários publicados recebem um `slug` único. O acesso público usa esse i
 - **Dados de alunos:** CPF é guardado sem máscara e validado com 11 dígitos; associações a turma são conferidas no mesmo semestre. O e-mail pode ser nulo.
 - **Presença:** existe apenas um registro por turma e data, e cada pessoa só aparece uma vez dentro daquele registro.
 - **Formulários:** links públicos só expõem formulários publicados; respostas e analytics não são públicos.
+- **Controles operacionais:** apostilas de impressão pertencem a uma semana de impressão e a um semestre; materiais em atualização pertencem diretamente a um semestre. Responsáveis são vínculos com usuários, preservando a rastreabilidade de quem acompanha cada item.
 
 ## Limitações atuais
 
 - A resposta correta dos questionários serve à análise/visualização administrativa; o envio público não bloqueia nem corrige automaticamente a resposta do participante.
 - A importação de alunos depende de uma planilha cujas colunas possam ser mapeadas para os campos do cadastro e para uma turma existente no semestre escolhido.
+- As importações de impressão e atualização de materiais dependem do modelo disponibilizado em cada tela. Linhas sem curso ou nome do item são ignoradas; responsáveis são associados pelo nome cadastrado no sistema.
 - Certificados e carga horária dependem de turmas, aulas e presenças efetivamente registradas; informações ausentes no cadastro não são inventadas pelo sistema.
 - O link público de questionário não autentica o respondente. Portanto, não há garantia nativa de uma única resposta por pessoa.
 - O endpoint de detalhe de turma hoje trata diretor como perfil com acesso a qualquer turma, embora o dashboard liste apenas as turmas em que ele está vinculado. Isso deve ser ajustado caso a regra desejada seja limitar diretores somente às próprias turmas.
@@ -127,7 +133,7 @@ Questionários publicados recebem um `slug` único. O acesso público usa esse i
 | `src/app/_components` | Componentes reutilizáveis de interface, incluindo navegação, cards, tabelas, campos e skeletons. |
 | `src/server/api/routers` | Controllers tRPC: validação Zod, autorização por cargo, seleção segura de dados e operações de banco. |
 | `src/server/auth` | Configuração de autenticação e utilitários de senha. |
-| `prisma/schema.prisma` | Modelo relacional PostgreSQL: usuários, semestres, turmas, pessoas, presença, sorteio e formulários. |
+| `prisma/schema.prisma` | Modelo relacional PostgreSQL: usuários, semestres, turmas, pessoas, presença, sorteio, formulários, impressão de apostilas e atualização de materiais. |
 | `prisma/seed.mjs` | Criação da conta inicial de coordenador a partir do ambiente. |
 
 ## Executando localmente

@@ -7,7 +7,6 @@ import {
 	Copy,
 	GraduationCap,
 	Plus,
-	ShieldCheck,
 	Trash2,
 	Users,
 } from "lucide-react";
@@ -117,14 +116,11 @@ export default function SemestresDiretoria() {
 										label="Professores"
 									/>
 									<Resumo
-										icon={ShieldCheck}
-										valor={semestre.totalMonitores}
-										label="Monitores"
+										icon={CalendarDays}
+										valor={semestre.totalTurmas}
+										label="Turmas"
 									/>
 								</div>
-								<p className="px-5 pb-3 text-center text-xs text-gray-500">
-									{semestre.totalTurmas} turma(s) cadastrada(s)
-								</p>
 								<div className="flex flex-wrap gap-2 border-t border-gray-100 p-3">
 									{!semestre.ativo && (
 										<button

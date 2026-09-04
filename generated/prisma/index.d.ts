@@ -44,6 +44,31 @@ export type PasswordResetRequest = $Result.DefaultSelection<Prisma.$PasswordRese
  */
 export type Semestre = $Result.DefaultSelection<Prisma.$SemestrePayload>
 /**
+ * Model SemanaImpressao
+ * 
+ */
+export type SemanaImpressao = $Result.DefaultSelection<Prisma.$SemanaImpressaoPayload>
+/**
+ * Model ApostilaImpressao
+ * 
+ */
+export type ApostilaImpressao = $Result.DefaultSelection<Prisma.$ApostilaImpressaoPayload>
+/**
+ * Model ResponsavelApostila
+ * 
+ */
+export type ResponsavelApostila = $Result.DefaultSelection<Prisma.$ResponsavelApostilaPayload>
+/**
+ * Model MaterialAtualizacao
+ * 
+ */
+export type MaterialAtualizacao = $Result.DefaultSelection<Prisma.$MaterialAtualizacaoPayload>
+/**
+ * Model ResponsavelMaterialAtualizacao
+ * 
+ */
+export type ResponsavelMaterialAtualizacao = $Result.DefaultSelection<Prisma.$ResponsavelMaterialAtualizacaoPayload>
+/**
  * Model Turma
  * 
  */
@@ -440,6 +465,56 @@ export class PrismaClient<
     * ```
     */
   get semestre(): Prisma.SemestreDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.semanaImpressao`: Exposes CRUD operations for the **SemanaImpressao** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SemanaImpressaos
+    * const semanaImpressaos = await prisma.semanaImpressao.findMany()
+    * ```
+    */
+  get semanaImpressao(): Prisma.SemanaImpressaoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.apostilaImpressao`: Exposes CRUD operations for the **ApostilaImpressao** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ApostilaImpressaos
+    * const apostilaImpressaos = await prisma.apostilaImpressao.findMany()
+    * ```
+    */
+  get apostilaImpressao(): Prisma.ApostilaImpressaoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.responsavelApostila`: Exposes CRUD operations for the **ResponsavelApostila** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ResponsavelApostilas
+    * const responsavelApostilas = await prisma.responsavelApostila.findMany()
+    * ```
+    */
+  get responsavelApostila(): Prisma.ResponsavelApostilaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.materialAtualizacao`: Exposes CRUD operations for the **MaterialAtualizacao** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MaterialAtualizacaos
+    * const materialAtualizacaos = await prisma.materialAtualizacao.findMany()
+    * ```
+    */
+  get materialAtualizacao(): Prisma.MaterialAtualizacaoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.responsavelMaterialAtualizacao`: Exposes CRUD operations for the **ResponsavelMaterialAtualizacao** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ResponsavelMaterialAtualizacaos
+    * const responsavelMaterialAtualizacaos = await prisma.responsavelMaterialAtualizacao.findMany()
+    * ```
+    */
+  get responsavelMaterialAtualizacao(): Prisma.ResponsavelMaterialAtualizacaoDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.turma`: Exposes CRUD operations for the **Turma** model.
@@ -1077,6 +1152,11 @@ export namespace Prisma {
     User: 'User',
     PasswordResetRequest: 'PasswordResetRequest',
     Semestre: 'Semestre',
+    SemanaImpressao: 'SemanaImpressao',
+    ApostilaImpressao: 'ApostilaImpressao',
+    ResponsavelApostila: 'ResponsavelApostila',
+    MaterialAtualizacao: 'MaterialAtualizacao',
+    ResponsavelMaterialAtualizacao: 'ResponsavelMaterialAtualizacao',
     Turma: 'Turma',
     ProfessorTurma: 'ProfessorTurma',
     MonitorTurma: 'MonitorTurma',
@@ -1114,7 +1194,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "passwordResetRequest" | "semestre" | "turma" | "professorTurma" | "monitorTurma" | "alunoTurma" | "aluno" | "vinculoEquipeSemestre" | "material" | "eventoCalendario" | "aviso" | "anotacao" | "registroPresenca" | "presencaAluno" | "presencaMonitor" | "presencaProfessor" | "candidato" | "formulario" | "formularioResposta" | "pergunta" | "opcao"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "passwordResetRequest" | "semestre" | "semanaImpressao" | "apostilaImpressao" | "responsavelApostila" | "materialAtualizacao" | "responsavelMaterialAtualizacao" | "turma" | "professorTurma" | "monitorTurma" | "alunoTurma" | "aluno" | "vinculoEquipeSemestre" | "material" | "eventoCalendario" | "aviso" | "anotacao" | "registroPresenca" | "presencaAluno" | "presencaMonitor" | "presencaProfessor" | "candidato" | "formulario" | "formularioResposta" | "pergunta" | "opcao"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1559,6 +1639,376 @@ export namespace Prisma {
           count: {
             args: Prisma.SemestreCountArgs<ExtArgs>
             result: $Utils.Optional<SemestreCountAggregateOutputType> | number
+          }
+        }
+      }
+      SemanaImpressao: {
+        payload: Prisma.$SemanaImpressaoPayload<ExtArgs>
+        fields: Prisma.SemanaImpressaoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SemanaImpressaoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SemanaImpressaoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload>
+          }
+          findFirst: {
+            args: Prisma.SemanaImpressaoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SemanaImpressaoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload>
+          }
+          findMany: {
+            args: Prisma.SemanaImpressaoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload>[]
+          }
+          create: {
+            args: Prisma.SemanaImpressaoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload>
+          }
+          createMany: {
+            args: Prisma.SemanaImpressaoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SemanaImpressaoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload>[]
+          }
+          delete: {
+            args: Prisma.SemanaImpressaoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload>
+          }
+          update: {
+            args: Prisma.SemanaImpressaoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload>
+          }
+          deleteMany: {
+            args: Prisma.SemanaImpressaoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SemanaImpressaoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SemanaImpressaoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload>[]
+          }
+          upsert: {
+            args: Prisma.SemanaImpressaoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemanaImpressaoPayload>
+          }
+          aggregate: {
+            args: Prisma.SemanaImpressaoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSemanaImpressao>
+          }
+          groupBy: {
+            args: Prisma.SemanaImpressaoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SemanaImpressaoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SemanaImpressaoCountArgs<ExtArgs>
+            result: $Utils.Optional<SemanaImpressaoCountAggregateOutputType> | number
+          }
+        }
+      }
+      ApostilaImpressao: {
+        payload: Prisma.$ApostilaImpressaoPayload<ExtArgs>
+        fields: Prisma.ApostilaImpressaoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ApostilaImpressaoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ApostilaImpressaoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload>
+          }
+          findFirst: {
+            args: Prisma.ApostilaImpressaoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ApostilaImpressaoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload>
+          }
+          findMany: {
+            args: Prisma.ApostilaImpressaoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload>[]
+          }
+          create: {
+            args: Prisma.ApostilaImpressaoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload>
+          }
+          createMany: {
+            args: Prisma.ApostilaImpressaoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ApostilaImpressaoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload>[]
+          }
+          delete: {
+            args: Prisma.ApostilaImpressaoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload>
+          }
+          update: {
+            args: Prisma.ApostilaImpressaoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload>
+          }
+          deleteMany: {
+            args: Prisma.ApostilaImpressaoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ApostilaImpressaoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ApostilaImpressaoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload>[]
+          }
+          upsert: {
+            args: Prisma.ApostilaImpressaoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApostilaImpressaoPayload>
+          }
+          aggregate: {
+            args: Prisma.ApostilaImpressaoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateApostilaImpressao>
+          }
+          groupBy: {
+            args: Prisma.ApostilaImpressaoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ApostilaImpressaoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ApostilaImpressaoCountArgs<ExtArgs>
+            result: $Utils.Optional<ApostilaImpressaoCountAggregateOutputType> | number
+          }
+        }
+      }
+      ResponsavelApostila: {
+        payload: Prisma.$ResponsavelApostilaPayload<ExtArgs>
+        fields: Prisma.ResponsavelApostilaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ResponsavelApostilaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ResponsavelApostilaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload>
+          }
+          findFirst: {
+            args: Prisma.ResponsavelApostilaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ResponsavelApostilaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload>
+          }
+          findMany: {
+            args: Prisma.ResponsavelApostilaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload>[]
+          }
+          create: {
+            args: Prisma.ResponsavelApostilaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload>
+          }
+          createMany: {
+            args: Prisma.ResponsavelApostilaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ResponsavelApostilaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload>[]
+          }
+          delete: {
+            args: Prisma.ResponsavelApostilaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload>
+          }
+          update: {
+            args: Prisma.ResponsavelApostilaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload>
+          }
+          deleteMany: {
+            args: Prisma.ResponsavelApostilaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ResponsavelApostilaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ResponsavelApostilaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload>[]
+          }
+          upsert: {
+            args: Prisma.ResponsavelApostilaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelApostilaPayload>
+          }
+          aggregate: {
+            args: Prisma.ResponsavelApostilaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateResponsavelApostila>
+          }
+          groupBy: {
+            args: Prisma.ResponsavelApostilaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ResponsavelApostilaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ResponsavelApostilaCountArgs<ExtArgs>
+            result: $Utils.Optional<ResponsavelApostilaCountAggregateOutputType> | number
+          }
+        }
+      }
+      MaterialAtualizacao: {
+        payload: Prisma.$MaterialAtualizacaoPayload<ExtArgs>
+        fields: Prisma.MaterialAtualizacaoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaterialAtualizacaoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaterialAtualizacaoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload>
+          }
+          findFirst: {
+            args: Prisma.MaterialAtualizacaoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaterialAtualizacaoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload>
+          }
+          findMany: {
+            args: Prisma.MaterialAtualizacaoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload>[]
+          }
+          create: {
+            args: Prisma.MaterialAtualizacaoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload>
+          }
+          createMany: {
+            args: Prisma.MaterialAtualizacaoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MaterialAtualizacaoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload>[]
+          }
+          delete: {
+            args: Prisma.MaterialAtualizacaoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload>
+          }
+          update: {
+            args: Prisma.MaterialAtualizacaoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload>
+          }
+          deleteMany: {
+            args: Prisma.MaterialAtualizacaoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaterialAtualizacaoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MaterialAtualizacaoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload>[]
+          }
+          upsert: {
+            args: Prisma.MaterialAtualizacaoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialAtualizacaoPayload>
+          }
+          aggregate: {
+            args: Prisma.MaterialAtualizacaoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMaterialAtualizacao>
+          }
+          groupBy: {
+            args: Prisma.MaterialAtualizacaoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaterialAtualizacaoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaterialAtualizacaoCountArgs<ExtArgs>
+            result: $Utils.Optional<MaterialAtualizacaoCountAggregateOutputType> | number
+          }
+        }
+      }
+      ResponsavelMaterialAtualizacao: {
+        payload: Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>
+        fields: Prisma.ResponsavelMaterialAtualizacaoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ResponsavelMaterialAtualizacaoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ResponsavelMaterialAtualizacaoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload>
+          }
+          findFirst: {
+            args: Prisma.ResponsavelMaterialAtualizacaoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ResponsavelMaterialAtualizacaoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload>
+          }
+          findMany: {
+            args: Prisma.ResponsavelMaterialAtualizacaoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload>[]
+          }
+          create: {
+            args: Prisma.ResponsavelMaterialAtualizacaoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload>
+          }
+          createMany: {
+            args: Prisma.ResponsavelMaterialAtualizacaoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ResponsavelMaterialAtualizacaoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload>[]
+          }
+          delete: {
+            args: Prisma.ResponsavelMaterialAtualizacaoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload>
+          }
+          update: {
+            args: Prisma.ResponsavelMaterialAtualizacaoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload>
+          }
+          deleteMany: {
+            args: Prisma.ResponsavelMaterialAtualizacaoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ResponsavelMaterialAtualizacaoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ResponsavelMaterialAtualizacaoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload>[]
+          }
+          upsert: {
+            args: Prisma.ResponsavelMaterialAtualizacaoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResponsavelMaterialAtualizacaoPayload>
+          }
+          aggregate: {
+            args: Prisma.ResponsavelMaterialAtualizacaoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateResponsavelMaterialAtualizacao>
+          }
+          groupBy: {
+            args: Prisma.ResponsavelMaterialAtualizacaoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ResponsavelMaterialAtualizacaoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ResponsavelMaterialAtualizacaoCountArgs<ExtArgs>
+            result: $Utils.Optional<ResponsavelMaterialAtualizacaoCountAggregateOutputType> | number
           }
         }
       }
@@ -3070,6 +3520,11 @@ export namespace Prisma {
     user?: UserOmit
     passwordResetRequest?: PasswordResetRequestOmit
     semestre?: SemestreOmit
+    semanaImpressao?: SemanaImpressaoOmit
+    apostilaImpressao?: ApostilaImpressaoOmit
+    responsavelApostila?: ResponsavelApostilaOmit
+    materialAtualizacao?: MaterialAtualizacaoOmit
+    responsavelMaterialAtualizacao?: ResponsavelMaterialAtualizacaoOmit
     turma?: TurmaOmit
     professorTurma?: ProfessorTurmaOmit
     monitorTurma?: MonitorTurmaOmit
@@ -3181,6 +3636,8 @@ export namespace Prisma {
     redefinicoesRecebidas: number
     presencasMonitor: number
     presencasProfessor: number
+    apostilasResponsavel: number
+    materiaisAtualizacaoResponsavel: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3196,6 +3653,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: boolean | UserCountOutputTypeCountRedefinicoesRecebidasArgs
     presencasMonitor?: boolean | UserCountOutputTypeCountPresencasMonitorArgs
     presencasProfessor?: boolean | UserCountOutputTypeCountPresencasProfessorArgs
+    apostilasResponsavel?: boolean | UserCountOutputTypeCountApostilasResponsavelArgs
+    materiaisAtualizacaoResponsavel?: boolean | UserCountOutputTypeCountMateriaisAtualizacaoResponsavelArgs
   }
 
   // Custom InputTypes
@@ -3293,6 +3752,20 @@ export namespace Prisma {
     where?: PresencaProfessorWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountApostilasResponsavelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResponsavelApostilaWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMateriaisAtualizacaoResponsavelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+  }
+
 
   /**
    * Count Type SemestreCountOutputType
@@ -3303,6 +3776,8 @@ export namespace Prisma {
     alunos: number
     candidatos: number
     vinculosEquipe: number
+    semanasImpressao: number
+    materiaisAtualizacao: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3310,6 +3785,8 @@ export namespace Prisma {
     alunos?: boolean | SemestreCountOutputTypeCountAlunosArgs
     candidatos?: boolean | SemestreCountOutputTypeCountCandidatosArgs
     vinculosEquipe?: boolean | SemestreCountOutputTypeCountVinculosEquipeArgs
+    semanasImpressao?: boolean | SemestreCountOutputTypeCountSemanasImpressaoArgs
+    materiaisAtualizacao?: boolean | SemestreCountOutputTypeCountMateriaisAtualizacaoArgs
   }
 
   // Custom InputTypes
@@ -3349,6 +3826,113 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountVinculosEquipeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VinculoEquipeSemestreWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountSemanasImpressaoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SemanaImpressaoWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountMateriaisAtualizacaoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaterialAtualizacaoWhereInput
+  }
+
+
+  /**
+   * Count Type SemanaImpressaoCountOutputType
+   */
+
+  export type SemanaImpressaoCountOutputType = {
+    apostilas: number
+  }
+
+  export type SemanaImpressaoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    apostilas?: boolean | SemanaImpressaoCountOutputTypeCountApostilasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SemanaImpressaoCountOutputType without action
+   */
+  export type SemanaImpressaoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressaoCountOutputType
+     */
+    select?: SemanaImpressaoCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SemanaImpressaoCountOutputType without action
+   */
+  export type SemanaImpressaoCountOutputTypeCountApostilasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ApostilaImpressaoWhereInput
+  }
+
+
+  /**
+   * Count Type ApostilaImpressaoCountOutputType
+   */
+
+  export type ApostilaImpressaoCountOutputType = {
+    responsaveis: number
+  }
+
+  export type ApostilaImpressaoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    responsaveis?: boolean | ApostilaImpressaoCountOutputTypeCountResponsaveisArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ApostilaImpressaoCountOutputType without action
+   */
+  export type ApostilaImpressaoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressaoCountOutputType
+     */
+    select?: ApostilaImpressaoCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ApostilaImpressaoCountOutputType without action
+   */
+  export type ApostilaImpressaoCountOutputTypeCountResponsaveisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResponsavelApostilaWhereInput
+  }
+
+
+  /**
+   * Count Type MaterialAtualizacaoCountOutputType
+   */
+
+  export type MaterialAtualizacaoCountOutputType = {
+    responsaveis: number
+  }
+
+  export type MaterialAtualizacaoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    responsaveis?: boolean | MaterialAtualizacaoCountOutputTypeCountResponsaveisArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MaterialAtualizacaoCountOutputType without action
+   */
+  export type MaterialAtualizacaoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacaoCountOutputType
+     */
+    select?: MaterialAtualizacaoCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MaterialAtualizacaoCountOutputType without action
+   */
+  export type MaterialAtualizacaoCountOutputTypeCountResponsaveisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResponsavelMaterialAtualizacaoWhereInput
   }
 
 
@@ -7057,6 +7641,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: boolean | User$redefinicoesRecebidasArgs<ExtArgs>
     presencasMonitor?: boolean | User$presencasMonitorArgs<ExtArgs>
     presencasProfessor?: boolean | User$presencasProfessorArgs<ExtArgs>
+    apostilasResponsavel?: boolean | User$apostilasResponsavelArgs<ExtArgs>
+    materiaisAtualizacaoResponsavel?: boolean | User$materiaisAtualizacaoResponsavelArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -7116,6 +7702,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: boolean | User$redefinicoesRecebidasArgs<ExtArgs>
     presencasMonitor?: boolean | User$presencasMonitorArgs<ExtArgs>
     presencasProfessor?: boolean | User$presencasProfessorArgs<ExtArgs>
+    apostilasResponsavel?: boolean | User$apostilasResponsavelArgs<ExtArgs>
+    materiaisAtualizacaoResponsavel?: boolean | User$materiaisAtualizacaoResponsavelArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7136,6 +7724,8 @@ export namespace Prisma {
       redefinicoesRecebidas: Prisma.$PasswordResetRequestPayload<ExtArgs>[]
       presencasMonitor: Prisma.$PresencaMonitorPayload<ExtArgs>[]
       presencasProfessor: Prisma.$PresencaProfessorPayload<ExtArgs>[]
+      apostilasResponsavel: Prisma.$ResponsavelApostilaPayload<ExtArgs>[]
+      materiaisAtualizacaoResponsavel: Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7555,6 +8145,8 @@ export namespace Prisma {
     redefinicoesRecebidas<T extends User$redefinicoesRecebidasArgs<ExtArgs> = {}>(args?: Subset<T, User$redefinicoesRecebidasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     presencasMonitor<T extends User$presencasMonitorArgs<ExtArgs> = {}>(args?: Subset<T, User$presencasMonitorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PresencaMonitorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     presencasProfessor<T extends User$presencasProfessorArgs<ExtArgs> = {}>(args?: Subset<T, User$presencasProfessorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PresencaProfessorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    apostilasResponsavel<T extends User$apostilasResponsavelArgs<ExtArgs> = {}>(args?: Subset<T, User$apostilasResponsavelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    materiaisAtualizacaoResponsavel<T extends User$materiaisAtualizacaoResponsavelArgs<ExtArgs> = {}>(args?: Subset<T, User$materiaisAtualizacaoResponsavelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8268,6 +8860,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PresencaProfessorScalarFieldEnum | PresencaProfessorScalarFieldEnum[]
+  }
+
+  /**
+   * User.apostilasResponsavel
+   */
+  export type User$apostilasResponsavelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    where?: ResponsavelApostilaWhereInput
+    orderBy?: ResponsavelApostilaOrderByWithRelationInput | ResponsavelApostilaOrderByWithRelationInput[]
+    cursor?: ResponsavelApostilaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ResponsavelApostilaScalarFieldEnum | ResponsavelApostilaScalarFieldEnum[]
+  }
+
+  /**
+   * User.materiaisAtualizacaoResponsavel
+   */
+  export type User$materiaisAtualizacaoResponsavelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+    orderBy?: ResponsavelMaterialAtualizacaoOrderByWithRelationInput | ResponsavelMaterialAtualizacaoOrderByWithRelationInput[]
+    cursor?: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ResponsavelMaterialAtualizacaoScalarFieldEnum | ResponsavelMaterialAtualizacaoScalarFieldEnum[]
   }
 
   /**
@@ -9541,6 +10181,8 @@ export namespace Prisma {
     alunos?: boolean | Semestre$alunosArgs<ExtArgs>
     candidatos?: boolean | Semestre$candidatosArgs<ExtArgs>
     vinculosEquipe?: boolean | Semestre$vinculosEquipeArgs<ExtArgs>
+    semanasImpressao?: boolean | Semestre$semanasImpressaoArgs<ExtArgs>
+    materiaisAtualizacao?: boolean | Semestre$materiaisAtualizacaoArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -9571,6 +10213,8 @@ export namespace Prisma {
     alunos?: boolean | Semestre$alunosArgs<ExtArgs>
     candidatos?: boolean | Semestre$candidatosArgs<ExtArgs>
     vinculosEquipe?: boolean | Semestre$vinculosEquipeArgs<ExtArgs>
+    semanasImpressao?: boolean | Semestre$semanasImpressaoArgs<ExtArgs>
+    materiaisAtualizacao?: boolean | Semestre$materiaisAtualizacaoArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -9583,6 +10227,8 @@ export namespace Prisma {
       alunos: Prisma.$AlunoPayload<ExtArgs>[]
       candidatos: Prisma.$CandidatoPayload<ExtArgs>[]
       vinculosEquipe: Prisma.$VinculoEquipeSemestrePayload<ExtArgs>[]
+      semanasImpressao: Prisma.$SemanaImpressaoPayload<ExtArgs>[]
+      materiaisAtualizacao: Prisma.$MaterialAtualizacaoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9987,6 +10633,8 @@ export namespace Prisma {
     alunos<T extends Semestre$alunosArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$alunosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlunoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     candidatos<T extends Semestre$candidatosArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$candidatosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CandidatoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     vinculosEquipe<T extends Semestre$vinculosEquipeArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$vinculosEquipeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    semanasImpressao<T extends Semestre$semanasImpressaoArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$semanasImpressaoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    materiaisAtualizacao<T extends Semestre$materiaisAtualizacaoArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$materiaisAtualizacaoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10504,6 +11152,54 @@ export namespace Prisma {
   }
 
   /**
+   * Semestre.semanasImpressao
+   */
+  export type Semestre$semanasImpressaoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+    where?: SemanaImpressaoWhereInput
+    orderBy?: SemanaImpressaoOrderByWithRelationInput | SemanaImpressaoOrderByWithRelationInput[]
+    cursor?: SemanaImpressaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SemanaImpressaoScalarFieldEnum | SemanaImpressaoScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.materiaisAtualizacao
+   */
+  export type Semestre$materiaisAtualizacaoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+    where?: MaterialAtualizacaoWhereInput
+    orderBy?: MaterialAtualizacaoOrderByWithRelationInput | MaterialAtualizacaoOrderByWithRelationInput[]
+    cursor?: MaterialAtualizacaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaterialAtualizacaoScalarFieldEnum | MaterialAtualizacaoScalarFieldEnum[]
+  }
+
+  /**
    * Semestre without action
    */
   export type SemestreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10519,6 +11215,5565 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SemestreInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SemanaImpressao
+   */
+
+  export type AggregateSemanaImpressao = {
+    _count: SemanaImpressaoCountAggregateOutputType | null
+    _avg: SemanaImpressaoAvgAggregateOutputType | null
+    _sum: SemanaImpressaoSumAggregateOutputType | null
+    _min: SemanaImpressaoMinAggregateOutputType | null
+    _max: SemanaImpressaoMaxAggregateOutputType | null
+  }
+
+  export type SemanaImpressaoAvgAggregateOutputType = {
+    numero: number | null
+  }
+
+  export type SemanaImpressaoSumAggregateOutputType = {
+    numero: number | null
+  }
+
+  export type SemanaImpressaoMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    numero: number | null
+    dataAula: Date | null
+    aulaRealizada: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SemanaImpressaoMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    numero: number | null
+    dataAula: Date | null
+    aulaRealizada: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SemanaImpressaoCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    numero: number
+    dataAula: number
+    aulaRealizada: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SemanaImpressaoAvgAggregateInputType = {
+    numero?: true
+  }
+
+  export type SemanaImpressaoSumAggregateInputType = {
+    numero?: true
+  }
+
+  export type SemanaImpressaoMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    numero?: true
+    dataAula?: true
+    aulaRealizada?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SemanaImpressaoMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    numero?: true
+    dataAula?: true
+    aulaRealizada?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SemanaImpressaoCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    numero?: true
+    dataAula?: true
+    aulaRealizada?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SemanaImpressaoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SemanaImpressao to aggregate.
+     */
+    where?: SemanaImpressaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SemanaImpressaos to fetch.
+     */
+    orderBy?: SemanaImpressaoOrderByWithRelationInput | SemanaImpressaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SemanaImpressaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SemanaImpressaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SemanaImpressaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SemanaImpressaos
+    **/
+    _count?: true | SemanaImpressaoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SemanaImpressaoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SemanaImpressaoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SemanaImpressaoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SemanaImpressaoMaxAggregateInputType
+  }
+
+  export type GetSemanaImpressaoAggregateType<T extends SemanaImpressaoAggregateArgs> = {
+        [P in keyof T & keyof AggregateSemanaImpressao]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSemanaImpressao[P]>
+      : GetScalarType<T[P], AggregateSemanaImpressao[P]>
+  }
+
+
+
+
+  export type SemanaImpressaoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SemanaImpressaoWhereInput
+    orderBy?: SemanaImpressaoOrderByWithAggregationInput | SemanaImpressaoOrderByWithAggregationInput[]
+    by: SemanaImpressaoScalarFieldEnum[] | SemanaImpressaoScalarFieldEnum
+    having?: SemanaImpressaoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SemanaImpressaoCountAggregateInputType | true
+    _avg?: SemanaImpressaoAvgAggregateInputType
+    _sum?: SemanaImpressaoSumAggregateInputType
+    _min?: SemanaImpressaoMinAggregateInputType
+    _max?: SemanaImpressaoMaxAggregateInputType
+  }
+
+  export type SemanaImpressaoGroupByOutputType = {
+    id: string
+    semestreId: string
+    numero: number
+    dataAula: Date | null
+    aulaRealizada: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: SemanaImpressaoCountAggregateOutputType | null
+    _avg: SemanaImpressaoAvgAggregateOutputType | null
+    _sum: SemanaImpressaoSumAggregateOutputType | null
+    _min: SemanaImpressaoMinAggregateOutputType | null
+    _max: SemanaImpressaoMaxAggregateOutputType | null
+  }
+
+  type GetSemanaImpressaoGroupByPayload<T extends SemanaImpressaoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SemanaImpressaoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SemanaImpressaoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SemanaImpressaoGroupByOutputType[P]>
+            : GetScalarType<T[P], SemanaImpressaoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SemanaImpressaoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    numero?: boolean
+    dataAula?: boolean
+    aulaRealizada?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    apostilas?: boolean | SemanaImpressao$apostilasArgs<ExtArgs>
+    _count?: boolean | SemanaImpressaoCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["semanaImpressao"]>
+
+  export type SemanaImpressaoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    numero?: boolean
+    dataAula?: boolean
+    aulaRealizada?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["semanaImpressao"]>
+
+  export type SemanaImpressaoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    numero?: boolean
+    dataAula?: boolean
+    aulaRealizada?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["semanaImpressao"]>
+
+  export type SemanaImpressaoSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    numero?: boolean
+    dataAula?: boolean
+    aulaRealizada?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SemanaImpressaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "numero" | "dataAula" | "aulaRealizada" | "createdAt" | "updatedAt", ExtArgs["result"]["semanaImpressao"]>
+  export type SemanaImpressaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    apostilas?: boolean | SemanaImpressao$apostilasArgs<ExtArgs>
+    _count?: boolean | SemanaImpressaoCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SemanaImpressaoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type SemanaImpressaoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+
+  export type $SemanaImpressaoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SemanaImpressao"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      apostilas: Prisma.$ApostilaImpressaoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      numero: number
+      dataAula: Date | null
+      aulaRealizada: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["semanaImpressao"]>
+    composites: {}
+  }
+
+  type SemanaImpressaoGetPayload<S extends boolean | null | undefined | SemanaImpressaoDefaultArgs> = $Result.GetResult<Prisma.$SemanaImpressaoPayload, S>
+
+  type SemanaImpressaoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SemanaImpressaoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SemanaImpressaoCountAggregateInputType | true
+    }
+
+  export interface SemanaImpressaoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SemanaImpressao'], meta: { name: 'SemanaImpressao' } }
+    /**
+     * Find zero or one SemanaImpressao that matches the filter.
+     * @param {SemanaImpressaoFindUniqueArgs} args - Arguments to find a SemanaImpressao
+     * @example
+     * // Get one SemanaImpressao
+     * const semanaImpressao = await prisma.semanaImpressao.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SemanaImpressaoFindUniqueArgs>(args: SelectSubset<T, SemanaImpressaoFindUniqueArgs<ExtArgs>>): Prisma__SemanaImpressaoClient<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SemanaImpressao that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SemanaImpressaoFindUniqueOrThrowArgs} args - Arguments to find a SemanaImpressao
+     * @example
+     * // Get one SemanaImpressao
+     * const semanaImpressao = await prisma.semanaImpressao.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SemanaImpressaoFindUniqueOrThrowArgs>(args: SelectSubset<T, SemanaImpressaoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SemanaImpressaoClient<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SemanaImpressao that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemanaImpressaoFindFirstArgs} args - Arguments to find a SemanaImpressao
+     * @example
+     * // Get one SemanaImpressao
+     * const semanaImpressao = await prisma.semanaImpressao.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SemanaImpressaoFindFirstArgs>(args?: SelectSubset<T, SemanaImpressaoFindFirstArgs<ExtArgs>>): Prisma__SemanaImpressaoClient<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SemanaImpressao that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemanaImpressaoFindFirstOrThrowArgs} args - Arguments to find a SemanaImpressao
+     * @example
+     * // Get one SemanaImpressao
+     * const semanaImpressao = await prisma.semanaImpressao.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SemanaImpressaoFindFirstOrThrowArgs>(args?: SelectSubset<T, SemanaImpressaoFindFirstOrThrowArgs<ExtArgs>>): Prisma__SemanaImpressaoClient<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SemanaImpressaos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemanaImpressaoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SemanaImpressaos
+     * const semanaImpressaos = await prisma.semanaImpressao.findMany()
+     * 
+     * // Get first 10 SemanaImpressaos
+     * const semanaImpressaos = await prisma.semanaImpressao.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const semanaImpressaoWithIdOnly = await prisma.semanaImpressao.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SemanaImpressaoFindManyArgs>(args?: SelectSubset<T, SemanaImpressaoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SemanaImpressao.
+     * @param {SemanaImpressaoCreateArgs} args - Arguments to create a SemanaImpressao.
+     * @example
+     * // Create one SemanaImpressao
+     * const SemanaImpressao = await prisma.semanaImpressao.create({
+     *   data: {
+     *     // ... data to create a SemanaImpressao
+     *   }
+     * })
+     * 
+     */
+    create<T extends SemanaImpressaoCreateArgs>(args: SelectSubset<T, SemanaImpressaoCreateArgs<ExtArgs>>): Prisma__SemanaImpressaoClient<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SemanaImpressaos.
+     * @param {SemanaImpressaoCreateManyArgs} args - Arguments to create many SemanaImpressaos.
+     * @example
+     * // Create many SemanaImpressaos
+     * const semanaImpressao = await prisma.semanaImpressao.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SemanaImpressaoCreateManyArgs>(args?: SelectSubset<T, SemanaImpressaoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SemanaImpressaos and returns the data saved in the database.
+     * @param {SemanaImpressaoCreateManyAndReturnArgs} args - Arguments to create many SemanaImpressaos.
+     * @example
+     * // Create many SemanaImpressaos
+     * const semanaImpressao = await prisma.semanaImpressao.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SemanaImpressaos and only return the `id`
+     * const semanaImpressaoWithIdOnly = await prisma.semanaImpressao.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SemanaImpressaoCreateManyAndReturnArgs>(args?: SelectSubset<T, SemanaImpressaoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SemanaImpressao.
+     * @param {SemanaImpressaoDeleteArgs} args - Arguments to delete one SemanaImpressao.
+     * @example
+     * // Delete one SemanaImpressao
+     * const SemanaImpressao = await prisma.semanaImpressao.delete({
+     *   where: {
+     *     // ... filter to delete one SemanaImpressao
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SemanaImpressaoDeleteArgs>(args: SelectSubset<T, SemanaImpressaoDeleteArgs<ExtArgs>>): Prisma__SemanaImpressaoClient<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SemanaImpressao.
+     * @param {SemanaImpressaoUpdateArgs} args - Arguments to update one SemanaImpressao.
+     * @example
+     * // Update one SemanaImpressao
+     * const semanaImpressao = await prisma.semanaImpressao.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SemanaImpressaoUpdateArgs>(args: SelectSubset<T, SemanaImpressaoUpdateArgs<ExtArgs>>): Prisma__SemanaImpressaoClient<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SemanaImpressaos.
+     * @param {SemanaImpressaoDeleteManyArgs} args - Arguments to filter SemanaImpressaos to delete.
+     * @example
+     * // Delete a few SemanaImpressaos
+     * const { count } = await prisma.semanaImpressao.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SemanaImpressaoDeleteManyArgs>(args?: SelectSubset<T, SemanaImpressaoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SemanaImpressaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemanaImpressaoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SemanaImpressaos
+     * const semanaImpressao = await prisma.semanaImpressao.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SemanaImpressaoUpdateManyArgs>(args: SelectSubset<T, SemanaImpressaoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SemanaImpressaos and returns the data updated in the database.
+     * @param {SemanaImpressaoUpdateManyAndReturnArgs} args - Arguments to update many SemanaImpressaos.
+     * @example
+     * // Update many SemanaImpressaos
+     * const semanaImpressao = await prisma.semanaImpressao.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SemanaImpressaos and only return the `id`
+     * const semanaImpressaoWithIdOnly = await prisma.semanaImpressao.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SemanaImpressaoUpdateManyAndReturnArgs>(args: SelectSubset<T, SemanaImpressaoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SemanaImpressao.
+     * @param {SemanaImpressaoUpsertArgs} args - Arguments to update or create a SemanaImpressao.
+     * @example
+     * // Update or create a SemanaImpressao
+     * const semanaImpressao = await prisma.semanaImpressao.upsert({
+     *   create: {
+     *     // ... data to create a SemanaImpressao
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SemanaImpressao we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SemanaImpressaoUpsertArgs>(args: SelectSubset<T, SemanaImpressaoUpsertArgs<ExtArgs>>): Prisma__SemanaImpressaoClient<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SemanaImpressaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemanaImpressaoCountArgs} args - Arguments to filter SemanaImpressaos to count.
+     * @example
+     * // Count the number of SemanaImpressaos
+     * const count = await prisma.semanaImpressao.count({
+     *   where: {
+     *     // ... the filter for the SemanaImpressaos we want to count
+     *   }
+     * })
+    **/
+    count<T extends SemanaImpressaoCountArgs>(
+      args?: Subset<T, SemanaImpressaoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SemanaImpressaoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SemanaImpressao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemanaImpressaoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SemanaImpressaoAggregateArgs>(args: Subset<T, SemanaImpressaoAggregateArgs>): Prisma.PrismaPromise<GetSemanaImpressaoAggregateType<T>>
+
+    /**
+     * Group by SemanaImpressao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemanaImpressaoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SemanaImpressaoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SemanaImpressaoGroupByArgs['orderBy'] }
+        : { orderBy?: SemanaImpressaoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SemanaImpressaoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSemanaImpressaoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SemanaImpressao model
+   */
+  readonly fields: SemanaImpressaoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SemanaImpressao.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SemanaImpressaoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    apostilas<T extends SemanaImpressao$apostilasArgs<ExtArgs> = {}>(args?: Subset<T, SemanaImpressao$apostilasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SemanaImpressao model
+   */
+  interface SemanaImpressaoFieldRefs {
+    readonly id: FieldRef<"SemanaImpressao", 'String'>
+    readonly semestreId: FieldRef<"SemanaImpressao", 'String'>
+    readonly numero: FieldRef<"SemanaImpressao", 'Int'>
+    readonly dataAula: FieldRef<"SemanaImpressao", 'DateTime'>
+    readonly aulaRealizada: FieldRef<"SemanaImpressao", 'Boolean'>
+    readonly createdAt: FieldRef<"SemanaImpressao", 'DateTime'>
+    readonly updatedAt: FieldRef<"SemanaImpressao", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SemanaImpressao findUnique
+   */
+  export type SemanaImpressaoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter, which SemanaImpressao to fetch.
+     */
+    where: SemanaImpressaoWhereUniqueInput
+  }
+
+  /**
+   * SemanaImpressao findUniqueOrThrow
+   */
+  export type SemanaImpressaoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter, which SemanaImpressao to fetch.
+     */
+    where: SemanaImpressaoWhereUniqueInput
+  }
+
+  /**
+   * SemanaImpressao findFirst
+   */
+  export type SemanaImpressaoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter, which SemanaImpressao to fetch.
+     */
+    where?: SemanaImpressaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SemanaImpressaos to fetch.
+     */
+    orderBy?: SemanaImpressaoOrderByWithRelationInput | SemanaImpressaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SemanaImpressaos.
+     */
+    cursor?: SemanaImpressaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SemanaImpressaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SemanaImpressaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SemanaImpressaos.
+     */
+    distinct?: SemanaImpressaoScalarFieldEnum | SemanaImpressaoScalarFieldEnum[]
+  }
+
+  /**
+   * SemanaImpressao findFirstOrThrow
+   */
+  export type SemanaImpressaoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter, which SemanaImpressao to fetch.
+     */
+    where?: SemanaImpressaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SemanaImpressaos to fetch.
+     */
+    orderBy?: SemanaImpressaoOrderByWithRelationInput | SemanaImpressaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SemanaImpressaos.
+     */
+    cursor?: SemanaImpressaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SemanaImpressaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SemanaImpressaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SemanaImpressaos.
+     */
+    distinct?: SemanaImpressaoScalarFieldEnum | SemanaImpressaoScalarFieldEnum[]
+  }
+
+  /**
+   * SemanaImpressao findMany
+   */
+  export type SemanaImpressaoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter, which SemanaImpressaos to fetch.
+     */
+    where?: SemanaImpressaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SemanaImpressaos to fetch.
+     */
+    orderBy?: SemanaImpressaoOrderByWithRelationInput | SemanaImpressaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SemanaImpressaos.
+     */
+    cursor?: SemanaImpressaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SemanaImpressaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SemanaImpressaos.
+     */
+    skip?: number
+    distinct?: SemanaImpressaoScalarFieldEnum | SemanaImpressaoScalarFieldEnum[]
+  }
+
+  /**
+   * SemanaImpressao create
+   */
+  export type SemanaImpressaoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SemanaImpressao.
+     */
+    data: XOR<SemanaImpressaoCreateInput, SemanaImpressaoUncheckedCreateInput>
+  }
+
+  /**
+   * SemanaImpressao createMany
+   */
+  export type SemanaImpressaoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SemanaImpressaos.
+     */
+    data: SemanaImpressaoCreateManyInput | SemanaImpressaoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SemanaImpressao createManyAndReturn
+   */
+  export type SemanaImpressaoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * The data used to create many SemanaImpressaos.
+     */
+    data: SemanaImpressaoCreateManyInput | SemanaImpressaoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SemanaImpressao update
+   */
+  export type SemanaImpressaoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SemanaImpressao.
+     */
+    data: XOR<SemanaImpressaoUpdateInput, SemanaImpressaoUncheckedUpdateInput>
+    /**
+     * Choose, which SemanaImpressao to update.
+     */
+    where: SemanaImpressaoWhereUniqueInput
+  }
+
+  /**
+   * SemanaImpressao updateMany
+   */
+  export type SemanaImpressaoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SemanaImpressaos.
+     */
+    data: XOR<SemanaImpressaoUpdateManyMutationInput, SemanaImpressaoUncheckedUpdateManyInput>
+    /**
+     * Filter which SemanaImpressaos to update
+     */
+    where?: SemanaImpressaoWhereInput
+    /**
+     * Limit how many SemanaImpressaos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SemanaImpressao updateManyAndReturn
+   */
+  export type SemanaImpressaoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * The data used to update SemanaImpressaos.
+     */
+    data: XOR<SemanaImpressaoUpdateManyMutationInput, SemanaImpressaoUncheckedUpdateManyInput>
+    /**
+     * Filter which SemanaImpressaos to update
+     */
+    where?: SemanaImpressaoWhereInput
+    /**
+     * Limit how many SemanaImpressaos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SemanaImpressao upsert
+   */
+  export type SemanaImpressaoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SemanaImpressao to update in case it exists.
+     */
+    where: SemanaImpressaoWhereUniqueInput
+    /**
+     * In case the SemanaImpressao found by the `where` argument doesn't exist, create a new SemanaImpressao with this data.
+     */
+    create: XOR<SemanaImpressaoCreateInput, SemanaImpressaoUncheckedCreateInput>
+    /**
+     * In case the SemanaImpressao was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SemanaImpressaoUpdateInput, SemanaImpressaoUncheckedUpdateInput>
+  }
+
+  /**
+   * SemanaImpressao delete
+   */
+  export type SemanaImpressaoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter which SemanaImpressao to delete.
+     */
+    where: SemanaImpressaoWhereUniqueInput
+  }
+
+  /**
+   * SemanaImpressao deleteMany
+   */
+  export type SemanaImpressaoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SemanaImpressaos to delete
+     */
+    where?: SemanaImpressaoWhereInput
+    /**
+     * Limit how many SemanaImpressaos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SemanaImpressao.apostilas
+   */
+  export type SemanaImpressao$apostilasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+    where?: ApostilaImpressaoWhereInput
+    orderBy?: ApostilaImpressaoOrderByWithRelationInput | ApostilaImpressaoOrderByWithRelationInput[]
+    cursor?: ApostilaImpressaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ApostilaImpressaoScalarFieldEnum | ApostilaImpressaoScalarFieldEnum[]
+  }
+
+  /**
+   * SemanaImpressao without action
+   */
+  export type SemanaImpressaoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemanaImpressao
+     */
+    select?: SemanaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SemanaImpressao
+     */
+    omit?: SemanaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemanaImpressaoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ApostilaImpressao
+   */
+
+  export type AggregateApostilaImpressao = {
+    _count: ApostilaImpressaoCountAggregateOutputType | null
+    _avg: ApostilaImpressaoAvgAggregateOutputType | null
+    _sum: ApostilaImpressaoSumAggregateOutputType | null
+    _min: ApostilaImpressaoMinAggregateOutputType | null
+    _max: ApostilaImpressaoMaxAggregateOutputType | null
+  }
+
+  export type ApostilaImpressaoAvgAggregateOutputType = {
+    qtdImpressa: number | null
+    qtdAlvo: number | null
+  }
+
+  export type ApostilaImpressaoSumAggregateOutputType = {
+    qtdImpressa: number | null
+    qtdAlvo: number | null
+  }
+
+  export type ApostilaImpressaoMinAggregateOutputType = {
+    id: string | null
+    semanaId: string | null
+    titulo: string | null
+    curso: string | null
+    dataEntrega: Date | null
+    pronta: boolean | null
+    impressa: boolean | null
+    qtdImpressa: number | null
+    qtdAlvo: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ApostilaImpressaoMaxAggregateOutputType = {
+    id: string | null
+    semanaId: string | null
+    titulo: string | null
+    curso: string | null
+    dataEntrega: Date | null
+    pronta: boolean | null
+    impressa: boolean | null
+    qtdImpressa: number | null
+    qtdAlvo: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ApostilaImpressaoCountAggregateOutputType = {
+    id: number
+    semanaId: number
+    titulo: number
+    curso: number
+    dataEntrega: number
+    pronta: number
+    impressa: number
+    qtdImpressa: number
+    qtdAlvo: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ApostilaImpressaoAvgAggregateInputType = {
+    qtdImpressa?: true
+    qtdAlvo?: true
+  }
+
+  export type ApostilaImpressaoSumAggregateInputType = {
+    qtdImpressa?: true
+    qtdAlvo?: true
+  }
+
+  export type ApostilaImpressaoMinAggregateInputType = {
+    id?: true
+    semanaId?: true
+    titulo?: true
+    curso?: true
+    dataEntrega?: true
+    pronta?: true
+    impressa?: true
+    qtdImpressa?: true
+    qtdAlvo?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ApostilaImpressaoMaxAggregateInputType = {
+    id?: true
+    semanaId?: true
+    titulo?: true
+    curso?: true
+    dataEntrega?: true
+    pronta?: true
+    impressa?: true
+    qtdImpressa?: true
+    qtdAlvo?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ApostilaImpressaoCountAggregateInputType = {
+    id?: true
+    semanaId?: true
+    titulo?: true
+    curso?: true
+    dataEntrega?: true
+    pronta?: true
+    impressa?: true
+    qtdImpressa?: true
+    qtdAlvo?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ApostilaImpressaoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ApostilaImpressao to aggregate.
+     */
+    where?: ApostilaImpressaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApostilaImpressaos to fetch.
+     */
+    orderBy?: ApostilaImpressaoOrderByWithRelationInput | ApostilaImpressaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ApostilaImpressaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApostilaImpressaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApostilaImpressaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ApostilaImpressaos
+    **/
+    _count?: true | ApostilaImpressaoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ApostilaImpressaoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ApostilaImpressaoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ApostilaImpressaoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ApostilaImpressaoMaxAggregateInputType
+  }
+
+  export type GetApostilaImpressaoAggregateType<T extends ApostilaImpressaoAggregateArgs> = {
+        [P in keyof T & keyof AggregateApostilaImpressao]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateApostilaImpressao[P]>
+      : GetScalarType<T[P], AggregateApostilaImpressao[P]>
+  }
+
+
+
+
+  export type ApostilaImpressaoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ApostilaImpressaoWhereInput
+    orderBy?: ApostilaImpressaoOrderByWithAggregationInput | ApostilaImpressaoOrderByWithAggregationInput[]
+    by: ApostilaImpressaoScalarFieldEnum[] | ApostilaImpressaoScalarFieldEnum
+    having?: ApostilaImpressaoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ApostilaImpressaoCountAggregateInputType | true
+    _avg?: ApostilaImpressaoAvgAggregateInputType
+    _sum?: ApostilaImpressaoSumAggregateInputType
+    _min?: ApostilaImpressaoMinAggregateInputType
+    _max?: ApostilaImpressaoMaxAggregateInputType
+  }
+
+  export type ApostilaImpressaoGroupByOutputType = {
+    id: string
+    semanaId: string
+    titulo: string
+    curso: string
+    dataEntrega: Date | null
+    pronta: boolean
+    impressa: boolean
+    qtdImpressa: number
+    qtdAlvo: number
+    createdAt: Date
+    updatedAt: Date
+    _count: ApostilaImpressaoCountAggregateOutputType | null
+    _avg: ApostilaImpressaoAvgAggregateOutputType | null
+    _sum: ApostilaImpressaoSumAggregateOutputType | null
+    _min: ApostilaImpressaoMinAggregateOutputType | null
+    _max: ApostilaImpressaoMaxAggregateOutputType | null
+  }
+
+  type GetApostilaImpressaoGroupByPayload<T extends ApostilaImpressaoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ApostilaImpressaoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ApostilaImpressaoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ApostilaImpressaoGroupByOutputType[P]>
+            : GetScalarType<T[P], ApostilaImpressaoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ApostilaImpressaoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semanaId?: boolean
+    titulo?: boolean
+    curso?: boolean
+    dataEntrega?: boolean
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: boolean
+    qtdAlvo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semana?: boolean | SemanaImpressaoDefaultArgs<ExtArgs>
+    responsaveis?: boolean | ApostilaImpressao$responsaveisArgs<ExtArgs>
+    _count?: boolean | ApostilaImpressaoCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["apostilaImpressao"]>
+
+  export type ApostilaImpressaoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semanaId?: boolean
+    titulo?: boolean
+    curso?: boolean
+    dataEntrega?: boolean
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: boolean
+    qtdAlvo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semana?: boolean | SemanaImpressaoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["apostilaImpressao"]>
+
+  export type ApostilaImpressaoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semanaId?: boolean
+    titulo?: boolean
+    curso?: boolean
+    dataEntrega?: boolean
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: boolean
+    qtdAlvo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semana?: boolean | SemanaImpressaoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["apostilaImpressao"]>
+
+  export type ApostilaImpressaoSelectScalar = {
+    id?: boolean
+    semanaId?: boolean
+    titulo?: boolean
+    curso?: boolean
+    dataEntrega?: boolean
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: boolean
+    qtdAlvo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ApostilaImpressaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semanaId" | "titulo" | "curso" | "dataEntrega" | "pronta" | "impressa" | "qtdImpressa" | "qtdAlvo" | "createdAt" | "updatedAt", ExtArgs["result"]["apostilaImpressao"]>
+  export type ApostilaImpressaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semana?: boolean | SemanaImpressaoDefaultArgs<ExtArgs>
+    responsaveis?: boolean | ApostilaImpressao$responsaveisArgs<ExtArgs>
+    _count?: boolean | ApostilaImpressaoCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ApostilaImpressaoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semana?: boolean | SemanaImpressaoDefaultArgs<ExtArgs>
+  }
+  export type ApostilaImpressaoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semana?: boolean | SemanaImpressaoDefaultArgs<ExtArgs>
+  }
+
+  export type $ApostilaImpressaoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ApostilaImpressao"
+    objects: {
+      semana: Prisma.$SemanaImpressaoPayload<ExtArgs>
+      responsaveis: Prisma.$ResponsavelApostilaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semanaId: string
+      titulo: string
+      curso: string
+      dataEntrega: Date | null
+      pronta: boolean
+      impressa: boolean
+      qtdImpressa: number
+      qtdAlvo: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["apostilaImpressao"]>
+    composites: {}
+  }
+
+  type ApostilaImpressaoGetPayload<S extends boolean | null | undefined | ApostilaImpressaoDefaultArgs> = $Result.GetResult<Prisma.$ApostilaImpressaoPayload, S>
+
+  type ApostilaImpressaoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ApostilaImpressaoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ApostilaImpressaoCountAggregateInputType | true
+    }
+
+  export interface ApostilaImpressaoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ApostilaImpressao'], meta: { name: 'ApostilaImpressao' } }
+    /**
+     * Find zero or one ApostilaImpressao that matches the filter.
+     * @param {ApostilaImpressaoFindUniqueArgs} args - Arguments to find a ApostilaImpressao
+     * @example
+     * // Get one ApostilaImpressao
+     * const apostilaImpressao = await prisma.apostilaImpressao.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ApostilaImpressaoFindUniqueArgs>(args: SelectSubset<T, ApostilaImpressaoFindUniqueArgs<ExtArgs>>): Prisma__ApostilaImpressaoClient<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ApostilaImpressao that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ApostilaImpressaoFindUniqueOrThrowArgs} args - Arguments to find a ApostilaImpressao
+     * @example
+     * // Get one ApostilaImpressao
+     * const apostilaImpressao = await prisma.apostilaImpressao.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ApostilaImpressaoFindUniqueOrThrowArgs>(args: SelectSubset<T, ApostilaImpressaoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ApostilaImpressaoClient<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ApostilaImpressao that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApostilaImpressaoFindFirstArgs} args - Arguments to find a ApostilaImpressao
+     * @example
+     * // Get one ApostilaImpressao
+     * const apostilaImpressao = await prisma.apostilaImpressao.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ApostilaImpressaoFindFirstArgs>(args?: SelectSubset<T, ApostilaImpressaoFindFirstArgs<ExtArgs>>): Prisma__ApostilaImpressaoClient<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ApostilaImpressao that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApostilaImpressaoFindFirstOrThrowArgs} args - Arguments to find a ApostilaImpressao
+     * @example
+     * // Get one ApostilaImpressao
+     * const apostilaImpressao = await prisma.apostilaImpressao.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ApostilaImpressaoFindFirstOrThrowArgs>(args?: SelectSubset<T, ApostilaImpressaoFindFirstOrThrowArgs<ExtArgs>>): Prisma__ApostilaImpressaoClient<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ApostilaImpressaos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApostilaImpressaoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ApostilaImpressaos
+     * const apostilaImpressaos = await prisma.apostilaImpressao.findMany()
+     * 
+     * // Get first 10 ApostilaImpressaos
+     * const apostilaImpressaos = await prisma.apostilaImpressao.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const apostilaImpressaoWithIdOnly = await prisma.apostilaImpressao.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ApostilaImpressaoFindManyArgs>(args?: SelectSubset<T, ApostilaImpressaoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ApostilaImpressao.
+     * @param {ApostilaImpressaoCreateArgs} args - Arguments to create a ApostilaImpressao.
+     * @example
+     * // Create one ApostilaImpressao
+     * const ApostilaImpressao = await prisma.apostilaImpressao.create({
+     *   data: {
+     *     // ... data to create a ApostilaImpressao
+     *   }
+     * })
+     * 
+     */
+    create<T extends ApostilaImpressaoCreateArgs>(args: SelectSubset<T, ApostilaImpressaoCreateArgs<ExtArgs>>): Prisma__ApostilaImpressaoClient<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ApostilaImpressaos.
+     * @param {ApostilaImpressaoCreateManyArgs} args - Arguments to create many ApostilaImpressaos.
+     * @example
+     * // Create many ApostilaImpressaos
+     * const apostilaImpressao = await prisma.apostilaImpressao.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ApostilaImpressaoCreateManyArgs>(args?: SelectSubset<T, ApostilaImpressaoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ApostilaImpressaos and returns the data saved in the database.
+     * @param {ApostilaImpressaoCreateManyAndReturnArgs} args - Arguments to create many ApostilaImpressaos.
+     * @example
+     * // Create many ApostilaImpressaos
+     * const apostilaImpressao = await prisma.apostilaImpressao.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ApostilaImpressaos and only return the `id`
+     * const apostilaImpressaoWithIdOnly = await prisma.apostilaImpressao.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ApostilaImpressaoCreateManyAndReturnArgs>(args?: SelectSubset<T, ApostilaImpressaoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ApostilaImpressao.
+     * @param {ApostilaImpressaoDeleteArgs} args - Arguments to delete one ApostilaImpressao.
+     * @example
+     * // Delete one ApostilaImpressao
+     * const ApostilaImpressao = await prisma.apostilaImpressao.delete({
+     *   where: {
+     *     // ... filter to delete one ApostilaImpressao
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ApostilaImpressaoDeleteArgs>(args: SelectSubset<T, ApostilaImpressaoDeleteArgs<ExtArgs>>): Prisma__ApostilaImpressaoClient<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ApostilaImpressao.
+     * @param {ApostilaImpressaoUpdateArgs} args - Arguments to update one ApostilaImpressao.
+     * @example
+     * // Update one ApostilaImpressao
+     * const apostilaImpressao = await prisma.apostilaImpressao.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ApostilaImpressaoUpdateArgs>(args: SelectSubset<T, ApostilaImpressaoUpdateArgs<ExtArgs>>): Prisma__ApostilaImpressaoClient<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ApostilaImpressaos.
+     * @param {ApostilaImpressaoDeleteManyArgs} args - Arguments to filter ApostilaImpressaos to delete.
+     * @example
+     * // Delete a few ApostilaImpressaos
+     * const { count } = await prisma.apostilaImpressao.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ApostilaImpressaoDeleteManyArgs>(args?: SelectSubset<T, ApostilaImpressaoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ApostilaImpressaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApostilaImpressaoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ApostilaImpressaos
+     * const apostilaImpressao = await prisma.apostilaImpressao.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ApostilaImpressaoUpdateManyArgs>(args: SelectSubset<T, ApostilaImpressaoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ApostilaImpressaos and returns the data updated in the database.
+     * @param {ApostilaImpressaoUpdateManyAndReturnArgs} args - Arguments to update many ApostilaImpressaos.
+     * @example
+     * // Update many ApostilaImpressaos
+     * const apostilaImpressao = await prisma.apostilaImpressao.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ApostilaImpressaos and only return the `id`
+     * const apostilaImpressaoWithIdOnly = await prisma.apostilaImpressao.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ApostilaImpressaoUpdateManyAndReturnArgs>(args: SelectSubset<T, ApostilaImpressaoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ApostilaImpressao.
+     * @param {ApostilaImpressaoUpsertArgs} args - Arguments to update or create a ApostilaImpressao.
+     * @example
+     * // Update or create a ApostilaImpressao
+     * const apostilaImpressao = await prisma.apostilaImpressao.upsert({
+     *   create: {
+     *     // ... data to create a ApostilaImpressao
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ApostilaImpressao we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ApostilaImpressaoUpsertArgs>(args: SelectSubset<T, ApostilaImpressaoUpsertArgs<ExtArgs>>): Prisma__ApostilaImpressaoClient<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ApostilaImpressaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApostilaImpressaoCountArgs} args - Arguments to filter ApostilaImpressaos to count.
+     * @example
+     * // Count the number of ApostilaImpressaos
+     * const count = await prisma.apostilaImpressao.count({
+     *   where: {
+     *     // ... the filter for the ApostilaImpressaos we want to count
+     *   }
+     * })
+    **/
+    count<T extends ApostilaImpressaoCountArgs>(
+      args?: Subset<T, ApostilaImpressaoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ApostilaImpressaoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ApostilaImpressao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApostilaImpressaoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ApostilaImpressaoAggregateArgs>(args: Subset<T, ApostilaImpressaoAggregateArgs>): Prisma.PrismaPromise<GetApostilaImpressaoAggregateType<T>>
+
+    /**
+     * Group by ApostilaImpressao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApostilaImpressaoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ApostilaImpressaoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ApostilaImpressaoGroupByArgs['orderBy'] }
+        : { orderBy?: ApostilaImpressaoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ApostilaImpressaoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetApostilaImpressaoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ApostilaImpressao model
+   */
+  readonly fields: ApostilaImpressaoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ApostilaImpressao.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ApostilaImpressaoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semana<T extends SemanaImpressaoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemanaImpressaoDefaultArgs<ExtArgs>>): Prisma__SemanaImpressaoClient<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    responsaveis<T extends ApostilaImpressao$responsaveisArgs<ExtArgs> = {}>(args?: Subset<T, ApostilaImpressao$responsaveisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ApostilaImpressao model
+   */
+  interface ApostilaImpressaoFieldRefs {
+    readonly id: FieldRef<"ApostilaImpressao", 'String'>
+    readonly semanaId: FieldRef<"ApostilaImpressao", 'String'>
+    readonly titulo: FieldRef<"ApostilaImpressao", 'String'>
+    readonly curso: FieldRef<"ApostilaImpressao", 'String'>
+    readonly dataEntrega: FieldRef<"ApostilaImpressao", 'DateTime'>
+    readonly pronta: FieldRef<"ApostilaImpressao", 'Boolean'>
+    readonly impressa: FieldRef<"ApostilaImpressao", 'Boolean'>
+    readonly qtdImpressa: FieldRef<"ApostilaImpressao", 'Int'>
+    readonly qtdAlvo: FieldRef<"ApostilaImpressao", 'Int'>
+    readonly createdAt: FieldRef<"ApostilaImpressao", 'DateTime'>
+    readonly updatedAt: FieldRef<"ApostilaImpressao", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ApostilaImpressao findUnique
+   */
+  export type ApostilaImpressaoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ApostilaImpressao to fetch.
+     */
+    where: ApostilaImpressaoWhereUniqueInput
+  }
+
+  /**
+   * ApostilaImpressao findUniqueOrThrow
+   */
+  export type ApostilaImpressaoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ApostilaImpressao to fetch.
+     */
+    where: ApostilaImpressaoWhereUniqueInput
+  }
+
+  /**
+   * ApostilaImpressao findFirst
+   */
+  export type ApostilaImpressaoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ApostilaImpressao to fetch.
+     */
+    where?: ApostilaImpressaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApostilaImpressaos to fetch.
+     */
+    orderBy?: ApostilaImpressaoOrderByWithRelationInput | ApostilaImpressaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ApostilaImpressaos.
+     */
+    cursor?: ApostilaImpressaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApostilaImpressaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApostilaImpressaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ApostilaImpressaos.
+     */
+    distinct?: ApostilaImpressaoScalarFieldEnum | ApostilaImpressaoScalarFieldEnum[]
+  }
+
+  /**
+   * ApostilaImpressao findFirstOrThrow
+   */
+  export type ApostilaImpressaoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ApostilaImpressao to fetch.
+     */
+    where?: ApostilaImpressaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApostilaImpressaos to fetch.
+     */
+    orderBy?: ApostilaImpressaoOrderByWithRelationInput | ApostilaImpressaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ApostilaImpressaos.
+     */
+    cursor?: ApostilaImpressaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApostilaImpressaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApostilaImpressaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ApostilaImpressaos.
+     */
+    distinct?: ApostilaImpressaoScalarFieldEnum | ApostilaImpressaoScalarFieldEnum[]
+  }
+
+  /**
+   * ApostilaImpressao findMany
+   */
+  export type ApostilaImpressaoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ApostilaImpressaos to fetch.
+     */
+    where?: ApostilaImpressaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApostilaImpressaos to fetch.
+     */
+    orderBy?: ApostilaImpressaoOrderByWithRelationInput | ApostilaImpressaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ApostilaImpressaos.
+     */
+    cursor?: ApostilaImpressaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApostilaImpressaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApostilaImpressaos.
+     */
+    skip?: number
+    distinct?: ApostilaImpressaoScalarFieldEnum | ApostilaImpressaoScalarFieldEnum[]
+  }
+
+  /**
+   * ApostilaImpressao create
+   */
+  export type ApostilaImpressaoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ApostilaImpressao.
+     */
+    data: XOR<ApostilaImpressaoCreateInput, ApostilaImpressaoUncheckedCreateInput>
+  }
+
+  /**
+   * ApostilaImpressao createMany
+   */
+  export type ApostilaImpressaoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ApostilaImpressaos.
+     */
+    data: ApostilaImpressaoCreateManyInput | ApostilaImpressaoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ApostilaImpressao createManyAndReturn
+   */
+  export type ApostilaImpressaoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * The data used to create many ApostilaImpressaos.
+     */
+    data: ApostilaImpressaoCreateManyInput | ApostilaImpressaoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ApostilaImpressao update
+   */
+  export type ApostilaImpressaoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ApostilaImpressao.
+     */
+    data: XOR<ApostilaImpressaoUpdateInput, ApostilaImpressaoUncheckedUpdateInput>
+    /**
+     * Choose, which ApostilaImpressao to update.
+     */
+    where: ApostilaImpressaoWhereUniqueInput
+  }
+
+  /**
+   * ApostilaImpressao updateMany
+   */
+  export type ApostilaImpressaoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ApostilaImpressaos.
+     */
+    data: XOR<ApostilaImpressaoUpdateManyMutationInput, ApostilaImpressaoUncheckedUpdateManyInput>
+    /**
+     * Filter which ApostilaImpressaos to update
+     */
+    where?: ApostilaImpressaoWhereInput
+    /**
+     * Limit how many ApostilaImpressaos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ApostilaImpressao updateManyAndReturn
+   */
+  export type ApostilaImpressaoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * The data used to update ApostilaImpressaos.
+     */
+    data: XOR<ApostilaImpressaoUpdateManyMutationInput, ApostilaImpressaoUncheckedUpdateManyInput>
+    /**
+     * Filter which ApostilaImpressaos to update
+     */
+    where?: ApostilaImpressaoWhereInput
+    /**
+     * Limit how many ApostilaImpressaos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ApostilaImpressao upsert
+   */
+  export type ApostilaImpressaoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ApostilaImpressao to update in case it exists.
+     */
+    where: ApostilaImpressaoWhereUniqueInput
+    /**
+     * In case the ApostilaImpressao found by the `where` argument doesn't exist, create a new ApostilaImpressao with this data.
+     */
+    create: XOR<ApostilaImpressaoCreateInput, ApostilaImpressaoUncheckedCreateInput>
+    /**
+     * In case the ApostilaImpressao was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ApostilaImpressaoUpdateInput, ApostilaImpressaoUncheckedUpdateInput>
+  }
+
+  /**
+   * ApostilaImpressao delete
+   */
+  export type ApostilaImpressaoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+    /**
+     * Filter which ApostilaImpressao to delete.
+     */
+    where: ApostilaImpressaoWhereUniqueInput
+  }
+
+  /**
+   * ApostilaImpressao deleteMany
+   */
+  export type ApostilaImpressaoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ApostilaImpressaos to delete
+     */
+    where?: ApostilaImpressaoWhereInput
+    /**
+     * Limit how many ApostilaImpressaos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ApostilaImpressao.responsaveis
+   */
+  export type ApostilaImpressao$responsaveisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    where?: ResponsavelApostilaWhereInput
+    orderBy?: ResponsavelApostilaOrderByWithRelationInput | ResponsavelApostilaOrderByWithRelationInput[]
+    cursor?: ResponsavelApostilaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ResponsavelApostilaScalarFieldEnum | ResponsavelApostilaScalarFieldEnum[]
+  }
+
+  /**
+   * ApostilaImpressao without action
+   */
+  export type ApostilaImpressaoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApostilaImpressao
+     */
+    select?: ApostilaImpressaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApostilaImpressao
+     */
+    omit?: ApostilaImpressaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApostilaImpressaoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ResponsavelApostila
+   */
+
+  export type AggregateResponsavelApostila = {
+    _count: ResponsavelApostilaCountAggregateOutputType | null
+    _min: ResponsavelApostilaMinAggregateOutputType | null
+    _max: ResponsavelApostilaMaxAggregateOutputType | null
+  }
+
+  export type ResponsavelApostilaMinAggregateOutputType = {
+    apostilaId: string | null
+    userId: string | null
+  }
+
+  export type ResponsavelApostilaMaxAggregateOutputType = {
+    apostilaId: string | null
+    userId: string | null
+  }
+
+  export type ResponsavelApostilaCountAggregateOutputType = {
+    apostilaId: number
+    userId: number
+    _all: number
+  }
+
+
+  export type ResponsavelApostilaMinAggregateInputType = {
+    apostilaId?: true
+    userId?: true
+  }
+
+  export type ResponsavelApostilaMaxAggregateInputType = {
+    apostilaId?: true
+    userId?: true
+  }
+
+  export type ResponsavelApostilaCountAggregateInputType = {
+    apostilaId?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type ResponsavelApostilaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResponsavelApostila to aggregate.
+     */
+    where?: ResponsavelApostilaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResponsavelApostilas to fetch.
+     */
+    orderBy?: ResponsavelApostilaOrderByWithRelationInput | ResponsavelApostilaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ResponsavelApostilaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResponsavelApostilas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResponsavelApostilas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ResponsavelApostilas
+    **/
+    _count?: true | ResponsavelApostilaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ResponsavelApostilaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ResponsavelApostilaMaxAggregateInputType
+  }
+
+  export type GetResponsavelApostilaAggregateType<T extends ResponsavelApostilaAggregateArgs> = {
+        [P in keyof T & keyof AggregateResponsavelApostila]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateResponsavelApostila[P]>
+      : GetScalarType<T[P], AggregateResponsavelApostila[P]>
+  }
+
+
+
+
+  export type ResponsavelApostilaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResponsavelApostilaWhereInput
+    orderBy?: ResponsavelApostilaOrderByWithAggregationInput | ResponsavelApostilaOrderByWithAggregationInput[]
+    by: ResponsavelApostilaScalarFieldEnum[] | ResponsavelApostilaScalarFieldEnum
+    having?: ResponsavelApostilaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ResponsavelApostilaCountAggregateInputType | true
+    _min?: ResponsavelApostilaMinAggregateInputType
+    _max?: ResponsavelApostilaMaxAggregateInputType
+  }
+
+  export type ResponsavelApostilaGroupByOutputType = {
+    apostilaId: string
+    userId: string
+    _count: ResponsavelApostilaCountAggregateOutputType | null
+    _min: ResponsavelApostilaMinAggregateOutputType | null
+    _max: ResponsavelApostilaMaxAggregateOutputType | null
+  }
+
+  type GetResponsavelApostilaGroupByPayload<T extends ResponsavelApostilaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ResponsavelApostilaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ResponsavelApostilaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ResponsavelApostilaGroupByOutputType[P]>
+            : GetScalarType<T[P], ResponsavelApostilaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ResponsavelApostilaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    apostilaId?: boolean
+    userId?: boolean
+    apostila?: boolean | ApostilaImpressaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["responsavelApostila"]>
+
+  export type ResponsavelApostilaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    apostilaId?: boolean
+    userId?: boolean
+    apostila?: boolean | ApostilaImpressaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["responsavelApostila"]>
+
+  export type ResponsavelApostilaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    apostilaId?: boolean
+    userId?: boolean
+    apostila?: boolean | ApostilaImpressaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["responsavelApostila"]>
+
+  export type ResponsavelApostilaSelectScalar = {
+    apostilaId?: boolean
+    userId?: boolean
+  }
+
+  export type ResponsavelApostilaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"apostilaId" | "userId", ExtArgs["result"]["responsavelApostila"]>
+  export type ResponsavelApostilaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    apostila?: boolean | ApostilaImpressaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ResponsavelApostilaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    apostila?: boolean | ApostilaImpressaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ResponsavelApostilaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    apostila?: boolean | ApostilaImpressaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ResponsavelApostilaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ResponsavelApostila"
+    objects: {
+      apostila: Prisma.$ApostilaImpressaoPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      apostilaId: string
+      userId: string
+    }, ExtArgs["result"]["responsavelApostila"]>
+    composites: {}
+  }
+
+  type ResponsavelApostilaGetPayload<S extends boolean | null | undefined | ResponsavelApostilaDefaultArgs> = $Result.GetResult<Prisma.$ResponsavelApostilaPayload, S>
+
+  type ResponsavelApostilaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ResponsavelApostilaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ResponsavelApostilaCountAggregateInputType | true
+    }
+
+  export interface ResponsavelApostilaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ResponsavelApostila'], meta: { name: 'ResponsavelApostila' } }
+    /**
+     * Find zero or one ResponsavelApostila that matches the filter.
+     * @param {ResponsavelApostilaFindUniqueArgs} args - Arguments to find a ResponsavelApostila
+     * @example
+     * // Get one ResponsavelApostila
+     * const responsavelApostila = await prisma.responsavelApostila.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ResponsavelApostilaFindUniqueArgs>(args: SelectSubset<T, ResponsavelApostilaFindUniqueArgs<ExtArgs>>): Prisma__ResponsavelApostilaClient<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ResponsavelApostila that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ResponsavelApostilaFindUniqueOrThrowArgs} args - Arguments to find a ResponsavelApostila
+     * @example
+     * // Get one ResponsavelApostila
+     * const responsavelApostila = await prisma.responsavelApostila.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ResponsavelApostilaFindUniqueOrThrowArgs>(args: SelectSubset<T, ResponsavelApostilaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ResponsavelApostilaClient<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ResponsavelApostila that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelApostilaFindFirstArgs} args - Arguments to find a ResponsavelApostila
+     * @example
+     * // Get one ResponsavelApostila
+     * const responsavelApostila = await prisma.responsavelApostila.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ResponsavelApostilaFindFirstArgs>(args?: SelectSubset<T, ResponsavelApostilaFindFirstArgs<ExtArgs>>): Prisma__ResponsavelApostilaClient<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ResponsavelApostila that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelApostilaFindFirstOrThrowArgs} args - Arguments to find a ResponsavelApostila
+     * @example
+     * // Get one ResponsavelApostila
+     * const responsavelApostila = await prisma.responsavelApostila.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ResponsavelApostilaFindFirstOrThrowArgs>(args?: SelectSubset<T, ResponsavelApostilaFindFirstOrThrowArgs<ExtArgs>>): Prisma__ResponsavelApostilaClient<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ResponsavelApostilas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelApostilaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ResponsavelApostilas
+     * const responsavelApostilas = await prisma.responsavelApostila.findMany()
+     * 
+     * // Get first 10 ResponsavelApostilas
+     * const responsavelApostilas = await prisma.responsavelApostila.findMany({ take: 10 })
+     * 
+     * // Only select the `apostilaId`
+     * const responsavelApostilaWithApostilaIdOnly = await prisma.responsavelApostila.findMany({ select: { apostilaId: true } })
+     * 
+     */
+    findMany<T extends ResponsavelApostilaFindManyArgs>(args?: SelectSubset<T, ResponsavelApostilaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ResponsavelApostila.
+     * @param {ResponsavelApostilaCreateArgs} args - Arguments to create a ResponsavelApostila.
+     * @example
+     * // Create one ResponsavelApostila
+     * const ResponsavelApostila = await prisma.responsavelApostila.create({
+     *   data: {
+     *     // ... data to create a ResponsavelApostila
+     *   }
+     * })
+     * 
+     */
+    create<T extends ResponsavelApostilaCreateArgs>(args: SelectSubset<T, ResponsavelApostilaCreateArgs<ExtArgs>>): Prisma__ResponsavelApostilaClient<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ResponsavelApostilas.
+     * @param {ResponsavelApostilaCreateManyArgs} args - Arguments to create many ResponsavelApostilas.
+     * @example
+     * // Create many ResponsavelApostilas
+     * const responsavelApostila = await prisma.responsavelApostila.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ResponsavelApostilaCreateManyArgs>(args?: SelectSubset<T, ResponsavelApostilaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ResponsavelApostilas and returns the data saved in the database.
+     * @param {ResponsavelApostilaCreateManyAndReturnArgs} args - Arguments to create many ResponsavelApostilas.
+     * @example
+     * // Create many ResponsavelApostilas
+     * const responsavelApostila = await prisma.responsavelApostila.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ResponsavelApostilas and only return the `apostilaId`
+     * const responsavelApostilaWithApostilaIdOnly = await prisma.responsavelApostila.createManyAndReturn({
+     *   select: { apostilaId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ResponsavelApostilaCreateManyAndReturnArgs>(args?: SelectSubset<T, ResponsavelApostilaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ResponsavelApostila.
+     * @param {ResponsavelApostilaDeleteArgs} args - Arguments to delete one ResponsavelApostila.
+     * @example
+     * // Delete one ResponsavelApostila
+     * const ResponsavelApostila = await prisma.responsavelApostila.delete({
+     *   where: {
+     *     // ... filter to delete one ResponsavelApostila
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ResponsavelApostilaDeleteArgs>(args: SelectSubset<T, ResponsavelApostilaDeleteArgs<ExtArgs>>): Prisma__ResponsavelApostilaClient<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ResponsavelApostila.
+     * @param {ResponsavelApostilaUpdateArgs} args - Arguments to update one ResponsavelApostila.
+     * @example
+     * // Update one ResponsavelApostila
+     * const responsavelApostila = await prisma.responsavelApostila.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ResponsavelApostilaUpdateArgs>(args: SelectSubset<T, ResponsavelApostilaUpdateArgs<ExtArgs>>): Prisma__ResponsavelApostilaClient<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ResponsavelApostilas.
+     * @param {ResponsavelApostilaDeleteManyArgs} args - Arguments to filter ResponsavelApostilas to delete.
+     * @example
+     * // Delete a few ResponsavelApostilas
+     * const { count } = await prisma.responsavelApostila.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ResponsavelApostilaDeleteManyArgs>(args?: SelectSubset<T, ResponsavelApostilaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ResponsavelApostilas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelApostilaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ResponsavelApostilas
+     * const responsavelApostila = await prisma.responsavelApostila.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ResponsavelApostilaUpdateManyArgs>(args: SelectSubset<T, ResponsavelApostilaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ResponsavelApostilas and returns the data updated in the database.
+     * @param {ResponsavelApostilaUpdateManyAndReturnArgs} args - Arguments to update many ResponsavelApostilas.
+     * @example
+     * // Update many ResponsavelApostilas
+     * const responsavelApostila = await prisma.responsavelApostila.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ResponsavelApostilas and only return the `apostilaId`
+     * const responsavelApostilaWithApostilaIdOnly = await prisma.responsavelApostila.updateManyAndReturn({
+     *   select: { apostilaId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ResponsavelApostilaUpdateManyAndReturnArgs>(args: SelectSubset<T, ResponsavelApostilaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ResponsavelApostila.
+     * @param {ResponsavelApostilaUpsertArgs} args - Arguments to update or create a ResponsavelApostila.
+     * @example
+     * // Update or create a ResponsavelApostila
+     * const responsavelApostila = await prisma.responsavelApostila.upsert({
+     *   create: {
+     *     // ... data to create a ResponsavelApostila
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ResponsavelApostila we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ResponsavelApostilaUpsertArgs>(args: SelectSubset<T, ResponsavelApostilaUpsertArgs<ExtArgs>>): Prisma__ResponsavelApostilaClient<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ResponsavelApostilas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelApostilaCountArgs} args - Arguments to filter ResponsavelApostilas to count.
+     * @example
+     * // Count the number of ResponsavelApostilas
+     * const count = await prisma.responsavelApostila.count({
+     *   where: {
+     *     // ... the filter for the ResponsavelApostilas we want to count
+     *   }
+     * })
+    **/
+    count<T extends ResponsavelApostilaCountArgs>(
+      args?: Subset<T, ResponsavelApostilaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ResponsavelApostilaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ResponsavelApostila.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelApostilaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ResponsavelApostilaAggregateArgs>(args: Subset<T, ResponsavelApostilaAggregateArgs>): Prisma.PrismaPromise<GetResponsavelApostilaAggregateType<T>>
+
+    /**
+     * Group by ResponsavelApostila.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelApostilaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ResponsavelApostilaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ResponsavelApostilaGroupByArgs['orderBy'] }
+        : { orderBy?: ResponsavelApostilaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ResponsavelApostilaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetResponsavelApostilaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ResponsavelApostila model
+   */
+  readonly fields: ResponsavelApostilaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ResponsavelApostila.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ResponsavelApostilaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    apostila<T extends ApostilaImpressaoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ApostilaImpressaoDefaultArgs<ExtArgs>>): Prisma__ApostilaImpressaoClient<$Result.GetResult<Prisma.$ApostilaImpressaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ResponsavelApostila model
+   */
+  interface ResponsavelApostilaFieldRefs {
+    readonly apostilaId: FieldRef<"ResponsavelApostila", 'String'>
+    readonly userId: FieldRef<"ResponsavelApostila", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ResponsavelApostila findUnique
+   */
+  export type ResponsavelApostilaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    /**
+     * Filter, which ResponsavelApostila to fetch.
+     */
+    where: ResponsavelApostilaWhereUniqueInput
+  }
+
+  /**
+   * ResponsavelApostila findUniqueOrThrow
+   */
+  export type ResponsavelApostilaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    /**
+     * Filter, which ResponsavelApostila to fetch.
+     */
+    where: ResponsavelApostilaWhereUniqueInput
+  }
+
+  /**
+   * ResponsavelApostila findFirst
+   */
+  export type ResponsavelApostilaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    /**
+     * Filter, which ResponsavelApostila to fetch.
+     */
+    where?: ResponsavelApostilaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResponsavelApostilas to fetch.
+     */
+    orderBy?: ResponsavelApostilaOrderByWithRelationInput | ResponsavelApostilaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResponsavelApostilas.
+     */
+    cursor?: ResponsavelApostilaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResponsavelApostilas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResponsavelApostilas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResponsavelApostilas.
+     */
+    distinct?: ResponsavelApostilaScalarFieldEnum | ResponsavelApostilaScalarFieldEnum[]
+  }
+
+  /**
+   * ResponsavelApostila findFirstOrThrow
+   */
+  export type ResponsavelApostilaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    /**
+     * Filter, which ResponsavelApostila to fetch.
+     */
+    where?: ResponsavelApostilaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResponsavelApostilas to fetch.
+     */
+    orderBy?: ResponsavelApostilaOrderByWithRelationInput | ResponsavelApostilaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResponsavelApostilas.
+     */
+    cursor?: ResponsavelApostilaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResponsavelApostilas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResponsavelApostilas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResponsavelApostilas.
+     */
+    distinct?: ResponsavelApostilaScalarFieldEnum | ResponsavelApostilaScalarFieldEnum[]
+  }
+
+  /**
+   * ResponsavelApostila findMany
+   */
+  export type ResponsavelApostilaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    /**
+     * Filter, which ResponsavelApostilas to fetch.
+     */
+    where?: ResponsavelApostilaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResponsavelApostilas to fetch.
+     */
+    orderBy?: ResponsavelApostilaOrderByWithRelationInput | ResponsavelApostilaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ResponsavelApostilas.
+     */
+    cursor?: ResponsavelApostilaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResponsavelApostilas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResponsavelApostilas.
+     */
+    skip?: number
+    distinct?: ResponsavelApostilaScalarFieldEnum | ResponsavelApostilaScalarFieldEnum[]
+  }
+
+  /**
+   * ResponsavelApostila create
+   */
+  export type ResponsavelApostilaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ResponsavelApostila.
+     */
+    data: XOR<ResponsavelApostilaCreateInput, ResponsavelApostilaUncheckedCreateInput>
+  }
+
+  /**
+   * ResponsavelApostila createMany
+   */
+  export type ResponsavelApostilaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ResponsavelApostilas.
+     */
+    data: ResponsavelApostilaCreateManyInput | ResponsavelApostilaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ResponsavelApostila createManyAndReturn
+   */
+  export type ResponsavelApostilaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * The data used to create many ResponsavelApostilas.
+     */
+    data: ResponsavelApostilaCreateManyInput | ResponsavelApostilaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ResponsavelApostila update
+   */
+  export type ResponsavelApostilaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ResponsavelApostila.
+     */
+    data: XOR<ResponsavelApostilaUpdateInput, ResponsavelApostilaUncheckedUpdateInput>
+    /**
+     * Choose, which ResponsavelApostila to update.
+     */
+    where: ResponsavelApostilaWhereUniqueInput
+  }
+
+  /**
+   * ResponsavelApostila updateMany
+   */
+  export type ResponsavelApostilaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ResponsavelApostilas.
+     */
+    data: XOR<ResponsavelApostilaUpdateManyMutationInput, ResponsavelApostilaUncheckedUpdateManyInput>
+    /**
+     * Filter which ResponsavelApostilas to update
+     */
+    where?: ResponsavelApostilaWhereInput
+    /**
+     * Limit how many ResponsavelApostilas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ResponsavelApostila updateManyAndReturn
+   */
+  export type ResponsavelApostilaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * The data used to update ResponsavelApostilas.
+     */
+    data: XOR<ResponsavelApostilaUpdateManyMutationInput, ResponsavelApostilaUncheckedUpdateManyInput>
+    /**
+     * Filter which ResponsavelApostilas to update
+     */
+    where?: ResponsavelApostilaWhereInput
+    /**
+     * Limit how many ResponsavelApostilas to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ResponsavelApostila upsert
+   */
+  export type ResponsavelApostilaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ResponsavelApostila to update in case it exists.
+     */
+    where: ResponsavelApostilaWhereUniqueInput
+    /**
+     * In case the ResponsavelApostila found by the `where` argument doesn't exist, create a new ResponsavelApostila with this data.
+     */
+    create: XOR<ResponsavelApostilaCreateInput, ResponsavelApostilaUncheckedCreateInput>
+    /**
+     * In case the ResponsavelApostila was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ResponsavelApostilaUpdateInput, ResponsavelApostilaUncheckedUpdateInput>
+  }
+
+  /**
+   * ResponsavelApostila delete
+   */
+  export type ResponsavelApostilaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+    /**
+     * Filter which ResponsavelApostila to delete.
+     */
+    where: ResponsavelApostilaWhereUniqueInput
+  }
+
+  /**
+   * ResponsavelApostila deleteMany
+   */
+  export type ResponsavelApostilaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResponsavelApostilas to delete
+     */
+    where?: ResponsavelApostilaWhereInput
+    /**
+     * Limit how many ResponsavelApostilas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ResponsavelApostila without action
+   */
+  export type ResponsavelApostilaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelApostila
+     */
+    select?: ResponsavelApostilaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelApostila
+     */
+    omit?: ResponsavelApostilaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelApostilaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MaterialAtualizacao
+   */
+
+  export type AggregateMaterialAtualizacao = {
+    _count: MaterialAtualizacaoCountAggregateOutputType | null
+    _min: MaterialAtualizacaoMinAggregateOutputType | null
+    _max: MaterialAtualizacaoMaxAggregateOutputType | null
+  }
+
+  export type MaterialAtualizacaoMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    curso: string | null
+    titulo: string | null
+    dataEntrega: Date | null
+    revisado: boolean | null
+    precisaAjuste: boolean | null
+    ajustado: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MaterialAtualizacaoMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    curso: string | null
+    titulo: string | null
+    dataEntrega: Date | null
+    revisado: boolean | null
+    precisaAjuste: boolean | null
+    ajustado: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MaterialAtualizacaoCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    curso: number
+    titulo: number
+    dataEntrega: number
+    revisado: number
+    precisaAjuste: number
+    ajustado: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MaterialAtualizacaoMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    curso?: true
+    titulo?: true
+    dataEntrega?: true
+    revisado?: true
+    precisaAjuste?: true
+    ajustado?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MaterialAtualizacaoMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    curso?: true
+    titulo?: true
+    dataEntrega?: true
+    revisado?: true
+    precisaAjuste?: true
+    ajustado?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MaterialAtualizacaoCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    curso?: true
+    titulo?: true
+    dataEntrega?: true
+    revisado?: true
+    precisaAjuste?: true
+    ajustado?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MaterialAtualizacaoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaterialAtualizacao to aggregate.
+     */
+    where?: MaterialAtualizacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaterialAtualizacaos to fetch.
+     */
+    orderBy?: MaterialAtualizacaoOrderByWithRelationInput | MaterialAtualizacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaterialAtualizacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaterialAtualizacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaterialAtualizacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MaterialAtualizacaos
+    **/
+    _count?: true | MaterialAtualizacaoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaterialAtualizacaoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaterialAtualizacaoMaxAggregateInputType
+  }
+
+  export type GetMaterialAtualizacaoAggregateType<T extends MaterialAtualizacaoAggregateArgs> = {
+        [P in keyof T & keyof AggregateMaterialAtualizacao]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMaterialAtualizacao[P]>
+      : GetScalarType<T[P], AggregateMaterialAtualizacao[P]>
+  }
+
+
+
+
+  export type MaterialAtualizacaoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaterialAtualizacaoWhereInput
+    orderBy?: MaterialAtualizacaoOrderByWithAggregationInput | MaterialAtualizacaoOrderByWithAggregationInput[]
+    by: MaterialAtualizacaoScalarFieldEnum[] | MaterialAtualizacaoScalarFieldEnum
+    having?: MaterialAtualizacaoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaterialAtualizacaoCountAggregateInputType | true
+    _min?: MaterialAtualizacaoMinAggregateInputType
+    _max?: MaterialAtualizacaoMaxAggregateInputType
+  }
+
+  export type MaterialAtualizacaoGroupByOutputType = {
+    id: string
+    semestreId: string
+    curso: string
+    titulo: string
+    dataEntrega: Date | null
+    revisado: boolean
+    precisaAjuste: boolean
+    ajustado: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: MaterialAtualizacaoCountAggregateOutputType | null
+    _min: MaterialAtualizacaoMinAggregateOutputType | null
+    _max: MaterialAtualizacaoMaxAggregateOutputType | null
+  }
+
+  type GetMaterialAtualizacaoGroupByPayload<T extends MaterialAtualizacaoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaterialAtualizacaoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaterialAtualizacaoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaterialAtualizacaoGroupByOutputType[P]>
+            : GetScalarType<T[P], MaterialAtualizacaoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaterialAtualizacaoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    curso?: boolean
+    titulo?: boolean
+    dataEntrega?: boolean
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    responsaveis?: boolean | MaterialAtualizacao$responsaveisArgs<ExtArgs>
+    _count?: boolean | MaterialAtualizacaoCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["materialAtualizacao"]>
+
+  export type MaterialAtualizacaoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    curso?: boolean
+    titulo?: boolean
+    dataEntrega?: boolean
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["materialAtualizacao"]>
+
+  export type MaterialAtualizacaoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    curso?: boolean
+    titulo?: boolean
+    dataEntrega?: boolean
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["materialAtualizacao"]>
+
+  export type MaterialAtualizacaoSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    curso?: boolean
+    titulo?: boolean
+    dataEntrega?: boolean
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MaterialAtualizacaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "curso" | "titulo" | "dataEntrega" | "revisado" | "precisaAjuste" | "ajustado" | "createdAt" | "updatedAt", ExtArgs["result"]["materialAtualizacao"]>
+  export type MaterialAtualizacaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    responsaveis?: boolean | MaterialAtualizacao$responsaveisArgs<ExtArgs>
+    _count?: boolean | MaterialAtualizacaoCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MaterialAtualizacaoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type MaterialAtualizacaoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+
+  export type $MaterialAtualizacaoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MaterialAtualizacao"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      responsaveis: Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      curso: string
+      titulo: string
+      dataEntrega: Date | null
+      revisado: boolean
+      precisaAjuste: boolean
+      ajustado: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["materialAtualizacao"]>
+    composites: {}
+  }
+
+  type MaterialAtualizacaoGetPayload<S extends boolean | null | undefined | MaterialAtualizacaoDefaultArgs> = $Result.GetResult<Prisma.$MaterialAtualizacaoPayload, S>
+
+  type MaterialAtualizacaoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaterialAtualizacaoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaterialAtualizacaoCountAggregateInputType | true
+    }
+
+  export interface MaterialAtualizacaoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MaterialAtualizacao'], meta: { name: 'MaterialAtualizacao' } }
+    /**
+     * Find zero or one MaterialAtualizacao that matches the filter.
+     * @param {MaterialAtualizacaoFindUniqueArgs} args - Arguments to find a MaterialAtualizacao
+     * @example
+     * // Get one MaterialAtualizacao
+     * const materialAtualizacao = await prisma.materialAtualizacao.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaterialAtualizacaoFindUniqueArgs>(args: SelectSubset<T, MaterialAtualizacaoFindUniqueArgs<ExtArgs>>): Prisma__MaterialAtualizacaoClient<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MaterialAtualizacao that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaterialAtualizacaoFindUniqueOrThrowArgs} args - Arguments to find a MaterialAtualizacao
+     * @example
+     * // Get one MaterialAtualizacao
+     * const materialAtualizacao = await prisma.materialAtualizacao.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaterialAtualizacaoFindUniqueOrThrowArgs>(args: SelectSubset<T, MaterialAtualizacaoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaterialAtualizacaoClient<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaterialAtualizacao that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialAtualizacaoFindFirstArgs} args - Arguments to find a MaterialAtualizacao
+     * @example
+     * // Get one MaterialAtualizacao
+     * const materialAtualizacao = await prisma.materialAtualizacao.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaterialAtualizacaoFindFirstArgs>(args?: SelectSubset<T, MaterialAtualizacaoFindFirstArgs<ExtArgs>>): Prisma__MaterialAtualizacaoClient<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaterialAtualizacao that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialAtualizacaoFindFirstOrThrowArgs} args - Arguments to find a MaterialAtualizacao
+     * @example
+     * // Get one MaterialAtualizacao
+     * const materialAtualizacao = await prisma.materialAtualizacao.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaterialAtualizacaoFindFirstOrThrowArgs>(args?: SelectSubset<T, MaterialAtualizacaoFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaterialAtualizacaoClient<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MaterialAtualizacaos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialAtualizacaoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MaterialAtualizacaos
+     * const materialAtualizacaos = await prisma.materialAtualizacao.findMany()
+     * 
+     * // Get first 10 MaterialAtualizacaos
+     * const materialAtualizacaos = await prisma.materialAtualizacao.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const materialAtualizacaoWithIdOnly = await prisma.materialAtualizacao.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaterialAtualizacaoFindManyArgs>(args?: SelectSubset<T, MaterialAtualizacaoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MaterialAtualizacao.
+     * @param {MaterialAtualizacaoCreateArgs} args - Arguments to create a MaterialAtualizacao.
+     * @example
+     * // Create one MaterialAtualizacao
+     * const MaterialAtualizacao = await prisma.materialAtualizacao.create({
+     *   data: {
+     *     // ... data to create a MaterialAtualizacao
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaterialAtualizacaoCreateArgs>(args: SelectSubset<T, MaterialAtualizacaoCreateArgs<ExtArgs>>): Prisma__MaterialAtualizacaoClient<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MaterialAtualizacaos.
+     * @param {MaterialAtualizacaoCreateManyArgs} args - Arguments to create many MaterialAtualizacaos.
+     * @example
+     * // Create many MaterialAtualizacaos
+     * const materialAtualizacao = await prisma.materialAtualizacao.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaterialAtualizacaoCreateManyArgs>(args?: SelectSubset<T, MaterialAtualizacaoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MaterialAtualizacaos and returns the data saved in the database.
+     * @param {MaterialAtualizacaoCreateManyAndReturnArgs} args - Arguments to create many MaterialAtualizacaos.
+     * @example
+     * // Create many MaterialAtualizacaos
+     * const materialAtualizacao = await prisma.materialAtualizacao.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MaterialAtualizacaos and only return the `id`
+     * const materialAtualizacaoWithIdOnly = await prisma.materialAtualizacao.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MaterialAtualizacaoCreateManyAndReturnArgs>(args?: SelectSubset<T, MaterialAtualizacaoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MaterialAtualizacao.
+     * @param {MaterialAtualizacaoDeleteArgs} args - Arguments to delete one MaterialAtualizacao.
+     * @example
+     * // Delete one MaterialAtualizacao
+     * const MaterialAtualizacao = await prisma.materialAtualizacao.delete({
+     *   where: {
+     *     // ... filter to delete one MaterialAtualizacao
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaterialAtualizacaoDeleteArgs>(args: SelectSubset<T, MaterialAtualizacaoDeleteArgs<ExtArgs>>): Prisma__MaterialAtualizacaoClient<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MaterialAtualizacao.
+     * @param {MaterialAtualizacaoUpdateArgs} args - Arguments to update one MaterialAtualizacao.
+     * @example
+     * // Update one MaterialAtualizacao
+     * const materialAtualizacao = await prisma.materialAtualizacao.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaterialAtualizacaoUpdateArgs>(args: SelectSubset<T, MaterialAtualizacaoUpdateArgs<ExtArgs>>): Prisma__MaterialAtualizacaoClient<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MaterialAtualizacaos.
+     * @param {MaterialAtualizacaoDeleteManyArgs} args - Arguments to filter MaterialAtualizacaos to delete.
+     * @example
+     * // Delete a few MaterialAtualizacaos
+     * const { count } = await prisma.materialAtualizacao.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaterialAtualizacaoDeleteManyArgs>(args?: SelectSubset<T, MaterialAtualizacaoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaterialAtualizacaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialAtualizacaoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MaterialAtualizacaos
+     * const materialAtualizacao = await prisma.materialAtualizacao.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaterialAtualizacaoUpdateManyArgs>(args: SelectSubset<T, MaterialAtualizacaoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaterialAtualizacaos and returns the data updated in the database.
+     * @param {MaterialAtualizacaoUpdateManyAndReturnArgs} args - Arguments to update many MaterialAtualizacaos.
+     * @example
+     * // Update many MaterialAtualizacaos
+     * const materialAtualizacao = await prisma.materialAtualizacao.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MaterialAtualizacaos and only return the `id`
+     * const materialAtualizacaoWithIdOnly = await prisma.materialAtualizacao.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MaterialAtualizacaoUpdateManyAndReturnArgs>(args: SelectSubset<T, MaterialAtualizacaoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MaterialAtualizacao.
+     * @param {MaterialAtualizacaoUpsertArgs} args - Arguments to update or create a MaterialAtualizacao.
+     * @example
+     * // Update or create a MaterialAtualizacao
+     * const materialAtualizacao = await prisma.materialAtualizacao.upsert({
+     *   create: {
+     *     // ... data to create a MaterialAtualizacao
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MaterialAtualizacao we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaterialAtualizacaoUpsertArgs>(args: SelectSubset<T, MaterialAtualizacaoUpsertArgs<ExtArgs>>): Prisma__MaterialAtualizacaoClient<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MaterialAtualizacaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialAtualizacaoCountArgs} args - Arguments to filter MaterialAtualizacaos to count.
+     * @example
+     * // Count the number of MaterialAtualizacaos
+     * const count = await prisma.materialAtualizacao.count({
+     *   where: {
+     *     // ... the filter for the MaterialAtualizacaos we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaterialAtualizacaoCountArgs>(
+      args?: Subset<T, MaterialAtualizacaoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaterialAtualizacaoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MaterialAtualizacao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialAtualizacaoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaterialAtualizacaoAggregateArgs>(args: Subset<T, MaterialAtualizacaoAggregateArgs>): Prisma.PrismaPromise<GetMaterialAtualizacaoAggregateType<T>>
+
+    /**
+     * Group by MaterialAtualizacao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialAtualizacaoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaterialAtualizacaoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaterialAtualizacaoGroupByArgs['orderBy'] }
+        : { orderBy?: MaterialAtualizacaoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaterialAtualizacaoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaterialAtualizacaoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MaterialAtualizacao model
+   */
+  readonly fields: MaterialAtualizacaoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MaterialAtualizacao.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaterialAtualizacaoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    responsaveis<T extends MaterialAtualizacao$responsaveisArgs<ExtArgs> = {}>(args?: Subset<T, MaterialAtualizacao$responsaveisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MaterialAtualizacao model
+   */
+  interface MaterialAtualizacaoFieldRefs {
+    readonly id: FieldRef<"MaterialAtualizacao", 'String'>
+    readonly semestreId: FieldRef<"MaterialAtualizacao", 'String'>
+    readonly curso: FieldRef<"MaterialAtualizacao", 'String'>
+    readonly titulo: FieldRef<"MaterialAtualizacao", 'String'>
+    readonly dataEntrega: FieldRef<"MaterialAtualizacao", 'DateTime'>
+    readonly revisado: FieldRef<"MaterialAtualizacao", 'Boolean'>
+    readonly precisaAjuste: FieldRef<"MaterialAtualizacao", 'Boolean'>
+    readonly ajustado: FieldRef<"MaterialAtualizacao", 'Boolean'>
+    readonly createdAt: FieldRef<"MaterialAtualizacao", 'DateTime'>
+    readonly updatedAt: FieldRef<"MaterialAtualizacao", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MaterialAtualizacao findUnique
+   */
+  export type MaterialAtualizacaoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which MaterialAtualizacao to fetch.
+     */
+    where: MaterialAtualizacaoWhereUniqueInput
+  }
+
+  /**
+   * MaterialAtualizacao findUniqueOrThrow
+   */
+  export type MaterialAtualizacaoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which MaterialAtualizacao to fetch.
+     */
+    where: MaterialAtualizacaoWhereUniqueInput
+  }
+
+  /**
+   * MaterialAtualizacao findFirst
+   */
+  export type MaterialAtualizacaoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which MaterialAtualizacao to fetch.
+     */
+    where?: MaterialAtualizacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaterialAtualizacaos to fetch.
+     */
+    orderBy?: MaterialAtualizacaoOrderByWithRelationInput | MaterialAtualizacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaterialAtualizacaos.
+     */
+    cursor?: MaterialAtualizacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaterialAtualizacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaterialAtualizacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaterialAtualizacaos.
+     */
+    distinct?: MaterialAtualizacaoScalarFieldEnum | MaterialAtualizacaoScalarFieldEnum[]
+  }
+
+  /**
+   * MaterialAtualizacao findFirstOrThrow
+   */
+  export type MaterialAtualizacaoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which MaterialAtualizacao to fetch.
+     */
+    where?: MaterialAtualizacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaterialAtualizacaos to fetch.
+     */
+    orderBy?: MaterialAtualizacaoOrderByWithRelationInput | MaterialAtualizacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaterialAtualizacaos.
+     */
+    cursor?: MaterialAtualizacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaterialAtualizacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaterialAtualizacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaterialAtualizacaos.
+     */
+    distinct?: MaterialAtualizacaoScalarFieldEnum | MaterialAtualizacaoScalarFieldEnum[]
+  }
+
+  /**
+   * MaterialAtualizacao findMany
+   */
+  export type MaterialAtualizacaoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which MaterialAtualizacaos to fetch.
+     */
+    where?: MaterialAtualizacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaterialAtualizacaos to fetch.
+     */
+    orderBy?: MaterialAtualizacaoOrderByWithRelationInput | MaterialAtualizacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MaterialAtualizacaos.
+     */
+    cursor?: MaterialAtualizacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaterialAtualizacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaterialAtualizacaos.
+     */
+    skip?: number
+    distinct?: MaterialAtualizacaoScalarFieldEnum | MaterialAtualizacaoScalarFieldEnum[]
+  }
+
+  /**
+   * MaterialAtualizacao create
+   */
+  export type MaterialAtualizacaoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MaterialAtualizacao.
+     */
+    data: XOR<MaterialAtualizacaoCreateInput, MaterialAtualizacaoUncheckedCreateInput>
+  }
+
+  /**
+   * MaterialAtualizacao createMany
+   */
+  export type MaterialAtualizacaoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MaterialAtualizacaos.
+     */
+    data: MaterialAtualizacaoCreateManyInput | MaterialAtualizacaoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MaterialAtualizacao createManyAndReturn
+   */
+  export type MaterialAtualizacaoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * The data used to create many MaterialAtualizacaos.
+     */
+    data: MaterialAtualizacaoCreateManyInput | MaterialAtualizacaoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MaterialAtualizacao update
+   */
+  export type MaterialAtualizacaoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MaterialAtualizacao.
+     */
+    data: XOR<MaterialAtualizacaoUpdateInput, MaterialAtualizacaoUncheckedUpdateInput>
+    /**
+     * Choose, which MaterialAtualizacao to update.
+     */
+    where: MaterialAtualizacaoWhereUniqueInput
+  }
+
+  /**
+   * MaterialAtualizacao updateMany
+   */
+  export type MaterialAtualizacaoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MaterialAtualizacaos.
+     */
+    data: XOR<MaterialAtualizacaoUpdateManyMutationInput, MaterialAtualizacaoUncheckedUpdateManyInput>
+    /**
+     * Filter which MaterialAtualizacaos to update
+     */
+    where?: MaterialAtualizacaoWhereInput
+    /**
+     * Limit how many MaterialAtualizacaos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaterialAtualizacao updateManyAndReturn
+   */
+  export type MaterialAtualizacaoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * The data used to update MaterialAtualizacaos.
+     */
+    data: XOR<MaterialAtualizacaoUpdateManyMutationInput, MaterialAtualizacaoUncheckedUpdateManyInput>
+    /**
+     * Filter which MaterialAtualizacaos to update
+     */
+    where?: MaterialAtualizacaoWhereInput
+    /**
+     * Limit how many MaterialAtualizacaos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MaterialAtualizacao upsert
+   */
+  export type MaterialAtualizacaoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MaterialAtualizacao to update in case it exists.
+     */
+    where: MaterialAtualizacaoWhereUniqueInput
+    /**
+     * In case the MaterialAtualizacao found by the `where` argument doesn't exist, create a new MaterialAtualizacao with this data.
+     */
+    create: XOR<MaterialAtualizacaoCreateInput, MaterialAtualizacaoUncheckedCreateInput>
+    /**
+     * In case the MaterialAtualizacao was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaterialAtualizacaoUpdateInput, MaterialAtualizacaoUncheckedUpdateInput>
+  }
+
+  /**
+   * MaterialAtualizacao delete
+   */
+  export type MaterialAtualizacaoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter which MaterialAtualizacao to delete.
+     */
+    where: MaterialAtualizacaoWhereUniqueInput
+  }
+
+  /**
+   * MaterialAtualizacao deleteMany
+   */
+  export type MaterialAtualizacaoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaterialAtualizacaos to delete
+     */
+    where?: MaterialAtualizacaoWhereInput
+    /**
+     * Limit how many MaterialAtualizacaos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaterialAtualizacao.responsaveis
+   */
+  export type MaterialAtualizacao$responsaveisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+    orderBy?: ResponsavelMaterialAtualizacaoOrderByWithRelationInput | ResponsavelMaterialAtualizacaoOrderByWithRelationInput[]
+    cursor?: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ResponsavelMaterialAtualizacaoScalarFieldEnum | ResponsavelMaterialAtualizacaoScalarFieldEnum[]
+  }
+
+  /**
+   * MaterialAtualizacao without action
+   */
+  export type MaterialAtualizacaoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaterialAtualizacao
+     */
+    select?: MaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaterialAtualizacao
+     */
+    omit?: MaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaterialAtualizacaoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ResponsavelMaterialAtualizacao
+   */
+
+  export type AggregateResponsavelMaterialAtualizacao = {
+    _count: ResponsavelMaterialAtualizacaoCountAggregateOutputType | null
+    _min: ResponsavelMaterialAtualizacaoMinAggregateOutputType | null
+    _max: ResponsavelMaterialAtualizacaoMaxAggregateOutputType | null
+  }
+
+  export type ResponsavelMaterialAtualizacaoMinAggregateOutputType = {
+    materialId: string | null
+    userId: string | null
+  }
+
+  export type ResponsavelMaterialAtualizacaoMaxAggregateOutputType = {
+    materialId: string | null
+    userId: string | null
+  }
+
+  export type ResponsavelMaterialAtualizacaoCountAggregateOutputType = {
+    materialId: number
+    userId: number
+    _all: number
+  }
+
+
+  export type ResponsavelMaterialAtualizacaoMinAggregateInputType = {
+    materialId?: true
+    userId?: true
+  }
+
+  export type ResponsavelMaterialAtualizacaoMaxAggregateInputType = {
+    materialId?: true
+    userId?: true
+  }
+
+  export type ResponsavelMaterialAtualizacaoCountAggregateInputType = {
+    materialId?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type ResponsavelMaterialAtualizacaoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResponsavelMaterialAtualizacao to aggregate.
+     */
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResponsavelMaterialAtualizacaos to fetch.
+     */
+    orderBy?: ResponsavelMaterialAtualizacaoOrderByWithRelationInput | ResponsavelMaterialAtualizacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResponsavelMaterialAtualizacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResponsavelMaterialAtualizacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ResponsavelMaterialAtualizacaos
+    **/
+    _count?: true | ResponsavelMaterialAtualizacaoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ResponsavelMaterialAtualizacaoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ResponsavelMaterialAtualizacaoMaxAggregateInputType
+  }
+
+  export type GetResponsavelMaterialAtualizacaoAggregateType<T extends ResponsavelMaterialAtualizacaoAggregateArgs> = {
+        [P in keyof T & keyof AggregateResponsavelMaterialAtualizacao]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateResponsavelMaterialAtualizacao[P]>
+      : GetScalarType<T[P], AggregateResponsavelMaterialAtualizacao[P]>
+  }
+
+
+
+
+  export type ResponsavelMaterialAtualizacaoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+    orderBy?: ResponsavelMaterialAtualizacaoOrderByWithAggregationInput | ResponsavelMaterialAtualizacaoOrderByWithAggregationInput[]
+    by: ResponsavelMaterialAtualizacaoScalarFieldEnum[] | ResponsavelMaterialAtualizacaoScalarFieldEnum
+    having?: ResponsavelMaterialAtualizacaoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ResponsavelMaterialAtualizacaoCountAggregateInputType | true
+    _min?: ResponsavelMaterialAtualizacaoMinAggregateInputType
+    _max?: ResponsavelMaterialAtualizacaoMaxAggregateInputType
+  }
+
+  export type ResponsavelMaterialAtualizacaoGroupByOutputType = {
+    materialId: string
+    userId: string
+    _count: ResponsavelMaterialAtualizacaoCountAggregateOutputType | null
+    _min: ResponsavelMaterialAtualizacaoMinAggregateOutputType | null
+    _max: ResponsavelMaterialAtualizacaoMaxAggregateOutputType | null
+  }
+
+  type GetResponsavelMaterialAtualizacaoGroupByPayload<T extends ResponsavelMaterialAtualizacaoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ResponsavelMaterialAtualizacaoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ResponsavelMaterialAtualizacaoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ResponsavelMaterialAtualizacaoGroupByOutputType[P]>
+            : GetScalarType<T[P], ResponsavelMaterialAtualizacaoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ResponsavelMaterialAtualizacaoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    materialId?: boolean
+    userId?: boolean
+    material?: boolean | MaterialAtualizacaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["responsavelMaterialAtualizacao"]>
+
+  export type ResponsavelMaterialAtualizacaoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    materialId?: boolean
+    userId?: boolean
+    material?: boolean | MaterialAtualizacaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["responsavelMaterialAtualizacao"]>
+
+  export type ResponsavelMaterialAtualizacaoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    materialId?: boolean
+    userId?: boolean
+    material?: boolean | MaterialAtualizacaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["responsavelMaterialAtualizacao"]>
+
+  export type ResponsavelMaterialAtualizacaoSelectScalar = {
+    materialId?: boolean
+    userId?: boolean
+  }
+
+  export type ResponsavelMaterialAtualizacaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"materialId" | "userId", ExtArgs["result"]["responsavelMaterialAtualizacao"]>
+  export type ResponsavelMaterialAtualizacaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    material?: boolean | MaterialAtualizacaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ResponsavelMaterialAtualizacaoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    material?: boolean | MaterialAtualizacaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ResponsavelMaterialAtualizacaoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    material?: boolean | MaterialAtualizacaoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ResponsavelMaterialAtualizacaoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ResponsavelMaterialAtualizacao"
+    objects: {
+      material: Prisma.$MaterialAtualizacaoPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      materialId: string
+      userId: string
+    }, ExtArgs["result"]["responsavelMaterialAtualizacao"]>
+    composites: {}
+  }
+
+  type ResponsavelMaterialAtualizacaoGetPayload<S extends boolean | null | undefined | ResponsavelMaterialAtualizacaoDefaultArgs> = $Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload, S>
+
+  type ResponsavelMaterialAtualizacaoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ResponsavelMaterialAtualizacaoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ResponsavelMaterialAtualizacaoCountAggregateInputType | true
+    }
+
+  export interface ResponsavelMaterialAtualizacaoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ResponsavelMaterialAtualizacao'], meta: { name: 'ResponsavelMaterialAtualizacao' } }
+    /**
+     * Find zero or one ResponsavelMaterialAtualizacao that matches the filter.
+     * @param {ResponsavelMaterialAtualizacaoFindUniqueArgs} args - Arguments to find a ResponsavelMaterialAtualizacao
+     * @example
+     * // Get one ResponsavelMaterialAtualizacao
+     * const responsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ResponsavelMaterialAtualizacaoFindUniqueArgs>(args: SelectSubset<T, ResponsavelMaterialAtualizacaoFindUniqueArgs<ExtArgs>>): Prisma__ResponsavelMaterialAtualizacaoClient<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ResponsavelMaterialAtualizacao that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ResponsavelMaterialAtualizacaoFindUniqueOrThrowArgs} args - Arguments to find a ResponsavelMaterialAtualizacao
+     * @example
+     * // Get one ResponsavelMaterialAtualizacao
+     * const responsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ResponsavelMaterialAtualizacaoFindUniqueOrThrowArgs>(args: SelectSubset<T, ResponsavelMaterialAtualizacaoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ResponsavelMaterialAtualizacaoClient<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ResponsavelMaterialAtualizacao that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelMaterialAtualizacaoFindFirstArgs} args - Arguments to find a ResponsavelMaterialAtualizacao
+     * @example
+     * // Get one ResponsavelMaterialAtualizacao
+     * const responsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ResponsavelMaterialAtualizacaoFindFirstArgs>(args?: SelectSubset<T, ResponsavelMaterialAtualizacaoFindFirstArgs<ExtArgs>>): Prisma__ResponsavelMaterialAtualizacaoClient<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ResponsavelMaterialAtualizacao that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelMaterialAtualizacaoFindFirstOrThrowArgs} args - Arguments to find a ResponsavelMaterialAtualizacao
+     * @example
+     * // Get one ResponsavelMaterialAtualizacao
+     * const responsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ResponsavelMaterialAtualizacaoFindFirstOrThrowArgs>(args?: SelectSubset<T, ResponsavelMaterialAtualizacaoFindFirstOrThrowArgs<ExtArgs>>): Prisma__ResponsavelMaterialAtualizacaoClient<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ResponsavelMaterialAtualizacaos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelMaterialAtualizacaoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ResponsavelMaterialAtualizacaos
+     * const responsavelMaterialAtualizacaos = await prisma.responsavelMaterialAtualizacao.findMany()
+     * 
+     * // Get first 10 ResponsavelMaterialAtualizacaos
+     * const responsavelMaterialAtualizacaos = await prisma.responsavelMaterialAtualizacao.findMany({ take: 10 })
+     * 
+     * // Only select the `materialId`
+     * const responsavelMaterialAtualizacaoWithMaterialIdOnly = await prisma.responsavelMaterialAtualizacao.findMany({ select: { materialId: true } })
+     * 
+     */
+    findMany<T extends ResponsavelMaterialAtualizacaoFindManyArgs>(args?: SelectSubset<T, ResponsavelMaterialAtualizacaoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ResponsavelMaterialAtualizacao.
+     * @param {ResponsavelMaterialAtualizacaoCreateArgs} args - Arguments to create a ResponsavelMaterialAtualizacao.
+     * @example
+     * // Create one ResponsavelMaterialAtualizacao
+     * const ResponsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.create({
+     *   data: {
+     *     // ... data to create a ResponsavelMaterialAtualizacao
+     *   }
+     * })
+     * 
+     */
+    create<T extends ResponsavelMaterialAtualizacaoCreateArgs>(args: SelectSubset<T, ResponsavelMaterialAtualizacaoCreateArgs<ExtArgs>>): Prisma__ResponsavelMaterialAtualizacaoClient<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ResponsavelMaterialAtualizacaos.
+     * @param {ResponsavelMaterialAtualizacaoCreateManyArgs} args - Arguments to create many ResponsavelMaterialAtualizacaos.
+     * @example
+     * // Create many ResponsavelMaterialAtualizacaos
+     * const responsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ResponsavelMaterialAtualizacaoCreateManyArgs>(args?: SelectSubset<T, ResponsavelMaterialAtualizacaoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ResponsavelMaterialAtualizacaos and returns the data saved in the database.
+     * @param {ResponsavelMaterialAtualizacaoCreateManyAndReturnArgs} args - Arguments to create many ResponsavelMaterialAtualizacaos.
+     * @example
+     * // Create many ResponsavelMaterialAtualizacaos
+     * const responsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ResponsavelMaterialAtualizacaos and only return the `materialId`
+     * const responsavelMaterialAtualizacaoWithMaterialIdOnly = await prisma.responsavelMaterialAtualizacao.createManyAndReturn({
+     *   select: { materialId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ResponsavelMaterialAtualizacaoCreateManyAndReturnArgs>(args?: SelectSubset<T, ResponsavelMaterialAtualizacaoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ResponsavelMaterialAtualizacao.
+     * @param {ResponsavelMaterialAtualizacaoDeleteArgs} args - Arguments to delete one ResponsavelMaterialAtualizacao.
+     * @example
+     * // Delete one ResponsavelMaterialAtualizacao
+     * const ResponsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.delete({
+     *   where: {
+     *     // ... filter to delete one ResponsavelMaterialAtualizacao
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ResponsavelMaterialAtualizacaoDeleteArgs>(args: SelectSubset<T, ResponsavelMaterialAtualizacaoDeleteArgs<ExtArgs>>): Prisma__ResponsavelMaterialAtualizacaoClient<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ResponsavelMaterialAtualizacao.
+     * @param {ResponsavelMaterialAtualizacaoUpdateArgs} args - Arguments to update one ResponsavelMaterialAtualizacao.
+     * @example
+     * // Update one ResponsavelMaterialAtualizacao
+     * const responsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ResponsavelMaterialAtualizacaoUpdateArgs>(args: SelectSubset<T, ResponsavelMaterialAtualizacaoUpdateArgs<ExtArgs>>): Prisma__ResponsavelMaterialAtualizacaoClient<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ResponsavelMaterialAtualizacaos.
+     * @param {ResponsavelMaterialAtualizacaoDeleteManyArgs} args - Arguments to filter ResponsavelMaterialAtualizacaos to delete.
+     * @example
+     * // Delete a few ResponsavelMaterialAtualizacaos
+     * const { count } = await prisma.responsavelMaterialAtualizacao.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ResponsavelMaterialAtualizacaoDeleteManyArgs>(args?: SelectSubset<T, ResponsavelMaterialAtualizacaoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ResponsavelMaterialAtualizacaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelMaterialAtualizacaoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ResponsavelMaterialAtualizacaos
+     * const responsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ResponsavelMaterialAtualizacaoUpdateManyArgs>(args: SelectSubset<T, ResponsavelMaterialAtualizacaoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ResponsavelMaterialAtualizacaos and returns the data updated in the database.
+     * @param {ResponsavelMaterialAtualizacaoUpdateManyAndReturnArgs} args - Arguments to update many ResponsavelMaterialAtualizacaos.
+     * @example
+     * // Update many ResponsavelMaterialAtualizacaos
+     * const responsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ResponsavelMaterialAtualizacaos and only return the `materialId`
+     * const responsavelMaterialAtualizacaoWithMaterialIdOnly = await prisma.responsavelMaterialAtualizacao.updateManyAndReturn({
+     *   select: { materialId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ResponsavelMaterialAtualizacaoUpdateManyAndReturnArgs>(args: SelectSubset<T, ResponsavelMaterialAtualizacaoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ResponsavelMaterialAtualizacao.
+     * @param {ResponsavelMaterialAtualizacaoUpsertArgs} args - Arguments to update or create a ResponsavelMaterialAtualizacao.
+     * @example
+     * // Update or create a ResponsavelMaterialAtualizacao
+     * const responsavelMaterialAtualizacao = await prisma.responsavelMaterialAtualizacao.upsert({
+     *   create: {
+     *     // ... data to create a ResponsavelMaterialAtualizacao
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ResponsavelMaterialAtualizacao we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ResponsavelMaterialAtualizacaoUpsertArgs>(args: SelectSubset<T, ResponsavelMaterialAtualizacaoUpsertArgs<ExtArgs>>): Prisma__ResponsavelMaterialAtualizacaoClient<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ResponsavelMaterialAtualizacaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelMaterialAtualizacaoCountArgs} args - Arguments to filter ResponsavelMaterialAtualizacaos to count.
+     * @example
+     * // Count the number of ResponsavelMaterialAtualizacaos
+     * const count = await prisma.responsavelMaterialAtualizacao.count({
+     *   where: {
+     *     // ... the filter for the ResponsavelMaterialAtualizacaos we want to count
+     *   }
+     * })
+    **/
+    count<T extends ResponsavelMaterialAtualizacaoCountArgs>(
+      args?: Subset<T, ResponsavelMaterialAtualizacaoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ResponsavelMaterialAtualizacaoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ResponsavelMaterialAtualizacao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelMaterialAtualizacaoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ResponsavelMaterialAtualizacaoAggregateArgs>(args: Subset<T, ResponsavelMaterialAtualizacaoAggregateArgs>): Prisma.PrismaPromise<GetResponsavelMaterialAtualizacaoAggregateType<T>>
+
+    /**
+     * Group by ResponsavelMaterialAtualizacao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResponsavelMaterialAtualizacaoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ResponsavelMaterialAtualizacaoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ResponsavelMaterialAtualizacaoGroupByArgs['orderBy'] }
+        : { orderBy?: ResponsavelMaterialAtualizacaoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ResponsavelMaterialAtualizacaoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetResponsavelMaterialAtualizacaoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ResponsavelMaterialAtualizacao model
+   */
+  readonly fields: ResponsavelMaterialAtualizacaoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ResponsavelMaterialAtualizacao.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ResponsavelMaterialAtualizacaoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    material<T extends MaterialAtualizacaoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MaterialAtualizacaoDefaultArgs<ExtArgs>>): Prisma__MaterialAtualizacaoClient<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ResponsavelMaterialAtualizacao model
+   */
+  interface ResponsavelMaterialAtualizacaoFieldRefs {
+    readonly materialId: FieldRef<"ResponsavelMaterialAtualizacao", 'String'>
+    readonly userId: FieldRef<"ResponsavelMaterialAtualizacao", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ResponsavelMaterialAtualizacao findUnique
+   */
+  export type ResponsavelMaterialAtualizacaoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ResponsavelMaterialAtualizacao to fetch.
+     */
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao findUniqueOrThrow
+   */
+  export type ResponsavelMaterialAtualizacaoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ResponsavelMaterialAtualizacao to fetch.
+     */
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao findFirst
+   */
+  export type ResponsavelMaterialAtualizacaoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ResponsavelMaterialAtualizacao to fetch.
+     */
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResponsavelMaterialAtualizacaos to fetch.
+     */
+    orderBy?: ResponsavelMaterialAtualizacaoOrderByWithRelationInput | ResponsavelMaterialAtualizacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResponsavelMaterialAtualizacaos.
+     */
+    cursor?: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResponsavelMaterialAtualizacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResponsavelMaterialAtualizacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResponsavelMaterialAtualizacaos.
+     */
+    distinct?: ResponsavelMaterialAtualizacaoScalarFieldEnum | ResponsavelMaterialAtualizacaoScalarFieldEnum[]
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao findFirstOrThrow
+   */
+  export type ResponsavelMaterialAtualizacaoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ResponsavelMaterialAtualizacao to fetch.
+     */
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResponsavelMaterialAtualizacaos to fetch.
+     */
+    orderBy?: ResponsavelMaterialAtualizacaoOrderByWithRelationInput | ResponsavelMaterialAtualizacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResponsavelMaterialAtualizacaos.
+     */
+    cursor?: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResponsavelMaterialAtualizacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResponsavelMaterialAtualizacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResponsavelMaterialAtualizacaos.
+     */
+    distinct?: ResponsavelMaterialAtualizacaoScalarFieldEnum | ResponsavelMaterialAtualizacaoScalarFieldEnum[]
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao findMany
+   */
+  export type ResponsavelMaterialAtualizacaoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ResponsavelMaterialAtualizacaos to fetch.
+     */
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResponsavelMaterialAtualizacaos to fetch.
+     */
+    orderBy?: ResponsavelMaterialAtualizacaoOrderByWithRelationInput | ResponsavelMaterialAtualizacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ResponsavelMaterialAtualizacaos.
+     */
+    cursor?: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResponsavelMaterialAtualizacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResponsavelMaterialAtualizacaos.
+     */
+    skip?: number
+    distinct?: ResponsavelMaterialAtualizacaoScalarFieldEnum | ResponsavelMaterialAtualizacaoScalarFieldEnum[]
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao create
+   */
+  export type ResponsavelMaterialAtualizacaoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ResponsavelMaterialAtualizacao.
+     */
+    data: XOR<ResponsavelMaterialAtualizacaoCreateInput, ResponsavelMaterialAtualizacaoUncheckedCreateInput>
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao createMany
+   */
+  export type ResponsavelMaterialAtualizacaoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ResponsavelMaterialAtualizacaos.
+     */
+    data: ResponsavelMaterialAtualizacaoCreateManyInput | ResponsavelMaterialAtualizacaoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao createManyAndReturn
+   */
+  export type ResponsavelMaterialAtualizacaoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * The data used to create many ResponsavelMaterialAtualizacaos.
+     */
+    data: ResponsavelMaterialAtualizacaoCreateManyInput | ResponsavelMaterialAtualizacaoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao update
+   */
+  export type ResponsavelMaterialAtualizacaoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ResponsavelMaterialAtualizacao.
+     */
+    data: XOR<ResponsavelMaterialAtualizacaoUpdateInput, ResponsavelMaterialAtualizacaoUncheckedUpdateInput>
+    /**
+     * Choose, which ResponsavelMaterialAtualizacao to update.
+     */
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao updateMany
+   */
+  export type ResponsavelMaterialAtualizacaoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ResponsavelMaterialAtualizacaos.
+     */
+    data: XOR<ResponsavelMaterialAtualizacaoUpdateManyMutationInput, ResponsavelMaterialAtualizacaoUncheckedUpdateManyInput>
+    /**
+     * Filter which ResponsavelMaterialAtualizacaos to update
+     */
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+    /**
+     * Limit how many ResponsavelMaterialAtualizacaos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao updateManyAndReturn
+   */
+  export type ResponsavelMaterialAtualizacaoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * The data used to update ResponsavelMaterialAtualizacaos.
+     */
+    data: XOR<ResponsavelMaterialAtualizacaoUpdateManyMutationInput, ResponsavelMaterialAtualizacaoUncheckedUpdateManyInput>
+    /**
+     * Filter which ResponsavelMaterialAtualizacaos to update
+     */
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+    /**
+     * Limit how many ResponsavelMaterialAtualizacaos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao upsert
+   */
+  export type ResponsavelMaterialAtualizacaoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ResponsavelMaterialAtualizacao to update in case it exists.
+     */
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    /**
+     * In case the ResponsavelMaterialAtualizacao found by the `where` argument doesn't exist, create a new ResponsavelMaterialAtualizacao with this data.
+     */
+    create: XOR<ResponsavelMaterialAtualizacaoCreateInput, ResponsavelMaterialAtualizacaoUncheckedCreateInput>
+    /**
+     * In case the ResponsavelMaterialAtualizacao was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ResponsavelMaterialAtualizacaoUpdateInput, ResponsavelMaterialAtualizacaoUncheckedUpdateInput>
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao delete
+   */
+  export type ResponsavelMaterialAtualizacaoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
+    /**
+     * Filter which ResponsavelMaterialAtualizacao to delete.
+     */
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao deleteMany
+   */
+  export type ResponsavelMaterialAtualizacaoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResponsavelMaterialAtualizacaos to delete
+     */
+    where?: ResponsavelMaterialAtualizacaoWhereInput
+    /**
+     * Limit how many ResponsavelMaterialAtualizacaos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ResponsavelMaterialAtualizacao without action
+   */
+  export type ResponsavelMaterialAtualizacaoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResponsavelMaterialAtualizacao
+     */
+    select?: ResponsavelMaterialAtualizacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResponsavelMaterialAtualizacao
+     */
+    omit?: ResponsavelMaterialAtualizacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResponsavelMaterialAtualizacaoInclude<ExtArgs> | null
   }
 
 
@@ -31878,6 +38133,68 @@ export namespace Prisma {
   export type SemestreScalarFieldEnum = (typeof SemestreScalarFieldEnum)[keyof typeof SemestreScalarFieldEnum]
 
 
+  export const SemanaImpressaoScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    numero: 'numero',
+    dataAula: 'dataAula',
+    aulaRealizada: 'aulaRealizada',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SemanaImpressaoScalarFieldEnum = (typeof SemanaImpressaoScalarFieldEnum)[keyof typeof SemanaImpressaoScalarFieldEnum]
+
+
+  export const ApostilaImpressaoScalarFieldEnum: {
+    id: 'id',
+    semanaId: 'semanaId',
+    titulo: 'titulo',
+    curso: 'curso',
+    dataEntrega: 'dataEntrega',
+    pronta: 'pronta',
+    impressa: 'impressa',
+    qtdImpressa: 'qtdImpressa',
+    qtdAlvo: 'qtdAlvo',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ApostilaImpressaoScalarFieldEnum = (typeof ApostilaImpressaoScalarFieldEnum)[keyof typeof ApostilaImpressaoScalarFieldEnum]
+
+
+  export const ResponsavelApostilaScalarFieldEnum: {
+    apostilaId: 'apostilaId',
+    userId: 'userId'
+  };
+
+  export type ResponsavelApostilaScalarFieldEnum = (typeof ResponsavelApostilaScalarFieldEnum)[keyof typeof ResponsavelApostilaScalarFieldEnum]
+
+
+  export const MaterialAtualizacaoScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    curso: 'curso',
+    titulo: 'titulo',
+    dataEntrega: 'dataEntrega',
+    revisado: 'revisado',
+    precisaAjuste: 'precisaAjuste',
+    ajustado: 'ajustado',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MaterialAtualizacaoScalarFieldEnum = (typeof MaterialAtualizacaoScalarFieldEnum)[keyof typeof MaterialAtualizacaoScalarFieldEnum]
+
+
+  export const ResponsavelMaterialAtualizacaoScalarFieldEnum: {
+    materialId: 'materialId',
+    userId: 'userId'
+  };
+
+  export type ResponsavelMaterialAtualizacaoScalarFieldEnum = (typeof ResponsavelMaterialAtualizacaoScalarFieldEnum)[keyof typeof ResponsavelMaterialAtualizacaoScalarFieldEnum]
+
+
   export const TurmaScalarFieldEnum: {
     id: 'id',
     titulo: 'titulo',
@@ -32600,6 +38917,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestListRelationFilter
     presencasMonitor?: PresencaMonitorListRelationFilter
     presencasProfessor?: PresencaProfessorListRelationFilter
+    apostilasResponsavel?: ResponsavelApostilaListRelationFilter
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -32626,6 +38945,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestOrderByRelationAggregateInput
     presencasMonitor?: PresencaMonitorOrderByRelationAggregateInput
     presencasProfessor?: PresencaProfessorOrderByRelationAggregateInput
+    apostilasResponsavel?: ResponsavelApostilaOrderByRelationAggregateInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -32655,6 +38976,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestListRelationFilter
     presencasMonitor?: PresencaMonitorListRelationFilter
     presencasProfessor?: PresencaProfessorListRelationFilter
+    apostilasResponsavel?: ResponsavelApostilaListRelationFilter
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoListRelationFilter
   }, "id" | "email" | "matricula">
 
   export type UserOrderByWithAggregationInput = {
@@ -32771,6 +39094,8 @@ export namespace Prisma {
     alunos?: AlunoListRelationFilter
     candidatos?: CandidatoListRelationFilter
     vinculosEquipe?: VinculoEquipeSemestreListRelationFilter
+    semanasImpressao?: SemanaImpressaoListRelationFilter
+    materiaisAtualizacao?: MaterialAtualizacaoListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -32782,6 +39107,8 @@ export namespace Prisma {
     alunos?: AlunoOrderByRelationAggregateInput
     candidatos?: CandidatoOrderByRelationAggregateInput
     vinculosEquipe?: VinculoEquipeSemestreOrderByRelationAggregateInput
+    semanasImpressao?: SemanaImpressaoOrderByRelationAggregateInput
+    materiaisAtualizacao?: MaterialAtualizacaoOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -32796,6 +39123,8 @@ export namespace Prisma {
     alunos?: AlunoListRelationFilter
     candidatos?: CandidatoListRelationFilter
     vinculosEquipe?: VinculoEquipeSemestreListRelationFilter
+    semanasImpressao?: SemanaImpressaoListRelationFilter
+    materiaisAtualizacao?: MaterialAtualizacaoListRelationFilter
   }, "id" | "codigo">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -32816,6 +39145,338 @@ export namespace Prisma {
     codigo?: StringWithAggregatesFilter<"Semestre"> | string
     ativo?: BoolWithAggregatesFilter<"Semestre"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Semestre"> | Date | string
+  }
+
+  export type SemanaImpressaoWhereInput = {
+    AND?: SemanaImpressaoWhereInput | SemanaImpressaoWhereInput[]
+    OR?: SemanaImpressaoWhereInput[]
+    NOT?: SemanaImpressaoWhereInput | SemanaImpressaoWhereInput[]
+    id?: StringFilter<"SemanaImpressao"> | string
+    semestreId?: StringFilter<"SemanaImpressao"> | string
+    numero?: IntFilter<"SemanaImpressao"> | number
+    dataAula?: DateTimeNullableFilter<"SemanaImpressao"> | Date | string | null
+    aulaRealizada?: BoolFilter<"SemanaImpressao"> | boolean
+    createdAt?: DateTimeFilter<"SemanaImpressao"> | Date | string
+    updatedAt?: DateTimeFilter<"SemanaImpressao"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    apostilas?: ApostilaImpressaoListRelationFilter
+  }
+
+  export type SemanaImpressaoOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    numero?: SortOrder
+    dataAula?: SortOrderInput | SortOrder
+    aulaRealizada?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    apostilas?: ApostilaImpressaoOrderByRelationAggregateInput
+  }
+
+  export type SemanaImpressaoWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    semestreId_numero?: SemanaImpressaoSemestreIdNumeroCompoundUniqueInput
+    AND?: SemanaImpressaoWhereInput | SemanaImpressaoWhereInput[]
+    OR?: SemanaImpressaoWhereInput[]
+    NOT?: SemanaImpressaoWhereInput | SemanaImpressaoWhereInput[]
+    semestreId?: StringFilter<"SemanaImpressao"> | string
+    numero?: IntFilter<"SemanaImpressao"> | number
+    dataAula?: DateTimeNullableFilter<"SemanaImpressao"> | Date | string | null
+    aulaRealizada?: BoolFilter<"SemanaImpressao"> | boolean
+    createdAt?: DateTimeFilter<"SemanaImpressao"> | Date | string
+    updatedAt?: DateTimeFilter<"SemanaImpressao"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    apostilas?: ApostilaImpressaoListRelationFilter
+  }, "id" | "semestreId_numero">
+
+  export type SemanaImpressaoOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    numero?: SortOrder
+    dataAula?: SortOrderInput | SortOrder
+    aulaRealizada?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SemanaImpressaoCountOrderByAggregateInput
+    _avg?: SemanaImpressaoAvgOrderByAggregateInput
+    _max?: SemanaImpressaoMaxOrderByAggregateInput
+    _min?: SemanaImpressaoMinOrderByAggregateInput
+    _sum?: SemanaImpressaoSumOrderByAggregateInput
+  }
+
+  export type SemanaImpressaoScalarWhereWithAggregatesInput = {
+    AND?: SemanaImpressaoScalarWhereWithAggregatesInput | SemanaImpressaoScalarWhereWithAggregatesInput[]
+    OR?: SemanaImpressaoScalarWhereWithAggregatesInput[]
+    NOT?: SemanaImpressaoScalarWhereWithAggregatesInput | SemanaImpressaoScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SemanaImpressao"> | string
+    semestreId?: StringWithAggregatesFilter<"SemanaImpressao"> | string
+    numero?: IntWithAggregatesFilter<"SemanaImpressao"> | number
+    dataAula?: DateTimeNullableWithAggregatesFilter<"SemanaImpressao"> | Date | string | null
+    aulaRealizada?: BoolWithAggregatesFilter<"SemanaImpressao"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"SemanaImpressao"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SemanaImpressao"> | Date | string
+  }
+
+  export type ApostilaImpressaoWhereInput = {
+    AND?: ApostilaImpressaoWhereInput | ApostilaImpressaoWhereInput[]
+    OR?: ApostilaImpressaoWhereInput[]
+    NOT?: ApostilaImpressaoWhereInput | ApostilaImpressaoWhereInput[]
+    id?: StringFilter<"ApostilaImpressao"> | string
+    semanaId?: StringFilter<"ApostilaImpressao"> | string
+    titulo?: StringFilter<"ApostilaImpressao"> | string
+    curso?: StringFilter<"ApostilaImpressao"> | string
+    dataEntrega?: DateTimeNullableFilter<"ApostilaImpressao"> | Date | string | null
+    pronta?: BoolFilter<"ApostilaImpressao"> | boolean
+    impressa?: BoolFilter<"ApostilaImpressao"> | boolean
+    qtdImpressa?: IntFilter<"ApostilaImpressao"> | number
+    qtdAlvo?: IntFilter<"ApostilaImpressao"> | number
+    createdAt?: DateTimeFilter<"ApostilaImpressao"> | Date | string
+    updatedAt?: DateTimeFilter<"ApostilaImpressao"> | Date | string
+    semana?: XOR<SemanaImpressaoScalarRelationFilter, SemanaImpressaoWhereInput>
+    responsaveis?: ResponsavelApostilaListRelationFilter
+  }
+
+  export type ApostilaImpressaoOrderByWithRelationInput = {
+    id?: SortOrder
+    semanaId?: SortOrder
+    titulo?: SortOrder
+    curso?: SortOrder
+    dataEntrega?: SortOrderInput | SortOrder
+    pronta?: SortOrder
+    impressa?: SortOrder
+    qtdImpressa?: SortOrder
+    qtdAlvo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semana?: SemanaImpressaoOrderByWithRelationInput
+    responsaveis?: ResponsavelApostilaOrderByRelationAggregateInput
+  }
+
+  export type ApostilaImpressaoWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ApostilaImpressaoWhereInput | ApostilaImpressaoWhereInput[]
+    OR?: ApostilaImpressaoWhereInput[]
+    NOT?: ApostilaImpressaoWhereInput | ApostilaImpressaoWhereInput[]
+    semanaId?: StringFilter<"ApostilaImpressao"> | string
+    titulo?: StringFilter<"ApostilaImpressao"> | string
+    curso?: StringFilter<"ApostilaImpressao"> | string
+    dataEntrega?: DateTimeNullableFilter<"ApostilaImpressao"> | Date | string | null
+    pronta?: BoolFilter<"ApostilaImpressao"> | boolean
+    impressa?: BoolFilter<"ApostilaImpressao"> | boolean
+    qtdImpressa?: IntFilter<"ApostilaImpressao"> | number
+    qtdAlvo?: IntFilter<"ApostilaImpressao"> | number
+    createdAt?: DateTimeFilter<"ApostilaImpressao"> | Date | string
+    updatedAt?: DateTimeFilter<"ApostilaImpressao"> | Date | string
+    semana?: XOR<SemanaImpressaoScalarRelationFilter, SemanaImpressaoWhereInput>
+    responsaveis?: ResponsavelApostilaListRelationFilter
+  }, "id">
+
+  export type ApostilaImpressaoOrderByWithAggregationInput = {
+    id?: SortOrder
+    semanaId?: SortOrder
+    titulo?: SortOrder
+    curso?: SortOrder
+    dataEntrega?: SortOrderInput | SortOrder
+    pronta?: SortOrder
+    impressa?: SortOrder
+    qtdImpressa?: SortOrder
+    qtdAlvo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ApostilaImpressaoCountOrderByAggregateInput
+    _avg?: ApostilaImpressaoAvgOrderByAggregateInput
+    _max?: ApostilaImpressaoMaxOrderByAggregateInput
+    _min?: ApostilaImpressaoMinOrderByAggregateInput
+    _sum?: ApostilaImpressaoSumOrderByAggregateInput
+  }
+
+  export type ApostilaImpressaoScalarWhereWithAggregatesInput = {
+    AND?: ApostilaImpressaoScalarWhereWithAggregatesInput | ApostilaImpressaoScalarWhereWithAggregatesInput[]
+    OR?: ApostilaImpressaoScalarWhereWithAggregatesInput[]
+    NOT?: ApostilaImpressaoScalarWhereWithAggregatesInput | ApostilaImpressaoScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ApostilaImpressao"> | string
+    semanaId?: StringWithAggregatesFilter<"ApostilaImpressao"> | string
+    titulo?: StringWithAggregatesFilter<"ApostilaImpressao"> | string
+    curso?: StringWithAggregatesFilter<"ApostilaImpressao"> | string
+    dataEntrega?: DateTimeNullableWithAggregatesFilter<"ApostilaImpressao"> | Date | string | null
+    pronta?: BoolWithAggregatesFilter<"ApostilaImpressao"> | boolean
+    impressa?: BoolWithAggregatesFilter<"ApostilaImpressao"> | boolean
+    qtdImpressa?: IntWithAggregatesFilter<"ApostilaImpressao"> | number
+    qtdAlvo?: IntWithAggregatesFilter<"ApostilaImpressao"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"ApostilaImpressao"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ApostilaImpressao"> | Date | string
+  }
+
+  export type ResponsavelApostilaWhereInput = {
+    AND?: ResponsavelApostilaWhereInput | ResponsavelApostilaWhereInput[]
+    OR?: ResponsavelApostilaWhereInput[]
+    NOT?: ResponsavelApostilaWhereInput | ResponsavelApostilaWhereInput[]
+    apostilaId?: StringFilter<"ResponsavelApostila"> | string
+    userId?: StringFilter<"ResponsavelApostila"> | string
+    apostila?: XOR<ApostilaImpressaoScalarRelationFilter, ApostilaImpressaoWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ResponsavelApostilaOrderByWithRelationInput = {
+    apostilaId?: SortOrder
+    userId?: SortOrder
+    apostila?: ApostilaImpressaoOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ResponsavelApostilaWhereUniqueInput = Prisma.AtLeast<{
+    apostilaId_userId?: ResponsavelApostilaApostilaIdUserIdCompoundUniqueInput
+    AND?: ResponsavelApostilaWhereInput | ResponsavelApostilaWhereInput[]
+    OR?: ResponsavelApostilaWhereInput[]
+    NOT?: ResponsavelApostilaWhereInput | ResponsavelApostilaWhereInput[]
+    apostilaId?: StringFilter<"ResponsavelApostila"> | string
+    userId?: StringFilter<"ResponsavelApostila"> | string
+    apostila?: XOR<ApostilaImpressaoScalarRelationFilter, ApostilaImpressaoWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "apostilaId_userId">
+
+  export type ResponsavelApostilaOrderByWithAggregationInput = {
+    apostilaId?: SortOrder
+    userId?: SortOrder
+    _count?: ResponsavelApostilaCountOrderByAggregateInput
+    _max?: ResponsavelApostilaMaxOrderByAggregateInput
+    _min?: ResponsavelApostilaMinOrderByAggregateInput
+  }
+
+  export type ResponsavelApostilaScalarWhereWithAggregatesInput = {
+    AND?: ResponsavelApostilaScalarWhereWithAggregatesInput | ResponsavelApostilaScalarWhereWithAggregatesInput[]
+    OR?: ResponsavelApostilaScalarWhereWithAggregatesInput[]
+    NOT?: ResponsavelApostilaScalarWhereWithAggregatesInput | ResponsavelApostilaScalarWhereWithAggregatesInput[]
+    apostilaId?: StringWithAggregatesFilter<"ResponsavelApostila"> | string
+    userId?: StringWithAggregatesFilter<"ResponsavelApostila"> | string
+  }
+
+  export type MaterialAtualizacaoWhereInput = {
+    AND?: MaterialAtualizacaoWhereInput | MaterialAtualizacaoWhereInput[]
+    OR?: MaterialAtualizacaoWhereInput[]
+    NOT?: MaterialAtualizacaoWhereInput | MaterialAtualizacaoWhereInput[]
+    id?: StringFilter<"MaterialAtualizacao"> | string
+    semestreId?: StringFilter<"MaterialAtualizacao"> | string
+    curso?: StringFilter<"MaterialAtualizacao"> | string
+    titulo?: StringFilter<"MaterialAtualizacao"> | string
+    dataEntrega?: DateTimeNullableFilter<"MaterialAtualizacao"> | Date | string | null
+    revisado?: BoolFilter<"MaterialAtualizacao"> | boolean
+    precisaAjuste?: BoolFilter<"MaterialAtualizacao"> | boolean
+    ajustado?: BoolFilter<"MaterialAtualizacao"> | boolean
+    createdAt?: DateTimeFilter<"MaterialAtualizacao"> | Date | string
+    updatedAt?: DateTimeFilter<"MaterialAtualizacao"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    responsaveis?: ResponsavelMaterialAtualizacaoListRelationFilter
+  }
+
+  export type MaterialAtualizacaoOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    curso?: SortOrder
+    titulo?: SortOrder
+    dataEntrega?: SortOrderInput | SortOrder
+    revisado?: SortOrder
+    precisaAjuste?: SortOrder
+    ajustado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    responsaveis?: ResponsavelMaterialAtualizacaoOrderByRelationAggregateInput
+  }
+
+  export type MaterialAtualizacaoWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MaterialAtualizacaoWhereInput | MaterialAtualizacaoWhereInput[]
+    OR?: MaterialAtualizacaoWhereInput[]
+    NOT?: MaterialAtualizacaoWhereInput | MaterialAtualizacaoWhereInput[]
+    semestreId?: StringFilter<"MaterialAtualizacao"> | string
+    curso?: StringFilter<"MaterialAtualizacao"> | string
+    titulo?: StringFilter<"MaterialAtualizacao"> | string
+    dataEntrega?: DateTimeNullableFilter<"MaterialAtualizacao"> | Date | string | null
+    revisado?: BoolFilter<"MaterialAtualizacao"> | boolean
+    precisaAjuste?: BoolFilter<"MaterialAtualizacao"> | boolean
+    ajustado?: BoolFilter<"MaterialAtualizacao"> | boolean
+    createdAt?: DateTimeFilter<"MaterialAtualizacao"> | Date | string
+    updatedAt?: DateTimeFilter<"MaterialAtualizacao"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    responsaveis?: ResponsavelMaterialAtualizacaoListRelationFilter
+  }, "id">
+
+  export type MaterialAtualizacaoOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    curso?: SortOrder
+    titulo?: SortOrder
+    dataEntrega?: SortOrderInput | SortOrder
+    revisado?: SortOrder
+    precisaAjuste?: SortOrder
+    ajustado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MaterialAtualizacaoCountOrderByAggregateInput
+    _max?: MaterialAtualizacaoMaxOrderByAggregateInput
+    _min?: MaterialAtualizacaoMinOrderByAggregateInput
+  }
+
+  export type MaterialAtualizacaoScalarWhereWithAggregatesInput = {
+    AND?: MaterialAtualizacaoScalarWhereWithAggregatesInput | MaterialAtualizacaoScalarWhereWithAggregatesInput[]
+    OR?: MaterialAtualizacaoScalarWhereWithAggregatesInput[]
+    NOT?: MaterialAtualizacaoScalarWhereWithAggregatesInput | MaterialAtualizacaoScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MaterialAtualizacao"> | string
+    semestreId?: StringWithAggregatesFilter<"MaterialAtualizacao"> | string
+    curso?: StringWithAggregatesFilter<"MaterialAtualizacao"> | string
+    titulo?: StringWithAggregatesFilter<"MaterialAtualizacao"> | string
+    dataEntrega?: DateTimeNullableWithAggregatesFilter<"MaterialAtualizacao"> | Date | string | null
+    revisado?: BoolWithAggregatesFilter<"MaterialAtualizacao"> | boolean
+    precisaAjuste?: BoolWithAggregatesFilter<"MaterialAtualizacao"> | boolean
+    ajustado?: BoolWithAggregatesFilter<"MaterialAtualizacao"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"MaterialAtualizacao"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MaterialAtualizacao"> | Date | string
+  }
+
+  export type ResponsavelMaterialAtualizacaoWhereInput = {
+    AND?: ResponsavelMaterialAtualizacaoWhereInput | ResponsavelMaterialAtualizacaoWhereInput[]
+    OR?: ResponsavelMaterialAtualizacaoWhereInput[]
+    NOT?: ResponsavelMaterialAtualizacaoWhereInput | ResponsavelMaterialAtualizacaoWhereInput[]
+    materialId?: StringFilter<"ResponsavelMaterialAtualizacao"> | string
+    userId?: StringFilter<"ResponsavelMaterialAtualizacao"> | string
+    material?: XOR<MaterialAtualizacaoScalarRelationFilter, MaterialAtualizacaoWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ResponsavelMaterialAtualizacaoOrderByWithRelationInput = {
+    materialId?: SortOrder
+    userId?: SortOrder
+    material?: MaterialAtualizacaoOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoWhereUniqueInput = Prisma.AtLeast<{
+    materialId_userId?: ResponsavelMaterialAtualizacaoMaterialIdUserIdCompoundUniqueInput
+    AND?: ResponsavelMaterialAtualizacaoWhereInput | ResponsavelMaterialAtualizacaoWhereInput[]
+    OR?: ResponsavelMaterialAtualizacaoWhereInput[]
+    NOT?: ResponsavelMaterialAtualizacaoWhereInput | ResponsavelMaterialAtualizacaoWhereInput[]
+    materialId?: StringFilter<"ResponsavelMaterialAtualizacao"> | string
+    userId?: StringFilter<"ResponsavelMaterialAtualizacao"> | string
+    material?: XOR<MaterialAtualizacaoScalarRelationFilter, MaterialAtualizacaoWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "materialId_userId">
+
+  export type ResponsavelMaterialAtualizacaoOrderByWithAggregationInput = {
+    materialId?: SortOrder
+    userId?: SortOrder
+    _count?: ResponsavelMaterialAtualizacaoCountOrderByAggregateInput
+    _max?: ResponsavelMaterialAtualizacaoMaxOrderByAggregateInput
+    _min?: ResponsavelMaterialAtualizacaoMinOrderByAggregateInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoScalarWhereWithAggregatesInput = {
+    AND?: ResponsavelMaterialAtualizacaoScalarWhereWithAggregatesInput | ResponsavelMaterialAtualizacaoScalarWhereWithAggregatesInput[]
+    OR?: ResponsavelMaterialAtualizacaoScalarWhereWithAggregatesInput[]
+    NOT?: ResponsavelMaterialAtualizacaoScalarWhereWithAggregatesInput | ResponsavelMaterialAtualizacaoScalarWhereWithAggregatesInput[]
+    materialId?: StringWithAggregatesFilter<"ResponsavelMaterialAtualizacao"> | string
+    userId?: StringWithAggregatesFilter<"ResponsavelMaterialAtualizacao"> | string
   }
 
   export type TurmaWhereInput = {
@@ -34365,6 +41026,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -34391,6 +41054,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -34417,6 +41082,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -34443,6 +41110,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -34564,6 +41233,8 @@ export namespace Prisma {
     alunos?: AlunoCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -34575,6 +41246,8 @@ export namespace Prisma {
     alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -34586,6 +41259,8 @@ export namespace Prisma {
     alunos?: AlunoUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -34597,6 +41272,8 @@ export namespace Prisma {
     alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -34618,6 +41295,342 @@ export namespace Prisma {
     codigo?: StringFieldUpdateOperationsInput | string
     ativo?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SemanaImpressaoCreateInput = {
+    id?: string
+    numero: number
+    dataAula?: Date | string | null
+    aulaRealizada?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutSemanasImpressaoInput
+    apostilas?: ApostilaImpressaoCreateNestedManyWithoutSemanaInput
+  }
+
+  export type SemanaImpressaoUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    numero: number
+    dataAula?: Date | string | null
+    aulaRealizada?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    apostilas?: ApostilaImpressaoUncheckedCreateNestedManyWithoutSemanaInput
+  }
+
+  export type SemanaImpressaoUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    dataAula?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aulaRealizada?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutSemanasImpressaoNestedInput
+    apostilas?: ApostilaImpressaoUpdateManyWithoutSemanaNestedInput
+  }
+
+  export type SemanaImpressaoUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    dataAula?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aulaRealizada?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    apostilas?: ApostilaImpressaoUncheckedUpdateManyWithoutSemanaNestedInput
+  }
+
+  export type SemanaImpressaoCreateManyInput = {
+    id?: string
+    semestreId: string
+    numero: number
+    dataAula?: Date | string | null
+    aulaRealizada?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SemanaImpressaoUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    dataAula?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aulaRealizada?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SemanaImpressaoUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    dataAula?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aulaRealizada?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApostilaImpressaoCreateInput = {
+    id?: string
+    titulo: string
+    curso: string
+    dataEntrega?: Date | string | null
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: number
+    qtdAlvo?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semana: SemanaImpressaoCreateNestedOneWithoutApostilasInput
+    responsaveis?: ResponsavelApostilaCreateNestedManyWithoutApostilaInput
+  }
+
+  export type ApostilaImpressaoUncheckedCreateInput = {
+    id?: string
+    semanaId: string
+    titulo: string
+    curso: string
+    dataEntrega?: Date | string | null
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: number
+    qtdAlvo?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    responsaveis?: ResponsavelApostilaUncheckedCreateNestedManyWithoutApostilaInput
+  }
+
+  export type ApostilaImpressaoUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pronta?: BoolFieldUpdateOperationsInput | boolean
+    impressa?: BoolFieldUpdateOperationsInput | boolean
+    qtdImpressa?: IntFieldUpdateOperationsInput | number
+    qtdAlvo?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semana?: SemanaImpressaoUpdateOneRequiredWithoutApostilasNestedInput
+    responsaveis?: ResponsavelApostilaUpdateManyWithoutApostilaNestedInput
+  }
+
+  export type ApostilaImpressaoUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semanaId?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pronta?: BoolFieldUpdateOperationsInput | boolean
+    impressa?: BoolFieldUpdateOperationsInput | boolean
+    qtdImpressa?: IntFieldUpdateOperationsInput | number
+    qtdAlvo?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    responsaveis?: ResponsavelApostilaUncheckedUpdateManyWithoutApostilaNestedInput
+  }
+
+  export type ApostilaImpressaoCreateManyInput = {
+    id?: string
+    semanaId: string
+    titulo: string
+    curso: string
+    dataEntrega?: Date | string | null
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: number
+    qtdAlvo?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApostilaImpressaoUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pronta?: BoolFieldUpdateOperationsInput | boolean
+    impressa?: BoolFieldUpdateOperationsInput | boolean
+    qtdImpressa?: IntFieldUpdateOperationsInput | number
+    qtdAlvo?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApostilaImpressaoUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semanaId?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pronta?: BoolFieldUpdateOperationsInput | boolean
+    impressa?: BoolFieldUpdateOperationsInput | boolean
+    qtdImpressa?: IntFieldUpdateOperationsInput | number
+    qtdAlvo?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResponsavelApostilaCreateInput = {
+    apostila: ApostilaImpressaoCreateNestedOneWithoutResponsaveisInput
+    user: UserCreateNestedOneWithoutApostilasResponsavelInput
+  }
+
+  export type ResponsavelApostilaUncheckedCreateInput = {
+    apostilaId: string
+    userId: string
+  }
+
+  export type ResponsavelApostilaUpdateInput = {
+    apostila?: ApostilaImpressaoUpdateOneRequiredWithoutResponsaveisNestedInput
+    user?: UserUpdateOneRequiredWithoutApostilasResponsavelNestedInput
+  }
+
+  export type ResponsavelApostilaUncheckedUpdateInput = {
+    apostilaId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ResponsavelApostilaCreateManyInput = {
+    apostilaId: string
+    userId: string
+  }
+
+  export type ResponsavelApostilaUpdateManyMutationInput = {
+
+  }
+
+  export type ResponsavelApostilaUncheckedUpdateManyInput = {
+    apostilaId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MaterialAtualizacaoCreateInput = {
+    id?: string
+    curso: string
+    titulo: string
+    dataEntrega?: Date | string | null
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutMateriaisAtualizacaoInput
+    responsaveis?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutMaterialInput
+  }
+
+  export type MaterialAtualizacaoUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    curso: string
+    titulo: string
+    dataEntrega?: Date | string | null
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    responsaveis?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutMaterialInput
+  }
+
+  export type MaterialAtualizacaoUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revisado?: BoolFieldUpdateOperationsInput | boolean
+    precisaAjuste?: BoolFieldUpdateOperationsInput | boolean
+    ajustado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutMateriaisAtualizacaoNestedInput
+    responsaveis?: ResponsavelMaterialAtualizacaoUpdateManyWithoutMaterialNestedInput
+  }
+
+  export type MaterialAtualizacaoUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revisado?: BoolFieldUpdateOperationsInput | boolean
+    precisaAjuste?: BoolFieldUpdateOperationsInput | boolean
+    ajustado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    responsaveis?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutMaterialNestedInput
+  }
+
+  export type MaterialAtualizacaoCreateManyInput = {
+    id?: string
+    semestreId: string
+    curso: string
+    titulo: string
+    dataEntrega?: Date | string | null
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaterialAtualizacaoUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revisado?: BoolFieldUpdateOperationsInput | boolean
+    precisaAjuste?: BoolFieldUpdateOperationsInput | boolean
+    ajustado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaterialAtualizacaoUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revisado?: BoolFieldUpdateOperationsInput | boolean
+    precisaAjuste?: BoolFieldUpdateOperationsInput | boolean
+    ajustado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateInput = {
+    material: MaterialAtualizacaoCreateNestedOneWithoutResponsaveisInput
+    user: UserCreateNestedOneWithoutMateriaisAtualizacaoResponsavelInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedCreateInput = {
+    materialId: string
+    userId: string
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpdateInput = {
+    material?: MaterialAtualizacaoUpdateOneRequiredWithoutResponsaveisNestedInput
+    user?: UserUpdateOneRequiredWithoutMateriaisAtualizacaoResponsavelNestedInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedUpdateInput = {
+    materialId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateManyInput = {
+    materialId: string
+    userId: string
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpdateManyMutationInput = {
+
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedUpdateManyInput = {
+    materialId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TurmaCreateInput = {
@@ -36298,6 +43311,18 @@ export namespace Prisma {
     none?: PresencaProfessorWhereInput
   }
 
+  export type ResponsavelApostilaListRelationFilter = {
+    every?: ResponsavelApostilaWhereInput
+    some?: ResponsavelApostilaWhereInput
+    none?: ResponsavelApostilaWhereInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoListRelationFilter = {
+    every?: ResponsavelMaterialAtualizacaoWhereInput
+    some?: ResponsavelMaterialAtualizacaoWhereInput
+    none?: ResponsavelMaterialAtualizacaoWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -36339,6 +43364,14 @@ export namespace Prisma {
   }
 
   export type PresencaProfessorOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ResponsavelApostilaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ResponsavelMaterialAtualizacaoOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -36461,6 +43494,18 @@ export namespace Prisma {
     none?: CandidatoWhereInput
   }
 
+  export type SemanaImpressaoListRelationFilter = {
+    every?: SemanaImpressaoWhereInput
+    some?: SemanaImpressaoWhereInput
+    none?: SemanaImpressaoWhereInput
+  }
+
+  export type MaterialAtualizacaoListRelationFilter = {
+    every?: MaterialAtualizacaoWhereInput
+    some?: MaterialAtualizacaoWhereInput
+    none?: MaterialAtualizacaoWhereInput
+  }
+
   export type TurmaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -36470,6 +43515,14 @@ export namespace Prisma {
   }
 
   export type CandidatoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SemanaImpressaoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MaterialAtualizacaoOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -36502,9 +43555,235 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type SemestreScalarRelationFilter = {
     is?: SemestreWhereInput
     isNot?: SemestreWhereInput
+  }
+
+  export type ApostilaImpressaoListRelationFilter = {
+    every?: ApostilaImpressaoWhereInput
+    some?: ApostilaImpressaoWhereInput
+    none?: ApostilaImpressaoWhereInput
+  }
+
+  export type ApostilaImpressaoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SemanaImpressaoSemestreIdNumeroCompoundUniqueInput = {
+    semestreId: string
+    numero: number
+  }
+
+  export type SemanaImpressaoCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    numero?: SortOrder
+    dataAula?: SortOrder
+    aulaRealizada?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SemanaImpressaoAvgOrderByAggregateInput = {
+    numero?: SortOrder
+  }
+
+  export type SemanaImpressaoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    numero?: SortOrder
+    dataAula?: SortOrder
+    aulaRealizada?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SemanaImpressaoMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    numero?: SortOrder
+    dataAula?: SortOrder
+    aulaRealizada?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SemanaImpressaoSumOrderByAggregateInput = {
+    numero?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type SemanaImpressaoScalarRelationFilter = {
+    is?: SemanaImpressaoWhereInput
+    isNot?: SemanaImpressaoWhereInput
+  }
+
+  export type ApostilaImpressaoCountOrderByAggregateInput = {
+    id?: SortOrder
+    semanaId?: SortOrder
+    titulo?: SortOrder
+    curso?: SortOrder
+    dataEntrega?: SortOrder
+    pronta?: SortOrder
+    impressa?: SortOrder
+    qtdImpressa?: SortOrder
+    qtdAlvo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ApostilaImpressaoAvgOrderByAggregateInput = {
+    qtdImpressa?: SortOrder
+    qtdAlvo?: SortOrder
+  }
+
+  export type ApostilaImpressaoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semanaId?: SortOrder
+    titulo?: SortOrder
+    curso?: SortOrder
+    dataEntrega?: SortOrder
+    pronta?: SortOrder
+    impressa?: SortOrder
+    qtdImpressa?: SortOrder
+    qtdAlvo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ApostilaImpressaoMinOrderByAggregateInput = {
+    id?: SortOrder
+    semanaId?: SortOrder
+    titulo?: SortOrder
+    curso?: SortOrder
+    dataEntrega?: SortOrder
+    pronta?: SortOrder
+    impressa?: SortOrder
+    qtdImpressa?: SortOrder
+    qtdAlvo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ApostilaImpressaoSumOrderByAggregateInput = {
+    qtdImpressa?: SortOrder
+    qtdAlvo?: SortOrder
+  }
+
+  export type ApostilaImpressaoScalarRelationFilter = {
+    is?: ApostilaImpressaoWhereInput
+    isNot?: ApostilaImpressaoWhereInput
+  }
+
+  export type ResponsavelApostilaApostilaIdUserIdCompoundUniqueInput = {
+    apostilaId: string
+    userId: string
+  }
+
+  export type ResponsavelApostilaCountOrderByAggregateInput = {
+    apostilaId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ResponsavelApostilaMaxOrderByAggregateInput = {
+    apostilaId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ResponsavelApostilaMinOrderByAggregateInput = {
+    apostilaId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type MaterialAtualizacaoCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    curso?: SortOrder
+    titulo?: SortOrder
+    dataEntrega?: SortOrder
+    revisado?: SortOrder
+    precisaAjuste?: SortOrder
+    ajustado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MaterialAtualizacaoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    curso?: SortOrder
+    titulo?: SortOrder
+    dataEntrega?: SortOrder
+    revisado?: SortOrder
+    precisaAjuste?: SortOrder
+    ajustado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MaterialAtualizacaoMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    curso?: SortOrder
+    titulo?: SortOrder
+    dataEntrega?: SortOrder
+    revisado?: SortOrder
+    precisaAjuste?: SortOrder
+    ajustado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MaterialAtualizacaoScalarRelationFilter = {
+    is?: MaterialAtualizacaoWhereInput
+    isNot?: MaterialAtualizacaoWhereInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoMaterialIdUserIdCompoundUniqueInput = {
+    materialId: string
+    userId: string
+  }
+
+  export type ResponsavelMaterialAtualizacaoCountOrderByAggregateInput = {
+    materialId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ResponsavelMaterialAtualizacaoMaxOrderByAggregateInput = {
+    materialId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ResponsavelMaterialAtualizacaoMinOrderByAggregateInput = {
+    materialId?: SortOrder
+    userId?: SortOrder
   }
 
   export type AlunoTurmaListRelationFilter = {
@@ -37399,17 +44678,6 @@ export namespace Prisma {
     not?: NestedEnumTipoPerguntaFilter<$PrismaModel> | $Enums.TipoPergunta
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type OpcaoListRelationFilter = {
     every?: OpcaoWhereInput
     some?: OpcaoWhereInput
@@ -37463,22 +44731,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTipoPerguntaFilter<$PrismaModel>
     _max?: NestedEnumTipoPerguntaFilter<$PrismaModel>
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type PerguntaScalarRelationFilter = {
@@ -37647,6 +44899,20 @@ export namespace Prisma {
     connect?: PresencaProfessorWhereUniqueInput | PresencaProfessorWhereUniqueInput[]
   }
 
+  export type ResponsavelApostilaCreateNestedManyWithoutUserInput = {
+    create?: XOR<ResponsavelApostilaCreateWithoutUserInput, ResponsavelApostilaUncheckedCreateWithoutUserInput> | ResponsavelApostilaCreateWithoutUserInput[] | ResponsavelApostilaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResponsavelApostilaCreateOrConnectWithoutUserInput | ResponsavelApostilaCreateOrConnectWithoutUserInput[]
+    createMany?: ResponsavelApostilaCreateManyUserInputEnvelope
+    connect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput = {
+    create?: XOR<ResponsavelMaterialAtualizacaoCreateWithoutUserInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput> | ResponsavelMaterialAtualizacaoCreateWithoutUserInput[] | ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput | ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput[]
+    createMany?: ResponsavelMaterialAtualizacaoCreateManyUserInputEnvelope
+    connect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -37729,6 +44995,20 @@ export namespace Prisma {
     connectOrCreate?: PresencaProfessorCreateOrConnectWithoutProfessorInput | PresencaProfessorCreateOrConnectWithoutProfessorInput[]
     createMany?: PresencaProfessorCreateManyProfessorInputEnvelope
     connect?: PresencaProfessorWhereUniqueInput | PresencaProfessorWhereUniqueInput[]
+  }
+
+  export type ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ResponsavelApostilaCreateWithoutUserInput, ResponsavelApostilaUncheckedCreateWithoutUserInput> | ResponsavelApostilaCreateWithoutUserInput[] | ResponsavelApostilaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResponsavelApostilaCreateOrConnectWithoutUserInput | ResponsavelApostilaCreateOrConnectWithoutUserInput[]
+    createMany?: ResponsavelApostilaCreateManyUserInputEnvelope
+    connect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ResponsavelMaterialAtualizacaoCreateWithoutUserInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput> | ResponsavelMaterialAtualizacaoCreateWithoutUserInput[] | ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput | ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput[]
+    createMany?: ResponsavelMaterialAtualizacaoCreateManyUserInputEnvelope
+    connect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -37907,6 +45187,34 @@ export namespace Prisma {
     deleteMany?: PresencaProfessorScalarWhereInput | PresencaProfessorScalarWhereInput[]
   }
 
+  export type ResponsavelApostilaUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ResponsavelApostilaCreateWithoutUserInput, ResponsavelApostilaUncheckedCreateWithoutUserInput> | ResponsavelApostilaCreateWithoutUserInput[] | ResponsavelApostilaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResponsavelApostilaCreateOrConnectWithoutUserInput | ResponsavelApostilaCreateOrConnectWithoutUserInput[]
+    upsert?: ResponsavelApostilaUpsertWithWhereUniqueWithoutUserInput | ResponsavelApostilaUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ResponsavelApostilaCreateManyUserInputEnvelope
+    set?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    disconnect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    delete?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    connect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    update?: ResponsavelApostilaUpdateWithWhereUniqueWithoutUserInput | ResponsavelApostilaUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ResponsavelApostilaUpdateManyWithWhereWithoutUserInput | ResponsavelApostilaUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ResponsavelApostilaScalarWhereInput | ResponsavelApostilaScalarWhereInput[]
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ResponsavelMaterialAtualizacaoCreateWithoutUserInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput> | ResponsavelMaterialAtualizacaoCreateWithoutUserInput[] | ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput | ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput[]
+    upsert?: ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutUserInput | ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ResponsavelMaterialAtualizacaoCreateManyUserInputEnvelope
+    set?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    disconnect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    delete?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    connect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    update?: ResponsavelMaterialAtualizacaoUpdateWithWhereUniqueWithoutUserInput | ResponsavelMaterialAtualizacaoUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ResponsavelMaterialAtualizacaoUpdateManyWithWhereWithoutUserInput | ResponsavelMaterialAtualizacaoUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ResponsavelMaterialAtualizacaoScalarWhereInput | ResponsavelMaterialAtualizacaoScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -38075,6 +45383,34 @@ export namespace Prisma {
     deleteMany?: PresencaProfessorScalarWhereInput | PresencaProfessorScalarWhereInput[]
   }
 
+  export type ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ResponsavelApostilaCreateWithoutUserInput, ResponsavelApostilaUncheckedCreateWithoutUserInput> | ResponsavelApostilaCreateWithoutUserInput[] | ResponsavelApostilaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResponsavelApostilaCreateOrConnectWithoutUserInput | ResponsavelApostilaCreateOrConnectWithoutUserInput[]
+    upsert?: ResponsavelApostilaUpsertWithWhereUniqueWithoutUserInput | ResponsavelApostilaUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ResponsavelApostilaCreateManyUserInputEnvelope
+    set?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    disconnect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    delete?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    connect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    update?: ResponsavelApostilaUpdateWithWhereUniqueWithoutUserInput | ResponsavelApostilaUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ResponsavelApostilaUpdateManyWithWhereWithoutUserInput | ResponsavelApostilaUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ResponsavelApostilaScalarWhereInput | ResponsavelApostilaScalarWhereInput[]
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ResponsavelMaterialAtualizacaoCreateWithoutUserInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput> | ResponsavelMaterialAtualizacaoCreateWithoutUserInput[] | ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput | ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput[]
+    upsert?: ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutUserInput | ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ResponsavelMaterialAtualizacaoCreateManyUserInputEnvelope
+    set?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    disconnect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    delete?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    connect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    update?: ResponsavelMaterialAtualizacaoUpdateWithWhereUniqueWithoutUserInput | ResponsavelMaterialAtualizacaoUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ResponsavelMaterialAtualizacaoUpdateManyWithWhereWithoutUserInput | ResponsavelMaterialAtualizacaoUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ResponsavelMaterialAtualizacaoScalarWhereInput | ResponsavelMaterialAtualizacaoScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutRedefinicoesRecebidasInput = {
     create?: XOR<UserCreateWithoutRedefinicoesRecebidasInput, UserUncheckedCreateWithoutRedefinicoesRecebidasInput>
     connectOrCreate?: UserCreateOrConnectWithoutRedefinicoesRecebidasInput
@@ -38131,6 +45467,20 @@ export namespace Prisma {
     connect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
   }
 
+  export type SemanaImpressaoCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<SemanaImpressaoCreateWithoutSemestreInput, SemanaImpressaoUncheckedCreateWithoutSemestreInput> | SemanaImpressaoCreateWithoutSemestreInput[] | SemanaImpressaoUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: SemanaImpressaoCreateOrConnectWithoutSemestreInput | SemanaImpressaoCreateOrConnectWithoutSemestreInput[]
+    createMany?: SemanaImpressaoCreateManySemestreInputEnvelope
+    connect?: SemanaImpressaoWhereUniqueInput | SemanaImpressaoWhereUniqueInput[]
+  }
+
+  export type MaterialAtualizacaoCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<MaterialAtualizacaoCreateWithoutSemestreInput, MaterialAtualizacaoUncheckedCreateWithoutSemestreInput> | MaterialAtualizacaoCreateWithoutSemestreInput[] | MaterialAtualizacaoUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: MaterialAtualizacaoCreateOrConnectWithoutSemestreInput | MaterialAtualizacaoCreateOrConnectWithoutSemestreInput[]
+    createMany?: MaterialAtualizacaoCreateManySemestreInputEnvelope
+    connect?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
+  }
+
   export type TurmaUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<TurmaCreateWithoutSemestreInput, TurmaUncheckedCreateWithoutSemestreInput> | TurmaCreateWithoutSemestreInput[] | TurmaUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: TurmaCreateOrConnectWithoutSemestreInput | TurmaCreateOrConnectWithoutSemestreInput[]
@@ -38157,6 +45507,20 @@ export namespace Prisma {
     connectOrCreate?: VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput | VinculoEquipeSemestreCreateOrConnectWithoutSemestreInput[]
     createMany?: VinculoEquipeSemestreCreateManySemestreInputEnvelope
     connect?: VinculoEquipeSemestreWhereUniqueInput | VinculoEquipeSemestreWhereUniqueInput[]
+  }
+
+  export type SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<SemanaImpressaoCreateWithoutSemestreInput, SemanaImpressaoUncheckedCreateWithoutSemestreInput> | SemanaImpressaoCreateWithoutSemestreInput[] | SemanaImpressaoUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: SemanaImpressaoCreateOrConnectWithoutSemestreInput | SemanaImpressaoCreateOrConnectWithoutSemestreInput[]
+    createMany?: SemanaImpressaoCreateManySemestreInputEnvelope
+    connect?: SemanaImpressaoWhereUniqueInput | SemanaImpressaoWhereUniqueInput[]
+  }
+
+  export type MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<MaterialAtualizacaoCreateWithoutSemestreInput, MaterialAtualizacaoUncheckedCreateWithoutSemestreInput> | MaterialAtualizacaoCreateWithoutSemestreInput[] | MaterialAtualizacaoUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: MaterialAtualizacaoCreateOrConnectWithoutSemestreInput | MaterialAtualizacaoCreateOrConnectWithoutSemestreInput[]
+    createMany?: MaterialAtualizacaoCreateManySemestreInputEnvelope
+    connect?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -38219,6 +45583,34 @@ export namespace Prisma {
     deleteMany?: VinculoEquipeSemestreScalarWhereInput | VinculoEquipeSemestreScalarWhereInput[]
   }
 
+  export type SemanaImpressaoUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<SemanaImpressaoCreateWithoutSemestreInput, SemanaImpressaoUncheckedCreateWithoutSemestreInput> | SemanaImpressaoCreateWithoutSemestreInput[] | SemanaImpressaoUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: SemanaImpressaoCreateOrConnectWithoutSemestreInput | SemanaImpressaoCreateOrConnectWithoutSemestreInput[]
+    upsert?: SemanaImpressaoUpsertWithWhereUniqueWithoutSemestreInput | SemanaImpressaoUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: SemanaImpressaoCreateManySemestreInputEnvelope
+    set?: SemanaImpressaoWhereUniqueInput | SemanaImpressaoWhereUniqueInput[]
+    disconnect?: SemanaImpressaoWhereUniqueInput | SemanaImpressaoWhereUniqueInput[]
+    delete?: SemanaImpressaoWhereUniqueInput | SemanaImpressaoWhereUniqueInput[]
+    connect?: SemanaImpressaoWhereUniqueInput | SemanaImpressaoWhereUniqueInput[]
+    update?: SemanaImpressaoUpdateWithWhereUniqueWithoutSemestreInput | SemanaImpressaoUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: SemanaImpressaoUpdateManyWithWhereWithoutSemestreInput | SemanaImpressaoUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: SemanaImpressaoScalarWhereInput | SemanaImpressaoScalarWhereInput[]
+  }
+
+  export type MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<MaterialAtualizacaoCreateWithoutSemestreInput, MaterialAtualizacaoUncheckedCreateWithoutSemestreInput> | MaterialAtualizacaoCreateWithoutSemestreInput[] | MaterialAtualizacaoUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: MaterialAtualizacaoCreateOrConnectWithoutSemestreInput | MaterialAtualizacaoCreateOrConnectWithoutSemestreInput[]
+    upsert?: MaterialAtualizacaoUpsertWithWhereUniqueWithoutSemestreInput | MaterialAtualizacaoUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: MaterialAtualizacaoCreateManySemestreInputEnvelope
+    set?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
+    disconnect?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
+    delete?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
+    connect?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
+    update?: MaterialAtualizacaoUpdateWithWhereUniqueWithoutSemestreInput | MaterialAtualizacaoUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: MaterialAtualizacaoUpdateManyWithWhereWithoutSemestreInput | MaterialAtualizacaoUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: MaterialAtualizacaoScalarWhereInput | MaterialAtualizacaoScalarWhereInput[]
+  }
+
   export type TurmaUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<TurmaCreateWithoutSemestreInput, TurmaUncheckedCreateWithoutSemestreInput> | TurmaCreateWithoutSemestreInput[] | TurmaUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: TurmaCreateOrConnectWithoutSemestreInput | TurmaCreateOrConnectWithoutSemestreInput[]
@@ -38273,6 +45665,266 @@ export namespace Prisma {
     update?: VinculoEquipeSemestreUpdateWithWhereUniqueWithoutSemestreInput | VinculoEquipeSemestreUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: VinculoEquipeSemestreUpdateManyWithWhereWithoutSemestreInput | VinculoEquipeSemestreUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: VinculoEquipeSemestreScalarWhereInput | VinculoEquipeSemestreScalarWhereInput[]
+  }
+
+  export type SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<SemanaImpressaoCreateWithoutSemestreInput, SemanaImpressaoUncheckedCreateWithoutSemestreInput> | SemanaImpressaoCreateWithoutSemestreInput[] | SemanaImpressaoUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: SemanaImpressaoCreateOrConnectWithoutSemestreInput | SemanaImpressaoCreateOrConnectWithoutSemestreInput[]
+    upsert?: SemanaImpressaoUpsertWithWhereUniqueWithoutSemestreInput | SemanaImpressaoUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: SemanaImpressaoCreateManySemestreInputEnvelope
+    set?: SemanaImpressaoWhereUniqueInput | SemanaImpressaoWhereUniqueInput[]
+    disconnect?: SemanaImpressaoWhereUniqueInput | SemanaImpressaoWhereUniqueInput[]
+    delete?: SemanaImpressaoWhereUniqueInput | SemanaImpressaoWhereUniqueInput[]
+    connect?: SemanaImpressaoWhereUniqueInput | SemanaImpressaoWhereUniqueInput[]
+    update?: SemanaImpressaoUpdateWithWhereUniqueWithoutSemestreInput | SemanaImpressaoUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: SemanaImpressaoUpdateManyWithWhereWithoutSemestreInput | SemanaImpressaoUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: SemanaImpressaoScalarWhereInput | SemanaImpressaoScalarWhereInput[]
+  }
+
+  export type MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<MaterialAtualizacaoCreateWithoutSemestreInput, MaterialAtualizacaoUncheckedCreateWithoutSemestreInput> | MaterialAtualizacaoCreateWithoutSemestreInput[] | MaterialAtualizacaoUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: MaterialAtualizacaoCreateOrConnectWithoutSemestreInput | MaterialAtualizacaoCreateOrConnectWithoutSemestreInput[]
+    upsert?: MaterialAtualizacaoUpsertWithWhereUniqueWithoutSemestreInput | MaterialAtualizacaoUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: MaterialAtualizacaoCreateManySemestreInputEnvelope
+    set?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
+    disconnect?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
+    delete?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
+    connect?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
+    update?: MaterialAtualizacaoUpdateWithWhereUniqueWithoutSemestreInput | MaterialAtualizacaoUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: MaterialAtualizacaoUpdateManyWithWhereWithoutSemestreInput | MaterialAtualizacaoUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: MaterialAtualizacaoScalarWhereInput | MaterialAtualizacaoScalarWhereInput[]
+  }
+
+  export type SemestreCreateNestedOneWithoutSemanasImpressaoInput = {
+    create?: XOR<SemestreCreateWithoutSemanasImpressaoInput, SemestreUncheckedCreateWithoutSemanasImpressaoInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutSemanasImpressaoInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type ApostilaImpressaoCreateNestedManyWithoutSemanaInput = {
+    create?: XOR<ApostilaImpressaoCreateWithoutSemanaInput, ApostilaImpressaoUncheckedCreateWithoutSemanaInput> | ApostilaImpressaoCreateWithoutSemanaInput[] | ApostilaImpressaoUncheckedCreateWithoutSemanaInput[]
+    connectOrCreate?: ApostilaImpressaoCreateOrConnectWithoutSemanaInput | ApostilaImpressaoCreateOrConnectWithoutSemanaInput[]
+    createMany?: ApostilaImpressaoCreateManySemanaInputEnvelope
+    connect?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
+  }
+
+  export type ApostilaImpressaoUncheckedCreateNestedManyWithoutSemanaInput = {
+    create?: XOR<ApostilaImpressaoCreateWithoutSemanaInput, ApostilaImpressaoUncheckedCreateWithoutSemanaInput> | ApostilaImpressaoCreateWithoutSemanaInput[] | ApostilaImpressaoUncheckedCreateWithoutSemanaInput[]
+    connectOrCreate?: ApostilaImpressaoCreateOrConnectWithoutSemanaInput | ApostilaImpressaoCreateOrConnectWithoutSemanaInput[]
+    createMany?: ApostilaImpressaoCreateManySemanaInputEnvelope
+    connect?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type SemestreUpdateOneRequiredWithoutSemanasImpressaoNestedInput = {
+    create?: XOR<SemestreCreateWithoutSemanasImpressaoInput, SemestreUncheckedCreateWithoutSemanasImpressaoInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutSemanasImpressaoInput
+    upsert?: SemestreUpsertWithoutSemanasImpressaoInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutSemanasImpressaoInput, SemestreUpdateWithoutSemanasImpressaoInput>, SemestreUncheckedUpdateWithoutSemanasImpressaoInput>
+  }
+
+  export type ApostilaImpressaoUpdateManyWithoutSemanaNestedInput = {
+    create?: XOR<ApostilaImpressaoCreateWithoutSemanaInput, ApostilaImpressaoUncheckedCreateWithoutSemanaInput> | ApostilaImpressaoCreateWithoutSemanaInput[] | ApostilaImpressaoUncheckedCreateWithoutSemanaInput[]
+    connectOrCreate?: ApostilaImpressaoCreateOrConnectWithoutSemanaInput | ApostilaImpressaoCreateOrConnectWithoutSemanaInput[]
+    upsert?: ApostilaImpressaoUpsertWithWhereUniqueWithoutSemanaInput | ApostilaImpressaoUpsertWithWhereUniqueWithoutSemanaInput[]
+    createMany?: ApostilaImpressaoCreateManySemanaInputEnvelope
+    set?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
+    disconnect?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
+    delete?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
+    connect?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
+    update?: ApostilaImpressaoUpdateWithWhereUniqueWithoutSemanaInput | ApostilaImpressaoUpdateWithWhereUniqueWithoutSemanaInput[]
+    updateMany?: ApostilaImpressaoUpdateManyWithWhereWithoutSemanaInput | ApostilaImpressaoUpdateManyWithWhereWithoutSemanaInput[]
+    deleteMany?: ApostilaImpressaoScalarWhereInput | ApostilaImpressaoScalarWhereInput[]
+  }
+
+  export type ApostilaImpressaoUncheckedUpdateManyWithoutSemanaNestedInput = {
+    create?: XOR<ApostilaImpressaoCreateWithoutSemanaInput, ApostilaImpressaoUncheckedCreateWithoutSemanaInput> | ApostilaImpressaoCreateWithoutSemanaInput[] | ApostilaImpressaoUncheckedCreateWithoutSemanaInput[]
+    connectOrCreate?: ApostilaImpressaoCreateOrConnectWithoutSemanaInput | ApostilaImpressaoCreateOrConnectWithoutSemanaInput[]
+    upsert?: ApostilaImpressaoUpsertWithWhereUniqueWithoutSemanaInput | ApostilaImpressaoUpsertWithWhereUniqueWithoutSemanaInput[]
+    createMany?: ApostilaImpressaoCreateManySemanaInputEnvelope
+    set?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
+    disconnect?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
+    delete?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
+    connect?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
+    update?: ApostilaImpressaoUpdateWithWhereUniqueWithoutSemanaInput | ApostilaImpressaoUpdateWithWhereUniqueWithoutSemanaInput[]
+    updateMany?: ApostilaImpressaoUpdateManyWithWhereWithoutSemanaInput | ApostilaImpressaoUpdateManyWithWhereWithoutSemanaInput[]
+    deleteMany?: ApostilaImpressaoScalarWhereInput | ApostilaImpressaoScalarWhereInput[]
+  }
+
+  export type SemanaImpressaoCreateNestedOneWithoutApostilasInput = {
+    create?: XOR<SemanaImpressaoCreateWithoutApostilasInput, SemanaImpressaoUncheckedCreateWithoutApostilasInput>
+    connectOrCreate?: SemanaImpressaoCreateOrConnectWithoutApostilasInput
+    connect?: SemanaImpressaoWhereUniqueInput
+  }
+
+  export type ResponsavelApostilaCreateNestedManyWithoutApostilaInput = {
+    create?: XOR<ResponsavelApostilaCreateWithoutApostilaInput, ResponsavelApostilaUncheckedCreateWithoutApostilaInput> | ResponsavelApostilaCreateWithoutApostilaInput[] | ResponsavelApostilaUncheckedCreateWithoutApostilaInput[]
+    connectOrCreate?: ResponsavelApostilaCreateOrConnectWithoutApostilaInput | ResponsavelApostilaCreateOrConnectWithoutApostilaInput[]
+    createMany?: ResponsavelApostilaCreateManyApostilaInputEnvelope
+    connect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+  }
+
+  export type ResponsavelApostilaUncheckedCreateNestedManyWithoutApostilaInput = {
+    create?: XOR<ResponsavelApostilaCreateWithoutApostilaInput, ResponsavelApostilaUncheckedCreateWithoutApostilaInput> | ResponsavelApostilaCreateWithoutApostilaInput[] | ResponsavelApostilaUncheckedCreateWithoutApostilaInput[]
+    connectOrCreate?: ResponsavelApostilaCreateOrConnectWithoutApostilaInput | ResponsavelApostilaCreateOrConnectWithoutApostilaInput[]
+    createMany?: ResponsavelApostilaCreateManyApostilaInputEnvelope
+    connect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+  }
+
+  export type SemanaImpressaoUpdateOneRequiredWithoutApostilasNestedInput = {
+    create?: XOR<SemanaImpressaoCreateWithoutApostilasInput, SemanaImpressaoUncheckedCreateWithoutApostilasInput>
+    connectOrCreate?: SemanaImpressaoCreateOrConnectWithoutApostilasInput
+    upsert?: SemanaImpressaoUpsertWithoutApostilasInput
+    connect?: SemanaImpressaoWhereUniqueInput
+    update?: XOR<XOR<SemanaImpressaoUpdateToOneWithWhereWithoutApostilasInput, SemanaImpressaoUpdateWithoutApostilasInput>, SemanaImpressaoUncheckedUpdateWithoutApostilasInput>
+  }
+
+  export type ResponsavelApostilaUpdateManyWithoutApostilaNestedInput = {
+    create?: XOR<ResponsavelApostilaCreateWithoutApostilaInput, ResponsavelApostilaUncheckedCreateWithoutApostilaInput> | ResponsavelApostilaCreateWithoutApostilaInput[] | ResponsavelApostilaUncheckedCreateWithoutApostilaInput[]
+    connectOrCreate?: ResponsavelApostilaCreateOrConnectWithoutApostilaInput | ResponsavelApostilaCreateOrConnectWithoutApostilaInput[]
+    upsert?: ResponsavelApostilaUpsertWithWhereUniqueWithoutApostilaInput | ResponsavelApostilaUpsertWithWhereUniqueWithoutApostilaInput[]
+    createMany?: ResponsavelApostilaCreateManyApostilaInputEnvelope
+    set?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    disconnect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    delete?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    connect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    update?: ResponsavelApostilaUpdateWithWhereUniqueWithoutApostilaInput | ResponsavelApostilaUpdateWithWhereUniqueWithoutApostilaInput[]
+    updateMany?: ResponsavelApostilaUpdateManyWithWhereWithoutApostilaInput | ResponsavelApostilaUpdateManyWithWhereWithoutApostilaInput[]
+    deleteMany?: ResponsavelApostilaScalarWhereInput | ResponsavelApostilaScalarWhereInput[]
+  }
+
+  export type ResponsavelApostilaUncheckedUpdateManyWithoutApostilaNestedInput = {
+    create?: XOR<ResponsavelApostilaCreateWithoutApostilaInput, ResponsavelApostilaUncheckedCreateWithoutApostilaInput> | ResponsavelApostilaCreateWithoutApostilaInput[] | ResponsavelApostilaUncheckedCreateWithoutApostilaInput[]
+    connectOrCreate?: ResponsavelApostilaCreateOrConnectWithoutApostilaInput | ResponsavelApostilaCreateOrConnectWithoutApostilaInput[]
+    upsert?: ResponsavelApostilaUpsertWithWhereUniqueWithoutApostilaInput | ResponsavelApostilaUpsertWithWhereUniqueWithoutApostilaInput[]
+    createMany?: ResponsavelApostilaCreateManyApostilaInputEnvelope
+    set?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    disconnect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    delete?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    connect?: ResponsavelApostilaWhereUniqueInput | ResponsavelApostilaWhereUniqueInput[]
+    update?: ResponsavelApostilaUpdateWithWhereUniqueWithoutApostilaInput | ResponsavelApostilaUpdateWithWhereUniqueWithoutApostilaInput[]
+    updateMany?: ResponsavelApostilaUpdateManyWithWhereWithoutApostilaInput | ResponsavelApostilaUpdateManyWithWhereWithoutApostilaInput[]
+    deleteMany?: ResponsavelApostilaScalarWhereInput | ResponsavelApostilaScalarWhereInput[]
+  }
+
+  export type ApostilaImpressaoCreateNestedOneWithoutResponsaveisInput = {
+    create?: XOR<ApostilaImpressaoCreateWithoutResponsaveisInput, ApostilaImpressaoUncheckedCreateWithoutResponsaveisInput>
+    connectOrCreate?: ApostilaImpressaoCreateOrConnectWithoutResponsaveisInput
+    connect?: ApostilaImpressaoWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutApostilasResponsavelInput = {
+    create?: XOR<UserCreateWithoutApostilasResponsavelInput, UserUncheckedCreateWithoutApostilasResponsavelInput>
+    connectOrCreate?: UserCreateOrConnectWithoutApostilasResponsavelInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ApostilaImpressaoUpdateOneRequiredWithoutResponsaveisNestedInput = {
+    create?: XOR<ApostilaImpressaoCreateWithoutResponsaveisInput, ApostilaImpressaoUncheckedCreateWithoutResponsaveisInput>
+    connectOrCreate?: ApostilaImpressaoCreateOrConnectWithoutResponsaveisInput
+    upsert?: ApostilaImpressaoUpsertWithoutResponsaveisInput
+    connect?: ApostilaImpressaoWhereUniqueInput
+    update?: XOR<XOR<ApostilaImpressaoUpdateToOneWithWhereWithoutResponsaveisInput, ApostilaImpressaoUpdateWithoutResponsaveisInput>, ApostilaImpressaoUncheckedUpdateWithoutResponsaveisInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutApostilasResponsavelNestedInput = {
+    create?: XOR<UserCreateWithoutApostilasResponsavelInput, UserUncheckedCreateWithoutApostilasResponsavelInput>
+    connectOrCreate?: UserCreateOrConnectWithoutApostilasResponsavelInput
+    upsert?: UserUpsertWithoutApostilasResponsavelInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutApostilasResponsavelInput, UserUpdateWithoutApostilasResponsavelInput>, UserUncheckedUpdateWithoutApostilasResponsavelInput>
+  }
+
+  export type SemestreCreateNestedOneWithoutMateriaisAtualizacaoInput = {
+    create?: XOR<SemestreCreateWithoutMateriaisAtualizacaoInput, SemestreUncheckedCreateWithoutMateriaisAtualizacaoInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutMateriaisAtualizacaoInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateNestedManyWithoutMaterialInput = {
+    create?: XOR<ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput> | ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput[] | ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput[]
+    connectOrCreate?: ResponsavelMaterialAtualizacaoCreateOrConnectWithoutMaterialInput | ResponsavelMaterialAtualizacaoCreateOrConnectWithoutMaterialInput[]
+    createMany?: ResponsavelMaterialAtualizacaoCreateManyMaterialInputEnvelope
+    connect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutMaterialInput = {
+    create?: XOR<ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput> | ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput[] | ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput[]
+    connectOrCreate?: ResponsavelMaterialAtualizacaoCreateOrConnectWithoutMaterialInput | ResponsavelMaterialAtualizacaoCreateOrConnectWithoutMaterialInput[]
+    createMany?: ResponsavelMaterialAtualizacaoCreateManyMaterialInputEnvelope
+    connect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+  }
+
+  export type SemestreUpdateOneRequiredWithoutMateriaisAtualizacaoNestedInput = {
+    create?: XOR<SemestreCreateWithoutMateriaisAtualizacaoInput, SemestreUncheckedCreateWithoutMateriaisAtualizacaoInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutMateriaisAtualizacaoInput
+    upsert?: SemestreUpsertWithoutMateriaisAtualizacaoInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutMateriaisAtualizacaoInput, SemestreUpdateWithoutMateriaisAtualizacaoInput>, SemestreUncheckedUpdateWithoutMateriaisAtualizacaoInput>
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpdateManyWithoutMaterialNestedInput = {
+    create?: XOR<ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput> | ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput[] | ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput[]
+    connectOrCreate?: ResponsavelMaterialAtualizacaoCreateOrConnectWithoutMaterialInput | ResponsavelMaterialAtualizacaoCreateOrConnectWithoutMaterialInput[]
+    upsert?: ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutMaterialInput | ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutMaterialInput[]
+    createMany?: ResponsavelMaterialAtualizacaoCreateManyMaterialInputEnvelope
+    set?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    disconnect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    delete?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    connect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    update?: ResponsavelMaterialAtualizacaoUpdateWithWhereUniqueWithoutMaterialInput | ResponsavelMaterialAtualizacaoUpdateWithWhereUniqueWithoutMaterialInput[]
+    updateMany?: ResponsavelMaterialAtualizacaoUpdateManyWithWhereWithoutMaterialInput | ResponsavelMaterialAtualizacaoUpdateManyWithWhereWithoutMaterialInput[]
+    deleteMany?: ResponsavelMaterialAtualizacaoScalarWhereInput | ResponsavelMaterialAtualizacaoScalarWhereInput[]
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutMaterialNestedInput = {
+    create?: XOR<ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput> | ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput[] | ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput[]
+    connectOrCreate?: ResponsavelMaterialAtualizacaoCreateOrConnectWithoutMaterialInput | ResponsavelMaterialAtualizacaoCreateOrConnectWithoutMaterialInput[]
+    upsert?: ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutMaterialInput | ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutMaterialInput[]
+    createMany?: ResponsavelMaterialAtualizacaoCreateManyMaterialInputEnvelope
+    set?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    disconnect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    delete?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    connect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+    update?: ResponsavelMaterialAtualizacaoUpdateWithWhereUniqueWithoutMaterialInput | ResponsavelMaterialAtualizacaoUpdateWithWhereUniqueWithoutMaterialInput[]
+    updateMany?: ResponsavelMaterialAtualizacaoUpdateManyWithWhereWithoutMaterialInput | ResponsavelMaterialAtualizacaoUpdateManyWithWhereWithoutMaterialInput[]
+    deleteMany?: ResponsavelMaterialAtualizacaoScalarWhereInput | ResponsavelMaterialAtualizacaoScalarWhereInput[]
+  }
+
+  export type MaterialAtualizacaoCreateNestedOneWithoutResponsaveisInput = {
+    create?: XOR<MaterialAtualizacaoCreateWithoutResponsaveisInput, MaterialAtualizacaoUncheckedCreateWithoutResponsaveisInput>
+    connectOrCreate?: MaterialAtualizacaoCreateOrConnectWithoutResponsaveisInput
+    connect?: MaterialAtualizacaoWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMateriaisAtualizacaoResponsavelInput = {
+    create?: XOR<UserCreateWithoutMateriaisAtualizacaoResponsavelInput, UserUncheckedCreateWithoutMateriaisAtualizacaoResponsavelInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMateriaisAtualizacaoResponsavelInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MaterialAtualizacaoUpdateOneRequiredWithoutResponsaveisNestedInput = {
+    create?: XOR<MaterialAtualizacaoCreateWithoutResponsaveisInput, MaterialAtualizacaoUncheckedCreateWithoutResponsaveisInput>
+    connectOrCreate?: MaterialAtualizacaoCreateOrConnectWithoutResponsaveisInput
+    upsert?: MaterialAtualizacaoUpsertWithoutResponsaveisInput
+    connect?: MaterialAtualizacaoWhereUniqueInput
+    update?: XOR<XOR<MaterialAtualizacaoUpdateToOneWithWhereWithoutResponsaveisInput, MaterialAtualizacaoUpdateWithoutResponsaveisInput>, MaterialAtualizacaoUncheckedUpdateWithoutResponsaveisInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutMateriaisAtualizacaoResponsavelNestedInput = {
+    create?: XOR<UserCreateWithoutMateriaisAtualizacaoResponsavelInput, UserUncheckedCreateWithoutMateriaisAtualizacaoResponsavelInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMateriaisAtualizacaoResponsavelInput
+    upsert?: UserUpsertWithoutMateriaisAtualizacaoResponsavelInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMateriaisAtualizacaoResponsavelInput, UserUpdateWithoutMateriaisAtualizacaoResponsavelInput>, UserUncheckedUpdateWithoutMateriaisAtualizacaoResponsavelInput>
   }
 
   export type SemestreCreateNestedOneWithoutTurmasInput = {
@@ -39381,14 +47033,6 @@ export namespace Prisma {
     set?: $Enums.TipoPergunta
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type FormularioUpdateOneRequiredWithoutPerguntasNestedInput = {
     create?: XOR<FormularioCreateWithoutPerguntasInput, FormularioUncheckedCreateWithoutPerguntasInput>
     connectOrCreate?: FormularioCreateOrConnectWithoutPerguntasInput
@@ -39630,6 +47274,33 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumStatusMatriculaFilter<$PrismaModel = never> = {
     equals?: $Enums.StatusMatricula | EnumStatusMatriculaFieldRefInput<$PrismaModel>
     in?: $Enums.StatusMatricula[] | ListEnumStatusMatriculaFieldRefInput<$PrismaModel>
@@ -39812,33 +47483,6 @@ export namespace Prisma {
     _max?: NestedEnumTipoPerguntaFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type UserCreateWithoutAccountsInput = {
     id?: string
     nome: string
@@ -39862,6 +47506,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -39887,6 +47533,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -39928,6 +47576,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -39953,6 +47603,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -39978,6 +47630,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -40003,6 +47657,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -40044,6 +47700,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -40069,6 +47727,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -40384,6 +48044,42 @@ export namespace Prisma {
 
   export type PresencaProfessorCreateManyProfessorInputEnvelope = {
     data: PresencaProfessorCreateManyProfessorInput | PresencaProfessorCreateManyProfessorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ResponsavelApostilaCreateWithoutUserInput = {
+    apostila: ApostilaImpressaoCreateNestedOneWithoutResponsaveisInput
+  }
+
+  export type ResponsavelApostilaUncheckedCreateWithoutUserInput = {
+    apostilaId: string
+  }
+
+  export type ResponsavelApostilaCreateOrConnectWithoutUserInput = {
+    where: ResponsavelApostilaWhereUniqueInput
+    create: XOR<ResponsavelApostilaCreateWithoutUserInput, ResponsavelApostilaUncheckedCreateWithoutUserInput>
+  }
+
+  export type ResponsavelApostilaCreateManyUserInputEnvelope = {
+    data: ResponsavelApostilaCreateManyUserInput | ResponsavelApostilaCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateWithoutUserInput = {
+    material: MaterialAtualizacaoCreateNestedOneWithoutResponsaveisInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput = {
+    materialId: string
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput = {
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    create: XOR<ResponsavelMaterialAtualizacaoCreateWithoutUserInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput>
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateManyUserInputEnvelope = {
+    data: ResponsavelMaterialAtualizacaoCreateManyUserInput | ResponsavelMaterialAtualizacaoCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -40710,6 +48406,54 @@ export namespace Prisma {
     estado?: EnumEstadoPresencaFilter<"PresencaProfessor"> | $Enums.EstadoPresenca
   }
 
+  export type ResponsavelApostilaUpsertWithWhereUniqueWithoutUserInput = {
+    where: ResponsavelApostilaWhereUniqueInput
+    update: XOR<ResponsavelApostilaUpdateWithoutUserInput, ResponsavelApostilaUncheckedUpdateWithoutUserInput>
+    create: XOR<ResponsavelApostilaCreateWithoutUserInput, ResponsavelApostilaUncheckedCreateWithoutUserInput>
+  }
+
+  export type ResponsavelApostilaUpdateWithWhereUniqueWithoutUserInput = {
+    where: ResponsavelApostilaWhereUniqueInput
+    data: XOR<ResponsavelApostilaUpdateWithoutUserInput, ResponsavelApostilaUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ResponsavelApostilaUpdateManyWithWhereWithoutUserInput = {
+    where: ResponsavelApostilaScalarWhereInput
+    data: XOR<ResponsavelApostilaUpdateManyMutationInput, ResponsavelApostilaUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ResponsavelApostilaScalarWhereInput = {
+    AND?: ResponsavelApostilaScalarWhereInput | ResponsavelApostilaScalarWhereInput[]
+    OR?: ResponsavelApostilaScalarWhereInput[]
+    NOT?: ResponsavelApostilaScalarWhereInput | ResponsavelApostilaScalarWhereInput[]
+    apostilaId?: StringFilter<"ResponsavelApostila"> | string
+    userId?: StringFilter<"ResponsavelApostila"> | string
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutUserInput = {
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    update: XOR<ResponsavelMaterialAtualizacaoUpdateWithoutUserInput, ResponsavelMaterialAtualizacaoUncheckedUpdateWithoutUserInput>
+    create: XOR<ResponsavelMaterialAtualizacaoCreateWithoutUserInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutUserInput>
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpdateWithWhereUniqueWithoutUserInput = {
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    data: XOR<ResponsavelMaterialAtualizacaoUpdateWithoutUserInput, ResponsavelMaterialAtualizacaoUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpdateManyWithWhereWithoutUserInput = {
+    where: ResponsavelMaterialAtualizacaoScalarWhereInput
+    data: XOR<ResponsavelMaterialAtualizacaoUpdateManyMutationInput, ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ResponsavelMaterialAtualizacaoScalarWhereInput = {
+    AND?: ResponsavelMaterialAtualizacaoScalarWhereInput | ResponsavelMaterialAtualizacaoScalarWhereInput[]
+    OR?: ResponsavelMaterialAtualizacaoScalarWhereInput[]
+    NOT?: ResponsavelMaterialAtualizacaoScalarWhereInput | ResponsavelMaterialAtualizacaoScalarWhereInput[]
+    materialId?: StringFilter<"ResponsavelMaterialAtualizacao"> | string
+    userId?: StringFilter<"ResponsavelMaterialAtualizacao"> | string
+  }
+
   export type UserCreateWithoutRedefinicoesRecebidasInput = {
     id?: string
     nome: string
@@ -40733,6 +48477,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRedefinicoesRecebidasInput = {
@@ -40758,6 +48504,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRedefinicoesRecebidasInput = {
@@ -40788,6 +48536,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRedefinicoesSolicitadasInput = {
@@ -40813,6 +48563,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRedefinicoesSolicitadasInput = {
@@ -40854,6 +48606,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRedefinicoesRecebidasInput = {
@@ -40879,6 +48633,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutRedefinicoesSolicitadasInput = {
@@ -40915,6 +48671,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRedefinicoesSolicitadasInput = {
@@ -40940,6 +48698,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TurmaCreateWithoutSemestreInput = {
@@ -41130,6 +48890,72 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SemanaImpressaoCreateWithoutSemestreInput = {
+    id?: string
+    numero: number
+    dataAula?: Date | string | null
+    aulaRealizada?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    apostilas?: ApostilaImpressaoCreateNestedManyWithoutSemanaInput
+  }
+
+  export type SemanaImpressaoUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    numero: number
+    dataAula?: Date | string | null
+    aulaRealizada?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    apostilas?: ApostilaImpressaoUncheckedCreateNestedManyWithoutSemanaInput
+  }
+
+  export type SemanaImpressaoCreateOrConnectWithoutSemestreInput = {
+    where: SemanaImpressaoWhereUniqueInput
+    create: XOR<SemanaImpressaoCreateWithoutSemestreInput, SemanaImpressaoUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type SemanaImpressaoCreateManySemestreInputEnvelope = {
+    data: SemanaImpressaoCreateManySemestreInput | SemanaImpressaoCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaterialAtualizacaoCreateWithoutSemestreInput = {
+    id?: string
+    curso: string
+    titulo: string
+    dataEntrega?: Date | string | null
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    responsaveis?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutMaterialInput
+  }
+
+  export type MaterialAtualizacaoUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    curso: string
+    titulo: string
+    dataEntrega?: Date | string | null
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    responsaveis?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutMaterialInput
+  }
+
+  export type MaterialAtualizacaoCreateOrConnectWithoutSemestreInput = {
+    where: MaterialAtualizacaoWhereUniqueInput
+    create: XOR<MaterialAtualizacaoCreateWithoutSemestreInput, MaterialAtualizacaoUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type MaterialAtualizacaoCreateManySemestreInputEnvelope = {
+    data: MaterialAtualizacaoCreateManySemestreInput | MaterialAtualizacaoCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TurmaUpsertWithWhereUniqueWithoutSemestreInput = {
     where: TurmaWhereUniqueInput
     update: XOR<TurmaUpdateWithoutSemestreInput, TurmaUncheckedUpdateWithoutSemestreInput>
@@ -41265,6 +49091,778 @@ export namespace Prisma {
     data: XOR<VinculoEquipeSemestreUpdateManyMutationInput, VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreInput>
   }
 
+  export type SemanaImpressaoUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: SemanaImpressaoWhereUniqueInput
+    update: XOR<SemanaImpressaoUpdateWithoutSemestreInput, SemanaImpressaoUncheckedUpdateWithoutSemestreInput>
+    create: XOR<SemanaImpressaoCreateWithoutSemestreInput, SemanaImpressaoUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type SemanaImpressaoUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: SemanaImpressaoWhereUniqueInput
+    data: XOR<SemanaImpressaoUpdateWithoutSemestreInput, SemanaImpressaoUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type SemanaImpressaoUpdateManyWithWhereWithoutSemestreInput = {
+    where: SemanaImpressaoScalarWhereInput
+    data: XOR<SemanaImpressaoUpdateManyMutationInput, SemanaImpressaoUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type SemanaImpressaoScalarWhereInput = {
+    AND?: SemanaImpressaoScalarWhereInput | SemanaImpressaoScalarWhereInput[]
+    OR?: SemanaImpressaoScalarWhereInput[]
+    NOT?: SemanaImpressaoScalarWhereInput | SemanaImpressaoScalarWhereInput[]
+    id?: StringFilter<"SemanaImpressao"> | string
+    semestreId?: StringFilter<"SemanaImpressao"> | string
+    numero?: IntFilter<"SemanaImpressao"> | number
+    dataAula?: DateTimeNullableFilter<"SemanaImpressao"> | Date | string | null
+    aulaRealizada?: BoolFilter<"SemanaImpressao"> | boolean
+    createdAt?: DateTimeFilter<"SemanaImpressao"> | Date | string
+    updatedAt?: DateTimeFilter<"SemanaImpressao"> | Date | string
+  }
+
+  export type MaterialAtualizacaoUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: MaterialAtualizacaoWhereUniqueInput
+    update: XOR<MaterialAtualizacaoUpdateWithoutSemestreInput, MaterialAtualizacaoUncheckedUpdateWithoutSemestreInput>
+    create: XOR<MaterialAtualizacaoCreateWithoutSemestreInput, MaterialAtualizacaoUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type MaterialAtualizacaoUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: MaterialAtualizacaoWhereUniqueInput
+    data: XOR<MaterialAtualizacaoUpdateWithoutSemestreInput, MaterialAtualizacaoUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type MaterialAtualizacaoUpdateManyWithWhereWithoutSemestreInput = {
+    where: MaterialAtualizacaoScalarWhereInput
+    data: XOR<MaterialAtualizacaoUpdateManyMutationInput, MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type MaterialAtualizacaoScalarWhereInput = {
+    AND?: MaterialAtualizacaoScalarWhereInput | MaterialAtualizacaoScalarWhereInput[]
+    OR?: MaterialAtualizacaoScalarWhereInput[]
+    NOT?: MaterialAtualizacaoScalarWhereInput | MaterialAtualizacaoScalarWhereInput[]
+    id?: StringFilter<"MaterialAtualizacao"> | string
+    semestreId?: StringFilter<"MaterialAtualizacao"> | string
+    curso?: StringFilter<"MaterialAtualizacao"> | string
+    titulo?: StringFilter<"MaterialAtualizacao"> | string
+    dataEntrega?: DateTimeNullableFilter<"MaterialAtualizacao"> | Date | string | null
+    revisado?: BoolFilter<"MaterialAtualizacao"> | boolean
+    precisaAjuste?: BoolFilter<"MaterialAtualizacao"> | boolean
+    ajustado?: BoolFilter<"MaterialAtualizacao"> | boolean
+    createdAt?: DateTimeFilter<"MaterialAtualizacao"> | Date | string
+    updatedAt?: DateTimeFilter<"MaterialAtualizacao"> | Date | string
+  }
+
+  export type SemestreCreateWithoutSemanasImpressaoInput = {
+    id?: string
+    codigo: string
+    ativo?: boolean
+    createdAt?: Date | string
+    turmas?: TurmaCreateNestedManyWithoutSemestreInput
+    alunos?: AlunoCreateNestedManyWithoutSemestreInput
+    candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutSemanasImpressaoInput = {
+    id?: string
+    codigo: string
+    ativo?: boolean
+    createdAt?: Date | string
+    turmas?: TurmaUncheckedCreateNestedManyWithoutSemestreInput
+    alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
+    candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutSemanasImpressaoInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutSemanasImpressaoInput, SemestreUncheckedCreateWithoutSemanasImpressaoInput>
+  }
+
+  export type ApostilaImpressaoCreateWithoutSemanaInput = {
+    id?: string
+    titulo: string
+    curso: string
+    dataEntrega?: Date | string | null
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: number
+    qtdAlvo?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    responsaveis?: ResponsavelApostilaCreateNestedManyWithoutApostilaInput
+  }
+
+  export type ApostilaImpressaoUncheckedCreateWithoutSemanaInput = {
+    id?: string
+    titulo: string
+    curso: string
+    dataEntrega?: Date | string | null
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: number
+    qtdAlvo?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    responsaveis?: ResponsavelApostilaUncheckedCreateNestedManyWithoutApostilaInput
+  }
+
+  export type ApostilaImpressaoCreateOrConnectWithoutSemanaInput = {
+    where: ApostilaImpressaoWhereUniqueInput
+    create: XOR<ApostilaImpressaoCreateWithoutSemanaInput, ApostilaImpressaoUncheckedCreateWithoutSemanaInput>
+  }
+
+  export type ApostilaImpressaoCreateManySemanaInputEnvelope = {
+    data: ApostilaImpressaoCreateManySemanaInput | ApostilaImpressaoCreateManySemanaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SemestreUpsertWithoutSemanasImpressaoInput = {
+    update: XOR<SemestreUpdateWithoutSemanasImpressaoInput, SemestreUncheckedUpdateWithoutSemanasImpressaoInput>
+    create: XOR<SemestreCreateWithoutSemanasImpressaoInput, SemestreUncheckedCreateWithoutSemanasImpressaoInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutSemanasImpressaoInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutSemanasImpressaoInput, SemestreUncheckedUpdateWithoutSemanasImpressaoInput>
+  }
+
+  export type SemestreUpdateWithoutSemanasImpressaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turmas?: TurmaUpdateManyWithoutSemestreNestedInput
+    alunos?: AlunoUpdateManyWithoutSemestreNestedInput
+    candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutSemanasImpressaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turmas?: TurmaUncheckedUpdateManyWithoutSemestreNestedInput
+    alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
+    candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type ApostilaImpressaoUpsertWithWhereUniqueWithoutSemanaInput = {
+    where: ApostilaImpressaoWhereUniqueInput
+    update: XOR<ApostilaImpressaoUpdateWithoutSemanaInput, ApostilaImpressaoUncheckedUpdateWithoutSemanaInput>
+    create: XOR<ApostilaImpressaoCreateWithoutSemanaInput, ApostilaImpressaoUncheckedCreateWithoutSemanaInput>
+  }
+
+  export type ApostilaImpressaoUpdateWithWhereUniqueWithoutSemanaInput = {
+    where: ApostilaImpressaoWhereUniqueInput
+    data: XOR<ApostilaImpressaoUpdateWithoutSemanaInput, ApostilaImpressaoUncheckedUpdateWithoutSemanaInput>
+  }
+
+  export type ApostilaImpressaoUpdateManyWithWhereWithoutSemanaInput = {
+    where: ApostilaImpressaoScalarWhereInput
+    data: XOR<ApostilaImpressaoUpdateManyMutationInput, ApostilaImpressaoUncheckedUpdateManyWithoutSemanaInput>
+  }
+
+  export type ApostilaImpressaoScalarWhereInput = {
+    AND?: ApostilaImpressaoScalarWhereInput | ApostilaImpressaoScalarWhereInput[]
+    OR?: ApostilaImpressaoScalarWhereInput[]
+    NOT?: ApostilaImpressaoScalarWhereInput | ApostilaImpressaoScalarWhereInput[]
+    id?: StringFilter<"ApostilaImpressao"> | string
+    semanaId?: StringFilter<"ApostilaImpressao"> | string
+    titulo?: StringFilter<"ApostilaImpressao"> | string
+    curso?: StringFilter<"ApostilaImpressao"> | string
+    dataEntrega?: DateTimeNullableFilter<"ApostilaImpressao"> | Date | string | null
+    pronta?: BoolFilter<"ApostilaImpressao"> | boolean
+    impressa?: BoolFilter<"ApostilaImpressao"> | boolean
+    qtdImpressa?: IntFilter<"ApostilaImpressao"> | number
+    qtdAlvo?: IntFilter<"ApostilaImpressao"> | number
+    createdAt?: DateTimeFilter<"ApostilaImpressao"> | Date | string
+    updatedAt?: DateTimeFilter<"ApostilaImpressao"> | Date | string
+  }
+
+  export type SemanaImpressaoCreateWithoutApostilasInput = {
+    id?: string
+    numero: number
+    dataAula?: Date | string | null
+    aulaRealizada?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutSemanasImpressaoInput
+  }
+
+  export type SemanaImpressaoUncheckedCreateWithoutApostilasInput = {
+    id?: string
+    semestreId: string
+    numero: number
+    dataAula?: Date | string | null
+    aulaRealizada?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SemanaImpressaoCreateOrConnectWithoutApostilasInput = {
+    where: SemanaImpressaoWhereUniqueInput
+    create: XOR<SemanaImpressaoCreateWithoutApostilasInput, SemanaImpressaoUncheckedCreateWithoutApostilasInput>
+  }
+
+  export type ResponsavelApostilaCreateWithoutApostilaInput = {
+    user: UserCreateNestedOneWithoutApostilasResponsavelInput
+  }
+
+  export type ResponsavelApostilaUncheckedCreateWithoutApostilaInput = {
+    userId: string
+  }
+
+  export type ResponsavelApostilaCreateOrConnectWithoutApostilaInput = {
+    where: ResponsavelApostilaWhereUniqueInput
+    create: XOR<ResponsavelApostilaCreateWithoutApostilaInput, ResponsavelApostilaUncheckedCreateWithoutApostilaInput>
+  }
+
+  export type ResponsavelApostilaCreateManyApostilaInputEnvelope = {
+    data: ResponsavelApostilaCreateManyApostilaInput | ResponsavelApostilaCreateManyApostilaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SemanaImpressaoUpsertWithoutApostilasInput = {
+    update: XOR<SemanaImpressaoUpdateWithoutApostilasInput, SemanaImpressaoUncheckedUpdateWithoutApostilasInput>
+    create: XOR<SemanaImpressaoCreateWithoutApostilasInput, SemanaImpressaoUncheckedCreateWithoutApostilasInput>
+    where?: SemanaImpressaoWhereInput
+  }
+
+  export type SemanaImpressaoUpdateToOneWithWhereWithoutApostilasInput = {
+    where?: SemanaImpressaoWhereInput
+    data: XOR<SemanaImpressaoUpdateWithoutApostilasInput, SemanaImpressaoUncheckedUpdateWithoutApostilasInput>
+  }
+
+  export type SemanaImpressaoUpdateWithoutApostilasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    dataAula?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aulaRealizada?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutSemanasImpressaoNestedInput
+  }
+
+  export type SemanaImpressaoUncheckedUpdateWithoutApostilasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    dataAula?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aulaRealizada?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResponsavelApostilaUpsertWithWhereUniqueWithoutApostilaInput = {
+    where: ResponsavelApostilaWhereUniqueInput
+    update: XOR<ResponsavelApostilaUpdateWithoutApostilaInput, ResponsavelApostilaUncheckedUpdateWithoutApostilaInput>
+    create: XOR<ResponsavelApostilaCreateWithoutApostilaInput, ResponsavelApostilaUncheckedCreateWithoutApostilaInput>
+  }
+
+  export type ResponsavelApostilaUpdateWithWhereUniqueWithoutApostilaInput = {
+    where: ResponsavelApostilaWhereUniqueInput
+    data: XOR<ResponsavelApostilaUpdateWithoutApostilaInput, ResponsavelApostilaUncheckedUpdateWithoutApostilaInput>
+  }
+
+  export type ResponsavelApostilaUpdateManyWithWhereWithoutApostilaInput = {
+    where: ResponsavelApostilaScalarWhereInput
+    data: XOR<ResponsavelApostilaUpdateManyMutationInput, ResponsavelApostilaUncheckedUpdateManyWithoutApostilaInput>
+  }
+
+  export type ApostilaImpressaoCreateWithoutResponsaveisInput = {
+    id?: string
+    titulo: string
+    curso: string
+    dataEntrega?: Date | string | null
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: number
+    qtdAlvo?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semana: SemanaImpressaoCreateNestedOneWithoutApostilasInput
+  }
+
+  export type ApostilaImpressaoUncheckedCreateWithoutResponsaveisInput = {
+    id?: string
+    semanaId: string
+    titulo: string
+    curso: string
+    dataEntrega?: Date | string | null
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: number
+    qtdAlvo?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApostilaImpressaoCreateOrConnectWithoutResponsaveisInput = {
+    where: ApostilaImpressaoWhereUniqueInput
+    create: XOR<ApostilaImpressaoCreateWithoutResponsaveisInput, ApostilaImpressaoUncheckedCreateWithoutResponsaveisInput>
+  }
+
+  export type UserCreateWithoutApostilasResponsavelInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
+    avisos?: AvisoCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
+    presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutApostilasResponsavelInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
+    avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
+    presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutApostilasResponsavelInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutApostilasResponsavelInput, UserUncheckedCreateWithoutApostilasResponsavelInput>
+  }
+
+  export type ApostilaImpressaoUpsertWithoutResponsaveisInput = {
+    update: XOR<ApostilaImpressaoUpdateWithoutResponsaveisInput, ApostilaImpressaoUncheckedUpdateWithoutResponsaveisInput>
+    create: XOR<ApostilaImpressaoCreateWithoutResponsaveisInput, ApostilaImpressaoUncheckedCreateWithoutResponsaveisInput>
+    where?: ApostilaImpressaoWhereInput
+  }
+
+  export type ApostilaImpressaoUpdateToOneWithWhereWithoutResponsaveisInput = {
+    where?: ApostilaImpressaoWhereInput
+    data: XOR<ApostilaImpressaoUpdateWithoutResponsaveisInput, ApostilaImpressaoUncheckedUpdateWithoutResponsaveisInput>
+  }
+
+  export type ApostilaImpressaoUpdateWithoutResponsaveisInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pronta?: BoolFieldUpdateOperationsInput | boolean
+    impressa?: BoolFieldUpdateOperationsInput | boolean
+    qtdImpressa?: IntFieldUpdateOperationsInput | number
+    qtdAlvo?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semana?: SemanaImpressaoUpdateOneRequiredWithoutApostilasNestedInput
+  }
+
+  export type ApostilaImpressaoUncheckedUpdateWithoutResponsaveisInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semanaId?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pronta?: BoolFieldUpdateOperationsInput | boolean
+    impressa?: BoolFieldUpdateOperationsInput | boolean
+    qtdImpressa?: IntFieldUpdateOperationsInput | number
+    qtdAlvo?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutApostilasResponsavelInput = {
+    update: XOR<UserUpdateWithoutApostilasResponsavelInput, UserUncheckedUpdateWithoutApostilasResponsavelInput>
+    create: XOR<UserCreateWithoutApostilasResponsavelInput, UserUncheckedCreateWithoutApostilasResponsavelInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutApostilasResponsavelInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutApostilasResponsavelInput, UserUncheckedUpdateWithoutApostilasResponsavelInput>
+  }
+
+  export type UserUpdateWithoutApostilasResponsavelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
+    presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutApostilasResponsavelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
+    presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SemestreCreateWithoutMateriaisAtualizacaoInput = {
+    id?: string
+    codigo: string
+    ativo?: boolean
+    createdAt?: Date | string
+    turmas?: TurmaCreateNestedManyWithoutSemestreInput
+    alunos?: AlunoCreateNestedManyWithoutSemestreInput
+    candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutMateriaisAtualizacaoInput = {
+    id?: string
+    codigo: string
+    ativo?: boolean
+    createdAt?: Date | string
+    turmas?: TurmaUncheckedCreateNestedManyWithoutSemestreInput
+    alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
+    candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutMateriaisAtualizacaoInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutMateriaisAtualizacaoInput, SemestreUncheckedCreateWithoutMateriaisAtualizacaoInput>
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput = {
+    user: UserCreateNestedOneWithoutMateriaisAtualizacaoResponsavelInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput = {
+    userId: string
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateOrConnectWithoutMaterialInput = {
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    create: XOR<ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput>
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateManyMaterialInputEnvelope = {
+    data: ResponsavelMaterialAtualizacaoCreateManyMaterialInput | ResponsavelMaterialAtualizacaoCreateManyMaterialInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SemestreUpsertWithoutMateriaisAtualizacaoInput = {
+    update: XOR<SemestreUpdateWithoutMateriaisAtualizacaoInput, SemestreUncheckedUpdateWithoutMateriaisAtualizacaoInput>
+    create: XOR<SemestreCreateWithoutMateriaisAtualizacaoInput, SemestreUncheckedCreateWithoutMateriaisAtualizacaoInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutMateriaisAtualizacaoInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutMateriaisAtualizacaoInput, SemestreUncheckedUpdateWithoutMateriaisAtualizacaoInput>
+  }
+
+  export type SemestreUpdateWithoutMateriaisAtualizacaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turmas?: TurmaUpdateManyWithoutSemestreNestedInput
+    alunos?: AlunoUpdateManyWithoutSemestreNestedInput
+    candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutMateriaisAtualizacaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turmas?: TurmaUncheckedUpdateManyWithoutSemestreNestedInput
+    alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
+    candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutMaterialInput = {
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    update: XOR<ResponsavelMaterialAtualizacaoUpdateWithoutMaterialInput, ResponsavelMaterialAtualizacaoUncheckedUpdateWithoutMaterialInput>
+    create: XOR<ResponsavelMaterialAtualizacaoCreateWithoutMaterialInput, ResponsavelMaterialAtualizacaoUncheckedCreateWithoutMaterialInput>
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpdateWithWhereUniqueWithoutMaterialInput = {
+    where: ResponsavelMaterialAtualizacaoWhereUniqueInput
+    data: XOR<ResponsavelMaterialAtualizacaoUpdateWithoutMaterialInput, ResponsavelMaterialAtualizacaoUncheckedUpdateWithoutMaterialInput>
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpdateManyWithWhereWithoutMaterialInput = {
+    where: ResponsavelMaterialAtualizacaoScalarWhereInput
+    data: XOR<ResponsavelMaterialAtualizacaoUpdateManyMutationInput, ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutMaterialInput>
+  }
+
+  export type MaterialAtualizacaoCreateWithoutResponsaveisInput = {
+    id?: string
+    curso: string
+    titulo: string
+    dataEntrega?: Date | string | null
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutMateriaisAtualizacaoInput
+  }
+
+  export type MaterialAtualizacaoUncheckedCreateWithoutResponsaveisInput = {
+    id?: string
+    semestreId: string
+    curso: string
+    titulo: string
+    dataEntrega?: Date | string | null
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaterialAtualizacaoCreateOrConnectWithoutResponsaveisInput = {
+    where: MaterialAtualizacaoWhereUniqueInput
+    create: XOR<MaterialAtualizacaoCreateWithoutResponsaveisInput, MaterialAtualizacaoUncheckedCreateWithoutResponsaveisInput>
+  }
+
+  export type UserCreateWithoutMateriaisAtualizacaoResponsavelInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
+    avisos?: AvisoCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
+    presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMateriaisAtualizacaoResponsavelInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
+    avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
+    presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMateriaisAtualizacaoResponsavelInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMateriaisAtualizacaoResponsavelInput, UserUncheckedCreateWithoutMateriaisAtualizacaoResponsavelInput>
+  }
+
+  export type MaterialAtualizacaoUpsertWithoutResponsaveisInput = {
+    update: XOR<MaterialAtualizacaoUpdateWithoutResponsaveisInput, MaterialAtualizacaoUncheckedUpdateWithoutResponsaveisInput>
+    create: XOR<MaterialAtualizacaoCreateWithoutResponsaveisInput, MaterialAtualizacaoUncheckedCreateWithoutResponsaveisInput>
+    where?: MaterialAtualizacaoWhereInput
+  }
+
+  export type MaterialAtualizacaoUpdateToOneWithWhereWithoutResponsaveisInput = {
+    where?: MaterialAtualizacaoWhereInput
+    data: XOR<MaterialAtualizacaoUpdateWithoutResponsaveisInput, MaterialAtualizacaoUncheckedUpdateWithoutResponsaveisInput>
+  }
+
+  export type MaterialAtualizacaoUpdateWithoutResponsaveisInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revisado?: BoolFieldUpdateOperationsInput | boolean
+    precisaAjuste?: BoolFieldUpdateOperationsInput | boolean
+    ajustado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutMateriaisAtualizacaoNestedInput
+  }
+
+  export type MaterialAtualizacaoUncheckedUpdateWithoutResponsaveisInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revisado?: BoolFieldUpdateOperationsInput | boolean
+    precisaAjuste?: BoolFieldUpdateOperationsInput | boolean
+    ajustado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutMateriaisAtualizacaoResponsavelInput = {
+    update: XOR<UserUpdateWithoutMateriaisAtualizacaoResponsavelInput, UserUncheckedUpdateWithoutMateriaisAtualizacaoResponsavelInput>
+    create: XOR<UserCreateWithoutMateriaisAtualizacaoResponsavelInput, UserUncheckedCreateWithoutMateriaisAtualizacaoResponsavelInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMateriaisAtualizacaoResponsavelInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMateriaisAtualizacaoResponsavelInput, UserUncheckedUpdateWithoutMateriaisAtualizacaoResponsavelInput>
+  }
+
+  export type UserUpdateWithoutMateriaisAtualizacaoResponsavelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
+    presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMateriaisAtualizacaoResponsavelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
+    presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type SemestreCreateWithoutTurmasInput = {
     id?: string
     codigo: string
@@ -41273,6 +49871,8 @@ export namespace Prisma {
     alunos?: AlunoCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutTurmasInput = {
@@ -41283,6 +49883,8 @@ export namespace Prisma {
     alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutTurmasInput = {
@@ -41495,6 +50097,8 @@ export namespace Prisma {
     alunos?: AlunoUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutTurmasInput = {
@@ -41505,6 +50109,8 @@ export namespace Prisma {
     alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ProfessorTurmaUpsertWithWhereUniqueWithoutTurmaInput = {
@@ -41698,6 +50304,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTurmasProfessorInput = {
@@ -41723,6 +50331,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTurmasProfessorInput = {
@@ -41813,6 +50423,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTurmasProfessorInput = {
@@ -41838,6 +50450,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TurmaUpsertWithoutProfessoresInput = {
@@ -41918,6 +50532,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTurmasMonitorInput = {
@@ -41943,6 +50559,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTurmasMonitorInput = {
@@ -42033,6 +50651,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTurmasMonitorInput = {
@@ -42058,6 +50678,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TurmaUpsertWithoutMonitoresInput = {
@@ -42387,6 +51009,8 @@ export namespace Prisma {
     turmas?: TurmaCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAlunosInput = {
@@ -42397,6 +51021,8 @@ export namespace Prisma {
     turmas?: TurmaUncheckedCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAlunosInput = {
@@ -42622,6 +51248,8 @@ export namespace Prisma {
     turmas?: TurmaUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAlunosInput = {
@@ -42632,6 +51260,8 @@ export namespace Prisma {
     turmas?: TurmaUncheckedUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type AlunoUpsertWithoutContinuidadesInput = {
@@ -42798,6 +51428,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVinculosSemestreInput = {
@@ -42823,6 +51455,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVinculosSemestreInput = {
@@ -42838,6 +51472,8 @@ export namespace Prisma {
     turmas?: TurmaCreateNestedManyWithoutSemestreInput
     alunos?: AlunoCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutVinculosEquipeInput = {
@@ -42848,6 +51484,8 @@ export namespace Prisma {
     turmas?: TurmaUncheckedCreateNestedManyWithoutSemestreInput
     alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
     candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutVinculosEquipeInput = {
@@ -42889,6 +51527,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVinculosSemestreInput = {
@@ -42914,6 +51554,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SemestreUpsertWithoutVinculosEquipeInput = {
@@ -42935,6 +51577,8 @@ export namespace Prisma {
     turmas?: TurmaUpdateManyWithoutSemestreNestedInput
     alunos?: AlunoUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutVinculosEquipeInput = {
@@ -42945,6 +51589,8 @@ export namespace Prisma {
     turmas?: TurmaUncheckedUpdateManyWithoutSemestreNestedInput
     alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
     candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type TurmaCreateWithoutMateriaisInput = {
@@ -43227,6 +51873,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAvisosInput = {
@@ -43252,6 +51900,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAvisosInput = {
@@ -43348,6 +51998,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAvisosInput = {
@@ -43373,6 +52025,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TurmaCreateWithoutAnotacoesInput = {
@@ -43447,6 +52101,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAnotacoesInput = {
@@ -43472,6 +52128,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAnotacoesInput = {
@@ -43568,6 +52226,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAnotacoesInput = {
@@ -43593,6 +52253,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TurmaCreateWithoutPresencasInput = {
@@ -44065,6 +52727,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPresencasMonitorInput = {
@@ -44090,6 +52754,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPresencasMonitorInput = {
@@ -44158,6 +52824,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPresencasMonitorInput = {
@@ -44183,6 +52851,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RegistroPresencaCreateWithoutProfessoresInput = {
@@ -44229,6 +52899,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPresencasProfessorInput = {
@@ -44254,6 +52926,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPresencasProfessorInput = {
@@ -44322,6 +52996,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPresencasProfessorInput = {
@@ -44347,6 +53023,8 @@ export namespace Prisma {
     redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SemestreCreateWithoutCandidatosInput = {
@@ -44357,6 +53035,8 @@ export namespace Prisma {
     turmas?: TurmaCreateNestedManyWithoutSemestreInput
     alunos?: AlunoCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCandidatosInput = {
@@ -44367,6 +53047,8 @@ export namespace Prisma {
     turmas?: TurmaUncheckedCreateNestedManyWithoutSemestreInput
     alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCandidatosInput = {
@@ -44393,6 +53075,8 @@ export namespace Prisma {
     turmas?: TurmaUpdateManyWithoutSemestreNestedInput
     alunos?: AlunoUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCandidatosInput = {
@@ -44403,6 +53087,8 @@ export namespace Prisma {
     turmas?: TurmaUncheckedUpdateManyWithoutSemestreNestedInput
     alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type PerguntaCreateWithoutFormularioInput = {
@@ -44484,6 +53170,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFormulariosCriadosInput = {
@@ -44509,6 +53197,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFormulariosCriadosInput = {
@@ -44607,6 +53297,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFormulariosCriadosInput = {
@@ -44632,6 +53324,8 @@ export namespace Prisma {
     redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FormularioCreateWithoutRespostasInput = {
@@ -44998,6 +53692,14 @@ export namespace Prisma {
     estado: $Enums.EstadoPresenca
   }
 
+  export type ResponsavelApostilaCreateManyUserInput = {
+    apostilaId: string
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateManyUserInput = {
+    materialId: string
+  }
+
   export type AccountUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
@@ -45290,6 +53992,30 @@ export namespace Prisma {
     estado?: EnumEstadoPresencaFieldUpdateOperationsInput | $Enums.EstadoPresenca
   }
 
+  export type ResponsavelApostilaUpdateWithoutUserInput = {
+    apostila?: ApostilaImpressaoUpdateOneRequiredWithoutResponsaveisNestedInput
+  }
+
+  export type ResponsavelApostilaUncheckedUpdateWithoutUserInput = {
+    apostilaId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ResponsavelApostilaUncheckedUpdateManyWithoutUserInput = {
+    apostilaId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpdateWithoutUserInput = {
+    material?: MaterialAtualizacaoUpdateOneRequiredWithoutResponsaveisNestedInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedUpdateWithoutUserInput = {
+    materialId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserInput = {
+    materialId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type TurmaCreateManySemestreInput = {
     id?: string
     titulo: string
@@ -45351,6 +54077,27 @@ export namespace Prisma {
 
   export type VinculoEquipeSemestreCreateManySemestreInput = {
     userId: string
+  }
+
+  export type SemanaImpressaoCreateManySemestreInput = {
+    id?: string
+    numero: number
+    dataAula?: Date | string | null
+    aulaRealizada?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaterialAtualizacaoCreateManySemestreInput = {
+    id?: string
+    curso: string
+    titulo: string
+    dataEntrega?: Date | string | null
+    revisado?: boolean
+    precisaAjuste?: boolean
+    ajustado?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type TurmaUpdateWithoutSemestreInput = {
@@ -45561,6 +54308,159 @@ export namespace Prisma {
   }
 
   export type VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SemanaImpressaoUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    dataAula?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aulaRealizada?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    apostilas?: ApostilaImpressaoUpdateManyWithoutSemanaNestedInput
+  }
+
+  export type SemanaImpressaoUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    dataAula?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aulaRealizada?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    apostilas?: ApostilaImpressaoUncheckedUpdateManyWithoutSemanaNestedInput
+  }
+
+  export type SemanaImpressaoUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    dataAula?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aulaRealizada?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaterialAtualizacaoUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revisado?: BoolFieldUpdateOperationsInput | boolean
+    precisaAjuste?: BoolFieldUpdateOperationsInput | boolean
+    ajustado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    responsaveis?: ResponsavelMaterialAtualizacaoUpdateManyWithoutMaterialNestedInput
+  }
+
+  export type MaterialAtualizacaoUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revisado?: BoolFieldUpdateOperationsInput | boolean
+    precisaAjuste?: BoolFieldUpdateOperationsInput | boolean
+    ajustado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    responsaveis?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutMaterialNestedInput
+  }
+
+  export type MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revisado?: BoolFieldUpdateOperationsInput | boolean
+    precisaAjuste?: BoolFieldUpdateOperationsInput | boolean
+    ajustado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApostilaImpressaoCreateManySemanaInput = {
+    id?: string
+    titulo: string
+    curso: string
+    dataEntrega?: Date | string | null
+    pronta?: boolean
+    impressa?: boolean
+    qtdImpressa?: number
+    qtdAlvo?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApostilaImpressaoUpdateWithoutSemanaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pronta?: BoolFieldUpdateOperationsInput | boolean
+    impressa?: BoolFieldUpdateOperationsInput | boolean
+    qtdImpressa?: IntFieldUpdateOperationsInput | number
+    qtdAlvo?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    responsaveis?: ResponsavelApostilaUpdateManyWithoutApostilaNestedInput
+  }
+
+  export type ApostilaImpressaoUncheckedUpdateWithoutSemanaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pronta?: BoolFieldUpdateOperationsInput | boolean
+    impressa?: BoolFieldUpdateOperationsInput | boolean
+    qtdImpressa?: IntFieldUpdateOperationsInput | number
+    qtdAlvo?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    responsaveis?: ResponsavelApostilaUncheckedUpdateManyWithoutApostilaNestedInput
+  }
+
+  export type ApostilaImpressaoUncheckedUpdateManyWithoutSemanaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    curso?: StringFieldUpdateOperationsInput | string
+    dataEntrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pronta?: BoolFieldUpdateOperationsInput | boolean
+    impressa?: BoolFieldUpdateOperationsInput | boolean
+    qtdImpressa?: IntFieldUpdateOperationsInput | number
+    qtdAlvo?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResponsavelApostilaCreateManyApostilaInput = {
+    userId: string
+  }
+
+  export type ResponsavelApostilaUpdateWithoutApostilaInput = {
+    user?: UserUpdateOneRequiredWithoutApostilasResponsavelNestedInput
+  }
+
+  export type ResponsavelApostilaUncheckedUpdateWithoutApostilaInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ResponsavelApostilaUncheckedUpdateManyWithoutApostilaInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ResponsavelMaterialAtualizacaoCreateManyMaterialInput = {
+    userId: string
+  }
+
+  export type ResponsavelMaterialAtualizacaoUpdateWithoutMaterialInput = {
+    user?: UserUpdateOneRequiredWithoutMateriaisAtualizacaoResponsavelNestedInput
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedUpdateWithoutMaterialInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutMaterialInput = {
     userId?: StringFieldUpdateOperationsInput | string
   }
 
