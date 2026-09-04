@@ -75,6 +75,7 @@ interface Aviso {
 	quando: string;
 	podeExcluir: boolean;
 	podeFixar: boolean;
+	podeEditar: boolean;
 }
 
 interface Anotacao {
@@ -894,6 +895,7 @@ function InicioView({
 	const [novoAviso, setNovoAviso] = useState("");
 	const [imagemAviso, setImagemAviso] = useState<string | null>(null);
 	const [linkAviso, setLinkAviso] = useState("");
+	const [editandoAviso, setEditandoAviso] = useState<Aviso | null>(null);
 	const [erro, setErro] = useState<string | null>(null);
 	const utils = api.useUtils();
 	const criarAviso = api.turma.avisos.create.useMutation({
@@ -911,6 +913,13 @@ function InicioView({
 		onSuccess: () => void utils.turma.detalhe.invalidate({ id: turmaId }),
 		onError: (causa) => setErro(causa.message),
 	});
+	const atualizarAviso = api.turma.avisos.update.useMutation({
+		onSuccess: () => {
+			setNovoAviso(""); setImagemAviso(null); setLinkAviso(""); setCriandoAviso(false); setEditandoAviso(null); setErro(null);
+			void utils.turma.detalhe.invalidate({ id: turmaId });
+		},
+		onError: (causa) => setErro(causa.message),
+	});
 	const removerAviso = api.turma.avisos.remove.useMutation({
 		onSuccess: () => void utils.turma.detalhe.invalidate({ id: turmaId }),
 		onError: (causa) => setErro(causa.message),
@@ -920,8 +929,11 @@ function InicioView({
 		const texto = novoAviso.trim();
 		if (!texto && !imagemAviso && !linkAviso.trim()) return;
 		setErro(null);
-		criarAviso.mutate({ turmaId, texto, imagemUrl: imagemAviso, linkUrl: linkAviso.trim() || null });
+		if (editandoAviso) atualizarAviso.mutate({ turmaId, id: editandoAviso.id, texto, imagemUrl: imagemAviso, linkUrl: linkAviso.trim() || null });
+		else criarAviso.mutate({ turmaId, texto, imagemUrl: imagemAviso, linkUrl: linkAviso.trim() || null });
 	};
+	const iniciarEdicao = (aviso: Aviso) => { setEditandoAviso(aviso); setNovoAviso(aviso.texto); setImagemAviso(aviso.imagemUrl); setLinkAviso(aviso.linkUrl ?? ""); setCriandoAviso(true); setErro(null); };
+	const cancelarEdicao = () => { setCriandoAviso(false); setEditandoAviso(null); setNovoAviso(""); setImagemAviso(null); setLinkAviso(""); };
 
 	const toggleFixar = (aviso: Aviso) => {
 		setErro(null);
@@ -982,7 +994,7 @@ function InicioView({
 				<div className="flex items-center justify-between mb-3">
 					<h3 className="text-sm font-semibold text-gray-700">Avisos</h3>
 					<button
-						onClick={() => setCriandoAviso((v) => !v)}
+						onClick={() => criandoAviso ? cancelarEdicao() : setCriandoAviso(true)}
 						className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
 					>
 						{criandoAviso ? (
@@ -1021,7 +1033,7 @@ function InicioView({
 								className="flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
 							>
 								<Check className="w-4 h-4" />
-								{criarAviso.isPending ? "Publicando..." : "Publicar"}
+								{criarAviso.isPending || atualizarAviso.isPending ? "Salvando..." : editandoAviso ? "Salvar alterações" : "Publicar"}
 							</button>
 						</div>
 					</div>
@@ -1050,6 +1062,7 @@ function InicioView({
 									</div>
 								</div>
 								<div className="flex items-center gap-1">
+									{aviso.podeEditar && <button onClick={() => iniciarEdicao(aviso)} className="p-1 rounded-full text-gray-300 opacity-0 group-hover:opacity-100 hover:text-sky-600 transition-colors" title="Editar aviso"><Pencil className="w-3.5 h-3.5" /></button>}
 									{aviso.podeFixar && <button
 										onClick={() => toggleFixar(aviso)}
 										disabled={fixarAviso.isPending}
@@ -1659,7 +1672,7 @@ export default function TurmaView() {
 		const dados = detalhe?.turma;
 		if (!dados) return;
 		setTurma({ nome: dados.titulo, sala: dados.sala ?? "Local a definir", horario: dados.horario ?? "Horário a definir", cor: dados.cor, corDestaque: dados.corDestaque, corFundo: dados.corFundo, corTexto: dados.corTexto, corTitulo: dados.corTitulo, corDescricao: dados.corDescricao, fonte: dados.fonte as DadosTurma['fonte'], professores: dados.professores.map((item) => item.user.nome), monitores: dados.monitores.map((item) => item.user.nome), alunos: dados.alunos.map((item) => item.aluno.nome) });
-		setAvisos(dados.avisos.map((item) => ({ id: item.id, autor: item.autor.nome, fixado: item.fixado, texto: item.texto, imagemUrl: item.imagemUrl, linkUrl: item.linkUrl, quando: item.createdAt.toLocaleDateString("pt-BR"), podeExcluir: detalhe.role !== "MONITOR" || item.autorId === detalhe.usuarioId, podeFixar: detalhe.role !== "MONITOR" })));
+		setAvisos(dados.avisos.map((item) => ({ id: item.id, autor: item.autor.nome, fixado: item.fixado, texto: item.texto, imagemUrl: item.imagemUrl, linkUrl: item.linkUrl, quando: item.createdAt.toLocaleDateString("pt-BR"), podeExcluir: detalhe.role !== "MONITOR" || item.autorId === detalhe.usuarioId, podeFixar: detalhe.role !== "MONITOR", podeEditar: detalhe.role === "PROFESSOR" })));
 		setMateriais(dados.materiais.map((item) => ({ id: item.id, nome: item.titulo, url: item.url, quando: item.createdAt.toLocaleDateString("pt-BR") })));
 		setAnotacoes((dados.anotacoes ?? []).map((item) => ({ id: item.id, titulo: item.titulo, conteudo: item.conteudo, data: item.createdAt.toLocaleDateString("pt-BR") })));
 		setEventos(dados.eventos.map((item) => ({ id: item.id, titulo: item.titulo, data: item.data.toISOString().slice(0, 10), tipo: item.tipo.toLowerCase() as TipoEvento })));

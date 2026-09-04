@@ -176,7 +176,7 @@ export default function EstatisticasQuestionario({
 		<main className="min-h-full px-3 py-6 sm:px-4 sm:py-8">
 			<div className="mx-auto max-w-4xl">
 				<Link
-					href="/nexus/diretoria/questionarios"
+					href="/nexus/questionarios"
 					className="text-sm font-bold text-sky-700"
 				>
 					← Questionários

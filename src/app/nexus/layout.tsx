@@ -2,17 +2,18 @@
 import type React from "react";
 import { usePathname } from "next/navigation";
 import Sidebar from "~/app/_components/sidebar";
+import { ForcePasswordChange } from "~/app/_components/force-password-change";
 
 export default function DashboardLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
 	const pathname = usePathname();
 
-	if (pathname === "/nexus/login") {
+	if (pathname === "/nexus/login" || pathname === "/nexus/redefinir-senha") {
 		return (
-				<main className="nexus-main flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
-					{children}
-				</main>
+			<main className="nexus-main flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
+				{children}
+			</main>
 		);
 	}
 
@@ -23,6 +24,7 @@ export default function DashboardLayout({
 				<main className="nexus-main flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
 					{children}
 				</main>
+				<ForcePasswordChange />
 			</div>
 		</div>
 	);

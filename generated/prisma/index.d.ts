@@ -34,6 +34,11 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model PasswordResetRequest
+ * 
+ */
+export type PasswordResetRequest = $Result.DefaultSelection<Prisma.$PasswordResetRequestPayload>
+/**
  * Model Semestre
  * 
  */
@@ -212,6 +217,14 @@ export const ModoRespostaFormulario: {
 
 export type ModoRespostaFormulario = (typeof ModoRespostaFormulario)[keyof typeof ModoRespostaFormulario]
 
+
+export const VisibilidadeFormulario: {
+  COMPARTILHADO: 'COMPARTILHADO',
+  DIRETORIA: 'DIRETORIA'
+};
+
+export type VisibilidadeFormulario = (typeof VisibilidadeFormulario)[keyof typeof VisibilidadeFormulario]
+
 }
 
 export type Role = $Enums.Role
@@ -245,6 +258,10 @@ export const StatusMatricula: typeof $Enums.StatusMatricula
 export type ModoRespostaFormulario = $Enums.ModoRespostaFormulario
 
 export const ModoRespostaFormulario: typeof $Enums.ModoRespostaFormulario
+
+export type VisibilidadeFormulario = $Enums.VisibilidadeFormulario
+
+export const VisibilidadeFormulario: typeof $Enums.VisibilidadeFormulario
 
 /**
  * ##  Prisma Client ʲˢ
@@ -403,6 +420,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.passwordResetRequest`: Exposes CRUD operations for the **PasswordResetRequest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PasswordResetRequests
+    * const passwordResetRequests = await prisma.passwordResetRequest.findMany()
+    * ```
+    */
+  get passwordResetRequest(): Prisma.PasswordResetRequestDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.semestre`: Exposes CRUD operations for the **Semestre** model.
@@ -1048,6 +1075,7 @@ export namespace Prisma {
     Session: 'Session',
     VerificationToken: 'VerificationToken',
     User: 'User',
+    PasswordResetRequest: 'PasswordResetRequest',
     Semestre: 'Semestre',
     Turma: 'Turma',
     ProfessorTurma: 'ProfessorTurma',
@@ -1086,7 +1114,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "semestre" | "turma" | "professorTurma" | "monitorTurma" | "alunoTurma" | "aluno" | "vinculoEquipeSemestre" | "material" | "eventoCalendario" | "aviso" | "anotacao" | "registroPresenca" | "presencaAluno" | "presencaMonitor" | "presencaProfessor" | "candidato" | "formulario" | "formularioResposta" | "pergunta" | "opcao"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "passwordResetRequest" | "semestre" | "turma" | "professorTurma" | "monitorTurma" | "alunoTurma" | "aluno" | "vinculoEquipeSemestre" | "material" | "eventoCalendario" | "aviso" | "anotacao" | "registroPresenca" | "presencaAluno" | "presencaMonitor" | "presencaProfessor" | "candidato" | "formulario" | "formularioResposta" | "pergunta" | "opcao"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1383,6 +1411,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      PasswordResetRequest: {
+        payload: Prisma.$PasswordResetRequestPayload<ExtArgs>
+        fields: Prisma.PasswordResetRequestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PasswordResetRequestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PasswordResetRequestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+          }
+          findFirst: {
+            args: Prisma.PasswordResetRequestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PasswordResetRequestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+          }
+          findMany: {
+            args: Prisma.PasswordResetRequestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>[]
+          }
+          create: {
+            args: Prisma.PasswordResetRequestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+          }
+          createMany: {
+            args: Prisma.PasswordResetRequestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PasswordResetRequestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>[]
+          }
+          delete: {
+            args: Prisma.PasswordResetRequestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+          }
+          update: {
+            args: Prisma.PasswordResetRequestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+          }
+          deleteMany: {
+            args: Prisma.PasswordResetRequestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PasswordResetRequestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PasswordResetRequestUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>[]
+          }
+          upsert: {
+            args: Prisma.PasswordResetRequestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+          }
+          aggregate: {
+            args: Prisma.PasswordResetRequestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePasswordResetRequest>
+          }
+          groupBy: {
+            args: Prisma.PasswordResetRequestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PasswordResetRequestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PasswordResetRequestCountArgs<ExtArgs>
+            result: $Utils.Optional<PasswordResetRequestCountAggregateOutputType> | number
           }
         }
       }
@@ -2966,6 +3068,7 @@ export namespace Prisma {
     session?: SessionOmit
     verificationToken?: VerificationTokenOmit
     user?: UserOmit
+    passwordResetRequest?: PasswordResetRequestOmit
     semestre?: SemestreOmit
     turma?: TurmaOmit
     professorTurma?: ProfessorTurmaOmit
@@ -3073,6 +3176,9 @@ export namespace Prisma {
     vinculosSemestre: number
     avisos: number
     anotacoes: number
+    formulariosCriados: number
+    redefinicoesSolicitadas: number
+    redefinicoesRecebidas: number
     presencasMonitor: number
     presencasProfessor: number
   }
@@ -3085,6 +3191,9 @@ export namespace Prisma {
     vinculosSemestre?: boolean | UserCountOutputTypeCountVinculosSemestreArgs
     avisos?: boolean | UserCountOutputTypeCountAvisosArgs
     anotacoes?: boolean | UserCountOutputTypeCountAnotacoesArgs
+    formulariosCriados?: boolean | UserCountOutputTypeCountFormulariosCriadosArgs
+    redefinicoesSolicitadas?: boolean | UserCountOutputTypeCountRedefinicoesSolicitadasArgs
+    redefinicoesRecebidas?: boolean | UserCountOutputTypeCountRedefinicoesRecebidasArgs
     presencasMonitor?: boolean | UserCountOutputTypeCountPresencasMonitorArgs
     presencasProfessor?: boolean | UserCountOutputTypeCountPresencasProfessorArgs
   }
@@ -3147,6 +3256,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAnotacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AnotacaoWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFormulariosCriadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FormularioWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRedefinicoesSolicitadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PasswordResetRequestWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRedefinicoesRecebidasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PasswordResetRequestWhereInput
   }
 
   /**
@@ -6718,6 +6848,7 @@ export namespace Prisma {
     nome: string | null
     email: string | null
     senha: string | null
+    senhaAlteradaEm: Date | null
     matricula: string | null
     role: $Enums.Role | null
     image: string | null
@@ -6731,6 +6862,7 @@ export namespace Prisma {
     nome: string | null
     email: string | null
     senha: string | null
+    senhaAlteradaEm: Date | null
     matricula: string | null
     role: $Enums.Role | null
     image: string | null
@@ -6744,6 +6876,7 @@ export namespace Prisma {
     nome: number
     email: number
     senha: number
+    senhaAlteradaEm: number
     matricula: number
     role: number
     image: number
@@ -6759,6 +6892,7 @@ export namespace Prisma {
     nome?: true
     email?: true
     senha?: true
+    senhaAlteradaEm?: true
     matricula?: true
     role?: true
     image?: true
@@ -6772,6 +6906,7 @@ export namespace Prisma {
     nome?: true
     email?: true
     senha?: true
+    senhaAlteradaEm?: true
     matricula?: true
     role?: true
     image?: true
@@ -6785,6 +6920,7 @@ export namespace Prisma {
     nome?: true
     email?: true
     senha?: true
+    senhaAlteradaEm?: true
     matricula?: true
     role?: true
     image?: true
@@ -6871,6 +7007,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm: Date | null
     matricula: string
     role: $Enums.Role
     image: string | null
@@ -6901,6 +7038,7 @@ export namespace Prisma {
     nome?: boolean
     email?: boolean
     senha?: boolean
+    senhaAlteradaEm?: boolean
     matricula?: boolean
     role?: boolean
     image?: boolean
@@ -6914,6 +7052,9 @@ export namespace Prisma {
     vinculosSemestre?: boolean | User$vinculosSemestreArgs<ExtArgs>
     avisos?: boolean | User$avisosArgs<ExtArgs>
     anotacoes?: boolean | User$anotacoesArgs<ExtArgs>
+    formulariosCriados?: boolean | User$formulariosCriadosArgs<ExtArgs>
+    redefinicoesSolicitadas?: boolean | User$redefinicoesSolicitadasArgs<ExtArgs>
+    redefinicoesRecebidas?: boolean | User$redefinicoesRecebidasArgs<ExtArgs>
     presencasMonitor?: boolean | User$presencasMonitorArgs<ExtArgs>
     presencasProfessor?: boolean | User$presencasProfessorArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -6924,6 +7065,7 @@ export namespace Prisma {
     nome?: boolean
     email?: boolean
     senha?: boolean
+    senhaAlteradaEm?: boolean
     matricula?: boolean
     role?: boolean
     image?: boolean
@@ -6937,6 +7079,7 @@ export namespace Prisma {
     nome?: boolean
     email?: boolean
     senha?: boolean
+    senhaAlteradaEm?: boolean
     matricula?: boolean
     role?: boolean
     image?: boolean
@@ -6950,6 +7093,7 @@ export namespace Prisma {
     nome?: boolean
     email?: boolean
     senha?: boolean
+    senhaAlteradaEm?: boolean
     matricula?: boolean
     role?: boolean
     image?: boolean
@@ -6958,7 +7102,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "email" | "senha" | "matricula" | "role" | "image" | "emailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "email" | "senha" | "senhaAlteradaEm" | "matricula" | "role" | "image" | "emailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -6967,6 +7111,9 @@ export namespace Prisma {
     vinculosSemestre?: boolean | User$vinculosSemestreArgs<ExtArgs>
     avisos?: boolean | User$avisosArgs<ExtArgs>
     anotacoes?: boolean | User$anotacoesArgs<ExtArgs>
+    formulariosCriados?: boolean | User$formulariosCriadosArgs<ExtArgs>
+    redefinicoesSolicitadas?: boolean | User$redefinicoesSolicitadasArgs<ExtArgs>
+    redefinicoesRecebidas?: boolean | User$redefinicoesRecebidasArgs<ExtArgs>
     presencasMonitor?: boolean | User$presencasMonitorArgs<ExtArgs>
     presencasProfessor?: boolean | User$presencasProfessorArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -6984,6 +7131,9 @@ export namespace Prisma {
       vinculosSemestre: Prisma.$VinculoEquipeSemestrePayload<ExtArgs>[]
       avisos: Prisma.$AvisoPayload<ExtArgs>[]
       anotacoes: Prisma.$AnotacaoPayload<ExtArgs>[]
+      formulariosCriados: Prisma.$FormularioPayload<ExtArgs>[]
+      redefinicoesSolicitadas: Prisma.$PasswordResetRequestPayload<ExtArgs>[]
+      redefinicoesRecebidas: Prisma.$PasswordResetRequestPayload<ExtArgs>[]
       presencasMonitor: Prisma.$PresencaMonitorPayload<ExtArgs>[]
       presencasProfessor: Prisma.$PresencaProfessorPayload<ExtArgs>[]
     }
@@ -6992,6 +7142,7 @@ export namespace Prisma {
       nome: string
       email: string
       senha: string
+      senhaAlteradaEm: Date | null
       matricula: string
       role: $Enums.Role
       image: string | null
@@ -7399,6 +7550,9 @@ export namespace Prisma {
     vinculosSemestre<T extends User$vinculosSemestreArgs<ExtArgs> = {}>(args?: Subset<T, User$vinculosSemestreArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     avisos<T extends User$avisosArgs<ExtArgs> = {}>(args?: Subset<T, User$avisosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvisoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     anotacoes<T extends User$anotacoesArgs<ExtArgs> = {}>(args?: Subset<T, User$anotacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnotacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    formulariosCriados<T extends User$formulariosCriadosArgs<ExtArgs> = {}>(args?: Subset<T, User$formulariosCriadosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormularioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    redefinicoesSolicitadas<T extends User$redefinicoesSolicitadasArgs<ExtArgs> = {}>(args?: Subset<T, User$redefinicoesSolicitadasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    redefinicoesRecebidas<T extends User$redefinicoesRecebidasArgs<ExtArgs> = {}>(args?: Subset<T, User$redefinicoesRecebidasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     presencasMonitor<T extends User$presencasMonitorArgs<ExtArgs> = {}>(args?: Subset<T, User$presencasMonitorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PresencaMonitorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     presencasProfessor<T extends User$presencasProfessorArgs<ExtArgs> = {}>(args?: Subset<T, User$presencasProfessorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PresencaProfessorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -7434,6 +7588,7 @@ export namespace Prisma {
     readonly nome: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly senha: FieldRef<"User", 'String'>
+    readonly senhaAlteradaEm: FieldRef<"User", 'DateTime'>
     readonly matricula: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly image: FieldRef<"User", 'String'>
@@ -7996,6 +8151,78 @@ export namespace Prisma {
   }
 
   /**
+   * User.formulariosCriados
+   */
+  export type User$formulariosCriadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formulario
+     */
+    select?: FormularioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formulario
+     */
+    omit?: FormularioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormularioInclude<ExtArgs> | null
+    where?: FormularioWhereInput
+    orderBy?: FormularioOrderByWithRelationInput | FormularioOrderByWithRelationInput[]
+    cursor?: FormularioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FormularioScalarFieldEnum | FormularioScalarFieldEnum[]
+  }
+
+  /**
+   * User.redefinicoesSolicitadas
+   */
+  export type User$redefinicoesSolicitadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    where?: PasswordResetRequestWhereInput
+    orderBy?: PasswordResetRequestOrderByWithRelationInput | PasswordResetRequestOrderByWithRelationInput[]
+    cursor?: PasswordResetRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PasswordResetRequestScalarFieldEnum | PasswordResetRequestScalarFieldEnum[]
+  }
+
+  /**
+   * User.redefinicoesRecebidas
+   */
+  export type User$redefinicoesRecebidasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    where?: PasswordResetRequestWhereInput
+    orderBy?: PasswordResetRequestOrderByWithRelationInput | PasswordResetRequestOrderByWithRelationInput[]
+    cursor?: PasswordResetRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PasswordResetRequestScalarFieldEnum | PasswordResetRequestScalarFieldEnum[]
+  }
+
+  /**
    * User.presencasMonitor
    */
   export type User$presencasMonitorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8059,6 +8286,1098 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PasswordResetRequest
+   */
+
+  export type AggregatePasswordResetRequest = {
+    _count: PasswordResetRequestCountAggregateOutputType | null
+    _min: PasswordResetRequestMinAggregateOutputType | null
+    _max: PasswordResetRequestMaxAggregateOutputType | null
+  }
+
+  export type PasswordResetRequestMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    requestedById: string | null
+    codigoHash: string | null
+    expiresAt: Date | null
+    usedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type PasswordResetRequestMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    requestedById: string | null
+    codigoHash: string | null
+    expiresAt: Date | null
+    usedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type PasswordResetRequestCountAggregateOutputType = {
+    id: number
+    userId: number
+    requestedById: number
+    codigoHash: number
+    expiresAt: number
+    usedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PasswordResetRequestMinAggregateInputType = {
+    id?: true
+    userId?: true
+    requestedById?: true
+    codigoHash?: true
+    expiresAt?: true
+    usedAt?: true
+    createdAt?: true
+  }
+
+  export type PasswordResetRequestMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    requestedById?: true
+    codigoHash?: true
+    expiresAt?: true
+    usedAt?: true
+    createdAt?: true
+  }
+
+  export type PasswordResetRequestCountAggregateInputType = {
+    id?: true
+    userId?: true
+    requestedById?: true
+    codigoHash?: true
+    expiresAt?: true
+    usedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PasswordResetRequestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PasswordResetRequest to aggregate.
+     */
+    where?: PasswordResetRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetRequests to fetch.
+     */
+    orderBy?: PasswordResetRequestOrderByWithRelationInput | PasswordResetRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PasswordResetRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PasswordResetRequests
+    **/
+    _count?: true | PasswordResetRequestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PasswordResetRequestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PasswordResetRequestMaxAggregateInputType
+  }
+
+  export type GetPasswordResetRequestAggregateType<T extends PasswordResetRequestAggregateArgs> = {
+        [P in keyof T & keyof AggregatePasswordResetRequest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePasswordResetRequest[P]>
+      : GetScalarType<T[P], AggregatePasswordResetRequest[P]>
+  }
+
+
+
+
+  export type PasswordResetRequestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PasswordResetRequestWhereInput
+    orderBy?: PasswordResetRequestOrderByWithAggregationInput | PasswordResetRequestOrderByWithAggregationInput[]
+    by: PasswordResetRequestScalarFieldEnum[] | PasswordResetRequestScalarFieldEnum
+    having?: PasswordResetRequestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PasswordResetRequestCountAggregateInputType | true
+    _min?: PasswordResetRequestMinAggregateInputType
+    _max?: PasswordResetRequestMaxAggregateInputType
+  }
+
+  export type PasswordResetRequestGroupByOutputType = {
+    id: string
+    userId: string
+    requestedById: string
+    codigoHash: string
+    expiresAt: Date
+    usedAt: Date | null
+    createdAt: Date
+    _count: PasswordResetRequestCountAggregateOutputType | null
+    _min: PasswordResetRequestMinAggregateOutputType | null
+    _max: PasswordResetRequestMaxAggregateOutputType | null
+  }
+
+  type GetPasswordResetRequestGroupByPayload<T extends PasswordResetRequestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PasswordResetRequestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PasswordResetRequestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PasswordResetRequestGroupByOutputType[P]>
+            : GetScalarType<T[P], PasswordResetRequestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PasswordResetRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    requestedById?: boolean
+    codigoHash?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    requestedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["passwordResetRequest"]>
+
+  export type PasswordResetRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    requestedById?: boolean
+    codigoHash?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    requestedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["passwordResetRequest"]>
+
+  export type PasswordResetRequestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    requestedById?: boolean
+    codigoHash?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    requestedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["passwordResetRequest"]>
+
+  export type PasswordResetRequestSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    requestedById?: boolean
+    codigoHash?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type PasswordResetRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "requestedById" | "codigoHash" | "expiresAt" | "usedAt" | "createdAt", ExtArgs["result"]["passwordResetRequest"]>
+  export type PasswordResetRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    requestedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PasswordResetRequestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    requestedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PasswordResetRequestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    requestedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PasswordResetRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PasswordResetRequest"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      requestedBy: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      requestedById: string
+      codigoHash: string
+      expiresAt: Date
+      usedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["passwordResetRequest"]>
+    composites: {}
+  }
+
+  type PasswordResetRequestGetPayload<S extends boolean | null | undefined | PasswordResetRequestDefaultArgs> = $Result.GetResult<Prisma.$PasswordResetRequestPayload, S>
+
+  type PasswordResetRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PasswordResetRequestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PasswordResetRequestCountAggregateInputType | true
+    }
+
+  export interface PasswordResetRequestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PasswordResetRequest'], meta: { name: 'PasswordResetRequest' } }
+    /**
+     * Find zero or one PasswordResetRequest that matches the filter.
+     * @param {PasswordResetRequestFindUniqueArgs} args - Arguments to find a PasswordResetRequest
+     * @example
+     * // Get one PasswordResetRequest
+     * const passwordResetRequest = await prisma.passwordResetRequest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PasswordResetRequestFindUniqueArgs>(args: SelectSubset<T, PasswordResetRequestFindUniqueArgs<ExtArgs>>): Prisma__PasswordResetRequestClient<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PasswordResetRequest that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PasswordResetRequestFindUniqueOrThrowArgs} args - Arguments to find a PasswordResetRequest
+     * @example
+     * // Get one PasswordResetRequest
+     * const passwordResetRequest = await prisma.passwordResetRequest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PasswordResetRequestFindUniqueOrThrowArgs>(args: SelectSubset<T, PasswordResetRequestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PasswordResetRequestClient<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PasswordResetRequest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetRequestFindFirstArgs} args - Arguments to find a PasswordResetRequest
+     * @example
+     * // Get one PasswordResetRequest
+     * const passwordResetRequest = await prisma.passwordResetRequest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PasswordResetRequestFindFirstArgs>(args?: SelectSubset<T, PasswordResetRequestFindFirstArgs<ExtArgs>>): Prisma__PasswordResetRequestClient<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PasswordResetRequest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetRequestFindFirstOrThrowArgs} args - Arguments to find a PasswordResetRequest
+     * @example
+     * // Get one PasswordResetRequest
+     * const passwordResetRequest = await prisma.passwordResetRequest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PasswordResetRequestFindFirstOrThrowArgs>(args?: SelectSubset<T, PasswordResetRequestFindFirstOrThrowArgs<ExtArgs>>): Prisma__PasswordResetRequestClient<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PasswordResetRequests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetRequestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PasswordResetRequests
+     * const passwordResetRequests = await prisma.passwordResetRequest.findMany()
+     * 
+     * // Get first 10 PasswordResetRequests
+     * const passwordResetRequests = await prisma.passwordResetRequest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const passwordResetRequestWithIdOnly = await prisma.passwordResetRequest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PasswordResetRequestFindManyArgs>(args?: SelectSubset<T, PasswordResetRequestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PasswordResetRequest.
+     * @param {PasswordResetRequestCreateArgs} args - Arguments to create a PasswordResetRequest.
+     * @example
+     * // Create one PasswordResetRequest
+     * const PasswordResetRequest = await prisma.passwordResetRequest.create({
+     *   data: {
+     *     // ... data to create a PasswordResetRequest
+     *   }
+     * })
+     * 
+     */
+    create<T extends PasswordResetRequestCreateArgs>(args: SelectSubset<T, PasswordResetRequestCreateArgs<ExtArgs>>): Prisma__PasswordResetRequestClient<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PasswordResetRequests.
+     * @param {PasswordResetRequestCreateManyArgs} args - Arguments to create many PasswordResetRequests.
+     * @example
+     * // Create many PasswordResetRequests
+     * const passwordResetRequest = await prisma.passwordResetRequest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PasswordResetRequestCreateManyArgs>(args?: SelectSubset<T, PasswordResetRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PasswordResetRequests and returns the data saved in the database.
+     * @param {PasswordResetRequestCreateManyAndReturnArgs} args - Arguments to create many PasswordResetRequests.
+     * @example
+     * // Create many PasswordResetRequests
+     * const passwordResetRequest = await prisma.passwordResetRequest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PasswordResetRequests and only return the `id`
+     * const passwordResetRequestWithIdOnly = await prisma.passwordResetRequest.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PasswordResetRequestCreateManyAndReturnArgs>(args?: SelectSubset<T, PasswordResetRequestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PasswordResetRequest.
+     * @param {PasswordResetRequestDeleteArgs} args - Arguments to delete one PasswordResetRequest.
+     * @example
+     * // Delete one PasswordResetRequest
+     * const PasswordResetRequest = await prisma.passwordResetRequest.delete({
+     *   where: {
+     *     // ... filter to delete one PasswordResetRequest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PasswordResetRequestDeleteArgs>(args: SelectSubset<T, PasswordResetRequestDeleteArgs<ExtArgs>>): Prisma__PasswordResetRequestClient<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PasswordResetRequest.
+     * @param {PasswordResetRequestUpdateArgs} args - Arguments to update one PasswordResetRequest.
+     * @example
+     * // Update one PasswordResetRequest
+     * const passwordResetRequest = await prisma.passwordResetRequest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PasswordResetRequestUpdateArgs>(args: SelectSubset<T, PasswordResetRequestUpdateArgs<ExtArgs>>): Prisma__PasswordResetRequestClient<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PasswordResetRequests.
+     * @param {PasswordResetRequestDeleteManyArgs} args - Arguments to filter PasswordResetRequests to delete.
+     * @example
+     * // Delete a few PasswordResetRequests
+     * const { count } = await prisma.passwordResetRequest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PasswordResetRequestDeleteManyArgs>(args?: SelectSubset<T, PasswordResetRequestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PasswordResetRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetRequestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PasswordResetRequests
+     * const passwordResetRequest = await prisma.passwordResetRequest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PasswordResetRequestUpdateManyArgs>(args: SelectSubset<T, PasswordResetRequestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PasswordResetRequests and returns the data updated in the database.
+     * @param {PasswordResetRequestUpdateManyAndReturnArgs} args - Arguments to update many PasswordResetRequests.
+     * @example
+     * // Update many PasswordResetRequests
+     * const passwordResetRequest = await prisma.passwordResetRequest.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PasswordResetRequests and only return the `id`
+     * const passwordResetRequestWithIdOnly = await prisma.passwordResetRequest.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PasswordResetRequestUpdateManyAndReturnArgs>(args: SelectSubset<T, PasswordResetRequestUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PasswordResetRequest.
+     * @param {PasswordResetRequestUpsertArgs} args - Arguments to update or create a PasswordResetRequest.
+     * @example
+     * // Update or create a PasswordResetRequest
+     * const passwordResetRequest = await prisma.passwordResetRequest.upsert({
+     *   create: {
+     *     // ... data to create a PasswordResetRequest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PasswordResetRequest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PasswordResetRequestUpsertArgs>(args: SelectSubset<T, PasswordResetRequestUpsertArgs<ExtArgs>>): Prisma__PasswordResetRequestClient<$Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PasswordResetRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetRequestCountArgs} args - Arguments to filter PasswordResetRequests to count.
+     * @example
+     * // Count the number of PasswordResetRequests
+     * const count = await prisma.passwordResetRequest.count({
+     *   where: {
+     *     // ... the filter for the PasswordResetRequests we want to count
+     *   }
+     * })
+    **/
+    count<T extends PasswordResetRequestCountArgs>(
+      args?: Subset<T, PasswordResetRequestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PasswordResetRequestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PasswordResetRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetRequestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PasswordResetRequestAggregateArgs>(args: Subset<T, PasswordResetRequestAggregateArgs>): Prisma.PrismaPromise<GetPasswordResetRequestAggregateType<T>>
+
+    /**
+     * Group by PasswordResetRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetRequestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PasswordResetRequestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PasswordResetRequestGroupByArgs['orderBy'] }
+        : { orderBy?: PasswordResetRequestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PasswordResetRequestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPasswordResetRequestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PasswordResetRequest model
+   */
+  readonly fields: PasswordResetRequestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PasswordResetRequest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PasswordResetRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    requestedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PasswordResetRequest model
+   */
+  interface PasswordResetRequestFieldRefs {
+    readonly id: FieldRef<"PasswordResetRequest", 'String'>
+    readonly userId: FieldRef<"PasswordResetRequest", 'String'>
+    readonly requestedById: FieldRef<"PasswordResetRequest", 'String'>
+    readonly codigoHash: FieldRef<"PasswordResetRequest", 'String'>
+    readonly expiresAt: FieldRef<"PasswordResetRequest", 'DateTime'>
+    readonly usedAt: FieldRef<"PasswordResetRequest", 'DateTime'>
+    readonly createdAt: FieldRef<"PasswordResetRequest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PasswordResetRequest findUnique
+   */
+  export type PasswordResetRequestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetRequest to fetch.
+     */
+    where: PasswordResetRequestWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetRequest findUniqueOrThrow
+   */
+  export type PasswordResetRequestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetRequest to fetch.
+     */
+    where: PasswordResetRequestWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetRequest findFirst
+   */
+  export type PasswordResetRequestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetRequest to fetch.
+     */
+    where?: PasswordResetRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetRequests to fetch.
+     */
+    orderBy?: PasswordResetRequestOrderByWithRelationInput | PasswordResetRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PasswordResetRequests.
+     */
+    cursor?: PasswordResetRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PasswordResetRequests.
+     */
+    distinct?: PasswordResetRequestScalarFieldEnum | PasswordResetRequestScalarFieldEnum[]
+  }
+
+  /**
+   * PasswordResetRequest findFirstOrThrow
+   */
+  export type PasswordResetRequestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetRequest to fetch.
+     */
+    where?: PasswordResetRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetRequests to fetch.
+     */
+    orderBy?: PasswordResetRequestOrderByWithRelationInput | PasswordResetRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PasswordResetRequests.
+     */
+    cursor?: PasswordResetRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PasswordResetRequests.
+     */
+    distinct?: PasswordResetRequestScalarFieldEnum | PasswordResetRequestScalarFieldEnum[]
+  }
+
+  /**
+   * PasswordResetRequest findMany
+   */
+  export type PasswordResetRequestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetRequests to fetch.
+     */
+    where?: PasswordResetRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetRequests to fetch.
+     */
+    orderBy?: PasswordResetRequestOrderByWithRelationInput | PasswordResetRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PasswordResetRequests.
+     */
+    cursor?: PasswordResetRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetRequests.
+     */
+    skip?: number
+    distinct?: PasswordResetRequestScalarFieldEnum | PasswordResetRequestScalarFieldEnum[]
+  }
+
+  /**
+   * PasswordResetRequest create
+   */
+  export type PasswordResetRequestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PasswordResetRequest.
+     */
+    data: XOR<PasswordResetRequestCreateInput, PasswordResetRequestUncheckedCreateInput>
+  }
+
+  /**
+   * PasswordResetRequest createMany
+   */
+  export type PasswordResetRequestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PasswordResetRequests.
+     */
+    data: PasswordResetRequestCreateManyInput | PasswordResetRequestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PasswordResetRequest createManyAndReturn
+   */
+  export type PasswordResetRequestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * The data used to create many PasswordResetRequests.
+     */
+    data: PasswordResetRequestCreateManyInput | PasswordResetRequestCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PasswordResetRequest update
+   */
+  export type PasswordResetRequestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PasswordResetRequest.
+     */
+    data: XOR<PasswordResetRequestUpdateInput, PasswordResetRequestUncheckedUpdateInput>
+    /**
+     * Choose, which PasswordResetRequest to update.
+     */
+    where: PasswordResetRequestWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetRequest updateMany
+   */
+  export type PasswordResetRequestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PasswordResetRequests.
+     */
+    data: XOR<PasswordResetRequestUpdateManyMutationInput, PasswordResetRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which PasswordResetRequests to update
+     */
+    where?: PasswordResetRequestWhereInput
+    /**
+     * Limit how many PasswordResetRequests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PasswordResetRequest updateManyAndReturn
+   */
+  export type PasswordResetRequestUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * The data used to update PasswordResetRequests.
+     */
+    data: XOR<PasswordResetRequestUpdateManyMutationInput, PasswordResetRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which PasswordResetRequests to update
+     */
+    where?: PasswordResetRequestWhereInput
+    /**
+     * Limit how many PasswordResetRequests to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PasswordResetRequest upsert
+   */
+  export type PasswordResetRequestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PasswordResetRequest to update in case it exists.
+     */
+    where: PasswordResetRequestWhereUniqueInput
+    /**
+     * In case the PasswordResetRequest found by the `where` argument doesn't exist, create a new PasswordResetRequest with this data.
+     */
+    create: XOR<PasswordResetRequestCreateInput, PasswordResetRequestUncheckedCreateInput>
+    /**
+     * In case the PasswordResetRequest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PasswordResetRequestUpdateInput, PasswordResetRequestUncheckedUpdateInput>
+  }
+
+  /**
+   * PasswordResetRequest delete
+   */
+  export type PasswordResetRequestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
+    /**
+     * Filter which PasswordResetRequest to delete.
+     */
+    where: PasswordResetRequestWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetRequest deleteMany
+   */
+  export type PasswordResetRequestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PasswordResetRequests to delete
+     */
+    where?: PasswordResetRequestWhereInput
+    /**
+     * Limit how many PasswordResetRequests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PasswordResetRequest without action
+   */
+  export type PasswordResetRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetRequest
+     */
+    select?: PasswordResetRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetRequest
+     */
+    omit?: PasswordResetRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetRequestInclude<ExtArgs> | null
   }
 
 
@@ -25926,6 +27245,8 @@ export namespace Prisma {
     publicado: boolean | null
     modoResposta: $Enums.ModoRespostaFormulario | null
     limitarPorNavegador: boolean | null
+    visibilidade: $Enums.VisibilidadeFormulario | null
+    autorId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -25938,6 +27259,8 @@ export namespace Prisma {
     publicado: boolean | null
     modoResposta: $Enums.ModoRespostaFormulario | null
     limitarPorNavegador: boolean | null
+    visibilidade: $Enums.VisibilidadeFormulario | null
+    autorId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -25952,6 +27275,8 @@ export namespace Prisma {
     modoResposta: number
     limitarPorNavegador: number
     configuracao: number
+    visibilidade: number
+    autorId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -25966,6 +27291,8 @@ export namespace Prisma {
     publicado?: true
     modoResposta?: true
     limitarPorNavegador?: true
+    visibilidade?: true
+    autorId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -25978,6 +27305,8 @@ export namespace Prisma {
     publicado?: true
     modoResposta?: true
     limitarPorNavegador?: true
+    visibilidade?: true
+    autorId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -25992,6 +27321,8 @@ export namespace Prisma {
     modoResposta?: true
     limitarPorNavegador?: true
     configuracao?: true
+    visibilidade?: true
+    autorId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -26079,6 +27410,8 @@ export namespace Prisma {
     modoResposta: $Enums.ModoRespostaFormulario
     limitarPorNavegador: boolean
     configuracao: JsonValue | null
+    visibilidade: $Enums.VisibilidadeFormulario
+    autorId: string | null
     createdAt: Date
     updatedAt: Date
     _count: FormularioCountAggregateOutputType | null
@@ -26110,10 +27443,13 @@ export namespace Prisma {
     modoResposta?: boolean
     limitarPorNavegador?: boolean
     configuracao?: boolean
+    visibilidade?: boolean
+    autorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     perguntas?: boolean | Formulario$perguntasArgs<ExtArgs>
     respostas?: boolean | Formulario$respostasArgs<ExtArgs>
+    autor?: boolean | Formulario$autorArgs<ExtArgs>
     _count?: boolean | FormularioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formulario"]>
 
@@ -26127,8 +27463,11 @@ export namespace Prisma {
     modoResposta?: boolean
     limitarPorNavegador?: boolean
     configuracao?: boolean
+    visibilidade?: boolean
+    autorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    autor?: boolean | Formulario$autorArgs<ExtArgs>
   }, ExtArgs["result"]["formulario"]>
 
   export type FormularioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -26141,8 +27480,11 @@ export namespace Prisma {
     modoResposta?: boolean
     limitarPorNavegador?: boolean
     configuracao?: boolean
+    visibilidade?: boolean
+    autorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    autor?: boolean | Formulario$autorArgs<ExtArgs>
   }, ExtArgs["result"]["formulario"]>
 
   export type FormularioSelectScalar = {
@@ -26155,24 +27497,32 @@ export namespace Prisma {
     modoResposta?: boolean
     limitarPorNavegador?: boolean
     configuracao?: boolean
+    visibilidade?: boolean
+    autorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FormularioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "descricao" | "slug" | "conteudo" | "publicado" | "modoResposta" | "limitarPorNavegador" | "configuracao" | "createdAt" | "updatedAt", ExtArgs["result"]["formulario"]>
+  export type FormularioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "descricao" | "slug" | "conteudo" | "publicado" | "modoResposta" | "limitarPorNavegador" | "configuracao" | "visibilidade" | "autorId" | "createdAt" | "updatedAt", ExtArgs["result"]["formulario"]>
   export type FormularioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     perguntas?: boolean | Formulario$perguntasArgs<ExtArgs>
     respostas?: boolean | Formulario$respostasArgs<ExtArgs>
+    autor?: boolean | Formulario$autorArgs<ExtArgs>
     _count?: boolean | FormularioCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type FormularioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type FormularioIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FormularioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    autor?: boolean | Formulario$autorArgs<ExtArgs>
+  }
+  export type FormularioIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    autor?: boolean | Formulario$autorArgs<ExtArgs>
+  }
 
   export type $FormularioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Formulario"
     objects: {
       perguntas: Prisma.$PerguntaPayload<ExtArgs>[]
       respostas: Prisma.$FormularioRespostaPayload<ExtArgs>[]
+      autor: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -26184,6 +27534,8 @@ export namespace Prisma {
       modoResposta: $Enums.ModoRespostaFormulario
       limitarPorNavegador: boolean
       configuracao: Prisma.JsonValue | null
+      visibilidade: $Enums.VisibilidadeFormulario
+      autorId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["formulario"]>
@@ -26582,6 +27934,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     perguntas<T extends Formulario$perguntasArgs<ExtArgs> = {}>(args?: Subset<T, Formulario$perguntasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerguntaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     respostas<T extends Formulario$respostasArgs<ExtArgs> = {}>(args?: Subset<T, Formulario$respostasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormularioRespostaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    autor<T extends Formulario$autorArgs<ExtArgs> = {}>(args?: Subset<T, Formulario$autorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -26620,6 +27973,8 @@ export namespace Prisma {
     readonly modoResposta: FieldRef<"Formulario", 'ModoRespostaFormulario'>
     readonly limitarPorNavegador: FieldRef<"Formulario", 'Boolean'>
     readonly configuracao: FieldRef<"Formulario", 'Json'>
+    readonly visibilidade: FieldRef<"Formulario", 'VisibilidadeFormulario'>
+    readonly autorId: FieldRef<"Formulario", 'String'>
     readonly createdAt: FieldRef<"Formulario", 'DateTime'>
     readonly updatedAt: FieldRef<"Formulario", 'DateTime'>
   }
@@ -26871,6 +28226,10 @@ export namespace Prisma {
      */
     data: FormularioCreateManyInput | FormularioCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormularioIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -26941,6 +28300,10 @@ export namespace Prisma {
      * Limit how many Formularios to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormularioIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -27055,6 +28418,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FormularioRespostaScalarFieldEnum | FormularioRespostaScalarFieldEnum[]
+  }
+
+  /**
+   * Formulario.autor
+   */
+  export type Formulario$autorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -30461,6 +31843,7 @@ export namespace Prisma {
     nome: 'nome',
     email: 'email',
     senha: 'senha',
+    senhaAlteradaEm: 'senhaAlteradaEm',
     matricula: 'matricula',
     role: 'role',
     image: 'image',
@@ -30470,6 +31853,19 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const PasswordResetRequestScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    requestedById: 'requestedById',
+    codigoHash: 'codigoHash',
+    expiresAt: 'expiresAt',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type PasswordResetRequestScalarFieldEnum = (typeof PasswordResetRequestScalarFieldEnum)[keyof typeof PasswordResetRequestScalarFieldEnum]
 
 
   export const SemestreScalarFieldEnum: {
@@ -30683,6 +32079,8 @@ export namespace Prisma {
     modoResposta: 'modoResposta',
     limitarPorNavegador: 'limitarPorNavegador',
     configuracao: 'configuracao',
+    visibilidade: 'visibilidade',
+    autorId: 'autorId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -30940,6 +32338,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'VisibilidadeFormulario'
+   */
+  export type EnumVisibilidadeFormularioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VisibilidadeFormulario'>
+    
+
+
+  /**
+   * Reference to a field of type 'VisibilidadeFormulario[]'
+   */
+  export type ListEnumVisibilidadeFormularioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VisibilidadeFormulario[]'>
+    
+
+
+  /**
    * Reference to a field of type 'TipoPergunta'
    */
   export type EnumTipoPerguntaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoPergunta'>
@@ -31169,6 +32581,7 @@ export namespace Prisma {
     nome?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     senha?: StringFilter<"User"> | string
+    senhaAlteradaEm?: DateTimeNullableFilter<"User"> | Date | string | null
     matricula?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     image?: StringNullableFilter<"User"> | string | null
@@ -31182,6 +32595,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreListRelationFilter
     avisos?: AvisoListRelationFilter
     anotacoes?: AnotacaoListRelationFilter
+    formulariosCriados?: FormularioListRelationFilter
+    redefinicoesSolicitadas?: PasswordResetRequestListRelationFilter
+    redefinicoesRecebidas?: PasswordResetRequestListRelationFilter
     presencasMonitor?: PresencaMonitorListRelationFilter
     presencasProfessor?: PresencaProfessorListRelationFilter
   }
@@ -31191,6 +32607,7 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    senhaAlteradaEm?: SortOrderInput | SortOrder
     matricula?: SortOrder
     role?: SortOrder
     image?: SortOrderInput | SortOrder
@@ -31204,6 +32621,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreOrderByRelationAggregateInput
     avisos?: AvisoOrderByRelationAggregateInput
     anotacoes?: AnotacaoOrderByRelationAggregateInput
+    formulariosCriados?: FormularioOrderByRelationAggregateInput
+    redefinicoesSolicitadas?: PasswordResetRequestOrderByRelationAggregateInput
+    redefinicoesRecebidas?: PasswordResetRequestOrderByRelationAggregateInput
     presencasMonitor?: PresencaMonitorOrderByRelationAggregateInput
     presencasProfessor?: PresencaProfessorOrderByRelationAggregateInput
   }
@@ -31217,6 +32637,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     nome?: StringFilter<"User"> | string
     senha?: StringFilter<"User"> | string
+    senhaAlteradaEm?: DateTimeNullableFilter<"User"> | Date | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     image?: StringNullableFilter<"User"> | string | null
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -31229,6 +32650,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreListRelationFilter
     avisos?: AvisoListRelationFilter
     anotacoes?: AnotacaoListRelationFilter
+    formulariosCriados?: FormularioListRelationFilter
+    redefinicoesSolicitadas?: PasswordResetRequestListRelationFilter
+    redefinicoesRecebidas?: PasswordResetRequestListRelationFilter
     presencasMonitor?: PresencaMonitorListRelationFilter
     presencasProfessor?: PresencaProfessorListRelationFilter
   }, "id" | "email" | "matricula">
@@ -31238,6 +32662,7 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    senhaAlteradaEm?: SortOrderInput | SortOrder
     matricula?: SortOrder
     role?: SortOrder
     image?: SortOrderInput | SortOrder
@@ -31257,12 +32682,81 @@ export namespace Prisma {
     nome?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     senha?: StringWithAggregatesFilter<"User"> | string
+    senhaAlteradaEm?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     matricula?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type PasswordResetRequestWhereInput = {
+    AND?: PasswordResetRequestWhereInput | PasswordResetRequestWhereInput[]
+    OR?: PasswordResetRequestWhereInput[]
+    NOT?: PasswordResetRequestWhereInput | PasswordResetRequestWhereInput[]
+    id?: StringFilter<"PasswordResetRequest"> | string
+    userId?: StringFilter<"PasswordResetRequest"> | string
+    requestedById?: StringFilter<"PasswordResetRequest"> | string
+    codigoHash?: StringFilter<"PasswordResetRequest"> | string
+    expiresAt?: DateTimeFilter<"PasswordResetRequest"> | Date | string
+    usedAt?: DateTimeNullableFilter<"PasswordResetRequest"> | Date | string | null
+    createdAt?: DateTimeFilter<"PasswordResetRequest"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    requestedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PasswordResetRequestOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    requestedById?: SortOrder
+    codigoHash?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    requestedBy?: UserOrderByWithRelationInput
+  }
+
+  export type PasswordResetRequestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PasswordResetRequestWhereInput | PasswordResetRequestWhereInput[]
+    OR?: PasswordResetRequestWhereInput[]
+    NOT?: PasswordResetRequestWhereInput | PasswordResetRequestWhereInput[]
+    userId?: StringFilter<"PasswordResetRequest"> | string
+    requestedById?: StringFilter<"PasswordResetRequest"> | string
+    codigoHash?: StringFilter<"PasswordResetRequest"> | string
+    expiresAt?: DateTimeFilter<"PasswordResetRequest"> | Date | string
+    usedAt?: DateTimeNullableFilter<"PasswordResetRequest"> | Date | string | null
+    createdAt?: DateTimeFilter<"PasswordResetRequest"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    requestedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type PasswordResetRequestOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    requestedById?: SortOrder
+    codigoHash?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: PasswordResetRequestCountOrderByAggregateInput
+    _max?: PasswordResetRequestMaxOrderByAggregateInput
+    _min?: PasswordResetRequestMinOrderByAggregateInput
+  }
+
+  export type PasswordResetRequestScalarWhereWithAggregatesInput = {
+    AND?: PasswordResetRequestScalarWhereWithAggregatesInput | PasswordResetRequestScalarWhereWithAggregatesInput[]
+    OR?: PasswordResetRequestScalarWhereWithAggregatesInput[]
+    NOT?: PasswordResetRequestScalarWhereWithAggregatesInput | PasswordResetRequestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PasswordResetRequest"> | string
+    userId?: StringWithAggregatesFilter<"PasswordResetRequest"> | string
+    requestedById?: StringWithAggregatesFilter<"PasswordResetRequest"> | string
+    codigoHash?: StringWithAggregatesFilter<"PasswordResetRequest"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"PasswordResetRequest"> | Date | string
+    usedAt?: DateTimeNullableWithAggregatesFilter<"PasswordResetRequest"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PasswordResetRequest"> | Date | string
   }
 
   export type SemestreWhereInput = {
@@ -32373,10 +33867,13 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioFilter<"Formulario"> | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolFilter<"Formulario"> | boolean
     configuracao?: JsonNullableFilter<"Formulario">
+    visibilidade?: EnumVisibilidadeFormularioFilter<"Formulario"> | $Enums.VisibilidadeFormulario
+    autorId?: StringNullableFilter<"Formulario"> | string | null
     createdAt?: DateTimeFilter<"Formulario"> | Date | string
     updatedAt?: DateTimeFilter<"Formulario"> | Date | string
     perguntas?: PerguntaListRelationFilter
     respostas?: FormularioRespostaListRelationFilter
+    autor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type FormularioOrderByWithRelationInput = {
@@ -32389,10 +33886,13 @@ export namespace Prisma {
     modoResposta?: SortOrder
     limitarPorNavegador?: SortOrder
     configuracao?: SortOrderInput | SortOrder
+    visibilidade?: SortOrder
+    autorId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     perguntas?: PerguntaOrderByRelationAggregateInput
     respostas?: FormularioRespostaOrderByRelationAggregateInput
+    autor?: UserOrderByWithRelationInput
   }
 
   export type FormularioWhereUniqueInput = Prisma.AtLeast<{
@@ -32408,10 +33908,13 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioFilter<"Formulario"> | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolFilter<"Formulario"> | boolean
     configuracao?: JsonNullableFilter<"Formulario">
+    visibilidade?: EnumVisibilidadeFormularioFilter<"Formulario"> | $Enums.VisibilidadeFormulario
+    autorId?: StringNullableFilter<"Formulario"> | string | null
     createdAt?: DateTimeFilter<"Formulario"> | Date | string
     updatedAt?: DateTimeFilter<"Formulario"> | Date | string
     perguntas?: PerguntaListRelationFilter
     respostas?: FormularioRespostaListRelationFilter
+    autor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "slug">
 
   export type FormularioOrderByWithAggregationInput = {
@@ -32424,6 +33927,8 @@ export namespace Prisma {
     modoResposta?: SortOrder
     limitarPorNavegador?: SortOrder
     configuracao?: SortOrderInput | SortOrder
+    visibilidade?: SortOrder
+    autorId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: FormularioCountOrderByAggregateInput
@@ -32444,6 +33949,8 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioWithAggregatesFilter<"Formulario"> | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolWithAggregatesFilter<"Formulario"> | boolean
     configuracao?: JsonNullableWithAggregatesFilter<"Formulario">
+    visibilidade?: EnumVisibilidadeFormularioWithAggregatesFilter<"Formulario"> | $Enums.VisibilidadeFormulario
+    autorId?: StringNullableWithAggregatesFilter<"Formulario"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Formulario"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Formulario"> | Date | string
   }
@@ -32839,6 +34346,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -32852,6 +34360,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
   }
@@ -32861,6 +34372,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -32874,6 +34386,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
   }
@@ -32883,6 +34398,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32896,6 +34412,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
   }
@@ -32905,6 +34424,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32918,6 +34438,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   }
@@ -32927,6 +34450,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -32940,6 +34464,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32953,12 +34478,81 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetRequestCreateInput = {
+    id?: string
+    codigoHash: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRedefinicoesRecebidasInput
+    requestedBy: UserCreateNestedOneWithoutRedefinicoesSolicitadasInput
+  }
+
+  export type PasswordResetRequestUncheckedCreateInput = {
+    id?: string
+    userId: string
+    requestedById: string
+    codigoHash: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type PasswordResetRequestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigoHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRedefinicoesRecebidasNestedInput
+    requestedBy?: UserUpdateOneRequiredWithoutRedefinicoesSolicitadasNestedInput
+  }
+
+  export type PasswordResetRequestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    requestedById?: StringFieldUpdateOperationsInput | string
+    codigoHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetRequestCreateManyInput = {
+    id?: string
+    userId: string
+    requestedById: string
+    codigoHash: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type PasswordResetRequestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigoHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetRequestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    requestedById?: StringFieldUpdateOperationsInput | string
+    codigoHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SemestreCreateInput = {
@@ -34093,10 +35687,12 @@ export namespace Prisma {
     modoResposta?: $Enums.ModoRespostaFormulario
     limitarPorNavegador?: boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: $Enums.VisibilidadeFormulario
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaCreateNestedManyWithoutFormularioInput
     respostas?: FormularioRespostaCreateNestedManyWithoutFormularioInput
+    autor?: UserCreateNestedOneWithoutFormulariosCriadosInput
   }
 
   export type FormularioUncheckedCreateInput = {
@@ -34109,6 +35705,8 @@ export namespace Prisma {
     modoResposta?: $Enums.ModoRespostaFormulario
     limitarPorNavegador?: boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: $Enums.VisibilidadeFormulario
+    autorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaUncheckedCreateNestedManyWithoutFormularioInput
@@ -34125,10 +35723,12 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUpdateManyWithoutFormularioNestedInput
     respostas?: FormularioRespostaUpdateManyWithoutFormularioNestedInput
+    autor?: UserUpdateOneWithoutFormulariosCriadosNestedInput
   }
 
   export type FormularioUncheckedUpdateInput = {
@@ -34141,6 +35741,8 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
+    autorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUncheckedUpdateManyWithoutFormularioNestedInput
@@ -34157,6 +35759,8 @@ export namespace Prisma {
     modoResposta?: $Enums.ModoRespostaFormulario
     limitarPorNavegador?: boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: $Enums.VisibilidadeFormulario
+    autorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -34171,6 +35775,7 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34185,6 +35790,8 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
+    autorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34607,13 +36214,6 @@ export namespace Prisma {
     expires?: SortOrder
   }
 
-  export type EnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -34623,6 +36223,13 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
   export type AccountListRelationFilter = {
@@ -34667,6 +36274,18 @@ export namespace Prisma {
     none?: AnotacaoWhereInput
   }
 
+  export type FormularioListRelationFilter = {
+    every?: FormularioWhereInput
+    some?: FormularioWhereInput
+    none?: FormularioWhereInput
+  }
+
+  export type PasswordResetRequestListRelationFilter = {
+    every?: PasswordResetRequestWhereInput
+    some?: PasswordResetRequestWhereInput
+    none?: PasswordResetRequestWhereInput
+  }
+
   export type PresencaMonitorListRelationFilter = {
     every?: PresencaMonitorWhereInput
     some?: PresencaMonitorWhereInput
@@ -34707,6 +36326,14 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type FormularioOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PasswordResetRequestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type PresencaMonitorOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -34720,6 +36347,7 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    senhaAlteradaEm?: SortOrder
     matricula?: SortOrder
     role?: SortOrder
     image?: SortOrder
@@ -34733,6 +36361,7 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    senhaAlteradaEm?: SortOrder
     matricula?: SortOrder
     role?: SortOrder
     image?: SortOrder
@@ -34746,22 +36375,13 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    senhaAlteradaEm?: SortOrder
     matricula?: SortOrder
     role?: SortOrder
     image?: SortOrder
     emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -34776,6 +36396,46 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type PasswordResetRequestCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    requestedById?: SortOrder
+    codigoHash?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PasswordResetRequestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    requestedById?: SortOrder
+    codigoHash?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PasswordResetRequestMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    requestedById?: SortOrder
+    codigoHash?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -35538,6 +37198,13 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type EnumVisibilidadeFormularioFilter<$PrismaModel = never> = {
+    equals?: $Enums.VisibilidadeFormulario | EnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    in?: $Enums.VisibilidadeFormulario[] | ListEnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VisibilidadeFormulario[] | ListEnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    not?: NestedEnumVisibilidadeFormularioFilter<$PrismaModel> | $Enums.VisibilidadeFormulario
+  }
+
   export type PerguntaListRelationFilter = {
     every?: PerguntaWhereInput
     some?: PerguntaWhereInput
@@ -35548,6 +37215,11 @@ export namespace Prisma {
     every?: FormularioRespostaWhereInput
     some?: FormularioRespostaWhereInput
     none?: FormularioRespostaWhereInput
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type PerguntaOrderByRelationAggregateInput = {
@@ -35568,6 +37240,8 @@ export namespace Prisma {
     modoResposta?: SortOrder
     limitarPorNavegador?: SortOrder
     configuracao?: SortOrder
+    visibilidade?: SortOrder
+    autorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -35580,6 +37254,8 @@ export namespace Prisma {
     publicado?: SortOrder
     modoResposta?: SortOrder
     limitarPorNavegador?: SortOrder
+    visibilidade?: SortOrder
+    autorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -35592,6 +37268,8 @@ export namespace Prisma {
     publicado?: SortOrder
     modoResposta?: SortOrder
     limitarPorNavegador?: SortOrder
+    visibilidade?: SortOrder
+    autorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -35656,6 +37334,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type EnumVisibilidadeFormularioWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VisibilidadeFormulario | EnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    in?: $Enums.VisibilidadeFormulario[] | ListEnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VisibilidadeFormulario[] | ListEnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    not?: NestedEnumVisibilidadeFormularioWithAggregatesFilter<$PrismaModel> | $Enums.VisibilidadeFormulario
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVisibilidadeFormularioFilter<$PrismaModel>
+    _max?: NestedEnumVisibilidadeFormularioFilter<$PrismaModel>
   }
 
   export type FormularioScalarRelationFilter = {
@@ -35924,6 +37612,27 @@ export namespace Prisma {
     connect?: AnotacaoWhereUniqueInput | AnotacaoWhereUniqueInput[]
   }
 
+  export type FormularioCreateNestedManyWithoutAutorInput = {
+    create?: XOR<FormularioCreateWithoutAutorInput, FormularioUncheckedCreateWithoutAutorInput> | FormularioCreateWithoutAutorInput[] | FormularioUncheckedCreateWithoutAutorInput[]
+    connectOrCreate?: FormularioCreateOrConnectWithoutAutorInput | FormularioCreateOrConnectWithoutAutorInput[]
+    createMany?: FormularioCreateManyAutorInputEnvelope
+    connect?: FormularioWhereUniqueInput | FormularioWhereUniqueInput[]
+  }
+
+  export type PasswordResetRequestCreateNestedManyWithoutRequestedByInput = {
+    create?: XOR<PasswordResetRequestCreateWithoutRequestedByInput, PasswordResetRequestUncheckedCreateWithoutRequestedByInput> | PasswordResetRequestCreateWithoutRequestedByInput[] | PasswordResetRequestUncheckedCreateWithoutRequestedByInput[]
+    connectOrCreate?: PasswordResetRequestCreateOrConnectWithoutRequestedByInput | PasswordResetRequestCreateOrConnectWithoutRequestedByInput[]
+    createMany?: PasswordResetRequestCreateManyRequestedByInputEnvelope
+    connect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+  }
+
+  export type PasswordResetRequestCreateNestedManyWithoutUserInput = {
+    create?: XOR<PasswordResetRequestCreateWithoutUserInput, PasswordResetRequestUncheckedCreateWithoutUserInput> | PasswordResetRequestCreateWithoutUserInput[] | PasswordResetRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetRequestCreateOrConnectWithoutUserInput | PasswordResetRequestCreateOrConnectWithoutUserInput[]
+    createMany?: PasswordResetRequestCreateManyUserInputEnvelope
+    connect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+  }
+
   export type PresencaMonitorCreateNestedManyWithoutMonitorInput = {
     create?: XOR<PresencaMonitorCreateWithoutMonitorInput, PresencaMonitorUncheckedCreateWithoutMonitorInput> | PresencaMonitorCreateWithoutMonitorInput[] | PresencaMonitorUncheckedCreateWithoutMonitorInput[]
     connectOrCreate?: PresencaMonitorCreateOrConnectWithoutMonitorInput | PresencaMonitorCreateOrConnectWithoutMonitorInput[]
@@ -35987,6 +37696,27 @@ export namespace Prisma {
     connect?: AnotacaoWhereUniqueInput | AnotacaoWhereUniqueInput[]
   }
 
+  export type FormularioUncheckedCreateNestedManyWithoutAutorInput = {
+    create?: XOR<FormularioCreateWithoutAutorInput, FormularioUncheckedCreateWithoutAutorInput> | FormularioCreateWithoutAutorInput[] | FormularioUncheckedCreateWithoutAutorInput[]
+    connectOrCreate?: FormularioCreateOrConnectWithoutAutorInput | FormularioCreateOrConnectWithoutAutorInput[]
+    createMany?: FormularioCreateManyAutorInputEnvelope
+    connect?: FormularioWhereUniqueInput | FormularioWhereUniqueInput[]
+  }
+
+  export type PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput = {
+    create?: XOR<PasswordResetRequestCreateWithoutRequestedByInput, PasswordResetRequestUncheckedCreateWithoutRequestedByInput> | PasswordResetRequestCreateWithoutRequestedByInput[] | PasswordResetRequestUncheckedCreateWithoutRequestedByInput[]
+    connectOrCreate?: PasswordResetRequestCreateOrConnectWithoutRequestedByInput | PasswordResetRequestCreateOrConnectWithoutRequestedByInput[]
+    createMany?: PasswordResetRequestCreateManyRequestedByInputEnvelope
+    connect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+  }
+
+  export type PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PasswordResetRequestCreateWithoutUserInput, PasswordResetRequestUncheckedCreateWithoutUserInput> | PasswordResetRequestCreateWithoutUserInput[] | PasswordResetRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetRequestCreateOrConnectWithoutUserInput | PasswordResetRequestCreateOrConnectWithoutUserInput[]
+    createMany?: PasswordResetRequestCreateManyUserInputEnvelope
+    connect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+  }
+
   export type PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput = {
     create?: XOR<PresencaMonitorCreateWithoutMonitorInput, PresencaMonitorUncheckedCreateWithoutMonitorInput> | PresencaMonitorCreateWithoutMonitorInput[] | PresencaMonitorUncheckedCreateWithoutMonitorInput[]
     connectOrCreate?: PresencaMonitorCreateOrConnectWithoutMonitorInput | PresencaMonitorCreateOrConnectWithoutMonitorInput[]
@@ -36001,12 +37731,12 @@ export namespace Prisma {
     connect?: PresencaProfessorWhereUniqueInput | PresencaProfessorWhereUniqueInput[]
   }
 
-  export type EnumRoleFieldUpdateOperationsInput = {
-    set?: $Enums.Role
-  }
-
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
   }
 
   export type AccountUpdateManyWithoutUserNestedInput = {
@@ -36105,6 +37835,48 @@ export namespace Prisma {
     update?: AnotacaoUpdateWithWhereUniqueWithoutAutorInput | AnotacaoUpdateWithWhereUniqueWithoutAutorInput[]
     updateMany?: AnotacaoUpdateManyWithWhereWithoutAutorInput | AnotacaoUpdateManyWithWhereWithoutAutorInput[]
     deleteMany?: AnotacaoScalarWhereInput | AnotacaoScalarWhereInput[]
+  }
+
+  export type FormularioUpdateManyWithoutAutorNestedInput = {
+    create?: XOR<FormularioCreateWithoutAutorInput, FormularioUncheckedCreateWithoutAutorInput> | FormularioCreateWithoutAutorInput[] | FormularioUncheckedCreateWithoutAutorInput[]
+    connectOrCreate?: FormularioCreateOrConnectWithoutAutorInput | FormularioCreateOrConnectWithoutAutorInput[]
+    upsert?: FormularioUpsertWithWhereUniqueWithoutAutorInput | FormularioUpsertWithWhereUniqueWithoutAutorInput[]
+    createMany?: FormularioCreateManyAutorInputEnvelope
+    set?: FormularioWhereUniqueInput | FormularioWhereUniqueInput[]
+    disconnect?: FormularioWhereUniqueInput | FormularioWhereUniqueInput[]
+    delete?: FormularioWhereUniqueInput | FormularioWhereUniqueInput[]
+    connect?: FormularioWhereUniqueInput | FormularioWhereUniqueInput[]
+    update?: FormularioUpdateWithWhereUniqueWithoutAutorInput | FormularioUpdateWithWhereUniqueWithoutAutorInput[]
+    updateMany?: FormularioUpdateManyWithWhereWithoutAutorInput | FormularioUpdateManyWithWhereWithoutAutorInput[]
+    deleteMany?: FormularioScalarWhereInput | FormularioScalarWhereInput[]
+  }
+
+  export type PasswordResetRequestUpdateManyWithoutRequestedByNestedInput = {
+    create?: XOR<PasswordResetRequestCreateWithoutRequestedByInput, PasswordResetRequestUncheckedCreateWithoutRequestedByInput> | PasswordResetRequestCreateWithoutRequestedByInput[] | PasswordResetRequestUncheckedCreateWithoutRequestedByInput[]
+    connectOrCreate?: PasswordResetRequestCreateOrConnectWithoutRequestedByInput | PasswordResetRequestCreateOrConnectWithoutRequestedByInput[]
+    upsert?: PasswordResetRequestUpsertWithWhereUniqueWithoutRequestedByInput | PasswordResetRequestUpsertWithWhereUniqueWithoutRequestedByInput[]
+    createMany?: PasswordResetRequestCreateManyRequestedByInputEnvelope
+    set?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    disconnect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    delete?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    connect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    update?: PasswordResetRequestUpdateWithWhereUniqueWithoutRequestedByInput | PasswordResetRequestUpdateWithWhereUniqueWithoutRequestedByInput[]
+    updateMany?: PasswordResetRequestUpdateManyWithWhereWithoutRequestedByInput | PasswordResetRequestUpdateManyWithWhereWithoutRequestedByInput[]
+    deleteMany?: PasswordResetRequestScalarWhereInput | PasswordResetRequestScalarWhereInput[]
+  }
+
+  export type PasswordResetRequestUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PasswordResetRequestCreateWithoutUserInput, PasswordResetRequestUncheckedCreateWithoutUserInput> | PasswordResetRequestCreateWithoutUserInput[] | PasswordResetRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetRequestCreateOrConnectWithoutUserInput | PasswordResetRequestCreateOrConnectWithoutUserInput[]
+    upsert?: PasswordResetRequestUpsertWithWhereUniqueWithoutUserInput | PasswordResetRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PasswordResetRequestCreateManyUserInputEnvelope
+    set?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    disconnect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    delete?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    connect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    update?: PasswordResetRequestUpdateWithWhereUniqueWithoutUserInput | PasswordResetRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PasswordResetRequestUpdateManyWithWhereWithoutUserInput | PasswordResetRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PasswordResetRequestScalarWhereInput | PasswordResetRequestScalarWhereInput[]
   }
 
   export type PresencaMonitorUpdateManyWithoutMonitorNestedInput = {
@@ -36233,6 +38005,48 @@ export namespace Prisma {
     deleteMany?: AnotacaoScalarWhereInput | AnotacaoScalarWhereInput[]
   }
 
+  export type FormularioUncheckedUpdateManyWithoutAutorNestedInput = {
+    create?: XOR<FormularioCreateWithoutAutorInput, FormularioUncheckedCreateWithoutAutorInput> | FormularioCreateWithoutAutorInput[] | FormularioUncheckedCreateWithoutAutorInput[]
+    connectOrCreate?: FormularioCreateOrConnectWithoutAutorInput | FormularioCreateOrConnectWithoutAutorInput[]
+    upsert?: FormularioUpsertWithWhereUniqueWithoutAutorInput | FormularioUpsertWithWhereUniqueWithoutAutorInput[]
+    createMany?: FormularioCreateManyAutorInputEnvelope
+    set?: FormularioWhereUniqueInput | FormularioWhereUniqueInput[]
+    disconnect?: FormularioWhereUniqueInput | FormularioWhereUniqueInput[]
+    delete?: FormularioWhereUniqueInput | FormularioWhereUniqueInput[]
+    connect?: FormularioWhereUniqueInput | FormularioWhereUniqueInput[]
+    update?: FormularioUpdateWithWhereUniqueWithoutAutorInput | FormularioUpdateWithWhereUniqueWithoutAutorInput[]
+    updateMany?: FormularioUpdateManyWithWhereWithoutAutorInput | FormularioUpdateManyWithWhereWithoutAutorInput[]
+    deleteMany?: FormularioScalarWhereInput | FormularioScalarWhereInput[]
+  }
+
+  export type PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput = {
+    create?: XOR<PasswordResetRequestCreateWithoutRequestedByInput, PasswordResetRequestUncheckedCreateWithoutRequestedByInput> | PasswordResetRequestCreateWithoutRequestedByInput[] | PasswordResetRequestUncheckedCreateWithoutRequestedByInput[]
+    connectOrCreate?: PasswordResetRequestCreateOrConnectWithoutRequestedByInput | PasswordResetRequestCreateOrConnectWithoutRequestedByInput[]
+    upsert?: PasswordResetRequestUpsertWithWhereUniqueWithoutRequestedByInput | PasswordResetRequestUpsertWithWhereUniqueWithoutRequestedByInput[]
+    createMany?: PasswordResetRequestCreateManyRequestedByInputEnvelope
+    set?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    disconnect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    delete?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    connect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    update?: PasswordResetRequestUpdateWithWhereUniqueWithoutRequestedByInput | PasswordResetRequestUpdateWithWhereUniqueWithoutRequestedByInput[]
+    updateMany?: PasswordResetRequestUpdateManyWithWhereWithoutRequestedByInput | PasswordResetRequestUpdateManyWithWhereWithoutRequestedByInput[]
+    deleteMany?: PasswordResetRequestScalarWhereInput | PasswordResetRequestScalarWhereInput[]
+  }
+
+  export type PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PasswordResetRequestCreateWithoutUserInput, PasswordResetRequestUncheckedCreateWithoutUserInput> | PasswordResetRequestCreateWithoutUserInput[] | PasswordResetRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetRequestCreateOrConnectWithoutUserInput | PasswordResetRequestCreateOrConnectWithoutUserInput[]
+    upsert?: PasswordResetRequestUpsertWithWhereUniqueWithoutUserInput | PasswordResetRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PasswordResetRequestCreateManyUserInputEnvelope
+    set?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    disconnect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    delete?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    connect?: PasswordResetRequestWhereUniqueInput | PasswordResetRequestWhereUniqueInput[]
+    update?: PasswordResetRequestUpdateWithWhereUniqueWithoutUserInput | PasswordResetRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PasswordResetRequestUpdateManyWithWhereWithoutUserInput | PasswordResetRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PasswordResetRequestScalarWhereInput | PasswordResetRequestScalarWhereInput[]
+  }
+
   export type PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput = {
     create?: XOR<PresencaMonitorCreateWithoutMonitorInput, PresencaMonitorUncheckedCreateWithoutMonitorInput> | PresencaMonitorCreateWithoutMonitorInput[] | PresencaMonitorUncheckedCreateWithoutMonitorInput[]
     connectOrCreate?: PresencaMonitorCreateOrConnectWithoutMonitorInput | PresencaMonitorCreateOrConnectWithoutMonitorInput[]
@@ -36259,6 +38073,34 @@ export namespace Prisma {
     update?: PresencaProfessorUpdateWithWhereUniqueWithoutProfessorInput | PresencaProfessorUpdateWithWhereUniqueWithoutProfessorInput[]
     updateMany?: PresencaProfessorUpdateManyWithWhereWithoutProfessorInput | PresencaProfessorUpdateManyWithWhereWithoutProfessorInput[]
     deleteMany?: PresencaProfessorScalarWhereInput | PresencaProfessorScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutRedefinicoesRecebidasInput = {
+    create?: XOR<UserCreateWithoutRedefinicoesRecebidasInput, UserUncheckedCreateWithoutRedefinicoesRecebidasInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRedefinicoesRecebidasInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutRedefinicoesSolicitadasInput = {
+    create?: XOR<UserCreateWithoutRedefinicoesSolicitadasInput, UserUncheckedCreateWithoutRedefinicoesSolicitadasInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRedefinicoesSolicitadasInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutRedefinicoesRecebidasNestedInput = {
+    create?: XOR<UserCreateWithoutRedefinicoesRecebidasInput, UserUncheckedCreateWithoutRedefinicoesRecebidasInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRedefinicoesRecebidasInput
+    upsert?: UserUpsertWithoutRedefinicoesRecebidasInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRedefinicoesRecebidasInput, UserUpdateWithoutRedefinicoesRecebidasInput>, UserUncheckedUpdateWithoutRedefinicoesRecebidasInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutRedefinicoesSolicitadasNestedInput = {
+    create?: XOR<UserCreateWithoutRedefinicoesSolicitadasInput, UserUncheckedCreateWithoutRedefinicoesSolicitadasInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRedefinicoesSolicitadasInput
+    upsert?: UserUpsertWithoutRedefinicoesSolicitadasInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRedefinicoesSolicitadasInput, UserUpdateWithoutRedefinicoesSolicitadasInput>, UserUncheckedUpdateWithoutRedefinicoesSolicitadasInput>
   }
 
   export type TurmaCreateNestedManyWithoutSemestreInput = {
@@ -37407,6 +39249,12 @@ export namespace Prisma {
     connect?: FormularioRespostaWhereUniqueInput | FormularioRespostaWhereUniqueInput[]
   }
 
+  export type UserCreateNestedOneWithoutFormulariosCriadosInput = {
+    create?: XOR<UserCreateWithoutFormulariosCriadosInput, UserUncheckedCreateWithoutFormulariosCriadosInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFormulariosCriadosInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type PerguntaUncheckedCreateNestedManyWithoutFormularioInput = {
     create?: XOR<PerguntaCreateWithoutFormularioInput, PerguntaUncheckedCreateWithoutFormularioInput> | PerguntaCreateWithoutFormularioInput[] | PerguntaUncheckedCreateWithoutFormularioInput[]
     connectOrCreate?: PerguntaCreateOrConnectWithoutFormularioInput | PerguntaCreateOrConnectWithoutFormularioInput[]
@@ -37423,6 +39271,10 @@ export namespace Prisma {
 
   export type EnumModoRespostaFormularioFieldUpdateOperationsInput = {
     set?: $Enums.ModoRespostaFormulario
+  }
+
+  export type EnumVisibilidadeFormularioFieldUpdateOperationsInput = {
+    set?: $Enums.VisibilidadeFormulario
   }
 
   export type PerguntaUpdateManyWithoutFormularioNestedInput = {
@@ -37451,6 +39303,16 @@ export namespace Prisma {
     update?: FormularioRespostaUpdateWithWhereUniqueWithoutFormularioInput | FormularioRespostaUpdateWithWhereUniqueWithoutFormularioInput[]
     updateMany?: FormularioRespostaUpdateManyWithWhereWithoutFormularioInput | FormularioRespostaUpdateManyWithWhereWithoutFormularioInput[]
     deleteMany?: FormularioRespostaScalarWhereInput | FormularioRespostaScalarWhereInput[]
+  }
+
+  export type UserUpdateOneWithoutFormulariosCriadosNestedInput = {
+    create?: XOR<UserCreateWithoutFormulariosCriadosInput, UserUncheckedCreateWithoutFormulariosCriadosInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFormulariosCriadosInput
+    upsert?: UserUpsertWithoutFormulariosCriadosInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFormulariosCriadosInput, UserUpdateWithoutFormulariosCriadosInput>, UserUncheckedUpdateWithoutFormulariosCriadosInput>
   }
 
   export type PerguntaUncheckedUpdateManyWithoutFormularioNestedInput = {
@@ -37713,13 +39575,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -37731,14 +39586,11 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -37753,6 +39605,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -37859,6 +39721,13 @@ export namespace Prisma {
     notIn?: $Enums.ModoRespostaFormulario[] | ListEnumModoRespostaFormularioFieldRefInput<$PrismaModel>
     not?: NestedEnumModoRespostaFormularioFilter<$PrismaModel> | $Enums.ModoRespostaFormulario
   }
+
+  export type NestedEnumVisibilidadeFormularioFilter<$PrismaModel = never> = {
+    equals?: $Enums.VisibilidadeFormulario | EnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    in?: $Enums.VisibilidadeFormulario[] | ListEnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VisibilidadeFormulario[] | ListEnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    not?: NestedEnumVisibilidadeFormularioFilter<$PrismaModel> | $Enums.VisibilidadeFormulario
+  }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -37916,6 +39785,16 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumVisibilidadeFormularioWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VisibilidadeFormulario | EnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    in?: $Enums.VisibilidadeFormulario[] | ListEnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VisibilidadeFormulario[] | ListEnumVisibilidadeFormularioFieldRefInput<$PrismaModel>
+    not?: NestedEnumVisibilidadeFormularioWithAggregatesFilter<$PrismaModel> | $Enums.VisibilidadeFormulario
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVisibilidadeFormularioFilter<$PrismaModel>
+    _max?: NestedEnumVisibilidadeFormularioFilter<$PrismaModel>
+  }
+
   export type NestedEnumTipoPerguntaFilter<$PrismaModel = never> = {
     equals?: $Enums.TipoPergunta | EnumTipoPerguntaFieldRefInput<$PrismaModel>
     in?: $Enums.TipoPergunta[] | ListEnumTipoPerguntaFieldRefInput<$PrismaModel>
@@ -37965,6 +39844,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -37977,6 +39857,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
   }
@@ -37986,6 +39869,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -37998,6 +39882,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
   }
@@ -38023,6 +39910,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38035,6 +39923,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
   }
@@ -38044,6 +39935,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38056,6 +39948,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   }
@@ -38065,6 +39960,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -38077,6 +39973,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
   }
@@ -38086,6 +39985,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -38098,6 +39998,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
   }
@@ -38123,6 +40026,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38135,6 +40039,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
   }
@@ -38144,6 +40051,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38156,6 +40064,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   }
@@ -38329,6 +40240,106 @@ export namespace Prisma {
 
   export type AnotacaoCreateManyAutorInputEnvelope = {
     data: AnotacaoCreateManyAutorInput | AnotacaoCreateManyAutorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FormularioCreateWithoutAutorInput = {
+    id?: string
+    titulo: string
+    descricao?: string | null
+    slug: string
+    conteudo: JsonNullValueInput | InputJsonValue
+    publicado?: boolean
+    modoResposta?: $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: $Enums.VisibilidadeFormulario
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    perguntas?: PerguntaCreateNestedManyWithoutFormularioInput
+    respostas?: FormularioRespostaCreateNestedManyWithoutFormularioInput
+  }
+
+  export type FormularioUncheckedCreateWithoutAutorInput = {
+    id?: string
+    titulo: string
+    descricao?: string | null
+    slug: string
+    conteudo: JsonNullValueInput | InputJsonValue
+    publicado?: boolean
+    modoResposta?: $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: $Enums.VisibilidadeFormulario
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    perguntas?: PerguntaUncheckedCreateNestedManyWithoutFormularioInput
+    respostas?: FormularioRespostaUncheckedCreateNestedManyWithoutFormularioInput
+  }
+
+  export type FormularioCreateOrConnectWithoutAutorInput = {
+    where: FormularioWhereUniqueInput
+    create: XOR<FormularioCreateWithoutAutorInput, FormularioUncheckedCreateWithoutAutorInput>
+  }
+
+  export type FormularioCreateManyAutorInputEnvelope = {
+    data: FormularioCreateManyAutorInput | FormularioCreateManyAutorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PasswordResetRequestCreateWithoutRequestedByInput = {
+    id?: string
+    codigoHash: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRedefinicoesRecebidasInput
+  }
+
+  export type PasswordResetRequestUncheckedCreateWithoutRequestedByInput = {
+    id?: string
+    userId: string
+    codigoHash: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type PasswordResetRequestCreateOrConnectWithoutRequestedByInput = {
+    where: PasswordResetRequestWhereUniqueInput
+    create: XOR<PasswordResetRequestCreateWithoutRequestedByInput, PasswordResetRequestUncheckedCreateWithoutRequestedByInput>
+  }
+
+  export type PasswordResetRequestCreateManyRequestedByInputEnvelope = {
+    data: PasswordResetRequestCreateManyRequestedByInput | PasswordResetRequestCreateManyRequestedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PasswordResetRequestCreateWithoutUserInput = {
+    id?: string
+    codigoHash: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+    requestedBy: UserCreateNestedOneWithoutRedefinicoesSolicitadasInput
+  }
+
+  export type PasswordResetRequestUncheckedCreateWithoutUserInput = {
+    id?: string
+    requestedById: string
+    codigoHash: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type PasswordResetRequestCreateOrConnectWithoutUserInput = {
+    where: PasswordResetRequestWhereUniqueInput
+    create: XOR<PasswordResetRequestCreateWithoutUserInput, PasswordResetRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type PasswordResetRequestCreateManyUserInputEnvelope = {
+    data: PasswordResetRequestCreateManyUserInput | PasswordResetRequestCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -38567,6 +40578,86 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Anotacao"> | Date | string
   }
 
+  export type FormularioUpsertWithWhereUniqueWithoutAutorInput = {
+    where: FormularioWhereUniqueInput
+    update: XOR<FormularioUpdateWithoutAutorInput, FormularioUncheckedUpdateWithoutAutorInput>
+    create: XOR<FormularioCreateWithoutAutorInput, FormularioUncheckedCreateWithoutAutorInput>
+  }
+
+  export type FormularioUpdateWithWhereUniqueWithoutAutorInput = {
+    where: FormularioWhereUniqueInput
+    data: XOR<FormularioUpdateWithoutAutorInput, FormularioUncheckedUpdateWithoutAutorInput>
+  }
+
+  export type FormularioUpdateManyWithWhereWithoutAutorInput = {
+    where: FormularioScalarWhereInput
+    data: XOR<FormularioUpdateManyMutationInput, FormularioUncheckedUpdateManyWithoutAutorInput>
+  }
+
+  export type FormularioScalarWhereInput = {
+    AND?: FormularioScalarWhereInput | FormularioScalarWhereInput[]
+    OR?: FormularioScalarWhereInput[]
+    NOT?: FormularioScalarWhereInput | FormularioScalarWhereInput[]
+    id?: StringFilter<"Formulario"> | string
+    titulo?: StringFilter<"Formulario"> | string
+    descricao?: StringNullableFilter<"Formulario"> | string | null
+    slug?: StringFilter<"Formulario"> | string
+    conteudo?: JsonFilter<"Formulario">
+    publicado?: BoolFilter<"Formulario"> | boolean
+    modoResposta?: EnumModoRespostaFormularioFilter<"Formulario"> | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFilter<"Formulario"> | boolean
+    configuracao?: JsonNullableFilter<"Formulario">
+    visibilidade?: EnumVisibilidadeFormularioFilter<"Formulario"> | $Enums.VisibilidadeFormulario
+    autorId?: StringNullableFilter<"Formulario"> | string | null
+    createdAt?: DateTimeFilter<"Formulario"> | Date | string
+    updatedAt?: DateTimeFilter<"Formulario"> | Date | string
+  }
+
+  export type PasswordResetRequestUpsertWithWhereUniqueWithoutRequestedByInput = {
+    where: PasswordResetRequestWhereUniqueInput
+    update: XOR<PasswordResetRequestUpdateWithoutRequestedByInput, PasswordResetRequestUncheckedUpdateWithoutRequestedByInput>
+    create: XOR<PasswordResetRequestCreateWithoutRequestedByInput, PasswordResetRequestUncheckedCreateWithoutRequestedByInput>
+  }
+
+  export type PasswordResetRequestUpdateWithWhereUniqueWithoutRequestedByInput = {
+    where: PasswordResetRequestWhereUniqueInput
+    data: XOR<PasswordResetRequestUpdateWithoutRequestedByInput, PasswordResetRequestUncheckedUpdateWithoutRequestedByInput>
+  }
+
+  export type PasswordResetRequestUpdateManyWithWhereWithoutRequestedByInput = {
+    where: PasswordResetRequestScalarWhereInput
+    data: XOR<PasswordResetRequestUpdateManyMutationInput, PasswordResetRequestUncheckedUpdateManyWithoutRequestedByInput>
+  }
+
+  export type PasswordResetRequestScalarWhereInput = {
+    AND?: PasswordResetRequestScalarWhereInput | PasswordResetRequestScalarWhereInput[]
+    OR?: PasswordResetRequestScalarWhereInput[]
+    NOT?: PasswordResetRequestScalarWhereInput | PasswordResetRequestScalarWhereInput[]
+    id?: StringFilter<"PasswordResetRequest"> | string
+    userId?: StringFilter<"PasswordResetRequest"> | string
+    requestedById?: StringFilter<"PasswordResetRequest"> | string
+    codigoHash?: StringFilter<"PasswordResetRequest"> | string
+    expiresAt?: DateTimeFilter<"PasswordResetRequest"> | Date | string
+    usedAt?: DateTimeNullableFilter<"PasswordResetRequest"> | Date | string | null
+    createdAt?: DateTimeFilter<"PasswordResetRequest"> | Date | string
+  }
+
+  export type PasswordResetRequestUpsertWithWhereUniqueWithoutUserInput = {
+    where: PasswordResetRequestWhereUniqueInput
+    update: XOR<PasswordResetRequestUpdateWithoutUserInput, PasswordResetRequestUncheckedUpdateWithoutUserInput>
+    create: XOR<PasswordResetRequestCreateWithoutUserInput, PasswordResetRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type PasswordResetRequestUpdateWithWhereUniqueWithoutUserInput = {
+    where: PasswordResetRequestWhereUniqueInput
+    data: XOR<PasswordResetRequestUpdateWithoutUserInput, PasswordResetRequestUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PasswordResetRequestUpdateManyWithWhereWithoutUserInput = {
+    where: PasswordResetRequestScalarWhereInput
+    data: XOR<PasswordResetRequestUpdateManyMutationInput, PasswordResetRequestUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type PresencaMonitorUpsertWithWhereUniqueWithoutMonitorInput = {
     where: PresencaMonitorWhereUniqueInput
     update: XOR<PresencaMonitorUpdateWithoutMonitorInput, PresencaMonitorUncheckedUpdateWithoutMonitorInput>
@@ -38617,6 +40708,238 @@ export namespace Prisma {
     registroId?: StringFilter<"PresencaProfessor"> | string
     professorId?: StringFilter<"PresencaProfessor"> | string
     estado?: EnumEstadoPresencaFilter<"PresencaProfessor"> | $Enums.EstadoPresenca
+  }
+
+  export type UserCreateWithoutRedefinicoesRecebidasInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
+    avisos?: AvisoCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+  }
+
+  export type UserUncheckedCreateWithoutRedefinicoesRecebidasInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
+    avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+  }
+
+  export type UserCreateOrConnectWithoutRedefinicoesRecebidasInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRedefinicoesRecebidasInput, UserUncheckedCreateWithoutRedefinicoesRecebidasInput>
+  }
+
+  export type UserCreateWithoutRedefinicoesSolicitadasInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
+    avisos?: AvisoCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
+    presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+  }
+
+  export type UserUncheckedCreateWithoutRedefinicoesSolicitadasInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
+    avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
+    presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+  }
+
+  export type UserCreateOrConnectWithoutRedefinicoesSolicitadasInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRedefinicoesSolicitadasInput, UserUncheckedCreateWithoutRedefinicoesSolicitadasInput>
+  }
+
+  export type UserUpsertWithoutRedefinicoesRecebidasInput = {
+    update: XOR<UserUpdateWithoutRedefinicoesRecebidasInput, UserUncheckedUpdateWithoutRedefinicoesRecebidasInput>
+    create: XOR<UserCreateWithoutRedefinicoesRecebidasInput, UserUncheckedCreateWithoutRedefinicoesRecebidasInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRedefinicoesRecebidasInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRedefinicoesRecebidasInput, UserUncheckedUpdateWithoutRedefinicoesRecebidasInput>
+  }
+
+  export type UserUpdateWithoutRedefinicoesRecebidasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRedefinicoesRecebidasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+  }
+
+  export type UserUpsertWithoutRedefinicoesSolicitadasInput = {
+    update: XOR<UserUpdateWithoutRedefinicoesSolicitadasInput, UserUncheckedUpdateWithoutRedefinicoesSolicitadasInput>
+    create: XOR<UserCreateWithoutRedefinicoesSolicitadasInput, UserUncheckedCreateWithoutRedefinicoesSolicitadasInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRedefinicoesSolicitadasInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRedefinicoesSolicitadasInput, UserUncheckedUpdateWithoutRedefinicoesSolicitadasInput>
+  }
+
+  export type UserUpdateWithoutRedefinicoesSolicitadasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
+    presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRedefinicoesSolicitadasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
+    presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   }
 
   export type TurmaCreateWithoutSemestreInput = {
@@ -39357,6 +41680,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -39369,6 +41693,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
   }
@@ -39378,6 +41705,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -39390,6 +41718,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
   }
@@ -39464,6 +41795,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -39476,6 +41808,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
   }
@@ -39485,6 +41820,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -39497,6 +41833,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   }
@@ -39561,6 +41900,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -39573,6 +41913,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
   }
@@ -39582,6 +41925,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -39594,6 +41938,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
   }
@@ -39668,6 +42015,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -39680,6 +42028,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
   }
@@ -39689,6 +42040,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -39701,6 +42053,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   }
@@ -40425,6 +42780,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -40437,6 +42793,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
   }
@@ -40446,6 +42805,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -40458,6 +42818,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
   }
@@ -40508,6 +42871,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40520,6 +42884,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
   }
@@ -40529,6 +42896,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40541,6 +42909,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   }
@@ -40838,6 +43209,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -40850,6 +43222,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
     vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
   }
@@ -40859,6 +43234,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -40871,6 +43247,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
     vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
   }
@@ -40951,6 +43330,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40963,6 +43343,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
     vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
   }
@@ -40972,6 +43355,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40984,6 +43368,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
     vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   }
@@ -41042,6 +43429,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -41054,6 +43442,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
     vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
   }
@@ -41063,6 +43454,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -41075,6 +43467,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
     vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
   }
@@ -41155,6 +43550,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41167,6 +43563,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
     vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
   }
@@ -41176,6 +43575,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41188,6 +43588,9 @@ export namespace Prisma {
     turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
     vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   }
@@ -41644,6 +44047,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -41657,6 +44061,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
   }
 
@@ -41665,6 +44072,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -41678,6 +44086,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
   }
 
@@ -41729,6 +44140,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41742,6 +44154,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
   }
 
@@ -41750,6 +44165,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41763,6 +44179,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   }
 
@@ -41792,6 +44211,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -41805,6 +44225,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
     avisos?: AvisoCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
   }
 
@@ -41813,6 +44236,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    senhaAlteradaEm?: Date | string | null
     matricula: string
     role: $Enums.Role
     image?: string | null
@@ -41826,6 +44250,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
   }
 
@@ -41877,6 +44304,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41890,6 +44318,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
     avisos?: AvisoUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
   }
 
@@ -41898,6 +44329,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matricula?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41911,6 +44343,9 @@ export namespace Prisma {
     vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
   }
 
@@ -42026,6 +44461,61 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserCreateWithoutFormulariosCriadosInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
+    avisos?: AvisoCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
+    presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+  }
+
+  export type UserUncheckedCreateWithoutFormulariosCriadosInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
+    avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
+    presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+  }
+
+  export type UserCreateOrConnectWithoutFormulariosCriadosInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFormulariosCriadosInput, UserUncheckedCreateWithoutFormulariosCriadosInput>
+  }
+
   export type PerguntaUpsertWithWhereUniqueWithoutFormularioInput = {
     where: PerguntaWhereUniqueInput
     update: XOR<PerguntaUpdateWithoutFormularioInput, PerguntaUncheckedUpdateWithoutFormularioInput>
@@ -42083,6 +44573,67 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"FormularioResposta"> | Date | string
   }
 
+  export type UserUpsertWithoutFormulariosCriadosInput = {
+    update: XOR<UserUpdateWithoutFormulariosCriadosInput, UserUncheckedUpdateWithoutFormulariosCriadosInput>
+    create: XOR<UserCreateWithoutFormulariosCriadosInput, UserUncheckedCreateWithoutFormulariosCriadosInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFormulariosCriadosInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFormulariosCriadosInput, UserUncheckedUpdateWithoutFormulariosCriadosInput>
+  }
+
+  export type UserUpdateWithoutFormulariosCriadosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
+    presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFormulariosCriadosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
+    presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+  }
+
   export type FormularioCreateWithoutRespostasInput = {
     id?: string
     titulo: string
@@ -42093,9 +44644,11 @@ export namespace Prisma {
     modoResposta?: $Enums.ModoRespostaFormulario
     limitarPorNavegador?: boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: $Enums.VisibilidadeFormulario
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaCreateNestedManyWithoutFormularioInput
+    autor?: UserCreateNestedOneWithoutFormulariosCriadosInput
   }
 
   export type FormularioUncheckedCreateWithoutRespostasInput = {
@@ -42108,6 +44661,8 @@ export namespace Prisma {
     modoResposta?: $Enums.ModoRespostaFormulario
     limitarPorNavegador?: boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: $Enums.VisibilidadeFormulario
+    autorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     perguntas?: PerguntaUncheckedCreateNestedManyWithoutFormularioInput
@@ -42139,9 +44694,11 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUpdateManyWithoutFormularioNestedInput
+    autor?: UserUpdateOneWithoutFormulariosCriadosNestedInput
   }
 
   export type FormularioUncheckedUpdateWithoutRespostasInput = {
@@ -42154,6 +44711,8 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
+    autorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     perguntas?: PerguntaUncheckedUpdateManyWithoutFormularioNestedInput
@@ -42169,9 +44728,11 @@ export namespace Prisma {
     modoResposta?: $Enums.ModoRespostaFormulario
     limitarPorNavegador?: boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: $Enums.VisibilidadeFormulario
     createdAt?: Date | string
     updatedAt?: Date | string
     respostas?: FormularioRespostaCreateNestedManyWithoutFormularioInput
+    autor?: UserCreateNestedOneWithoutFormulariosCriadosInput
   }
 
   export type FormularioUncheckedCreateWithoutPerguntasInput = {
@@ -42184,6 +44745,8 @@ export namespace Prisma {
     modoResposta?: $Enums.ModoRespostaFormulario
     limitarPorNavegador?: boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: $Enums.VisibilidadeFormulario
+    autorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     respostas?: FormularioRespostaUncheckedCreateNestedManyWithoutFormularioInput
@@ -42237,9 +44800,11 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     respostas?: FormularioRespostaUpdateManyWithoutFormularioNestedInput
+    autor?: UserUpdateOneWithoutFormulariosCriadosNestedInput
   }
 
   export type FormularioUncheckedUpdateWithoutPerguntasInput = {
@@ -42252,6 +44817,8 @@ export namespace Prisma {
     modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
     limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
     configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
+    autorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     respostas?: FormularioRespostaUncheckedUpdateManyWithoutFormularioNestedInput
@@ -42383,6 +44950,39 @@ export namespace Prisma {
     turmaId: string
     titulo: string
     conteudo: string
+    createdAt?: Date | string
+  }
+
+  export type FormularioCreateManyAutorInput = {
+    id?: string
+    titulo: string
+    descricao?: string | null
+    slug: string
+    conteudo: JsonNullValueInput | InputJsonValue
+    publicado?: boolean
+    modoResposta?: $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: $Enums.VisibilidadeFormulario
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PasswordResetRequestCreateManyRequestedByInput = {
+    id?: string
+    userId: string
+    codigoHash: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type PasswordResetRequestCreateManyUserInput = {
+    id?: string
+    requestedById: string
+    codigoHash: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -42548,6 +45148,109 @@ export namespace Prisma {
     turmaId?: StringFieldUpdateOperationsInput | string
     titulo?: StringFieldUpdateOperationsInput | string
     conteudo?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FormularioUpdateWithoutAutorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    conteudo?: JsonNullValueInput | InputJsonValue
+    publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    perguntas?: PerguntaUpdateManyWithoutFormularioNestedInput
+    respostas?: FormularioRespostaUpdateManyWithoutFormularioNestedInput
+  }
+
+  export type FormularioUncheckedUpdateWithoutAutorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    conteudo?: JsonNullValueInput | InputJsonValue
+    publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    perguntas?: PerguntaUncheckedUpdateManyWithoutFormularioNestedInput
+    respostas?: FormularioRespostaUncheckedUpdateManyWithoutFormularioNestedInput
+  }
+
+  export type FormularioUncheckedUpdateManyWithoutAutorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    conteudo?: JsonNullValueInput | InputJsonValue
+    publicado?: BoolFieldUpdateOperationsInput | boolean
+    modoResposta?: EnumModoRespostaFormularioFieldUpdateOperationsInput | $Enums.ModoRespostaFormulario
+    limitarPorNavegador?: BoolFieldUpdateOperationsInput | boolean
+    configuracao?: NullableJsonNullValueInput | InputJsonValue
+    visibilidade?: EnumVisibilidadeFormularioFieldUpdateOperationsInput | $Enums.VisibilidadeFormulario
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetRequestUpdateWithoutRequestedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigoHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRedefinicoesRecebidasNestedInput
+  }
+
+  export type PasswordResetRequestUncheckedUpdateWithoutRequestedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    codigoHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetRequestUncheckedUpdateManyWithoutRequestedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    codigoHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetRequestUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigoHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    requestedBy?: UserUpdateOneRequiredWithoutRedefinicoesSolicitadasNestedInput
+  }
+
+  export type PasswordResetRequestUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedById?: StringFieldUpdateOperationsInput | string
+    codigoHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetRequestUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedById?: StringFieldUpdateOperationsInput | string
+    codigoHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

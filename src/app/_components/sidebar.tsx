@@ -40,6 +40,13 @@ const NAV_ITEMS: NavItem[] = [
 	},
 ];
 
+const QUESTIONARIOS_ITEM: NavItem = {
+	id: "questionarios",
+	label: "Questionários",
+	link: "/nexus/questionarios",
+	icon: FileText,
+};
+
 const DIRETORIA_ITEMS: NavItem[] = [
 	{
 		id: "diretoria-inicio",
@@ -84,12 +91,6 @@ const DIRETORIA_ITEMS: NavItem[] = [
 		icon: ClipboardCheck,
 	},
 	{
-		id: "questionarios",
-		label: "Questionários",
-		link: "/nexus/diretoria/questionarios",
-		icon: FileText,
-	},
-	{
 		id: "sorteio",
 		label: "Sorteio",
 		link: "/nexus/diretoria/sorteio",
@@ -127,6 +128,8 @@ export default function Sidebar() {
 	const [headerTextVisible, setHeaderTextVisible] = useState(true);
 	const headerAnimationTimer = useRef<number | null>(null);
 	const [userName, setUserName] = useState("Usuário(a)");
+	const [podeVerDiretoria, setPodeVerDiretoria] = useState(false);
+	const [podeVerQuestionarios, setPodeVerQuestionarios] = useState(false);
 	const pathname = usePathname();
 	const [diretoriaAberta, setDiretoriaAberta] = useState(() =>
 		pathname.startsWith("/nexus/diretoria"),
@@ -163,8 +166,17 @@ export default function Sidebar() {
 	useEffect(() => {
 		void fetch("/api/auth/session")
 			.then((response) => (response.ok ? response.json() : null))
-			.then((session: { user?: { name?: string | null } } | null) => {
+			.then((session: { user?: { name?: string | null; role?: string } } | null) => {
 				if (session?.user?.name) setUserName(firstName(session.user.name));
+				setPodeVerDiretoria(
+					session?.user?.role === "DIRETOR" ||
+						session?.user?.role === "COORDENADOR",
+				);
+				setPodeVerQuestionarios(
+					session?.user?.role === "PROFESSOR" ||
+						session?.user?.role === "DIRETOR" ||
+						session?.user?.role === "COORDENADOR",
+				);
 			})
 			.catch(() => undefined);
 	}, []);
@@ -265,7 +277,7 @@ export default function Sidebar() {
 
 			{/* Links de Navegação */}
 			<nav className="flex-1 overflow-y-auto overflow-x-hidden py-4 px-3 space-y-1.5 custom-scrollbar">
-				{NAV_ITEMS.map((item) => {
+				{[...NAV_ITEMS, ...(podeVerQuestionarios ? [QUESTIONARIOS_ITEM] : [])].map((item) => {
 					const Icon = item.icon;
 					const isActive = pathname === item.link || pathname.startsWith(`${item.link}/`);
 					return (
@@ -289,16 +301,16 @@ export default function Sidebar() {
 					);
 				})}
 
-				{!collapsed && (
+				{podeVerDiretoria && !collapsed && (
 					<p className="px-3 pt-3 text-[10px] font-extrabold uppercase tracking-[0.16em] text-sky-700">
 						Área de gestão
 					</p>
 				)}
-				{collapsed ? (
+				{podeVerDiretoria && (collapsed ? (
 					<Link
 						href="/nexus/diretoria"
 						title="Diretoria"
-						className={`flex min-h-11 w-full items-center justify-center rounded-xl px-3 py-2.5 transition-colors ${diretoriaAtiva ? "bg-sky-50 text-sky-600" : "text-gray-600 hover:bg-gray-50"}`}
+						className={`flex min-h-11 w-full items-center justify-center rounded-xl px-3 py-2.5 transition-colors ${diretoriaAtiva ? "bg-sky-50 text-sky-600" : "text-sky-800 hover:bg-sky-50"}`}
 					>
 						<Users className="w-5 h-5" />
 					</Link>
@@ -307,7 +319,7 @@ export default function Sidebar() {
 						<button
 							type="button"
 							onClick={() => setDiretoriaAberta((aberta) => !aberta)}
-							className={`flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${diretoriaAtiva ? "bg-sky-600 text-white shadow-md shadow-sky-200" : "text-gray-700 hover:bg-sky-50 hover:text-sky-800"}`}
+							className={`flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${diretoriaAtiva ? "bg-sky-600 text-white shadow-md shadow-sky-200" : "text-sky-800 hover:bg-sky-50 hover:text-sky-950"}`}
 							aria-expanded={diretoriaAberta}
 						>
 							<Users className="w-5 h-5 flex-shrink-0" />
@@ -325,7 +337,7 @@ export default function Sidebar() {
 										<Link
 											key={item.id}
 											href={item.link}
-											className={`flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold transition-colors ${ativo ? "bg-orange-50 text-orange-800" : "text-gray-500 hover:bg-sky-50 hover:text-sky-900"}`}
+										className={`flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold transition-colors ${ativo ? "bg-orange-50 text-orange-800" : "text-sky-800 hover:bg-sky-50 hover:text-sky-950"}`}
 										>
 											<Icon className="h-3.5 w-3.5" />
 											{item.label}
@@ -335,7 +347,7 @@ export default function Sidebar() {
 							</div>
 						)}
 					</div>
-				)}
+				))}
 			</nav>
 
 			{/* Footer do Menu */}

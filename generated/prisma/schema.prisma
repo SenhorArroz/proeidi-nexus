@@ -101,16 +101,17 @@ model VerificationToken {
 // ---------------------------------------------------------------------------
 
 model User {
-  id            String    @id @default(cuid())
-  nome          String
-  email         String    @unique
-  senha         String
-  matricula     String    @unique
-  role          Role
-  image         String?
-  emailVerified DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id              String    @id @default(cuid())
+  nome            String
+  email           String    @unique
+  senha           String
+  senhaAlteradaEm DateTime?
+  matricula       String    @unique
+  role            Role
+  image           String?
+  emailVerified   DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   // Auth
   accounts Account[]
@@ -122,12 +123,32 @@ model User {
   vinculosSemestre VinculoEquipeSemestre[]
 
   // Conteúdo
-  avisos    Aviso[]
-  anotacoes Anotacao[]
+  avisos                  Aviso[]
+  anotacoes               Anotacao[]
+  formulariosCriados      Formulario[]           @relation("AutorFormulario")
+  redefinicoesSolicitadas PasswordResetRequest[] @relation("SolicitanteRedefinicao")
+  redefinicoesRecebidas   PasswordResetRequest[] @relation("DestinatarioRedefinicao")
 
   // Presença de equipe
   presencasMonitor   PresencaMonitor[]
   presencasProfessor PresencaProfessor[]
+}
+
+// O código é persistido somente como hash e expira após o uso.
+model PasswordResetRequest {
+  id            String    @id @default(cuid())
+  userId        String
+  requestedById String
+  codigoHash    String
+  expiresAt     DateTime
+  usedAt        DateTime?
+  createdAt     DateTime  @default(now())
+
+  user        User @relation("DestinatarioRedefinicao", fields: [userId], references: [id], onDelete: Cascade)
+  requestedBy User @relation("SolicitanteRedefinicao", fields: [requestedById], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+  @@index([requestedById])
 }
 
 // ---------------------------------------------------------------------------
@@ -453,11 +474,17 @@ model Formulario {
   modoResposta        ModoRespostaFormulario @default(ANONIMO)
   limitarPorNavegador Boolean                @default(false)
   configuracao        Json?
+  visibilidade        VisibilidadeFormulario @default(COMPARTILHADO)
+  autorId             String?
   createdAt           DateTime               @default(now())
   updatedAt           DateTime               @updatedAt
 
   perguntas Pergunta[]
   respostas FormularioResposta[]
+  autor     User?                @relation("AutorFormulario", fields: [autorId], references: [id], onDelete: SetNull)
+
+  @@index([visibilidade, updatedAt])
+  @@index([autorId])
 }
 
 model FormularioResposta {
@@ -478,6 +505,11 @@ model FormularioResposta {
 enum ModoRespostaFormulario {
   ANONIMO
   IDENTIFICADO_POR_COOKIE
+}
+
+enum VisibilidadeFormulario {
+  COMPARTILHADO
+  DIRETORIA
 }
 
 model Pergunta {

@@ -1,4 +1,4 @@
-import { DoorOpen, FileText, Pencil, Trash2 } from "lucide-react";
+import { DoorOpen, FileText, KeyRound, Pencil, Trash2 } from "lucide-react";
 
 type PersonManagementCardProps = {
 	person: { nome: string; email: string; matricula: string; turmas: string[] };
@@ -6,6 +6,7 @@ type PersonManagementCardProps = {
 	roleLabel?: string;
 	onEdit?: () => void;
 	onRemove?: () => void;
+	onResetPassword?: () => void;
 	onCertificate: () => void;
 };
 
@@ -24,6 +25,7 @@ export function PersonManagementCard({
 	roleLabel,
 	onEdit,
 	onRemove,
+	onResetPassword,
 	onCertificate,
 }: PersonManagementCardProps) {
 	const isProfessor = personRole === "professor";
@@ -63,6 +65,7 @@ export function PersonManagementCard({
 					</div>
 				</div>
 				<div className="flex shrink-0 items-center justify-end gap-1">
+					{onResetPassword && <button type="button" onClick={onResetPassword} className="grid min-h-11 min-w-11 place-items-center rounded-lg text-slate-400 transition hover:bg-amber-50 hover:text-amber-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2" aria-label="Enviar código para redefinir senha" title="Enviar código para redefinir senha"><KeyRound className="h-4 w-4" /></button>}
 					<button
 						type="button"
 						onClick={onCertificate}

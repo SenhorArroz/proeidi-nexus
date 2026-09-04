@@ -24,6 +24,7 @@ import { api } from "~/trpc/react";
 
 type TipoPergunta = "short_text" | "paragraph" | "multiple_choice" | "checkbox";
 type ModoResposta = "ANONIMO" | "IDENTIFICADO_POR_COOKIE";
+type VisibilidadeFormulario = "COMPARTILHADO" | "DIRETORIA";
 type ConfiguracaoFormulario = { corPrimaria: string; corDestaque: string; corFundo: string; fonte: "SANS" | "SERIF" | "MONO"; mostrarProgresso: boolean; atribuirPontuacao: boolean };
 const CONFIGURACAO_PADRAO: ConfiguracaoFormulario = { corPrimaria: "#0284c7", corDestaque: "#ea580c", corFundo: "#f8fafc", fonte: "SANS", mostrarProgresso: true, atribuirPontuacao: false };
 
@@ -71,12 +72,14 @@ export default function EditorFormulario() {
     const [titulo, setTitulo] = useState("Pesquisa de Satisfação");
     const [descricao, setDescricao] = useState("Deixe sua opinião sobre o módulo.");
 	const [modoResposta, setModoResposta] = useState<ModoResposta>("ANONIMO");
+	const [visibilidade, setVisibilidade] = useState<VisibilidadeFormulario>("COMPARTILHADO");
+	const [podeRestringirADiretoria, setPodeRestringirADiretoria] = useState(false);
 	const [limitarPorNavegador, setLimitarPorNavegador] = useState(false);
 	const [configuracoesAbertas, setConfiguracoesAbertas] = useState(false);
 	const [configuracao, setConfiguracao] = useState<ConfiguracaoFormulario>(CONFIGURACAO_PADRAO);
     const [ativoId, setAtivoId] = useState<string | null>("header");
 	const { data: formularioExistente, isLoading: carregandoFormulario } = api.formulario.stats.useQuery({ id: formularioId! }, { enabled: Boolean(formularioId) });
-	const criarFormulario = api.formulario.create.useMutation({ onSuccess: async (formulario) => { setIdPublicado(formulario.id); router.replace(`/nexus/diretoria/formularios?id=${formulario.id}`); await utils.formulario.list.invalidate(); } });
+	const criarFormulario = api.formulario.create.useMutation({ onSuccess: async (formulario) => { setIdPublicado(formulario.id); router.replace(`/nexus/questionarios/editor?id=${formulario.id}`); await utils.formulario.list.invalidate(); } });
 	const atualizarFormulario = api.formulario.update.useMutation({ onSuccess: () => utils.formulario.list.invalidate() });
 
     const [perguntas, setPerguntas] = useState<Pergunta[]>([
@@ -94,12 +97,24 @@ export default function EditorFormulario() {
     ]);
 
 	useEffect(() => {
+		void fetch("/api/auth/session")
+			.then((response) => (response.ok ? response.json() : null))
+			.then((session: { user?: { role?: string } } | null) =>
+				setPodeRestringirADiretoria(
+					session?.user?.role === "DIRETOR" || session?.user?.role === "COORDENADOR",
+				),
+			)
+			.catch(() => undefined);
+	}, []);
+
+	useEffect(() => {
 		if (!formularioExistente?.formulario) return;
 		const formulario = formularioExistente.formulario;
 		const conteudo = formulario.conteudo as { perguntas?: Pergunta[] };
 		setTitulo(formulario.titulo);
 		setDescricao(formulario.descricao ?? "");
 		setModoResposta(formulario.modoResposta);
+		setVisibilidade(formulario.visibilidade);
 		setLimitarPorNavegador(formulario.limitarPorNavegador);
 		setConfiguracao({ ...CONFIGURACAO_PADRAO, ...(formulario.configuracao as Partial<ConfiguracaoFormulario> | null) });
 		if (conteudo.perguntas?.length) setPerguntas(conteudo.perguntas);
@@ -170,7 +185,7 @@ export default function EditorFormulario() {
     };
 
 	const salvar = () => {
-		const dados = { titulo: titulo.trim(), descricao: descricao.trim() || null, conteudo: { perguntas: perguntas.filter((pergunta) => pergunta.titulo.trim()).map((pergunta) => ({ ...pergunta, titulo: pergunta.titulo.trim(), opcoes: pergunta.opcoes.filter((opcao) => opcao.texto.trim()).map((opcao) => ({ ...opcao, texto: opcao.texto.trim() })) })) }, publicado: true, modoResposta, limitarPorNavegador, configuracao };
+		const dados = { titulo: titulo.trim(), descricao: descricao.trim() || null, conteudo: { perguntas: perguntas.filter((pergunta) => pergunta.titulo.trim()).map((pergunta) => ({ ...pergunta, titulo: pergunta.titulo.trim(), opcoes: pergunta.opcoes.filter((opcao) => opcao.texto.trim()).map((opcao) => ({ ...opcao, texto: opcao.texto.trim() })) })) }, publicado: true, modoResposta, limitarPorNavegador, configuracao, visibilidade };
 		if (formularioId) atualizarFormulario.mutate({ id: formularioId, ...dados });
 		else criarFormulario.mutate(dados);
 	};
@@ -182,7 +197,7 @@ export default function EditorFormulario() {
         <div className="flex min-h-full w-full flex-col items-center overflow-x-clip  px-3 py-6 pb-32 font-sans sm:px-4 sm:py-10">
             
             <div className="w-full max-w-3xl">
-                <BotaoVoltar href="/nexus/diretoria/questionarios" label="Voltar para Questionários" />
+                <BotaoVoltar href="/nexus/questionarios" label="Voltar para Questionários" />
             </div>
 
             {/* Banner de topo (Mesmo estilo visual) */}
@@ -267,6 +282,7 @@ export default function EditorFormulario() {
 						<option value="ANONIMO">Anônima — várias respostas permitidas</option>
 						<option value="IDENTIFICADO_POR_COOKIE">Identificada — uma resposta por navegador</option>
 					</select>
+					{podeRestringirADiretoria && <><label className="mt-4 block text-sm font-bold text-slate-800" htmlFor="visibilidade-questionario">Quem pode ver este questionário na gestão</label><select id="visibilidade-questionario" value={visibilidade} onChange={(event) => setVisibilidade(event.target.value as VisibilidadeFormulario)} className="mt-2 min-h-11 w-full rounded-xl border border-sky-200 bg-white px-3 text-sm font-semibold text-slate-800 outline-none focus:border-sky-600 focus:ring-2 focus:ring-sky-100"><option value="COMPARTILHADO">Equipe — professores, diretores e coordenação</option><option value="DIRETORIA">Somente Diretoria e coordenação</option></select></>}
 					{modoResposta === "IDENTIFICADO_POR_COOKIE" && <p className="mt-3 rounded-xl bg-white px-3 py-2 text-sm text-sky-800">A pessoa informará o nome e poderá responder uma vez por navegador.</p>}
 				</section>}
 

@@ -155,12 +155,23 @@ exports.Prisma.UserScalarFieldEnum = {
   nome: 'nome',
   email: 'email',
   senha: 'senha',
+  senhaAlteradaEm: 'senhaAlteradaEm',
   matricula: 'matricula',
   role: 'role',
   image: 'image',
   emailVerified: 'emailVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PasswordResetRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  requestedById: 'requestedById',
+  codigoHash: 'codigoHash',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SemestreScalarFieldEnum = {
@@ -326,6 +337,8 @@ exports.Prisma.FormularioScalarFieldEnum = {
   modoResposta: 'modoResposta',
   limitarPorNavegador: 'limitarPorNavegador',
   configuracao: 'configuracao',
+  visibilidade: 'visibilidade',
+  autorId: 'autorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -429,6 +442,11 @@ exports.ModoRespostaFormulario = exports.$Enums.ModoRespostaFormulario = {
   IDENTIFICADO_POR_COOKIE: 'IDENTIFICADO_POR_COOKIE'
 };
 
+exports.VisibilidadeFormulario = exports.$Enums.VisibilidadeFormulario = {
+  COMPARTILHADO: 'COMPARTILHADO',
+  DIRETORIA: 'DIRETORIA'
+};
+
 exports.TipoPergunta = exports.$Enums.TipoPergunta = {
   SHORT_TEXT: 'SHORT_TEXT',
   PARAGRAPH: 'PARAGRAPH',
@@ -441,6 +459,7 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   User: 'User',
+  PasswordResetRequest: 'PasswordResetRequest',
   Semestre: 'Semestre',
   Turma: 'Turma',
   ProfessorTurma: 'ProfessorTurma',

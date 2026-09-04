@@ -509,6 +509,10 @@ export default function ProfessoresDiretoria() {
 	const remover = api.diretoria.usuarios.remove.useMutation({
 		onSuccess: () => utils.diretoria.usuarios.list.invalidate(),
 	});
+	const solicitarRedefinicao = api.conta.solicitarRedefinicao.useMutation({
+		onSuccess: () => alert("Código de redefinição enviado por e-mail."),
+		onError: (causa) => alert(causa.message),
+	});
 	const [professores, setProfessores] = useState<Professor[]>([]);
 	const [modo, setModo] = useState<"lista" | "form">("lista");
 	const [editandoId, setEditandoId] = useState<string | null>(null);
@@ -686,7 +690,8 @@ export default function ProfessoresDiretoria() {
 											professor.role === "PROFESSOR"
 												? () => excluir(professor.id)
 												: undefined
-										}
+									}
+										onResetPassword={() => solicitarRedefinicao.mutate({ usuarioId: professor.id })}
 										onCertificate={() => setProfessorParaCertificado(professor)}
 									/>
 								))}
@@ -775,8 +780,8 @@ export default function ProfessoresDiretoria() {
 									Senha de acesso
 								</label>
 								<p className="rounded-lg bg-amber-50 px-3 py-2.5 text-sm text-amber-800">
-									A senha de acesso é a matrícula informada acima. Alterar a
-									matrícula redefine a senha.
+									A senha inicial é a matrícula. Depois do primeiro acesso, a
+									redefinição é feita por código enviado por e-mail.
 								</p>
 							</div>
 

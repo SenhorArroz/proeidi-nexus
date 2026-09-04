@@ -1,15 +1,17 @@
-import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from "node:crypto";
+import { scrypt as scryptCallback, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
+import bcrypt from "bcryptjs";
 
 const scrypt = promisify(scryptCallback);
 
 export async function hashPassword(password: string) {
-	const salt = randomBytes(16).toString("hex");
-	const derived = (await scrypt(password, salt, 64)) as Buffer;
-	return `scrypt$${salt}$${derived.toString("hex")}`;
+	return bcrypt.hash(password, 10);
 }
 
 export async function verifyPassword(password: string, stored: string) {
+	if (stored.startsWith("$2")) return bcrypt.compare(password, stored);
+
+	// Mantém o acesso das contas existentes até a próxima troca de senha.
 	const [algorithm, salt, encoded] = stored.split("$");
 	if (algorithm !== "scrypt" || !salt || !encoded) return false;
 	const expected = Buffer.from(encoded, "hex");

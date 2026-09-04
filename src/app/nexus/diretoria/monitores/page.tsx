@@ -198,6 +198,10 @@ export default function MonitoresDiretoria() {
 	const importarMonitores = api.diretoria.usuarios.importMonitors.useMutation({
 		onSuccess: () => utils.diretoria.usuarios.list.invalidate(),
 	});
+	const solicitarRedefinicao = api.conta.solicitarRedefinicao.useMutation({
+		onSuccess: () => alert("Código de redefinição enviado por e-mail."),
+		onError: (causa) => alert(causa.message),
+	});
 	const gerarDeclaracao = api.declaracao.gerarIndividual.useMutation({
 		onSuccess: (data) =>
 			downloadBase64Pdf(
@@ -506,6 +510,7 @@ export default function MonitoresDiretoria() {
 										personRole="monitor"
 										onEdit={() => abrirEdicao(monitor)}
 										onRemove={() => excluir(monitor.id)}
+										onResetPassword={() => solicitarRedefinicao.mutate({ usuarioId: monitor.id })}
 										onCertificate={() =>
 											gerarDeclaracao.mutate({
 												usuarioId: monitor.id,
@@ -610,8 +615,8 @@ export default function MonitoresDiretoria() {
 									Senha de acesso
 								</p>
 								<p className="rounded-lg bg-amber-50 px-3 py-2.5 text-sm text-amber-800">
-									A senha de acesso é a matrícula informada acima. Alterar a
-									matrícula redefine a senha.
+									A senha inicial é a matrícula. Depois do primeiro acesso, a
+									redefinição é feita por código enviado por e-mail.
 								</p>
 							</div>
 

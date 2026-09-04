@@ -13,6 +13,10 @@ export const env = createEnv({
 				: z.string().optional(),
 		DATABASE_URL: z.string().url(),
 		UPLOADTHING_TOKEN: z.string().optional(),
+		GMAIL_SMTP_USER: z.string().email().optional(),
+		GMAIL_SMTP_APP_PASSWORD: z.string().min(16).optional(),
+		GMAIL_SMTP_FROM: z.string().min(3).max(320).optional(),
+		APP_URL: z.string().url().optional(),
 		NODE_ENV: z
 			.enum(["development", "test", "production"])
 			.default("development"),
@@ -35,6 +39,10 @@ export const env = createEnv({
 		AUTH_SECRET: process.env.AUTH_SECRET,
 		DATABASE_URL: process.env.DATABASE_URL,
 		UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
+		GMAIL_SMTP_USER: process.env.GMAIL_SMTP_USER,
+		GMAIL_SMTP_APP_PASSWORD: process.env.GMAIL_SMTP_APP_PASSWORD,
+		GMAIL_SMTP_FROM: process.env.GMAIL_SMTP_FROM,
+		APP_URL: process.env.APP_URL,
 		NODE_ENV: process.env.NODE_ENV,
 	},
 	/**

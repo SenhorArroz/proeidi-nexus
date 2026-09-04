@@ -7,6 +7,7 @@ import { professorRouter } from "~/server/api/routers/professor";
 import { monitorRouter } from "~/server/api/routers/monitor";
 import { diretorRouter } from "~/server/api/routers/diretor";
 import { formularioRouter } from "~/server/api/routers/formulario";
+import { contaRouter } from "~/server/api/routers/conta";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -24,6 +25,7 @@ export const appRouter = createTRPCRouter({
 	monitor: monitorRouter,
 	diretor: diretorRouter,
 	formulario: formularioRouter,
+	conta: contaRouter,
 });
 
 // export type definition of API

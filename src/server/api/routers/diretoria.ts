@@ -583,7 +583,7 @@ export const diretoriaRouter = createTRPCRouter({
 				});
 			}),
 		update: directorProcedure
-			.input(personInput.extend({ id, role: z.enum(["PROFESSOR", "MONITOR"]) }))
+			.input(personInput.omit({ senha: true }).extend({ id, role: z.enum(["PROFESSOR", "MONITOR"]) }))
 			.mutation(async ({ ctx, input }) => {
 				const existing = await ctx.db.user.findFirst({
 					where: { id: input.id, role: input.role },
@@ -596,7 +596,6 @@ export const diretoriaRouter = createTRPCRouter({
 						nome: input.nome,
 						email: input.email.toLowerCase(),
 						matricula: input.matricula,
-						senha: await hashPassword(input.matricula),
 					},
 					select: { id: true, nome: true, email: true, matricula: true },
 				});
@@ -627,21 +626,21 @@ export const diretoriaRouter = createTRPCRouter({
 			}),
 		),
 		create: coordinatorProcedure
-			.input(personInput.extend({ senha: z.string().min(10).max(128) }))
+			.input(personInput.omit({ senha: true }))
 			.mutation(async ({ ctx, input }) =>
 				ctx.db.user.create({
 					data: {
 						nome: input.nome,
 						email: input.email,
 						matricula: input.matricula,
-						senha: await hashPassword(input.senha),
+						senha: await hashPassword(input.matricula),
 						role: "DIRETOR",
 					},
 					select: { id: true },
 				}),
 			),
 		update: coordinatorProcedure
-			.input(personInput.extend({ id }))
+			.input(personInput.omit({ senha: true }).extend({ id }))
 			.mutation(async ({ ctx, input }) => {
 				const exists = await ctx.db.user.findFirst({
 					where: { id: input.id, role: "DIRETOR" },
@@ -654,7 +653,6 @@ export const diretoriaRouter = createTRPCRouter({
 						nome: input.nome,
 						email: input.email,
 						matricula: input.matricula,
-						...(input.senha ? { senha: await hashPassword(input.senha) } : {}),
 					},
 					select: { id: true },
 				});
