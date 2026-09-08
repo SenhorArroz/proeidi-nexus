@@ -1,57 +1,41 @@
 "use client";
+import { ListaSemestres } from "./_components/lista-semestres";
+import { useSemestresDiretoria } from "./_components/use-semestres-diretoria";
 
-import { useState } from "react";
+import { CalendarDays, Plus } from "lucide-react";
 import {
-	CalendarDays,
-	CheckCircle2,
-	Copy,
-	GraduationCap,
-	Plus,
-	Trash2,
-	Users,
-} from "lucide-react";
-import { DiretoriaBackLink, DiretoriaPageIntro } from "~/app/_components/diretoria/page-intro";
-import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
-import { api } from "~/trpc/react";
+	DiretoriaBackLink,
+	DiretoriaPageIntro,
+} from "~/app/_components/diretoria/page-intro";
 
 export default function SemestresDiretoria() {
-	const utils = api.useUtils();
-	const { data: semestres, isLoading } =
-		api.diretoria.semestres.list.useQuery();
-	const [codigo, setCodigo] = useState("");
-	const [erro, setErro] = useState("");
-	const [semestreParaDuplicar, setSemestreParaDuplicar] = useState<{ id: string; codigo: string } | null>(null);
-	const [codigoDestino, setCodigoDestino] = useState("");
-	const atualizar = () => utils.diretoria.semestres.list.invalidate();
-	const criar = api.diretoria.semestres.create.useMutation({
-		onSuccess: () => {
-			setCodigo("");
-			setErro("");
-			atualizar();
-		},
-		onError: (e) => setErro(e.message),
-	});
-	const ativar = api.diretoria.semestres.setAtivo.useMutation({
-		onSuccess: atualizar,
-	});
-	const remover = api.diretoria.semestres.remove.useMutation({
-		onSuccess: atualizar,
-		onError: (e) => setErro(e.message),
-	});
-	const duplicar = api.diretoria.semestres.duplicate.useMutation({
-		onSuccess: () => {
-			setSemestreParaDuplicar(null);
-			setCodigoDestino("");
-			atualizar();
-		},
-		onError: (e) => setErro(e.message),
-	});
+	const {
+		codigo,
+		setCodigo,
+		criar,
+		erro,
+		isLoading,
+		semestres,
+		ativar,
+		setSemestreParaDuplicar,
+		setCodigoDestino,
+		remover,
+		semestreParaDuplicar,
+		duplicar,
+		codigoDestino,
+	} = useSemestresDiretoria();
 
 	return (
 		<div className="diretoria-page-canvas min-h-full w-full min-w-0 px-3font-sans sm:px-4 sm:py-5">
 			<div className="mx-auto w-full max-w-5xl">
 				<DiretoriaBackLink />
-				<div className="mb-6"><DiretoriaPageIntro icon={CalendarDays} title="Gerenciar semestres" description="Defina o período ativo e acompanhe as pessoas vinculadas pelas turmas." /></div>
+				<div className="mb-6">
+					<DiretoriaPageIntro
+						icon={CalendarDays}
+						title="Gerenciar semestres"
+						description="Defina o período ativo e acompanhe as pessoas vinculadas pelas turmas."
+					/>
+				</div>
 
 				<div className="mb-6 rounded-2xl border border-gray-200 bg-white p-4 sm:p-5">
 					<div className="flex flex-col gap-3 sm:flex-row sm:items-end">
@@ -83,114 +67,68 @@ export default function SemestresDiretoria() {
 					)}
 				</div>
 
-				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{isLoading ? (
-						<DataSkeleton cards={6} className="col-span-full" />
-					) : (
-						semestres?.map((semestre) => (
-							<div
-								key={semestre.id}
-								className="group relative overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,132,199,.13)]"
-							>
-								<div className="relative flex items-center justify-between overflow-hidden bg-sky-600 px-5 py-4 text-white"><div className="absolute -right-5 -top-8 h-20 w-20 rounded-full bg-orange-500" />
-									<div className="relative">
-										<p className="text-lg font-semibold">{semestre.codigo}</p>
-										{semestre.ativo && (
-											<span className="mt-1 inline-flex items-center gap-1 text-xs text-white/90">
-												<CheckCircle2 className="h-3.5 w-3.5" />
-												Semestre ativo
-											</span>
-										)}
-									</div>
-									<CalendarDays className="relative h-5 w-5 text-white/75" />
-								</div>
-								<div className="grid grid-cols-1 gap-2 p-4 text-center min-[390px]:grid-cols-3 sm:p-5">
-									<Resumo
-										icon={GraduationCap}
-										valor={semestre.totalAlunos}
-										label="Alunos"
-									/>
-									<Resumo
-										icon={Users}
-										valor={semestre.totalProfessores}
-										label="Professores"
-									/>
-									<Resumo
-										icon={CalendarDays}
-										valor={semestre.totalTurmas}
-										label="Turmas"
-									/>
-								</div>
-								<div className="flex flex-wrap gap-2 border-t border-gray-100 p-3">
-									{!semestre.ativo && (
-										<button
-											onClick={() => ativar.mutate({ id: semestre.id })}
-											className="min-h-11 min-w-32 flex-1 rounded-lg bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800 hover:bg-sky-100"
-										>
-											Tornar ativo
-										</button>
-									)}
-									<button
-										onClick={() => { setSemestreParaDuplicar({ id: semestre.id, codigo: semestre.codigo }); setCodigoDestino(""); }}
-										className="flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-50 px-3 py-2 text-xs font-bold text-orange-800 hover:bg-orange-100"
-									>
-										<Copy className="h-3.5 w-3.5" /> Duplicar
-									</button>
-									<button
-										onClick={() => {
-											if (confirm(`Excluir o semestre ${semestre.codigo}?`))
-												remover.mutate({ id: semestre.id });
-										}}
-										disabled={
-											semestre.ativo ||
-											semestre.totalTurmas > 0 ||
-											semestre.totalAlunos > 0
-										}
-										title={
-											semestre.ativo
-												? "Não é possível excluir o semestre ativo"
-												: "Semestres com dados não podem ser excluídos"
-										}
-										className="grid min-h-11 min-w-11 place-items-center rounded-lg px-3 py-2 text-red-500 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-30"
-									>
-										<Trash2 className="h-4 w-4" />
-									</button>
-								</div>
-							</div>
-						))
-					)}
-				</div>
+				<ListaSemestres
+					isLoading={isLoading}
+					semestres={semestres}
+					ativar={ativar}
+					setSemestreParaDuplicar={setSemestreParaDuplicar}
+					setCodigoDestino={setCodigoDestino}
+					remover={remover}
+				/>
 				{semestreParaDuplicar && (
 					<div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/45 p-0 sm:items-center sm:p-4">
-						<form onSubmit={(event) => { event.preventDefault(); duplicar.mutate({ semestreOrigemId: semestreParaDuplicar.id, codigoDestino, continuarAlunos: true, copiarMateriais: true }); }} className="w-full max-w-md rounded-t-2xl bg-white p-5 shadow-2xl sm:rounded-2xl">
-							<h2 className="text-lg font-bold text-slate-900">Duplicar {semestreParaDuplicar.codigo}</h2>
-							<p className="mt-2 text-sm leading-5 text-slate-600">Serão copiadas turmas, materiais, vínculos de docentes e monitores e as matrículas dos alunos. Presenças, aulas, avisos e candidatos de sorteio não serão copiados.</p>
-							<label className="mt-5 block text-sm font-semibold text-slate-800">Código do novo semestre<input autoFocus required value={codigoDestino} onChange={(event) => setCodigoDestino(event.target.value)} placeholder="Ex.: 2026.2" pattern="\d{4}\.[12]" className="mt-2 min-h-11 w-full rounded-xl border border-slate-300 px-3 text-sm outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100" /></label>
-							<div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"><button type="button" onClick={() => setSemestreParaDuplicar(null)} className="min-h-11 rounded-xl px-4 text-sm font-semibold text-slate-600 hover:bg-slate-100">Cancelar</button><button type="submit" disabled={duplicar.isPending} className="min-h-11 rounded-xl bg-orange-700 px-5 text-sm font-bold text-white hover:bg-orange-800 disabled:opacity-50">{duplicar.isPending ? "Duplicando..." : "Duplicar semestre"}</button></div>
+						<form
+							onSubmit={(event) => {
+								event.preventDefault();
+								duplicar.mutate({
+									semestreOrigemId: semestreParaDuplicar.id,
+									codigoDestino,
+									continuarAlunos: true,
+									copiarMateriais: true,
+								});
+							}}
+							className="w-full max-w-md rounded-t-2xl bg-white p-5 shadow-2xl sm:rounded-2xl"
+						>
+							<h2 className="text-lg font-bold text-slate-900">
+								Duplicar {semestreParaDuplicar.codigo}
+							</h2>
+							<p className="mt-2 text-sm leading-5 text-slate-600">
+								Serão copiadas turmas, materiais, vínculos de docentes e
+								monitores e as matrículas dos alunos. Presenças, aulas, avisos e
+								candidatos de sorteio não serão copiados.
+							</p>
+							<label className="mt-5 block text-sm font-semibold text-slate-800">
+								Código do novo semestre
+								<input
+									autoFocus
+									required
+									value={codigoDestino}
+									onChange={(event) => setCodigoDestino(event.target.value)}
+									placeholder="Ex.: 2026.2"
+									pattern="\d{4}\.[12]"
+									className="mt-2 min-h-11 w-full rounded-xl border border-slate-300 px-3 text-sm outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
+								/>
+							</label>
+							<div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+								<button
+									type="button"
+									onClick={() => setSemestreParaDuplicar(null)}
+									className="min-h-11 rounded-xl px-4 text-sm font-semibold text-slate-600 hover:bg-slate-100"
+								>
+									Cancelar
+								</button>
+								<button
+									type="submit"
+									disabled={duplicar.isPending}
+									className="min-h-11 rounded-xl bg-orange-700 px-5 text-sm font-bold text-white hover:bg-orange-800 disabled:opacity-50"
+								>
+									{duplicar.isPending ? "Duplicando..." : "Duplicar semestre"}
+								</button>
+							</div>
 						</form>
 					</div>
 				)}
 			</div>
-		</div>
-	);
-}
-
-function Resumo({
-	icon: Icon,
-	valor,
-	label,
-}: {
-	icon: typeof Users;
-	valor: number;
-	label: string;
-}) {
-	return (
-		<div>
-			<Icon className="mx-auto mb-1 h-4 w-4 text-amber-600" />
-			<p className="text-lg font-bold text-gray-900">{valor}</p>
-			<p className="text-[10px] uppercase tracking-wide text-gray-400">
-				{label}
-			</p>
 		</div>
 	);
 }

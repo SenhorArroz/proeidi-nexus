@@ -94,6 +94,7 @@ const candidatoInput = z.object({
 });
 
 const turmaInput = z.object({
+	limiteAlunos: z.number().int().min(1).max(300).default(14),
 	semestreId: id,
 	titulo: text,
 	sala: z.string().trim().max(80).nullable().optional(),
@@ -938,6 +939,7 @@ export const diretoriaRouter = createTRPCRouter({
 						titulo: true,
 						sala: true,
 						horario: true,
+						limiteAlunos: true,
 						cor: true,
 						corDestaque: true,
 						corFundo: true,
@@ -956,7 +958,11 @@ export const diretoriaRouter = createTRPCRouter({
 								user: { select: { id: true, nome: true, role: true } },
 							},
 						},
-						alunos: { select: { aluno: { select: { id: true, nome: true } } } },
+						alunos: {
+							select: {
+								aluno: { select: { id: true, nome: true, dataNascimento: true, telefone: true, contatoEmergencia: true } },
+							},
+						},
 						materiais: {
 							select: { id: true, titulo: true, tipo: true, url: true },
 						},
@@ -978,6 +984,7 @@ export const diretoriaRouter = createTRPCRouter({
 						titulo: input.titulo,
 						sala: input.sala,
 						horario: input.horario,
+						limiteAlunos: input.limiteAlunos,
 						cor: input.cor,
 						corDestaque: input.corDestaque,
 						corFundo: input.corFundo,
@@ -1010,6 +1017,7 @@ export const diretoriaRouter = createTRPCRouter({
 						titulo: true,
 						sala: true,
 						horario: true,
+						limiteAlunos: true,
 						cor: true,
 						corDestaque: true,
 						corFundo: true,
@@ -1041,6 +1049,7 @@ export const diretoriaRouter = createTRPCRouter({
 						titulo,
 						sala: origem.sala,
 						horario: origem.horario,
+						limiteAlunos: origem.limiteAlunos,
 						cor: origem.cor,
 						corDestaque: origem.corDestaque,
 						corFundo: origem.corFundo,
@@ -1117,6 +1126,7 @@ export const diretoriaRouter = createTRPCRouter({
 							titulo: input.titulo,
 							sala: input.sala,
 							horario: input.horario,
+							limiteAlunos: input.limiteAlunos,
 							cor: input.cor,
 							corDestaque: input.corDestaque,
 							corFundo: input.corFundo,

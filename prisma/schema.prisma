@@ -256,6 +256,7 @@ model ResponsavelMaterialAtualizacao {
 
 model Turma {
   id           String  @id @default(cuid())
+  limiteAlunos Int     @default(14)
   titulo       String
   sala         String?
   horario      String?

@@ -1,29 +1,8 @@
 "use client";
+import { TurmaDashboardCard } from "./_components/turma-dashboard-card";
 
-import Link from "next/link";
-import {
-	CalendarDays,
-	ChevronRight,
-	Clock3,
-	DoorOpen,
-	GraduationCap,
-	MapPin,
-	ShieldCheck,
-	Sparkles,
-	Users,
-} from "lucide-react";
+import { CalendarDays, GraduationCap, ShieldCheck } from "lucide-react";
 import { api } from "~/trpc/react";
-
-const dataFormatada = (data?: Date) =>
-	data
-		? new Intl.DateTimeFormat("pt-BR", {
-				weekday: "short",
-				day: "2-digit",
-				month: "short",
-				hour: "2-digit",
-				minute: "2-digit",
-			}).format(data)
-		: "Sem próxima aula";
 
 export default function Dashboard() {
 	const { data, isLoading } = api.turma.minhas.useQuery();
@@ -40,7 +19,10 @@ export default function Dashboard() {
 	const IconeCargo = usuario?.role === "MONITOR" ? ShieldCheck : GraduationCap;
 	return (
 		<main className="nexus-dashboard relative isolate min-h-full min-w-0 overflow-hidden bg-[radial-gradient(circle_at_95%_0%,rgba(14,165,233,.14),transparent_25rem),radial-gradient(circle_at_76%_12rem,rgba(249,115,22,.1),transparent_19rem),#f8fafc] px-3 py-5 sm:px-7 sm:py-7 lg:px-10">
-			<div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+			<div
+				aria-hidden="true"
+				className="pointer-events-none absolute inset-0 overflow-hidden"
+			>
 				<span className="absolute -right-32 -top-24 h-96 w-96 rounded-full bg-sky-600/25 blur-3xl" />
 				<span className="absolute -bottom-40 -left-28 h-[28rem] w-[28rem] rounded-full bg-amber-600/20 blur-3xl" />
 			</div>
@@ -89,54 +71,7 @@ export default function Dashboard() {
 					) : turmas.length ? (
 						<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 							{turmas.map((turma) => (
-								<Link
-									key={turma.id}
-									href={`/nexus/dashboard/turmas/${turma.id}`}
-									className="turma-card-tema group min-w-0 overflow-hidden rounded-2xl shadow-[0_12px_27px_rgba(15,23,42,.07)] transition duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4"
-									style={{
-										backgroundColor: turma.corFundo,
-										["--turma-texto" as string]: turma.corTexto,
-										["--turma-descricao" as string]: turma.corDescricao,
-										fontFamily:
-											turma.fonte === "SERIF"
-												? "Georgia, serif"
-												: turma.fonte === "MONO"
-													? "ui-monospace, SFMono-Regular, Menlo, monospace"
-													: undefined,
-										boxShadow: `0 20px 35px ${turma.cor}29`,
-										["--tw-ring-color" as string]: turma.corDestaque,
-									}}
-								>
-									<div className="turma-card-tema__cabecalho relative px-5 py-5" style={{ backgroundColor: turma.cor }}>
-										<div className="absolute -right-6 -bottom-9 h-28 w-28 rounded-full" style={{ backgroundColor: turma.corDestaque }} />
-										<div className="relative flex items-start justify-between gap-4">
-											<span className="grid h-10 w-10 place-items-center rounded-xl bg-white/15">
-												<DoorOpen className="h-5 w-5 text-white" />
-											</span>
-											<ChevronRight className="mt-1 h-5 w-5 text-white/75 transition group-hover:translate-x-1" />
-										</div>
-										<h3 className="relative mt-5 truncate text-base font-black tracking-[-.02em] text-white" style={{ color: turma.corTitulo }}>
-											{turma.titulo}
-										</h3>
-										<p className="relative mt-1 text-xs font-semibold text-white/80" style={{ color: turma.corTitulo }}>
-											{turma.semestre.codigo}
-										</p>
-									</div>
-									<div className="turma-card-descricao space-y-3 p-5 text-sm text-slate-600">
-										<p className="flex min-w-0 items-center gap-2 !text-[color:var(--turma-descricao)]">
-											<MapPin className="h-4 w-4" style={{ color: turma.corDestaque }} />
-											<span className="truncate">{turma.sala || "Local a definir"}</span>
-										</p>
-										<p className="flex items-center gap-2 !text-[color:var(--turma-descricao)]">
-											<Users className="h-4 w-4" style={{ color: turma.corDestaque }} />
-											{turma.alunos.length} alunos
-										</p>
-										<p className="flex items-center gap-2 border-t border-slate-100 pt-3 font-semibold !text-[color:var(--turma-descricao)]">
-											<Clock3 className="h-4 w-4" style={{ color: turma.corDestaque }} />
-											{turma.horario}
-										</p>
-									</div>
-								</Link>
+								<TurmaDashboardCard key={turma.id} turma={turma} />
 							))}
 						</div>
 					) : (

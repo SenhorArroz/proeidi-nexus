@@ -1,17 +1,13 @@
 "use client";
+import { FichaCadastralAluno } from "./_components/ficha-cadastral-aluno";
+import { HistoricoMatriculasAluno } from "./_components/historico-matriculas-aluno";
+import { simNao } from "./_components/suporte";
 
-import { use } from "react";
+import { ArrowLeft, UserRound } from "lucide-react";
 import Link from "next/link";
-import {
-	ArrowLeft,
-	CalendarDays,
-	GraduationCap,
-	UserRound,
-} from "lucide-react";
-import { api } from "~/trpc/react";
+import { use } from "react";
 import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
-
-const simNao = (valor: boolean) => (valor ? "Sim" : "Não");
+import { api } from "~/trpc/react";
 
 export default function DetalheAluno({
 	params,
@@ -20,7 +16,8 @@ export default function DetalheAluno({
 }) {
 	const { id } = use(params);
 	const { data: aluno, isLoading, error } = api.aluno.detalhe.useQuery({ id });
-	const { data: historico, isLoading: carregandoHistorico } = api.diretoria.alunos.historico.useQuery({ alunoId: id });
+	const { data: historico, isLoading: carregandoHistorico } =
+		api.diretoria.alunos.historico.useQuery({ alunoId: id });
 	if (isLoading)
 		return (
 			<main className="min-h-full px-4 py-8">
@@ -70,8 +67,14 @@ export default function DetalheAluno({
 	];
 	return (
 		<main className="relative min-h-full overflow-hidden px-3 sm:px-4 sm:py-4">
-			<span aria-hidden="true" className="pointer-events-none absolute -left-32 top-52 h-96 w-96 rounded-full bg-sky-600/25 blur-3xl" />
-			<span aria-hidden="true" className="pointer-events-none absolute -right-28 top-[28rem] h-[28rem] w-[28rem] rounded-full bg-amber-600/20 blur-3xl" />
+			<span
+				aria-hidden="true"
+				className="pointer-events-none absolute -left-32 top-52 h-96 w-96 rounded-full bg-sky-600/25 blur-3xl"
+			/>
+			<span
+				aria-hidden="true"
+				className="pointer-events-none absolute -right-28 top-[28rem] h-[28rem] w-[28rem] rounded-full bg-amber-600/20 blur-3xl"
+			/>
 			<div className="relative mx-auto max-w-5xl">
 				<Link
 					href="/nexus/diretoria/alunos"
@@ -96,118 +99,15 @@ export default function DetalheAluno({
 				</header>
 
 				<div className="mt-5 grid gap-5 lg:grid-cols-[1.1fr_.9fr]">
-					<section className="rounded-2xl bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,.06)] sm:p-5">
-						<h2 className="font-extrabold text-slate-900">
-							Informações completas do aluno
-						</h2>
-						<div className="mt-5 space-y-6">
-							<div>
-								<h3 className="font-bold text-slate-800">Dados pessoais</h3>
-								<dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
-									{dadosPessoais.map(([rotulo, valor]) => (
-										<div
-											key={rotulo}
-											className="min-w-0 rounded-xl bg-slate-50 p-3"
-										>
-											<dt className="text-xs font-bold text-slate-500">
-												{rotulo}
-											</dt>
-											<dd className="mt-1 break-words font-semibold text-slate-800">
-												{valor || "Não informado"}
-											</dd>
-										</div>
-									))}
-								</dl>
-							</div>
-							<div>
-								<h3 className="font-bold text-slate-800">Contato</h3>
-								<dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
-									{contato.map(([rotulo, valor]) => (
-										<div
-											key={rotulo}
-											className="min-w-0 rounded-xl bg-slate-50 p-3"
-										>
-											<dt className="text-xs font-bold text-slate-500">
-												{rotulo}
-											</dt>
-											<dd className="mt-1 break-words font-semibold text-slate-800">
-												{valor || "Não informado"}
-											</dd>
-										</div>
-									))}
-								</dl>
-							</div>
-							<div>
-								<h3 className="font-bold text-slate-800">
-									Respostas da confirmação de inscrição
-								</h3>
-								<p className="mt-1 text-sm text-slate-500">
-									Campos respondidos pelo aluno no momento da adição.
-								</p>
-								<dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
-									{respostasConfirmacao.map(([rotulo, valor]) => (
-										<div
-											key={rotulo}
-											className="min-w-0 rounded-xl bg-slate-50 p-3"
-										>
-											<dt className="text-xs font-bold text-slate-500">
-												{rotulo}
-											</dt>
-											<dd className="mt-1 break-words font-semibold text-slate-800">
-												{valor || "Não informado"}
-											</dd>
-										</div>
-									))}
-								</dl>
-							</div>
-						</div>
-					</section>
-					<section className="rounded-2xl bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,.06)] sm:p-5">
-						<h2 className="flex items-center gap-2 font-extrabold text-slate-900">
-							<GraduationCap className="h-5 w-5 text-orange-600" /> Histórico de
-							turmas
-						</h2>
-						<p className="mt-1 text-sm text-slate-500">
-							Todas as turmas às quais este aluno já foi vinculado.
-						</p>
-						<div className="mt-4 space-y-3">
-							{carregandoHistorico ? (
-								<p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
-									Carregando histórico...
-								</p>
-							) : historico?.length ? (
-								historico.map((registro) => (
-									<article
-										key={registro.id}
-										className="rounded-xl border border-slate-100 p-3"
-									>
-										<div className="flex items-start gap-3">
-											<span
-												className="mt-1 h-3 w-3 shrink-0 rounded-full"
-												style={{ backgroundColor: "#0284c7" }}
-											/>
-											<div className="min-w-0">
-												<h3 className="break-words font-bold text-slate-900">
-													{registro.semestre.codigo}
-												</h3>
-												<p className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-500">
-													<span className="inline-flex items-center gap-1">
-														<CalendarDays className="h-3.5 w-3.5" />
-														{registro.turmas.map(({ turma }) => turma.titulo).join(", ") || "Sem turma"}
-													</span>
-													<span>{registro.etapaTrilha || "Etapa não definida"} · {registro.statusMatricula.toLowerCase()}</span>
-												</p>
-											</div>
-										</div>
-									</article>
-								))
-							) : (
-								<p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
-									Nenhuma turma vinculada.
-								</p>
-							)}
-						</div>
-					</section>
+					<FichaCadastralAluno
+						dadosPessoais={dadosPessoais}
+						contato={contato}
+						respostasConfirmacao={respostasConfirmacao}
+					/>
+					<HistoricoMatriculasAluno
+						carregandoHistorico={carregandoHistorico}
+						historico={historico}
+					/>
 				</div>
 			</div>
 		</main>

@@ -1,134 +1,13 @@
 "use client";
-import { use, useState } from "react";
+import { AnalyticsQuestion } from "./_components/analytics-question";
+import { RespostasIndividuaisQuestionario } from "./_components/respostas-individuais-questionario";
+import { type Pergunta, type Respostas } from "./_components/suporte";
+
+import { BarChart3 } from "lucide-react";
 import Link from "next/link";
-import {
-	BarChart3,
-	CheckCircle2,
-	MessageSquareText,
-	Search,
-	UserRound,
-} from "lucide-react";
-import { api } from "~/trpc/react";
+import { use, useState } from "react";
 import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
-
-type Pergunta = {
-	id: string;
-	titulo: string;
-	tipo: "short_text" | "paragraph" | "multiple_choice" | "checkbox";
-	opcoes?: { texto: string }[];
-	respostaCorreta?: string | string[];
-};
-type Respostas = Record<string, string | string[]>;
-const lista = (valor: string | string[] | undefined) =>
-	valor === undefined ? [] : Array.isArray(valor) ? valor : [valor];
-
-function AnalyticsQuestion({
-	pergunta,
-	respostas,
-}: {
-	pergunta: Pergunta;
-	respostas: Respostas[];
-}) {
-	const valores = respostas.flatMap((resposta) => lista(resposta[pergunta.id]));
-	const opcoes = pergunta.opcoes?.map((opcao) => opcao.texto) ?? [];
-	const corretas = lista(pergunta.respostaCorreta);
-	const escolhas =
-		pergunta.tipo === "multiple_choice" || pergunta.tipo === "checkbox";
-	const totalRespondentes = respostas.filter(
-		(resposta) => lista(resposta[pergunta.id]).length > 0,
-	).length;
-	const contagens = opcoes.map((opcao) => ({
-		opcao,
-		total: valores.filter((valor) => valor === opcao).length,
-	}));
-	const acertos = corretas.length
-		? respostas.filter((resposta) => {
-				const respostaOrdenada = lista(resposta[pergunta.id]).slice().sort();
-				const corretaOrdenada = corretas.slice().sort();
-				return (
-					respostaOrdenada.length === corretaOrdenada.length &&
-					respostaOrdenada.every(
-						(item, indice) => item === corretaOrdenada[indice],
-					)
-				);
-			}).length
-		: null;
-	return (
-		<article className="min-w-0 overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(15,23,42,.06)]">
-			<div className="flex flex-col items-start gap-3 border-b border-sky-100 bg-sky-50/60 p-4 dark:border-sky-950 dark:bg-slate-900/90 min-[420px]:flex-row min-[420px]:justify-between sm:p-5">
-				<div className="min-w-0">
-					<h2 className="break-words font-extrabold text-slate-900">
-						{pergunta.titulo}
-					</h2>
-					<p className="mt-1 text-sm text-slate-500">
-						{totalRespondentes} de {respostas.length} pessoa(s) responderam
-					</p>
-				</div>
-				{acertos !== null && (
-					<span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-3 py-1 text-xs font-bold text-green-800">
-						<CheckCircle2 className="h-3.5 w-3.5" />
-						{acertos} acerto(s)
-					</span>
-				)}
-			</div>
-			{escolhas ? (
-				<div className="overflow-x-auto p-4 sm:p-5">
-					<div className="flex min-h-36 min-w-max items-end justify-center gap-3 border-b-2 border-sky-100 pb-1 sm:min-w-0">
-						{contagens.map(({ opcao, total }, index) => {
-							const percentual = totalRespondentes
-								? Math.round((total / totalRespondentes) * 100)
-								: 0;
-							const cor = corretas.includes(opcao)
-								? "bg-green-500"
-								: index % 2
-									? "bg-orange-500"
-									: "bg-sky-500";
-							return (
-								<div
-									key={opcao}
-									className="flex min-w-0 max-w-24 flex-1 flex-col items-center gap-2"
-								>
-									<span className="text-xs font-black text-slate-700">
-										{total}
-									</span>
-									<div
-										className={`w-full max-w-12 rounded-t-xl ${cor} transition-[height] duration-500`}
-										style={{
-											height: `${Math.max(total ? 16 : 4, percentual * 1.2)}px`,
-										}}
-										title={`${opcao}: ${total} resposta(s), ${percentual}%`}
-									/>
-									<span
-										className="w-full truncate text-center text-[10px] font-bold text-slate-500"
-										title={opcao}
-									>
-										{opcao}
-									</span>
-								</div>
-							);
-						})}
-					</div>
-				</div>
-			) : (
-				<div className="space-y-2 p-5">
-					{valores.length ? (
-						valores.map((valor, indice) => (
-							<p
-								key={`${valor}-${indice}`}
-								className="rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-700"
-							>
-								<MessageSquareText className="mr-2 inline h-4 w-4 text-sky-600" />
-								{valor}
-							</p>
-						))
-					) : (
-						<p className="text-sm text-slate-500">Ainda não há respostas.</p>
-					)}
-				</div>
-			)}
-		</article>
-	);
-}
+import { api } from "~/trpc/react";
 
 export default function EstatisticasQuestionario({
 	params,
@@ -226,81 +105,13 @@ export default function EstatisticasQuestionario({
 					</section>
 				)}
 				{identificado && painel === "individuais" && (
-					<section className="mt-6 overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(15,23,42,.06)]">
-						<div className="border-b border-sky-100 bg-sky-50/60 p-4 dark:border-sky-950 dark:bg-slate-900/90 sm:p-5">
-							<h2 className="flex items-center gap-2 font-extrabold text-slate-900">
-								<UserRound className="h-5 w-5 text-sky-900" /> Respostas
-								individuais
-							</h2>
-							<p className="mt-1 text-sm text-slate-600">
-								Identificação informada pela pessoa no momento da resposta.
-							</p>
-							<div className="relative mt-4">
-								<Search
-									aria-hidden="true"
-									className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
-								/>
-								<input
-									type="search"
-									value={buscaIndividual}
-									onChange={(event) => setBuscaIndividual(event.target.value)}
-									placeholder="Buscar por nome"
-									className="min-h-11 w-full rounded-xl border border-sky-100 bg-white py-2 pl-10 pr-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
-								/>
-							</div>
-						</div>
-						<div className="divide-y divide-slate-100">
-							{respostasIndividuaisFiltradas.length === 0 ? (
-								<p className="px-5 py-8 text-center text-sm text-slate-500">
-									Nenhuma resposta encontrada para este nome.
-								</p>
-							) : (
-								respostasIndividuaisFiltradas.map((resposta, indice) => (
-									<details key={resposta.id} className="group p-4 sm:p-5">
-										<summary className="flex cursor-pointer list-none items-center justify-between gap-3">
-											<div className="min-w-0">
-												<p className="truncate font-bold text-slate-900">
-													{resposta.nomeRespondente ||
-														`Resposta ${respostasIndividuaisFiltradas.length - indice}`}
-												</p>
-												<p className="mt-1 text-xs text-slate-500">
-													{new Intl.DateTimeFormat("pt-BR", {
-														dateStyle: "medium",
-														timeStyle: "short",
-													}).format(resposta.createdAt)}
-													{configuracao?.atribuirPontuacao &&
-														` · ${resposta.pontuacao ?? 0} ponto(s)`}
-												</p>
-											</div>
-											<span className="text-sm font-bold text-sky-700 group-open:hidden">
-												Ver respostas
-											</span>
-											<span className="hidden text-sm font-bold text-sky-700 group-open:inline">
-												Fechar
-											</span>
-										</summary>
-										<dl className="mt-4 space-y-3 border-t border-slate-100 pt-4">
-											{perguntas.map((pergunta) => {
-												const valor = (resposta.respostas as Respostas)[
-													pergunta.id
-												];
-												return (
-													<div key={pergunta.id}>
-														<dt className="text-sm font-bold text-slate-800">
-															{pergunta.titulo}
-														</dt>
-														<dd className="mt-1 break-words text-sm text-slate-600">
-															{lista(valor).join(", ") || "Não respondida"}
-														</dd>
-													</div>
-												);
-											})}
-										</dl>
-									</details>
-								))
-							)}
-						</div>
-					</section>
+					<RespostasIndividuaisQuestionario
+						buscaIndividual={buscaIndividual}
+						setBuscaIndividual={setBuscaIndividual}
+						respostasIndividuaisFiltradas={respostasIndividuaisFiltradas}
+						configuracao={configuracao}
+						perguntas={perguntas}
+					/>
 				)}
 			</div>
 		</main>

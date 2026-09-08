@@ -1,189 +1,12 @@
 "use client";
-import React from "react";
-import Link from "next/link";
-import {
-	Building2,
-	DoorOpen,
-	Users,
-	ShieldCheck,
-	FileText,
-	Dices,
-	GraduationCap,
-	Briefcase,
-	Printer,
-	ClipboardCheck,
-} from "lucide-react";
+import { AcessoRapido } from "./_components/acesso-rapido";
+import { StatMini } from "./_components/stat-mini";
+import { FERRAMENTAS } from "./_components/suporte";
 
-import { api } from "~/trpc/react";
+import { Building2, GraduationCap, ShieldCheck, Users } from "lucide-react";
+
 import { DataSkeleton } from "~/app/_components/diretoria/data-skeleton";
-
-// ---------------------------------------------------------------------------
-// Tipos e dados
-// ---------------------------------------------------------------------------
-
-interface Ferramenta {
-	id: string;
-	nome: string;
-	link: string;
-	descricao: string;
-	icon: React.ElementType;
-	cor: string;
-}
-
-const FERRAMENTAS: Ferramenta[] = [
-	{
-		id: "semestres",
-		nome: "Gerenciar Semestres",
-		descricao: "Períodos letivos, semestre ativo e equipes vinculadas",
-		link: "/nexus/diretoria/semestres",
-		icon: Briefcase,
-		cor: "#0F766E",
-	},
-	{
-		id: "turmas",
-		nome: "Gerenciar Turmas",
-		descricao: "Criar, editar e arquivar turmas",
-		link: "/nexus/diretoria/turmas",
-		icon: DoorOpen,
-		cor: "#0F766E",
-	},
-	{
-		id: "professores",
-		nome: "Gerenciar Professores",
-		descricao: "Cadastro, turmas atribuídas e permissões",
-		link: "/nexus/diretoria/professores",
-		icon: Users,
-		cor: "#9334E6",
-	},
-	{
-		id: "diretores",
-		nome: "Gerenciar Diretores",
-		descricao: "Cadastro e controle de acesso dos diretores",
-		link: "/nexus/diretoria/diretores",
-		icon: Building2,
-		cor: "#B06000",
-	},
-	{
-		id: "monitores",
-		nome: "Gerenciar Monitores",
-		descricao: "Cadastro e vínculo com turmas",
-		link: "/nexus/diretoria/monitores",
-		icon: ShieldCheck,
-		cor: "#188038",
-	},
-	{
-		id: "alunos",
-		nome: "Gerenciar Alunos",
-		descricao: "Lista geral de alunos e seus dados",
-		link: "/nexus/diretoria/alunos",
-		icon: FileText,
-		cor: "#999999",
-	},
-	{
-		id: "presencas",
-		nome: "Gerenciar Presenças",
-		descricao: "Alunos, monitores, professores e diretores docentes",
-		link: "/nexus/diretoria/presencas",
-		icon: ClipboardCheck,
-		cor: "#0F766E",
-	},
-	{
-		id: "sorteio",
-		nome: "Gerenciar Sorteio",
-		descricao: "Sorteio de alunos para turmas",
-		link: "/nexus/diretoria/sorteio",
-		icon: Dices,
-		cor: "#ff8400",
-	},
-	{
-		id: "questionarios",
-		nome: "Gerenciar Questionários",
-		descricao: "Questionários aplicados aos alunos",
-		link: "/nexus/diretoria/questionarios",
-		icon: FileText,
-		cor: "#999999",
-	},
-	{
-		id: "impressao",
-		nome: "Gerenciar Impressão de Apostilas",
-		descricao: "Gerenciamento de impressões",
-		link: "/nexus/diretoria/impressao",
-		icon: Printer,
-		cor: "#999999",
-	},
-	{
-		id: "materiais",
-		nome: "Atualização de Materiais",
-		descricao: "Atualização dos Materiais",
-		link: "/nexus/diretoria/materiais-atualizacao",
-		icon: Printer,
-		cor: "#999999",
-	},
-	
-];
-
-// ---------------------------------------------------------------------------
-// Sub-componentes
-// ---------------------------------------------------------------------------
-
-function StatMini({
-	icon: Icon,
-	label,
-	valor,
-	cor,
-}: {
-	icon: React.ElementType;
-	label: string;
-	valor: number | string;
-	cor: string;
-}) {
-	return (
-		<div className="flex items-center gap-3 bg-white rounded-2xl border border-gray-200 p-4 hover:border-gray-300 hover:shadow-sm transition-all duration-200">
-			<div
-				className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-				style={{ backgroundColor: `${cor}14` }}
-			>
-				<Icon className="w-5 h-5" style={{ color: cor }} />
-			</div>
-			<div className="min-w-0">
-				<p className="text-xl font-bold text-gray-900 leading-none">{valor}</p>
-				<p className="text-[11px] text-gray-400 mt-0.5 truncate">{label}</p>
-			</div>
-		</div>
-	);
-}
-
-function AcessoRapido({
-	ferramenta,
-	destaque = false,
-}: {
-	ferramenta: Ferramenta;
-	destaque?: boolean;
-}) {
-	const Icon = ferramenta.icon;
-	return (
-		<Link
-			href={ferramenta.link}
-			className={`group flex min-w-0 items-center gap-3 rounded-2xl p-3.5 transition-all duration-200 focus-visible:outline-none ${destaque ? "bg-white text-white-950 shadow-[0_16px_28px_rgba(2,132,199,0.18)] hover:-translate-y-0.5" : "bg-sky-950/10 text-white hover:bg-white/15"}`}
-		>
-			<span
-				className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${destaque ? "bg-orange-100 text-orange-700" : "bg-white/18 text-white"}`}
-			>
-				<Icon className="h-5 w-5" />
-			</span>
-			<span className="min-w-0 flex-1">
-				<span className="block truncate text-sm font-bold">
-					{ferramenta.nome.replace("Gerenciar ", "")}
-				</span>
-				<span
-					className={`mt-0.5 block truncate text-xs ${destaque ? "text-slate-500" : "text-sky-100"}`}
-				>
-					{ferramenta.descricao}
-				</span>
-			</span>
-		</Link>
-	);
-}
+import { api } from "~/trpc/react";
 
 // ---------------------------------------------------------------------------
 // Componente principal
@@ -207,8 +30,8 @@ export default function PainelDiretor() {
 								Painel da Diretoria
 							</h1>
 							<p className="mt-2 max-w-sm text-sm leading-6 text-sky-100">
-								O nexus para organizar pessoas, turmas e os
-								movimentos do semestre.
+								O nexus para organizar pessoas, turmas e os movimentos do
+								semestre.
 							</p>
 						</div>
 						<div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">

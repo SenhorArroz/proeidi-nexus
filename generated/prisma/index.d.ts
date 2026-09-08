@@ -16783,12 +16783,23 @@ export namespace Prisma {
 
   export type AggregateTurma = {
     _count: TurmaCountAggregateOutputType | null
+    _avg: TurmaAvgAggregateOutputType | null
+    _sum: TurmaSumAggregateOutputType | null
     _min: TurmaMinAggregateOutputType | null
     _max: TurmaMaxAggregateOutputType | null
   }
 
+  export type TurmaAvgAggregateOutputType = {
+    limiteAlunos: number | null
+  }
+
+  export type TurmaSumAggregateOutputType = {
+    limiteAlunos: number | null
+  }
+
   export type TurmaMinAggregateOutputType = {
     id: string | null
+    limiteAlunos: number | null
     titulo: string | null
     sala: string | null
     horario: string | null
@@ -16804,6 +16815,7 @@ export namespace Prisma {
 
   export type TurmaMaxAggregateOutputType = {
     id: string | null
+    limiteAlunos: number | null
     titulo: string | null
     sala: string | null
     horario: string | null
@@ -16819,6 +16831,7 @@ export namespace Prisma {
 
   export type TurmaCountAggregateOutputType = {
     id: number
+    limiteAlunos: number
     titulo: number
     sala: number
     horario: number
@@ -16834,8 +16847,17 @@ export namespace Prisma {
   }
 
 
+  export type TurmaAvgAggregateInputType = {
+    limiteAlunos?: true
+  }
+
+  export type TurmaSumAggregateInputType = {
+    limiteAlunos?: true
+  }
+
   export type TurmaMinAggregateInputType = {
     id?: true
+    limiteAlunos?: true
     titulo?: true
     sala?: true
     horario?: true
@@ -16851,6 +16873,7 @@ export namespace Prisma {
 
   export type TurmaMaxAggregateInputType = {
     id?: true
+    limiteAlunos?: true
     titulo?: true
     sala?: true
     horario?: true
@@ -16866,6 +16889,7 @@ export namespace Prisma {
 
   export type TurmaCountAggregateInputType = {
     id?: true
+    limiteAlunos?: true
     titulo?: true
     sala?: true
     horario?: true
@@ -16918,6 +16942,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: TurmaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: TurmaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
      * Select which fields to find the minimum value
     **/
     _min?: TurmaMinAggregateInputType
@@ -16948,12 +16984,15 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: TurmaCountAggregateInputType | true
+    _avg?: TurmaAvgAggregateInputType
+    _sum?: TurmaSumAggregateInputType
     _min?: TurmaMinAggregateInputType
     _max?: TurmaMaxAggregateInputType
   }
 
   export type TurmaGroupByOutputType = {
     id: string
+    limiteAlunos: number
     titulo: string
     sala: string | null
     horario: string | null
@@ -16966,6 +17005,8 @@ export namespace Prisma {
     fonte: string
     semestreId: string
     _count: TurmaCountAggregateOutputType | null
+    _avg: TurmaAvgAggregateOutputType | null
+    _sum: TurmaSumAggregateOutputType | null
     _min: TurmaMinAggregateOutputType | null
     _max: TurmaMaxAggregateOutputType | null
   }
@@ -16986,6 +17027,7 @@ export namespace Prisma {
 
   export type TurmaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    limiteAlunos?: boolean
     titulo?: boolean
     sala?: boolean
     horario?: boolean
@@ -17011,6 +17053,7 @@ export namespace Prisma {
 
   export type TurmaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    limiteAlunos?: boolean
     titulo?: boolean
     sala?: boolean
     horario?: boolean
@@ -17027,6 +17070,7 @@ export namespace Prisma {
 
   export type TurmaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    limiteAlunos?: boolean
     titulo?: boolean
     sala?: boolean
     horario?: boolean
@@ -17043,6 +17087,7 @@ export namespace Prisma {
 
   export type TurmaSelectScalar = {
     id?: boolean
+    limiteAlunos?: boolean
     titulo?: boolean
     sala?: boolean
     horario?: boolean
@@ -17056,7 +17101,7 @@ export namespace Prisma {
     semestreId?: boolean
   }
 
-  export type TurmaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "sala" | "horario" | "cor" | "corDestaque" | "corFundo" | "corTexto" | "corTitulo" | "corDescricao" | "fonte" | "semestreId", ExtArgs["result"]["turma"]>
+  export type TurmaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "limiteAlunos" | "titulo" | "sala" | "horario" | "cor" | "corDestaque" | "corFundo" | "corTexto" | "corTitulo" | "corDescricao" | "fonte" | "semestreId", ExtArgs["result"]["turma"]>
   export type TurmaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     professores?: boolean | Turma$professoresArgs<ExtArgs>
@@ -17091,6 +17136,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      limiteAlunos: number
       titulo: string
       sala: string | null
       horario: string | null
@@ -17535,6 +17581,7 @@ export namespace Prisma {
    */
   interface TurmaFieldRefs {
     readonly id: FieldRef<"Turma", 'String'>
+    readonly limiteAlunos: FieldRef<"Turma", 'Int'>
     readonly titulo: FieldRef<"Turma", 'String'>
     readonly sala: FieldRef<"Turma", 'String'>
     readonly horario: FieldRef<"Turma", 'String'>
@@ -38197,6 +38244,7 @@ export namespace Prisma {
 
   export const TurmaScalarFieldEnum: {
     id: 'id',
+    limiteAlunos: 'limiteAlunos',
     titulo: 'titulo',
     sala: 'sala',
     horario: 'horario',
@@ -39484,6 +39532,7 @@ export namespace Prisma {
     OR?: TurmaWhereInput[]
     NOT?: TurmaWhereInput | TurmaWhereInput[]
     id?: StringFilter<"Turma"> | string
+    limiteAlunos?: IntFilter<"Turma"> | number
     titulo?: StringFilter<"Turma"> | string
     sala?: StringNullableFilter<"Turma"> | string | null
     horario?: StringNullableFilter<"Turma"> | string | null
@@ -39508,6 +39557,7 @@ export namespace Prisma {
 
   export type TurmaOrderByWithRelationInput = {
     id?: SortOrder
+    limiteAlunos?: SortOrder
     titulo?: SortOrder
     sala?: SortOrderInput | SortOrder
     horario?: SortOrderInput | SortOrder
@@ -39535,6 +39585,7 @@ export namespace Prisma {
     AND?: TurmaWhereInput | TurmaWhereInput[]
     OR?: TurmaWhereInput[]
     NOT?: TurmaWhereInput | TurmaWhereInput[]
+    limiteAlunos?: IntFilter<"Turma"> | number
     titulo?: StringFilter<"Turma"> | string
     sala?: StringNullableFilter<"Turma"> | string | null
     horario?: StringNullableFilter<"Turma"> | string | null
@@ -39559,6 +39610,7 @@ export namespace Prisma {
 
   export type TurmaOrderByWithAggregationInput = {
     id?: SortOrder
+    limiteAlunos?: SortOrder
     titulo?: SortOrder
     sala?: SortOrderInput | SortOrder
     horario?: SortOrderInput | SortOrder
@@ -39571,8 +39623,10 @@ export namespace Prisma {
     fonte?: SortOrder
     semestreId?: SortOrder
     _count?: TurmaCountOrderByAggregateInput
+    _avg?: TurmaAvgOrderByAggregateInput
     _max?: TurmaMaxOrderByAggregateInput
     _min?: TurmaMinOrderByAggregateInput
+    _sum?: TurmaSumOrderByAggregateInput
   }
 
   export type TurmaScalarWhereWithAggregatesInput = {
@@ -39580,6 +39634,7 @@ export namespace Prisma {
     OR?: TurmaScalarWhereWithAggregatesInput[]
     NOT?: TurmaScalarWhereWithAggregatesInput | TurmaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Turma"> | string
+    limiteAlunos?: IntWithAggregatesFilter<"Turma"> | number
     titulo?: StringWithAggregatesFilter<"Turma"> | string
     sala?: StringNullableWithAggregatesFilter<"Turma"> | string | null
     horario?: StringNullableWithAggregatesFilter<"Turma"> | string | null
@@ -41635,6 +41690,7 @@ export namespace Prisma {
 
   export type TurmaCreateInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -41658,6 +41714,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedCreateInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -41681,6 +41738,7 @@ export namespace Prisma {
 
   export type TurmaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41704,6 +41762,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41727,6 +41786,7 @@ export namespace Prisma {
 
   export type TurmaCreateManyInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -41742,6 +41802,7 @@ export namespace Prisma {
 
   export type TurmaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41756,6 +41817,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43828,6 +43890,7 @@ export namespace Prisma {
 
   export type TurmaCountOrderByAggregateInput = {
     id?: SortOrder
+    limiteAlunos?: SortOrder
     titulo?: SortOrder
     sala?: SortOrder
     horario?: SortOrder
@@ -43841,8 +43904,13 @@ export namespace Prisma {
     semestreId?: SortOrder
   }
 
+  export type TurmaAvgOrderByAggregateInput = {
+    limiteAlunos?: SortOrder
+  }
+
   export type TurmaMaxOrderByAggregateInput = {
     id?: SortOrder
+    limiteAlunos?: SortOrder
     titulo?: SortOrder
     sala?: SortOrder
     horario?: SortOrder
@@ -43858,6 +43926,7 @@ export namespace Prisma {
 
   export type TurmaMinOrderByAggregateInput = {
     id?: SortOrder
+    limiteAlunos?: SortOrder
     titulo?: SortOrder
     sala?: SortOrder
     horario?: SortOrder
@@ -43869,6 +43938,10 @@ export namespace Prisma {
     corDescricao?: SortOrder
     fonte?: SortOrder
     semestreId?: SortOrder
+  }
+
+  export type TurmaSumOrderByAggregateInput = {
+    limiteAlunos?: SortOrder
   }
 
   export type TurmaScalarRelationFilter = {
@@ -48704,6 +48777,7 @@ export namespace Prisma {
 
   export type TurmaCreateWithoutSemestreInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -48726,6 +48800,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedCreateWithoutSemestreInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -48977,6 +49052,7 @@ export namespace Prisma {
     OR?: TurmaScalarWhereInput[]
     NOT?: TurmaScalarWhereInput | TurmaScalarWhereInput[]
     id?: StringFilter<"Turma"> | string
+    limiteAlunos?: IntFilter<"Turma"> | number
     titulo?: StringFilter<"Turma"> | string
     sala?: StringNullableFilter<"Turma"> | string | null
     horario?: StringNullableFilter<"Turma"> | string | null
@@ -50342,6 +50418,7 @@ export namespace Prisma {
 
   export type TurmaCreateWithoutProfessoresInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -50364,6 +50441,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedCreateWithoutProfessoresInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -50467,6 +50545,7 @@ export namespace Prisma {
 
   export type TurmaUpdateWithoutProfessoresInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50489,6 +50568,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateWithoutProfessoresInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50570,6 +50650,7 @@ export namespace Prisma {
 
   export type TurmaCreateWithoutMonitoresInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -50592,6 +50673,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedCreateWithoutMonitoresInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -50695,6 +50777,7 @@ export namespace Prisma {
 
   export type TurmaUpdateWithoutMonitoresInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50717,6 +50800,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateWithoutMonitoresInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50816,6 +50900,7 @@ export namespace Prisma {
 
   export type TurmaCreateWithoutAlunosInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -50838,6 +50923,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedCreateWithoutAlunosInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -50959,6 +51045,7 @@ export namespace Prisma {
 
   export type TurmaUpdateWithoutAlunosInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50981,6 +51068,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateWithoutAlunosInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51595,6 +51683,7 @@ export namespace Prisma {
 
   export type TurmaCreateWithoutMateriaisInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -51617,6 +51706,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedCreateWithoutMateriaisInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -51655,6 +51745,7 @@ export namespace Prisma {
 
   export type TurmaUpdateWithoutMateriaisInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51677,6 +51768,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateWithoutMateriaisInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51699,6 +51791,7 @@ export namespace Prisma {
 
   export type TurmaCreateWithoutEventosInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -51721,6 +51814,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedCreateWithoutEventosInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -51759,6 +51853,7 @@ export namespace Prisma {
 
   export type TurmaUpdateWithoutEventosInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51781,6 +51876,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateWithoutEventosInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51803,6 +51899,7 @@ export namespace Prisma {
 
   export type TurmaCreateWithoutAvisosInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -51825,6 +51922,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedCreateWithoutAvisosInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -51922,6 +52020,7 @@ export namespace Prisma {
 
   export type TurmaUpdateWithoutAvisosInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51944,6 +52043,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateWithoutAvisosInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52031,6 +52131,7 @@ export namespace Prisma {
 
   export type TurmaCreateWithoutAnotacoesInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -52053,6 +52154,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedCreateWithoutAnotacoesInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -52150,6 +52252,7 @@ export namespace Prisma {
 
   export type TurmaUpdateWithoutAnotacoesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52172,6 +52275,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateWithoutAnotacoesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52259,6 +52363,7 @@ export namespace Prisma {
 
   export type TurmaCreateWithoutPresencasInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -52281,6 +52386,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedCreateWithoutPresencasInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -52385,6 +52491,7 @@ export namespace Prisma {
 
   export type TurmaUpdateWithoutPresencasInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52407,6 +52514,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateWithoutPresencasInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54018,6 +54126,7 @@ export namespace Prisma {
 
   export type TurmaCreateManySemestreInput = {
     id?: string
+    limiteAlunos?: number
     titulo: string
     sala?: string | null
     horario?: string | null
@@ -54102,6 +54211,7 @@ export namespace Prisma {
 
   export type TurmaUpdateWithoutSemestreInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54124,6 +54234,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateWithoutSemestreInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54146,6 +54257,7 @@ export namespace Prisma {
 
   export type TurmaUncheckedUpdateManyWithoutSemestreInput = {
     id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
     titulo?: StringFieldUpdateOperationsInput | string
     sala?: NullableStringFieldUpdateOperationsInput | string | null
     horario?: NullableStringFieldUpdateOperationsInput | string | null

@@ -230,6 +230,7 @@ exports.Prisma.ResponsavelMaterialAtualizacaoScalarFieldEnum = {
 
 exports.Prisma.TurmaScalarFieldEnum = {
   id: 'id',
+  limiteAlunos: 'limiteAlunos',
   titulo: 'titulo',
   sala: 'sala',
   horario: 'horario',

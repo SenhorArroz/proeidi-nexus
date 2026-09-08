@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-29T13:27:49.844762+00:00",
+  "generated_at": "2026-09-08T18:10:18.790259+00:00",
   "nodes": {
     "generated_prisma_index_d_alunoturma": {
-      "code_fingerprint": "a6edefe11d5f4bb07e9dac52f2beb134470993b94a58e594cf3ba3a153de65e2",
+      "code_fingerprint": "1ab19844bb11d684994a79c69ff4f4b9aaed7f01bff4e2beec26eab5fe23e801",
       "label": "AlunoTurma",
       "last": "2026-08-29T13:23:47.498699+00:00",
       "provenance": [
@@ -12,37 +12,21 @@
           "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
         }
       ],
-      "score": 0.999935194,
+      "score": 0.790060054,
       "source_file": "generated/prisma/index.d.ts",
       "status": "tentative",
       "uses": 1
     },
-    "generated_prisma_index_d_formulario": {
-      "code_fingerprint": "a6edefe11d5f4bb07e9dac52f2beb134470993b94a58e594cf3ba3a153de65e2",
-      "label": "Formulario",
-      "last": "2026-08-29T13:23:47.498699+00:00",
-      "provenance": [
-        {
-          "date": "2026-08-29T13:23:47.498699+00:00",
-          "outcome": "useful",
-          "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
-        },
-        {
-          "date": "2026-08-29T12:01:43.710012+00:00",
-          "outcome": "useful",
-          "q": "Questionários identificados com resposta única e estatísticas individuais"
-        }
-      ],
-      "score": 1.998554631,
-      "source_file": "generated/prisma/index.d.ts",
-      "status": "preferred",
-      "uses": 2
-    },
     "generated_prisma_index_d_formularioresposta": {
-      "code_fingerprint": "a6edefe11d5f4bb07e9dac52f2beb134470993b94a58e594cf3ba3a153de65e2",
+      "code_fingerprint": "1ab19844bb11d684994a79c69ff4f4b9aaed7f01bff4e2beec26eab5fe23e801",
       "label": "FormularioResposta",
-      "last": "2026-08-29T13:23:47.498699+00:00",
+      "last": "2026-08-29T13:50:19.740490+00:00",
       "provenance": [
+        {
+          "date": "2026-08-29T13:50:19.740490+00:00",
+          "outcome": "useful",
+          "q": "Configurações funcionais para questionários"
+        },
         {
           "date": "2026-08-29T13:23:47.498699+00:00",
           "outcome": "useful",
@@ -54,13 +38,13 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 1.998554631,
+      "score": 2.369477041,
       "source_file": "generated/prisma/index.d.ts",
       "status": "preferred",
-      "uses": 2
+      "uses": 3
     },
     "src_app_components_diretoria_workspace": {
-      "code_fingerprint": "4a46dc69691a20bc5e86c280ddb6508a9759e3e51d4f4e664ac1ebcf350e9609",
+      "code_fingerprint": "3d55caf6c48e4c295c171258b517d47b7b15b0a73ce91638d471eb41117b4ee0",
       "label": "diretoria-workspace.tsx",
       "last": "2026-08-28T22:32:07.905898+00:00",
       "provenance": [
@@ -70,13 +54,13 @@
           "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
         }
       ],
-      "score": 0.985731222,
+      "score": 0.778837335,
       "source_file": "src/app/_components/diretoria-workspace.tsx",
       "status": "tentative",
       "uses": 1
     },
     "src_app_components_diretoria_workspace_diretoriaworkspace": {
-      "code_fingerprint": "4a46dc69691a20bc5e86c280ddb6508a9759e3e51d4f4e664ac1ebcf350e9609",
+      "code_fingerprint": "3d55caf6c48e4c295c171258b517d47b7b15b0a73ce91638d471eb41117b4ee0",
       "label": "DiretoriaWorkspace()",
       "last": "2026-08-28T22:26:55.898690+00:00",
       "provenance": [
@@ -86,13 +70,13 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.985648979,
+      "score": 0.778772354,
       "source_file": "src/app/_components/diretoria-workspace.tsx",
       "status": "tentative",
       "uses": 1
     },
     "src_app_components_sidebar_sidebar": {
-      "code_fingerprint": "c56b0123791468e5e2b6b503fd1a215fca2d1cf39da9192c7be4c8a33e30416f",
+      "code_fingerprint": "dba8294bfe9a07261afd2a8ab6a63b54678e910ff06c1875c0623a5365f2f457",
       "label": "Sidebar()",
       "last": "2026-08-28T22:26:55.898690+00:00",
       "provenance": [
@@ -102,13 +86,45 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.985648979,
+      "score": 0.778772354,
       "source_file": "src/app/_components/sidebar.tsx",
       "status": "tentative",
       "uses": 1
     },
+    "src_app_nexus_dashboard_turmas_id_page": {
+      "code_fingerprint": "bfb76cf6ebb863dbeb6613f999b8ed097bb3c669fe1ffc4c4ff58439e651f87a",
+      "label": "turmas/[id]/page.tsx",
+      "last": "2026-08-29T13:57:49.808369+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-29T13:57:49.808369+00:00",
+          "outcome": "useful",
+          "q": "Upload de imagens em avisos de turmas com UploadThing"
+        }
+      ],
+      "score": 0.790491663,
+      "source_file": "src/app/nexus/dashboard/turmas/[id]/page.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_diretoria_formularios_page_editorformulario": {
+      "code_fingerprint": "d99e0d690afaf8ba5eaebf8c8f33c6c3583e9bfbbb5c967618e33dd3404efa74",
+      "label": "EditorFormulario()",
+      "last": "2026-08-29T13:50:19.740490+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-29T13:50:19.740490+00:00",
+          "outcome": "useful",
+          "q": "Configurações funcionais para questionários"
+        }
+      ],
+      "score": 0.790396528,
+      "source_file": "src/app/nexus/diretoria/formularios/page.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
     "src_app_nexus_diretoria_layout": {
-      "code_fingerprint": "7c0bbb4b86a068dd88da61ea19031a506088bd17ca8437ef74c06041a3b513c5",
+      "code_fingerprint": "31f1348ac6f311af90c112f69d2360783dd4343d6e18a8530124fa9394ec20b9",
       "label": "diretoria/layout.tsx",
       "last": "2026-08-28T22:32:07.905898+00:00",
       "provenance": [
@@ -118,13 +134,13 @@
           "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
         }
       ],
-      "score": 0.985731222,
+      "score": 0.778837335,
       "source_file": "src/app/nexus/diretoria/layout.tsx",
       "status": "tentative",
       "uses": 1
     },
     "src_app_nexus_diretoria_layout_diretorialayout": {
-      "code_fingerprint": "7c0bbb4b86a068dd88da61ea19031a506088bd17ca8437ef74c06041a3b513c5",
+      "code_fingerprint": "31f1348ac6f311af90c112f69d2360783dd4343d6e18a8530124fa9394ec20b9",
       "label": "DiretoriaLayout()",
       "last": "2026-08-28T19:44:51.694894+00:00",
       "provenance": [
@@ -134,29 +150,13 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 0.983089202,
+      "score": 0.776749845,
       "source_file": "src/app/nexus/diretoria/layout.tsx",
       "status": "tentative",
       "uses": 1
     },
-    "src_app_nexus_diretoria_questionarios_id_page_estatisticasquestionario": {
-      "code_fingerprint": "cc7d3f39dc7af872c7fd89ee8b21f919fd1b9af9e743b4ee88f432dfb98e406b",
-      "label": "EstatisticasQuestionario()",
-      "last": "2026-08-29T12:01:43.710012+00:00",
-      "provenance": [
-        {
-          "date": "2026-08-29T12:01:43.710012+00:00",
-          "outcome": "useful",
-          "q": "Questionários identificados com resposta única e estatísticas individuais"
-        }
-      ],
-      "score": 0.998619437,
-      "source_file": "src/app/nexus/diretoria/questionarios/[id]/page.tsx",
-      "status": "tentative",
-      "uses": 1
-    },
-    "src_app_nexus_diretoria_questionarios_id_page_respostas": {
-      "code_fingerprint": "cc7d3f39dc7af872c7fd89ee8b21f919fd1b9af9e743b4ee88f432dfb98e406b",
+    "src_app_nexus_diretoria_questionarios_id_components_suporte_respostas": {
+      "code_fingerprint": "0629ce1099717af75b535633e672b309c1305d50c92155bc31cae88104fbeef3",
       "label": "Respostas",
       "last": "2026-08-29T12:01:43.710012+00:00",
       "provenance": [
@@ -166,13 +166,29 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 0.998619437,
+      "score": 0.789020459,
+      "source_file": "src/app/nexus/diretoria/questionarios/[id]/_components/suporte.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_diretoria_questionarios_id_page_estatisticasquestionario": {
+      "code_fingerprint": "71c54e465bed607d7e0d8d27bf7741474ef6cd8958437f705282f5f1b64180fe",
+      "label": "EstatisticasQuestionario()",
+      "last": "2026-08-29T12:01:43.710012+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-29T12:01:43.710012+00:00",
+          "outcome": "useful",
+          "q": "Questionários identificados com resposta única e estatísticas individuais"
+        }
+      ],
+      "score": 0.789020459,
       "source_file": "src/app/nexus/diretoria/questionarios/[id]/page.tsx",
       "status": "tentative",
       "uses": 1
     },
     "src_app_nexus_diretoria_sorteio_page": {
-      "code_fingerprint": "e4aafa12c7e8bb830e1763c4f98ad34c6034d1f88ebc752578e0fa38527af1d9",
+      "code_fingerprint": "369785e829e165ffda549b3bcbc7cf318a39bfb43356868def8f6029559c70a4",
       "label": "sorteio/page.tsx",
       "last": "2026-08-28T22:01:50.226663+00:00",
       "provenance": [
@@ -187,13 +203,13 @@
           "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
         }
       ],
-      "score": 1.970156731,
+      "score": 1.556643012,
       "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
       "status": "preferred",
       "uses": 2
     },
     "src_app_nexus_diretoria_sorteio_page_gerenciarsorteio": {
-      "code_fingerprint": "e4aafa12c7e8bb830e1763c4f98ad34c6034d1f88ebc752578e0fa38527af1d9",
+      "code_fingerprint": "369785e829e165ffda549b3bcbc7cf318a39bfb43356868def8f6029559c70a4",
       "label": "GerenciarSorteio()",
       "last": "2026-08-28T22:05:12.408189+00:00",
       "provenance": [
@@ -213,16 +229,21 @@
           "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
         }
       ],
-      "score": 2.955462196,
+      "score": 2.335143951,
       "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
       "status": "preferred",
       "uses": 3
     },
     "src_app_nexus_diretoria_sorteio_sorteador_page": {
-      "code_fingerprint": "fb4b1e4e16dcaf71ace813f39e0aa2723ae1634d9cfe90581feac9049d3777a0",
+      "code_fingerprint": "e08f973740c5546cb2895b7a39cbb4737d823af83337e7333f90ee406f666f08",
       "label": "sorteador/page.tsx",
-      "last": "2026-08-28T22:32:07.905898+00:00",
+      "last": "2026-08-29T13:28:50.599402+00:00",
       "provenance": [
+        {
+          "date": "2026-08-29T13:28:50.599402+00:00",
+          "outcome": "useful",
+          "q": "Limitar histórico do sorteador com rolagem interna"
+        },
         {
           "date": "2026-08-28T22:32:07.905898+00:00",
           "outcome": "useful",
@@ -244,16 +265,21 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 3.938138849,
+      "score": 3.901691931,
       "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
       "status": "preferred",
-      "uses": 4
+      "uses": 5
     },
     "src_app_nexus_diretoria_sorteio_sorteador_page_sorteadororganico": {
-      "code_fingerprint": "fb4b1e4e16dcaf71ace813f39e0aa2723ae1634d9cfe90581feac9049d3777a0",
+      "code_fingerprint": "e08f973740c5546cb2895b7a39cbb4737d823af83337e7333f90ee406f666f08",
       "label": "SorteadorOrganico()",
-      "last": "2026-08-28T22:32:07.905898+00:00",
+      "last": "2026-08-29T13:28:50.599402+00:00",
       "provenance": [
+        {
+          "date": "2026-08-29T13:28:50.599402+00:00",
+          "outcome": "useful",
+          "q": "Limitar histórico do sorteador com rolagem interna"
+        },
         {
           "date": "2026-08-28T22:32:07.905898+00:00",
           "outcome": "useful",
@@ -273,20 +299,15 @@
           "date": "2026-08-28T20:38:52.714318+00:00",
           "outcome": "useful",
           "q": "faça o campo de Tirar números do sorteio ser retrátil"
-        },
-        {
-          "date": "2026-08-28T19:44:51.694894+00:00",
-          "outcome": "useful",
-          "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 4.923787829,
+      "score": 4.680464286,
       "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
       "status": "preferred",
-      "uses": 5
+      "uses": 6
     },
     "src_app_nexus_layout": {
-      "code_fingerprint": "f1605e6840d0bfd6b13183c7114205d5620429edaf5a8d359709eb0b0e75c3c1",
+      "code_fingerprint": "7d06a22ca11b43bc9f8badb5a94a45cb9d99ab3ce2059b19d2b7b6018361aaa7",
       "label": "nexus/layout.tsx",
       "last": "2026-08-28T22:26:55.898690+00:00",
       "provenance": [
@@ -296,13 +317,13 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.985648979,
+      "score": 0.778772354,
       "source_file": "src/app/nexus/layout.tsx",
       "status": "tentative",
       "uses": 1
     },
     "src_env_env": {
-      "code_fingerprint": "84db5c676d082c800eed966f6e4e971f21aa94dc7a8953fd5a1c86eb5d541b9a",
+      "code_fingerprint": "6a311933cddc941d5e0140f5b1c0f042dd6cf2625d890a8662f97568e1a2fa61",
       "label": "env",
       "last": "2026-08-28T16:26:30.950919+00:00",
       "provenance": [
@@ -312,8 +333,40 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.979965521,
+      "score": 0.77428179,
       "source_file": "src/env.js",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_lib_controle_turma_folhascontrole": {
+      "code_fingerprint": "bc6a803c0e9de25c605127dabe9313eb6c8a3cbb524bcdb6520d724f5e90d8dc",
+      "label": "folhasControle()",
+      "last": "2026-09-08T14:26:06.549410+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-08T14:26:06.549410+00:00",
+          "outcome": "useful",
+          "q": "Mapear o controle de turma e o PDF para redesenho e paginação."
+        }
+      ],
+      "score": 0.996409093,
+      "source_file": "src/lib/controle-turma.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_lib_controle_turma_pdf_gerarcontroleturmapdf": {
+      "code_fingerprint": "1c6ee677b683d10cccc7c924f6ca2a8cf185ca2a2cd1f288d69cf64daef1a4e7",
+      "label": "gerarControleTurmaPdf()",
+      "last": "2026-09-08T14:26:06.549410+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-08T14:26:06.549410+00:00",
+          "outcome": "useful",
+          "q": "Mapear o controle de turma e o PDF para redesenho e paginação."
+        }
+      ],
+      "score": 0.996409093,
+      "source_file": "src/lib/controle-turma-pdf.ts",
       "status": "tentative",
       "uses": 1
     },
@@ -328,16 +381,21 @@
           "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
         }
       ],
-      "score": 0.999935194,
+      "score": 0.790060054,
       "source_file": "src/server/api/routers/aluno.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_server_api_routers_formulario": {
-      "code_fingerprint": "8c1b6301ee1bdbf6125df5fb93d15ec9fc11450b82cb3838d539f8b6316d7f36",
+      "code_fingerprint": "95fc1a4f70daf871778b8d39dfda268603920468b1490680e19fbae84e95481d",
       "label": "formulario.ts",
-      "last": "2026-08-29T13:23:47.498699+00:00",
+      "last": "2026-08-29T13:50:19.740490+00:00",
       "provenance": [
+        {
+          "date": "2026-08-29T13:50:19.740490+00:00",
+          "outcome": "useful",
+          "q": "Configurações funcionais para questionários"
+        },
         {
           "date": "2026-08-29T13:23:47.498699+00:00",
           "outcome": "useful",
@@ -349,26 +407,31 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 1.998554631,
+      "score": 2.369477041,
       "source_file": "src/server/api/routers/formulario.ts",
       "status": "preferred",
-      "uses": 2
+      "uses": 3
     },
     "src_server_api_routers_turma_turmarouter": {
-      "code_fingerprint": "de735b04d2378533c50868da7d37192e5de49ebf3d20bf7a1303fa74ec5dac2c",
+      "code_fingerprint": "d5c46d3b7e7ada12ab1d15622c9378c9f727fb29acd106d1577653e5db5ed93d",
       "label": "turmaRouter",
-      "last": "2026-08-28T16:55:41.214868+00:00",
+      "last": "2026-08-29T13:57:49.808369+00:00",
       "provenance": [
+        {
+          "date": "2026-08-29T13:57:49.808369+00:00",
+          "outcome": "useful",
+          "q": "Upload de imagens em avisos de turmas com UploadThing"
+        },
         {
           "date": "2026-08-28T16:55:41.214868+00:00",
           "outcome": "useful",
           "q": "Persist avisos materiais notas da turma no banco"
         }
       ],
-      "score": 0.980424303,
+      "score": 1.565135942,
       "source_file": "src/server/api/routers/turma.ts",
-      "status": "tentative",
-      "uses": 1
+      "status": "preferred",
+      "uses": 2
     },
     "src_server_auth_config_authconfig": {
       "code_fingerprint": "1c43dc2168deb0ad23fb5aca3f089d57f37e40ac11e3cee583cc2d099eee0c49",
@@ -381,7 +444,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.979965521,
+      "score": 0.77428179,
       "source_file": "src/server/auth/config.ts",
       "status": "tentative",
       "uses": 1
@@ -397,7 +460,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.979965521,
+      "score": 0.77428179,
       "source_file": "src/server/auth/index.ts",
       "status": "tentative",
       "uses": 1
