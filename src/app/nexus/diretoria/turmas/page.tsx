@@ -30,16 +30,13 @@ export default function TurmasDiretoria() {
 		abrirNova,
 		carregandoSemestres,
 		carregandoTurmas,
+		erroCarregamento,
+		recarregar,
 		abrirEdicao,
 		duplicarTurma,
 		limparAlunosDaTurma,
 		excluir,
 		duplicar,
-		editandoId,
-		carregandoProfessores,
-		carregandoDiretores,
-		carregandoMonitores,
-		carregandoAlunos,
 	} = useTurmasDiretoria();
 
 	if (modo === "form") {
@@ -86,10 +83,14 @@ export default function TurmasDiretoria() {
 					<>
 						<div className="mb-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
 							<div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-								<label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+								<label
+									htmlFor="semestre-selecionado"
+									className="text-xs font-semibold uppercase tracking-wide text-gray-500"
+								>
 									Semestre
 								</label>
 								<select
+									id="semestre-selecionado"
 									value={semestreSelecionado?.id ?? ""}
 									onChange={(e) => setSemestreSelecionadoId(e.target.value)}
 									className="min-h-11 w-full min-w-0 rounded-lg border border-gray-200 bg-white px-3 py-2 text-base font-semibold text-gray-700 sm:w-auto sm:text-sm"
@@ -106,6 +107,7 @@ export default function TurmasDiretoria() {
 								</span>
 							</div>
 							<button
+								type="button"
 								onClick={abrirNova}
 								className="flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-700 sm:w-auto"
 							>
@@ -116,6 +118,26 @@ export default function TurmasDiretoria() {
 
 						{carregandoSemestres || carregandoTurmas ? (
 							<DataSkeleton cards={4} />
+						) : erroCarregamento ? (
+							<div
+								role="alert"
+								className="rounded-2xl border border-red-200 bg-red-50 px-5 py-6 text-center text-red-900"
+							>
+								<p className="font-bold">
+									Não foi possível carregar as turmas.
+								</p>
+								<p className="mt-1 text-sm">
+									{erroCarregamento.message ||
+										"Verifique sua conexão e tente novamente."}
+								</p>
+								<button
+									type="button"
+									onClick={() => void recarregar()}
+									className="mt-4 min-h-11 rounded-xl bg-red-700 px-4 text-sm font-semibold text-white transition-colors hover:bg-red-800"
+								>
+									Tentar novamente
+								</button>
+							</div>
 						) : (
 							<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 								{turmas.map((turma) => (

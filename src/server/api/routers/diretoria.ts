@@ -216,37 +216,43 @@ export const diretoriaRouter = createTRPCRouter({
 
 	semestres: createTRPCRouter({
 		list: directorProcedure.query(async ({ ctx }) => {
-			const semestres = await ctx.db.semestre.findMany({
-				select: {
-					id: true,
-					codigo: true,
-					ativo: true,
-					turmas: {
-						select: {
-							alunos: { select: { alunoId: true } },
-							professores: { select: { userId: true } },
-							monitores: { select: { userId: true } },
-						},
+			const [semestres, professores, monitores] = await Promise.all([
+				ctx.db.semestre.findMany({
+					select: {
+						id: true,
+						codigo: true,
+						ativo: true,
+						_count: { select: { turmas: true, alunos: true } },
 					},
-				},
-				orderBy: { codigo: "asc" },
-			});
-			return semestres.map(({ turmas, ...semestre }) => ({
+					orderBy: { codigo: "asc" },
+				}),
+				ctx.db.professorTurma.findMany({
+					select: { userId: true, turma: { select: { semestreId: true } } },
+				}),
+				ctx.db.monitorTurma.findMany({
+					select: { userId: true, turma: { select: { semestreId: true } } },
+				}),
+			]);
+			const pessoasPorSemestre = (
+				vinculos: Array<{ userId: string; turma: { semestreId: string } }>,
+			) => {
+				const pessoas = new Map<string, Set<string>>();
+				for (const vinculo of vinculos) {
+					const ids =
+						pessoas.get(vinculo.turma.semestreId) ?? new Set<string>();
+					ids.add(vinculo.userId);
+					pessoas.set(vinculo.turma.semestreId, ids);
+				}
+				return pessoas;
+			};
+			const professoresPorSemestre = pessoasPorSemestre(professores);
+			const monitoresPorSemestre = pessoasPorSemestre(monitores);
+			return semestres.map(({ _count, ...semestre }) => ({
 				...semestre,
-				totalTurmas: turmas.length,
-				totalAlunos: new Set(
-					turmas.flatMap((turma) => turma.alunos.map((aluno) => aluno.alunoId)),
-				).size,
-				totalProfessores: new Set(
-					turmas.flatMap((turma) =>
-						turma.professores.map((professor) => professor.userId),
-					),
-				).size,
-				totalMonitores: new Set(
-					turmas.flatMap((turma) =>
-						turma.monitores.map((monitor) => monitor.userId),
-					),
-				).size,
+				totalTurmas: _count.turmas,
+				totalAlunos: _count.alunos,
+				totalProfessores: professoresPorSemestre.get(semestre.id)?.size ?? 0,
+				totalMonitores: monitoresPorSemestre.get(semestre.id)?.size ?? 0,
 			}));
 		}),
 		create: directorProcedure
@@ -584,7 +590,11 @@ export const diretoriaRouter = createTRPCRouter({
 				});
 			}),
 		update: directorProcedure
-			.input(personInput.omit({ senha: true }).extend({ id, role: z.enum(["PROFESSOR", "MONITOR"]) }))
+			.input(
+				personInput
+					.omit({ senha: true })
+					.extend({ id, role: z.enum(["PROFESSOR", "MONITOR"]) }),
+			)
 			.mutation(async ({ ctx, input }) => {
 				const existing = await ctx.db.user.findFirst({
 					where: { id: input.id, role: input.role },
@@ -960,7 +970,15 @@ export const diretoriaRouter = createTRPCRouter({
 						},
 						alunos: {
 							select: {
-								aluno: { select: { id: true, nome: true, dataNascimento: true, telefone: true, contatoEmergencia: true } },
+								aluno: {
+									select: {
+										id: true,
+										nome: true,
+										dataNascimento: true,
+										telefone: true,
+										contatoEmergencia: true,
+									},
+								},
 							},
 						},
 						materiais: {
@@ -1385,7 +1403,11 @@ export const diretoriaRouter = createTRPCRouter({
 					include: {
 						apostilas: {
 							orderBy: { titulo: "asc" },
-							include: { responsaveis: { include: { user: { select: { id: true, nome: true } } } } },
+							include: {
+								responsaveis: {
+									include: { user: { select: { id: true, nome: true } } },
+								},
+							},
 						},
 					},
 				}),
@@ -1398,52 +1420,212 @@ export const diretoriaRouter = createTRPCRouter({
 			}),
 		),
 		salvarSemana: directorProcedure
-			.input(z.object({ semestreId: id, numero: z.number().int().min(1).max(99), dataAula: z.coerce.date().nullable().optional(), aulaRealizada: z.boolean() }))
+			.input(
+				z.object({
+					semestreId: id,
+					numero: z.number().int().min(1).max(99),
+					dataAula: z.coerce.date().nullable().optional(),
+					aulaRealizada: z.boolean(),
+				}),
+			)
 			.mutation(({ ctx, input }) =>
 				ctx.db.semanaImpressao.upsert({
-					where: { semestreId_numero: { semestreId: input.semestreId, numero: input.numero } },
+					where: {
+						semestreId_numero: {
+							semestreId: input.semestreId,
+							numero: input.numero,
+						},
+					},
 					create: { ...input, dataAula: input.dataAula ?? null },
-					update: { dataAula: input.dataAula ?? null, aulaRealizada: input.aulaRealizada },
+					update: {
+						dataAula: input.dataAula ?? null,
+						aulaRealizada: input.aulaRealizada,
+					},
 				}),
 			),
 		salvarApostila: directorProcedure
-			.input(z.object({
-				id: id.optional(), semestreId: id, semanaNumero: z.number().int().min(1).max(99), dataAula: z.coerce.date().nullable().optional(), dataEntrega: z.coerce.date().nullable().optional(), aulaRealizada: z.boolean(), titulo: z.string().trim().min(1).max(160), curso: z.string().trim().min(1).max(120), pronta: z.boolean(), impressa: z.boolean(), qtdImpressa: z.number().int().min(0).max(100000), qtdAlvo: z.number().int().min(0).max(100000), responsavelIds: z.array(id).max(20),
-			}))
+			.input(
+				z.object({
+					id: id.optional(),
+					semestreId: id,
+					semanaNumero: z.number().int().min(1).max(99),
+					dataAula: z.coerce.date().nullable().optional(),
+					dataEntrega: z.coerce.date().nullable().optional(),
+					aulaRealizada: z.boolean(),
+					titulo: z.string().trim().min(1).max(160),
+					curso: z.string().trim().min(1).max(120),
+					pronta: z.boolean(),
+					impressa: z.boolean(),
+					qtdImpressa: z.number().int().min(0).max(100000),
+					qtdAlvo: z.number().int().min(0).max(100000),
+					responsavelIds: z.array(id).max(20),
+				}),
+			)
 			.mutation(async ({ ctx, input }) => {
-				const validos = await ctx.db.user.count({ where: { id: { in: input.responsavelIds }, role: { in: ["DIRETOR", "COORDENADOR"] } } });
-				if (validos !== new Set(input.responsavelIds).size) throw new TRPCError({ code: "BAD_REQUEST", message: "Responsável inválido." });
-				const semana = await ctx.db.semanaImpressao.upsert({ where: { semestreId_numero: { semestreId: input.semestreId, numero: input.semanaNumero } }, create: { semestreId: input.semestreId, numero: input.semanaNumero, dataAula: input.dataAula ?? null, aulaRealizada: input.aulaRealizada }, update: { dataAula: input.dataAula ?? null, aulaRealizada: input.aulaRealizada } });
-				const dadosApostila = { titulo: input.titulo, curso: input.curso, dataEntrega: input.dataEntrega ?? null, pronta: input.pronta, impressa: input.impressa, qtdImpressa: input.qtdImpressa, qtdAlvo: input.qtdAlvo };
-				const novosResponsaveis = input.responsavelIds.map((userId) => ({ userId }));
+				const validos = await ctx.db.user.count({
+					where: {
+						id: { in: input.responsavelIds },
+						role: { in: ["DIRETOR", "COORDENADOR"] },
+					},
+				});
+				if (validos !== new Set(input.responsavelIds).size)
+					throw new TRPCError({
+						code: "BAD_REQUEST",
+						message: "Responsável inválido.",
+					});
+				const semana = await ctx.db.semanaImpressao.upsert({
+					where: {
+						semestreId_numero: {
+							semestreId: input.semestreId,
+							numero: input.semanaNumero,
+						},
+					},
+					create: {
+						semestreId: input.semestreId,
+						numero: input.semanaNumero,
+						dataAula: input.dataAula ?? null,
+						aulaRealizada: input.aulaRealizada,
+					},
+					update: {
+						dataAula: input.dataAula ?? null,
+						aulaRealizada: input.aulaRealizada,
+					},
+				});
+				const dadosApostila = {
+					titulo: input.titulo,
+					curso: input.curso,
+					dataEntrega: input.dataEntrega ?? null,
+					pronta: input.pronta,
+					impressa: input.impressa,
+					qtdImpressa: input.qtdImpressa,
+					qtdAlvo: input.qtdAlvo,
+				};
+				const novosResponsaveis = input.responsavelIds.map((userId) => ({
+					userId,
+				}));
 				if (input.id) {
-					const existente = await ctx.db.apostilaImpressao.findFirst({ where: { id: input.id, semana: { semestreId: input.semestreId } }, select: { id: true } });
+					const existente = await ctx.db.apostilaImpressao.findFirst({
+						where: { id: input.id, semana: { semestreId: input.semestreId } },
+						select: { id: true },
+					});
 					if (!existente) throw new TRPCError({ code: "NOT_FOUND" });
-					await ctx.db.apostilaImpressao.update({ where: { id: existente.id }, data: { ...dadosApostila, responsaveis: { deleteMany: {}, create: novosResponsaveis } } });
+					await ctx.db.apostilaImpressao.update({
+						where: { id: existente.id },
+						data: {
+							...dadosApostila,
+							responsaveis: { deleteMany: {}, create: novosResponsaveis },
+						},
+					});
 					return { id: existente.id };
 				}
-				return ctx.db.apostilaImpressao.create({ data: { ...dadosApostila, semanaId: semana.id, responsaveis: { create: novosResponsaveis } }, select: { id: true } });
+				return ctx.db.apostilaImpressao.create({
+					data: {
+						...dadosApostila,
+						semanaId: semana.id,
+						responsaveis: { create: novosResponsaveis },
+					},
+					select: { id: true },
+				});
 			}),
 		removerApostila: directorProcedure
 			.input(z.object({ id, semestreId: id }))
 			.mutation(async ({ ctx, input }) => {
-				const result = await ctx.db.apostilaImpressao.deleteMany({ where: { id: input.id, semana: { semestreId: input.semestreId } } });
+				const result = await ctx.db.apostilaImpressao.deleteMany({
+					where: { id: input.id, semana: { semestreId: input.semestreId } },
+				});
 				if (!result.count) throw new TRPCError({ code: "NOT_FOUND" });
 				return { id: input.id };
 			}),
 	}),
 
 	materialAtualizacao: createTRPCRouter({
-		list: directorProcedure.input(z.object({ semestreId: id })).query(({ ctx, input }) => ctx.db.materialAtualizacao.findMany({ where: { semestreId: input.semestreId }, orderBy: [{ dataEntrega: "asc" }, { titulo: "asc" }], include: { responsaveis: { include: { user: { select: { id: true, nome: true } } } } } })),
-		responsaveis: directorProcedure.query(({ ctx }) => ctx.db.user.findMany({ where: { role: { in: ["DIRETOR", "COORDENADOR"] } }, select: { id: true, nome: true }, orderBy: { nome: "asc" } })),
-		salvar: directorProcedure.input(z.object({ id: id.optional(), semestreId: id, curso: z.string().trim().min(1).max(120), titulo: z.string().trim().min(1).max(160), dataEntrega: z.coerce.date().nullable().optional(), revisado: z.boolean(), precisaAjuste: z.boolean(), ajustado: z.boolean(), responsavelIds: z.array(id).max(20) })).mutation(async ({ ctx, input }) => {
-			const validos = await ctx.db.user.count({ where: { id: { in: input.responsavelIds }, role: { in: ["DIRETOR", "COORDENADOR"] } } });
-			if (validos !== new Set(input.responsavelIds).size) throw new TRPCError({ code: "BAD_REQUEST", message: "Responsável inválido." });
-			const data = { curso: input.curso, titulo: input.titulo, dataEntrega: input.dataEntrega ?? null, revisado: input.revisado, precisaAjuste: input.precisaAjuste, ajustado: input.ajustado };
-			const responsaveis = input.responsavelIds.map((userId) => ({ userId }));
-			if (input.id) { const existente = await ctx.db.materialAtualizacao.findFirst({ where: { id: input.id, semestreId: input.semestreId }, select: { id: true } }); if (!existente) throw new TRPCError({ code: "NOT_FOUND" }); return ctx.db.materialAtualizacao.update({ where: { id: existente.id }, data: { ...data, responsaveis: { deleteMany: {}, create: responsaveis } }, select: { id: true } }); }
-			return ctx.db.materialAtualizacao.create({ data: { ...data, semestreId: input.semestreId, responsaveis: { create: responsaveis } }, select: { id: true } });
-		}),
-		remover: directorProcedure.input(z.object({ id, semestreId: id })).mutation(async ({ ctx, input }) => { const result = await ctx.db.materialAtualizacao.deleteMany({ where: input }); if (!result.count) throw new TRPCError({ code: "NOT_FOUND" }); return input; }),
+		list: directorProcedure
+			.input(z.object({ semestreId: id }))
+			.query(({ ctx, input }) =>
+				ctx.db.materialAtualizacao.findMany({
+					where: { semestreId: input.semestreId },
+					orderBy: [{ dataEntrega: "asc" }, { titulo: "asc" }],
+					include: {
+						responsaveis: {
+							include: { user: { select: { id: true, nome: true } } },
+						},
+					},
+				}),
+			),
+		responsaveis: directorProcedure.query(({ ctx }) =>
+			ctx.db.user.findMany({
+				where: { role: { in: ["DIRETOR", "COORDENADOR"] } },
+				select: { id: true, nome: true },
+				orderBy: { nome: "asc" },
+			}),
+		),
+		salvar: directorProcedure
+			.input(
+				z.object({
+					id: id.optional(),
+					semestreId: id,
+					curso: z.string().trim().min(1).max(120),
+					titulo: z.string().trim().min(1).max(160),
+					dataEntrega: z.coerce.date().nullable().optional(),
+					revisado: z.boolean(),
+					precisaAjuste: z.boolean(),
+					ajustado: z.boolean(),
+					responsavelIds: z.array(id).max(20),
+				}),
+			)
+			.mutation(async ({ ctx, input }) => {
+				const validos = await ctx.db.user.count({
+					where: {
+						id: { in: input.responsavelIds },
+						role: { in: ["DIRETOR", "COORDENADOR"] },
+					},
+				});
+				if (validos !== new Set(input.responsavelIds).size)
+					throw new TRPCError({
+						code: "BAD_REQUEST",
+						message: "Responsável inválido.",
+					});
+				const data = {
+					curso: input.curso,
+					titulo: input.titulo,
+					dataEntrega: input.dataEntrega ?? null,
+					revisado: input.revisado,
+					precisaAjuste: input.precisaAjuste,
+					ajustado: input.ajustado,
+				};
+				const responsaveis = input.responsavelIds.map((userId) => ({ userId }));
+				if (input.id) {
+					const existente = await ctx.db.materialAtualizacao.findFirst({
+						where: { id: input.id, semestreId: input.semestreId },
+						select: { id: true },
+					});
+					if (!existente) throw new TRPCError({ code: "NOT_FOUND" });
+					return ctx.db.materialAtualizacao.update({
+						where: { id: existente.id },
+						data: {
+							...data,
+							responsaveis: { deleteMany: {}, create: responsaveis },
+						},
+						select: { id: true },
+					});
+				}
+				return ctx.db.materialAtualizacao.create({
+					data: {
+						...data,
+						semestreId: input.semestreId,
+						responsaveis: { create: responsaveis },
+					},
+					select: { id: true },
+				});
+			}),
+		remover: directorProcedure
+			.input(z.object({ id, semestreId: id }))
+			.mutation(async ({ ctx, input }) => {
+				const result = await ctx.db.materialAtualizacao.deleteMany({
+					where: input,
+				});
+				if (!result.count) throw new TRPCError({ code: "NOT_FOUND" });
+				return input;
+			}),
 	}),
 });

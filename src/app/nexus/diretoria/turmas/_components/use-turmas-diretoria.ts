@@ -11,17 +11,25 @@ import {
 export function useTurmasDiretoria() {
 	const utils = api.useUtils();
 	const [semestreSelecionadoId, setSemestreSelecionadoId] = useState("");
-	const { data: semestres, isLoading: carregandoSemestres } =
-		api.diretoria.semestres.list.useQuery();
+	const {
+		data: semestres,
+		isLoading: carregandoSemestres,
+		error: erroSemestres,
+		refetch: recarregarSemestres,
+	} = api.diretoria.semestres.list.useQuery();
 	const semestreSelecionado =
 		semestres?.find((s) => s.id === semestreSelecionadoId) ??
 		semestres?.find((s) => s.ativo) ??
 		semestres?.[0];
-	const { data: turmasDb, isLoading: carregandoTurmas } =
-		api.diretoria.turmas.list.useQuery(
-			semestreSelecionado ? { semestreId: semestreSelecionado.id } : undefined,
-			{ enabled: Boolean(semestreSelecionado) },
-		);
+	const {
+		data: turmasDb,
+		isLoading: carregandoTurmas,
+		error: erroTurmas,
+		refetch: recarregarTurmas,
+	} = api.diretoria.turmas.list.useQuery(
+		semestreSelecionado ? { semestreId: semestreSelecionado.id } : undefined,
+		{ enabled: Boolean(semestreSelecionado) },
+	);
 	const { data: professoresDb, isLoading: carregandoProfessores } =
 		api.diretoria.usuarios.list.useQuery({
 			role: "PROFESSOR",
@@ -121,6 +129,10 @@ export function useTurmasDiretoria() {
 	};
 
 	const cancelar = () => setModo("lista");
+	const recarregar = async () => {
+		await recarregarSemestres();
+		await recarregarTurmas();
+	};
 
 	const salvar = async () => {
 		if (
@@ -215,6 +227,8 @@ export function useTurmasDiretoria() {
 		abrirNova,
 		carregandoSemestres,
 		carregandoTurmas,
+		erroCarregamento: erroSemestres ?? erroTurmas,
+		recarregar,
 		abrirEdicao,
 		duplicarTurma,
 		limparAlunosDaTurma,
