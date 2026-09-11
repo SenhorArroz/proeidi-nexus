@@ -243,16 +243,28 @@ export const alunoRouter = createTRPCRouter({
 			);
 			for (const aluno of alunosParaCriar)
 				await validateTurmas(ctx, input.semestreId, aluno.turmaIds);
+			// A consulta acima evita duplicatas no fluxo normal. O upsert protege a
+			// mesma importação caso ela seja reenviada ou outra sessão crie o CPF
+			// entre a consulta e a gravação (condição de corrida).
 			await ctx.db.$transaction(
 				alunosParaCriar.map((aluno) => {
 					const { turmaIds, ...dadosAluno } = aluno;
-					return ctx.db.aluno.create({
-						data: {
+					return ctx.db.aluno.upsert({
+						where: {
+							cpf_semestreId: {
+								cpf: dadosAluno.cpf,
+								semestreId: input.semestreId,
+							},
+						},
+						create: {
 							...dadosAluno,
 							email: dadosAluno.email ?? null,
 							semestre: { connect: { id: input.semestreId } },
 							turmas: { create: turmaIds.map((turmaId) => ({ turmaId })) },
 						},
+						// Registro existente é uma linha duplicada: não altera seus dados
+						// nem seus vínculos de turma.
+						update: {},
 					});
 				}),
 			);

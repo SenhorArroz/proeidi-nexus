@@ -73,6 +73,7 @@ export default function GerenciarAlunos() {
 		turmaIdsImportacao,
 		vinculosImportacao,
 		avisosVinculoImportacao,
+		sugestoesTurmaImportacao,
 		alternarSelecaoImportacao,
 		alternarTurmaImportacao,
 		adicionarVinculoImportacao,
@@ -210,6 +211,7 @@ export default function GerenciarAlunos() {
 					turmaIdsImportacao={turmaIdsImportacao}
 					vinculosImportacao={vinculosImportacao}
 					avisosVinculoImportacao={avisosVinculoImportacao}
+					sugestoesTurmaImportacao={sugestoesTurmaImportacao}
 					turmasDb={turmasDb}
 					alternarSelecaoImportacao={alternarSelecaoImportacao}
 					alternarTurmaImportacao={alternarTurmaImportacao}

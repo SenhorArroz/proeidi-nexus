@@ -7,6 +7,69 @@ import { normalizarBusca } from "~/lib/texto";
 import { api } from "~/trpc/react";
 import { type Aluno, downloadBase64Pdf, formatarCpf } from "./suporte";
 
+type SugestaoTurmaImportacao = {
+	turmaPlanilha: string;
+	turmaId: string | null;
+	turmaSistema: string | null;
+	confianca: number;
+	totalAlunos: number;
+};
+
+const PALAVRAS_GENERICAS_TURMA = new Set([
+	"a",
+	"ao",
+	"basica",
+	"basico",
+	"curso",
+	"da",
+	"de",
+	"do",
+	"em",
+	"introducao",
+	"na",
+	"no",
+	"o",
+	"para",
+]);
+
+function normalizarNomeTurma(valor: string) {
+	return valor
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "")
+		.toLowerCase()
+		.replace(/\([^)]*\)/g, " ")
+		.replace(/turma\s*0*(\d+)/g, "t$1")
+		.replace(/\bt\s*0*(\d+)\b/g, "t$1");
+}
+
+function tokensDaTurma(valor: string) {
+	return new Set(
+		(normalizarNomeTurma(valor).match(/[a-z]+\d*|\d+/g) ?? [])
+			.map((token) => (/^t0*\d+$/.test(token) ? `t${Number(token.slice(1))}` : token))
+			.filter((token) => !PALAVRAS_GENERICAS_TURMA.has(token)),
+	);
+}
+
+function codigoDaTurma(valor: string) {
+	const codigo = normalizarNomeTurma(valor).match(/\bt(\d+)\b/);
+	return codigo ? Number(codigo[1]) : null;
+}
+
+function pontuarSemelhancaTurma(origem: string, destino: string) {
+	const origemTokens = tokensDaTurma(origem);
+	const destinoTokens = tokensDaTurma(destino);
+	const emComum = [...origemTokens].filter((token) => destinoTokens.has(token));
+	const limite = Math.max(origemTokens.size, destinoTokens.size, 1);
+	let nota = emComum.length / limite;
+	const codigoOrigem = codigoDaTurma(origem);
+	const codigoDestino = codigoDaTurma(destino);
+	if (codigoOrigem !== null && codigoDestino !== null)
+		nota += codigoOrigem === codigoDestino ? 0.45 : -0.55;
+	if (normalizarNomeTurma(destino).includes(normalizarNomeTurma(origem)))
+		nota += 0.15;
+	return Math.max(0, Math.min(1, nota));
+}
+
 export function useGerenciarAlunos() {
 	const { theme } = useAccessibility();
 	const utils = api.useUtils();
@@ -191,6 +254,9 @@ export function useGerenciarAlunos() {
 	const [avisosVinculoImportacao, setAvisosVinculoImportacao] = useState<
 		Array<{ alunoId: string; turmaId: string }>
 	>([]);
+	const [sugestoesTurmaImportacao, setSugestoesTurmaImportacao] = useState<
+		SugestaoTurmaImportacao[]
+	>([]);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const processImportedData = (lines: any[][]) => {
@@ -297,6 +363,10 @@ export function useGerenciarAlunos() {
 			alert("Nenhum semestre disponível para receber a importação.");
 			return;
 		}
+		if (!turmasDb) {
+			alert("As turmas do semestre ainda estão carregando. Aguarde um instante e selecione a planilha novamente.");
+			return;
+		}
 		if (!newAlunos.length) {
 			alert(
 				"Nenhum aluno válido foi encontrado na planilha. Verifique se há linhas preenchidas e se a coluna de nome usa o cabeçalho esperado.",
@@ -341,11 +411,45 @@ export function useGerenciarAlunos() {
 			return;
 		}
 
+		const sugestoes = new Map<string, SugestaoTurmaImportacao>();
+		const vinculosAutomaticos = new Map<string, string[]>();
+		for (const aluno of newAlunos) {
+			const turmaPlanilha = aluno.turma.trim();
+			if (!turmaPlanilha) continue;
+			const melhorTurma = (turmasDb ?? [])
+				.map((turma) => ({
+					turma,
+					confianca: pontuarSemelhancaTurma(turmaPlanilha, turma.titulo),
+				}))
+				.sort((a, b) => b.confianca - a.confianca)[0];
+			const encontrouTurma = Boolean(melhorTurma && melhorTurma.confianca >= 0.55);
+			const chave = turmaPlanilha.toLocaleLowerCase("pt-BR");
+			const anterior = sugestoes.get(chave);
+			sugestoes.set(chave, {
+				turmaPlanilha,
+				turmaId: encontrouTurma ? melhorTurma?.turma.id ?? null : null,
+				turmaSistema: encontrouTurma ? melhorTurma?.turma.titulo ?? null : null,
+				confianca: encontrouTurma ? Math.round((melhorTurma?.confianca ?? 0) * 100) : 0,
+				totalAlunos: (anterior?.totalAlunos ?? 0) + 1,
+			});
+			if (encontrouTurma && melhorTurma)
+				vinculosAutomaticos.set(melhorTurma.turma.id, [
+					...(vinculosAutomaticos.get(melhorTurma.turma.id) ?? []),
+					aluno.id,
+				]);
+		}
+
 		setAlunosParaImportar(newAlunos);
 		setAlunosSelecionadosImportacao([]);
 		setTurmaIdsImportacao([]);
-		setVinculosImportacao([]);
+		setVinculosImportacao(
+			[...vinculosAutomaticos.entries()].map(([turmaId, alunoIds]) => ({
+				alunoIds,
+				turmaIds: [turmaId],
+			})),
+		);
 		setAvisosVinculoImportacao([]);
+		setSugestoesTurmaImportacao([...sugestoes.values()]);
 	};
 
 	const confirmarImportacao = () => {
@@ -799,6 +903,7 @@ export function useGerenciarAlunos() {
 		turmaIdsImportacao,
 		vinculosImportacao,
 		avisosVinculoImportacao,
+		sugestoesTurmaImportacao,
 		alternarSelecaoImportacao,
 		alternarTurmaImportacao,
 		adicionarVinculoImportacao,

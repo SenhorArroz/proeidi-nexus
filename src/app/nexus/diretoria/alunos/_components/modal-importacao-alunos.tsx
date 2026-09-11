@@ -15,6 +15,7 @@ type Props = Pick<
 	| "turmaIdsImportacao"
 	| "vinculosImportacao"
 	| "avisosVinculoImportacao"
+	| "sugestoesTurmaImportacao"
 	| "turmasDb"
 	| "alternarSelecaoImportacao"
 	| "alternarTurmaImportacao"
@@ -125,6 +126,49 @@ export function ModalImportacaoAlunos(p: Props) {
 				) : (
 					<>
 						<div className="min-h-0 flex-1 overflow-y-auto p-5 sm:p-7">
+							<section className="mb-5 rounded-2xl border border-sky-100 bg-sky-50/60 p-4 dark:border-sky-900 dark:bg-sky-950/40">
+								<div className="flex items-start justify-between gap-3">
+									<div>
+										<h3 className="font-extrabold text-sky-900 dark:text-sky-100">
+											Vínculos reconhecidos na planilha
+										</h3>
+										<p className="mt-1 text-sm text-sky-800 dark:text-sky-200">
+											As sugestões já serão vinculadas ao importar. Você pode complementar
+											com seleções manuais abaixo.
+										</p>
+									</div>
+									<span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-xs font-bold text-sky-800 dark:bg-slate-900 dark:text-sky-200">
+										{p.sugestoesTurmaImportacao.filter((sugestao) => sugestao.turmaId).length}/
+										{p.sugestoesTurmaImportacao.length}
+									</span>
+								</div>
+								<div className="mt-3 max-h-44 space-y-2 overflow-y-auto pr-1">
+									{p.sugestoesTurmaImportacao.map((sugestao) => (
+										<div
+											key={sugestao.turmaPlanilha}
+											className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-white/85 px-3 py-2 text-sm dark:bg-slate-900/85"
+										>
+											<div>
+												<p className="font-bold text-slate-800 dark:text-slate-100">
+													{sugestao.turmaPlanilha}
+												</p>
+												<p className="text-xs text-slate-500 dark:text-slate-300">
+													{sugestao.totalAlunos} aluno(s) na planilha
+												</p>
+											</div>
+											{sugestao.turmaSistema ? (
+												<span className="rounded-lg bg-emerald-50 px-2.5 py-1.5 text-xs font-bold text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200">
+													→ {sugestao.turmaSistema} · {sugestao.confianca}%
+												</span>
+											) : (
+												<span className="rounded-lg bg-amber-50 px-2.5 py-1.5 text-xs font-bold text-amber-800 dark:bg-amber-950/60 dark:text-amber-200">
+													Sem sugestão segura
+												</span>
+											)}
+										</div>
+									))}
+								</div>
+							</section>
 							<div className="grid gap-5 md:grid-cols-2">
 								<section className="rounded-2xl bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,.06)] dark:bg-slate-900">
 									<div className="mb-3 flex items-center justify-between">
