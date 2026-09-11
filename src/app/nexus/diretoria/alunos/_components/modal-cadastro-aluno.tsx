@@ -5,7 +5,7 @@ import { CamposInfraestruturaAluno } from "./campos-infraestrutura-aluno";
 import { CamposSaudeAluno } from "./campos-saude-aluno";
 import { CamposTrabalhoEstudoAluno } from "./campos-trabalho-estudo-aluno";
 import { CamposTurmaAluno } from "./campos-turma-aluno";
-import { useGerenciarAlunos } from "./use-gerenciar-alunos";
+import type { useGerenciarAlunos } from "./use-gerenciar-alunos";
 type Estado = ReturnType<typeof useGerenciarAlunos>;
 export type ModalCadastroAlunoProps = {
 	setIsModalOpen: NonNullable<Estado["setIsModalOpen"]>;
@@ -14,7 +14,6 @@ export type ModalCadastroAlunoProps = {
 	form: NonNullable<Estado["form"]>;
 	setForm: NonNullable<Estado["setForm"]>;
 	semestresDb: Estado["semestresDb"];
-	turmasDb: Estado["turmasDb"];
 };
 
 export function ModalCadastroAluno({
@@ -24,7 +23,6 @@ export function ModalCadastroAluno({
 	form,
 	setForm,
 	semestresDb,
-	turmasDb,
 }: ModalCadastroAlunoProps) {
 	return (
 		<div className="view-diretoria-alunos-modal-cadastro-aluno fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6">
@@ -60,7 +58,6 @@ export function ModalCadastroAluno({
 						form={form}
 						setForm={setForm}
 						semestresDb={semestresDb}
-						turmasDb={turmasDb}
 					/>
 
 					{/* SEÇÃO: DADOS GERAIS */}

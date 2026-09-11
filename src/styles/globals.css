@@ -3,6 +3,31 @@
 /* O modo visual é uma escolha do usuário no Nexus, não do sistema operacional. */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* Tokens semânticos: páginas novas devem usá-los em vez de depender da
+   conversão genérica de utilitários claros. A conversão abaixo continua como
+   compatibilidade para telas ainda não migradas. */
+html[data-theme="light"] {
+	--nexus-canvas: #f8fafc;
+	--nexus-surface: #ffffff;
+	--nexus-surface-soft: #f1f5f9;
+	--nexus-ink: #0f172a;
+	--nexus-muted: #64748b;
+	--nexus-line: #cbd5e1;
+	--nexus-hover: #e2e8f0;
+	--nexus-shadow: 0 12px 28px rgb(15 23 42 / 0.08);
+}
+
+html[data-theme="dark"] {
+	--nexus-canvas: #0b1220;
+	--nexus-surface: #162033;
+	--nexus-surface-soft: #1e2b40;
+	--nexus-ink: #dbe7f5;
+	--nexus-muted: #bacadd;
+	--nexus-line: #42546d;
+	--nexus-hover: #2b3b54;
+	--nexus-shadow: 0 12px 28px rgb(148 163 184 / 0.16);
+}
+
 /* Tema individual da turma: links, ícones e ações herdam a cor de destaque. */
 .turma-tema :is(.text-sky-600, .text-sky-700, .text-blue-600, .text-blue-700) {
 	color: var(--turma-destaque) !important;
@@ -70,14 +95,14 @@ html[data-theme="dark"] .nexus-sidebar {
 html[data-theme="dark"] .nexus-sidebar :is(.border-sky-100, .border-gray-200) {
 	border-color: #334155 !important;
 }
-html[data-theme="dark"] .nexus-sidebar .bg-sky-50 {
+html[data-theme="dark"] .nexus-sidebar .bg-sky-50:not([class*="dark:"]) {
 	background-color: #0c4a6e !important;
 	color: #e0f2fe !important;
 }
-html[data-theme="dark"] .nexus-sidebar [class*="bg-sky-50/"] {
+html[data-theme="dark"] .nexus-sidebar [class*="bg-sky-50/"]:not([class*="dark:"]) {
 	background-color: #172554 !important;
 }
-html[data-theme="dark"] .nexus-sidebar :is(.hover\:bg-white:hover, .hover\:bg-gray-50:hover, .hover\:bg-sky-50:hover) {
+html[data-theme="dark"] .nexus-sidebar :is(.hover\:bg-white:hover, .hover\:bg-gray-50:hover, .hover\:bg-sky-50:hover):not([class*="dark:"]) {
 	background-color: #1e3a5f !important;
 }
 
@@ -105,11 +130,11 @@ html[data-theme="dark"] .aluno-card-action-delete:hover {
 
 /* Accessibility overrides stay outside Tailwind's layers so custom Directorate
    component styles and utility classes cannot overwrite the selected theme. */
-html[data-theme="dark"] :is(.bg-white, .bg-white\/95) {
-	background-color: #162033 !important;
+html[data-theme="dark"] :is(.bg-white, .bg-white\/95):not([class*="dark:"]) {
+	background-color: var(--nexus-surface) !important;
 }
-html[data-theme="dark"] :is(.bg-slate-50, .bg-gray-50) {
-	background-color: #0b1220 !important;
+html[data-theme="dark"] :is(.bg-slate-50, .bg-gray-50):not([class*="dark:"]) {
+	background-color: var(--nexus-canvas) !important;
 }
 
 html[data-theme="dark"] .nexus-dashboard {
@@ -134,13 +159,18 @@ html[data-theme="dark"]
 		.bg-amber-100,
 		.bg-emerald-50,
 		.bg-green-50
-	) {
-	background-color: #1e2b40 !important;
+	):not([class*="dark:"]) {
+	background-color: var(--nexus-surface-soft) !important;
 }
-/* Inclui utilitários com transparência (ex.: bg-sky-50/60), que não são
-   alcançados pelo seletor .bg-sky-50 puro. */
-html[data-theme="dark"] [class*="bg-sky-50/"] {
-	background-color: #1e2b40 !important;
+/* Inclui utilitários com transparência (ex.: bg-gray-50/70), que não são
+   alcançados pelos seletores de classes puras. */
+html[data-theme="dark"]
+	:is(
+		[class*="bg-sky-50/"],
+		[class*="bg-gray-50/"],
+		[class*="bg-slate-50/"]
+	):not([class*="dark:"]) {
+	background-color: var(--nexus-surface-soft) !important;
 }
 html[data-theme="dark"]
 	:is(
@@ -155,8 +185,8 @@ html[data-theme="dark"]
 		.text-slate-600,
 		.text-slate-500,
 		.text-sky-800
-	) {
-	color: #dbe7f5 !important;
+	):not([class*="dark:"]) {
+	color: var(--nexus-ink) !important;
 }
 html[data-theme="dark"]
 	:is(
@@ -168,12 +198,12 @@ html[data-theme="dark"]
 		.border-slate-300,
 		.border-sky-100,
 		.border-sky-200
-	) {
-	border-color: #42546d !important;
+	):not([class*="dark:"]) {
+	border-color: var(--nexus-line) !important;
 }
 html[data-theme="dark"]
-	:is([class*="shadow-"], .shadow-sm, .shadow-md, .shadow-lg) {
-	box-shadow: 0 12px 28px rgb(148 163 184 / 0.16) !important;
+	:is([class*="shadow-"], .shadow-sm, .shadow-md, .shadow-lg):not([class*="dark:"]) {
+	box-shadow: var(--nexus-shadow) !important;
 }
 html[data-theme="dark"]
 	:is(
@@ -182,15 +212,15 @@ html[data-theme="dark"]
 		.hover\:bg-gray-50:hover,
 		.hover\:bg-sky-50:hover,
 		.hover\:bg-orange-50:hover
-	) {
-	background-color: #2b3b54 !important;
+	):not([class*="dark:"]) {
+	background-color: var(--nexus-hover) !important;
 }
 html[data-theme="dark"]
 	:is(
 		.hover\:text-gray-900:hover,
 		.hover\:text-sky-800:hover,
 		.hover\:text-orange-700:hover
-	) {
+	):not([class*="dark:"]) {
 	color: #f8fafc !important;
 }
 html[data-theme="dark"] .diretoria-workspace {
@@ -299,54 +329,6 @@ html[data-contrast="high"] .diretoria-workspace__crumb svg {
 	html[data-theme="dark"] body {
 		background: #0b1220;
 		color: #e5edf8;
-	}
-	html[data-theme="dark"]
-		:is(.bg-white, .bg-white\/95, .bg-slate-50, .bg-gray-50) {
-		background-color: #162033 !important;
-	}
-	html[data-theme="dark"]
-		:is(
-			.bg-slate-100,
-			.bg-gray-100,
-			.bg-sky-50,
-			.bg-sky-100,
-			.bg-orange-50,
-			.bg-orange-100,
-			.bg-amber-50,
-			.bg-amber-100,
-			.bg-emerald-50,
-			.bg-green-50
-		) {
-		background-color: #1e2b40 !important;
-	}
-	html[data-theme="dark"]
-		:is(
-			.text-gray-900,
-			.text-gray-800,
-			.text-gray-700,
-			.text-gray-600,
-			.text-gray-500,
-			.text-slate-900,
-			.text-slate-800,
-			.text-slate-700,
-			.text-slate-600,
-			.text-slate-500,
-			.text-sky-800
-		) {
-		color: #dbe7f5 !important;
-	}
-	html[data-theme="dark"]
-		:is(
-			.border-gray-100,
-			.border-gray-200,
-			.border-gray-300,
-			.border-slate-100,
-			.border-slate-200,
-			.border-slate-300,
-			.border-sky-100,
-			.border-sky-200
-		) {
-		border-color: #42546d !important;
 	}
 	html[data-theme="dark"] :is(.diretoria-workspace, .diretoria-workspace__bar) {
 		background-color: #101a2b;

@@ -42,11 +42,10 @@ export function useTurmasDiretoria() {
 		api.diretoria.usuarios.list.useQuery({
 			role: "MONITOR",
 		});
-	const { data: alunosDb, isLoading: carregandoAlunos } =
-		api.aluno.list.useQuery(
-			{ semestreId: semestreSelecionado?.id ?? "c0000000000000000000000000" },
-			{ enabled: Boolean(semestreSelecionado) },
-		);
+	const { data: alunosDb } = api.aluno.list.useQuery(
+		{ semestreId: semestreSelecionado?.id ?? "c0000000000000000000000000" },
+		{ enabled: Boolean(semestreSelecionado) },
+	);
 	const criar = api.diretoria.turmas.create.useMutation({
 		onSuccess: () => utils.diretoria.turmas.list.invalidate(),
 	});
@@ -238,6 +237,5 @@ export function useTurmasDiretoria() {
 		carregandoProfessores,
 		carregandoDiretores,
 		carregandoMonitores,
-		carregandoAlunos,
 	};
 }

@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import type React from "react";
+import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import { useAccessibility } from "~/app/_components/accessibility-preferences";
 import { normalizarBusca } from "~/lib/texto";
@@ -39,11 +40,22 @@ export function useGerenciarAlunos() {
 	const importarAlunos = api.aluno.import.useMutation({
 		onSuccess: () => utils.aluno.list.invalidate(),
 	});
+	const vincularTurmasEmLote = api.aluno.vincularTurmasEmLote.useMutation({
+		onSuccess: async () => {
+			await Promise.all([
+				utils.aluno.list.invalidate(),
+				utils.diretoria.turmas.list.invalidate(),
+			]);
+		},
+	});
 	const [alunos, setAlunos] = useState<Aluno[]>([]);
 	const [alunosParaContinuar, setAlunosParaContinuar] = useState<Aluno[]>([]);
 	const [alunosSelecionados, setAlunosSelecionados] = useState<string[]>([]);
 	const [semestreDestinoId, setSemestreDestinoId] = useState("");
 	const [turmaDestinoIds, setTurmaDestinoIds] = useState<string[]>([]);
+	const [turmaIdsParaVinculo, setTurmaIdsParaVinculo] = useState<string[]>([]);
+	const [isVinculoTurmasModalOpen, setIsVinculoTurmasModalOpen] =
+		useState(false);
 	const [etapaTrilha, setEtapaTrilha] = useState("");
 	const semestreDestino = semestresDb?.find(
 		(semestre) => semestre.id === semestreDestinoId,
@@ -169,6 +181,16 @@ export function useGerenciarAlunos() {
 
 	// Importação e Exportação
 	const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+	const [alunosParaImportar, setAlunosParaImportar] = useState<Aluno[]>([]);
+	const [alunosSelecionadosImportacao, setAlunosSelecionadosImportacao] =
+		useState<string[]>([]);
+	const [turmaIdsImportacao, setTurmaIdsImportacao] = useState<string[]>([]);
+	const [vinculosImportacao, setVinculosImportacao] = useState<
+		Array<{ alunoIds: string[]; turmaIds: string[] }>
+	>([]);
+	const [avisosVinculoImportacao, setAvisosVinculoImportacao] = useState<
+		Array<{ alunoId: string; turmaId: string }>
+	>([]);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const processImportedData = (lines: any[][]) => {
@@ -275,13 +297,13 @@ export function useGerenciarAlunos() {
 			alert("Nenhum semestre disponível para receber a importação.");
 			return;
 		}
+		if (!newAlunos.length) {
+			alert(
+				"Nenhum aluno válido foi encontrado na planilha. Verifique se há linhas preenchidas e se a coluna de nome usa o cabeçalho esperado.",
+			);
+			return;
+		}
 
-		const turmasPorTitulo = new Map(
-			(turmasDb ?? []).map((turma) => [
-				turma.titulo.trim().toLowerCase(),
-				turma.id,
-			]),
-		);
 		const obrigatorios: { campo: keyof Aluno; nome: string }[] = [
 			{ campo: "nome", nome: "Nome" },
 			{ campo: "dataNascimento", nome: "Data de nascimento" },
@@ -299,27 +321,18 @@ export function useGerenciarAlunos() {
 			{ campo: "temComputador", nome: "Computador" },
 			{ campo: "temSmartphone", nome: "Smartphone" },
 		];
-		const exigeTurmaCadastrada = (turmasDb?.length ?? 0) > 0;
 		const erroLinha = newAlunos
 			.map((aluno, index) => {
 				const ausentes = obrigatorios
 					.filter(({ campo }) => !String(aluno[campo] ?? "").trim())
 					.map(({ nome }) => nome);
-				const turmaInvalida =
-					exigeTurmaCadastrada &&
-					!turmasPorTitulo.has(aluno.turma.trim().toLowerCase());
-				return ausentes.length || turmaInvalida
-					? { index, ausentes, turmaInvalida, turma: aluno.turma }
-					: null;
+				return ausentes.length ? { index, ausentes } : null;
 			})
 			.find(Boolean);
 		if (erroLinha) {
 			const detalhes = [
 				erroLinha.ausentes.length
 					? `campos ausentes: ${erroLinha.ausentes.join(", ")}`
-					: "",
-				erroLinha.turmaInvalida
-					? `turma não cadastrada: ${erroLinha.turma || "(vazia)"}`
 					: "",
 			]
 				.filter(Boolean)
@@ -328,10 +341,27 @@ export function useGerenciarAlunos() {
 			return;
 		}
 
+		setAlunosParaImportar(newAlunos);
+		setAlunosSelecionadosImportacao([]);
+		setTurmaIdsImportacao([]);
+		setVinculosImportacao([]);
+		setAvisosVinculoImportacao([]);
+	};
+
+	const confirmarImportacao = () => {
+		if (!semestreSelecionado || !alunosParaImportar.length) return;
+		const turmasPorAluno = new Map<string, Set<string>>();
+		for (const vinculo of vinculosImportacao) {
+			for (const alunoId of vinculo.alunoIds) {
+				const turmas = turmasPorAluno.get(alunoId) ?? new Set<string>();
+				vinculo.turmaIds.forEach((turmaId) => turmas.add(turmaId));
+				turmasPorAluno.set(alunoId, turmas);
+			}
+		}
 		importarAlunos.mutate(
 			{
 				semestreId: semestreSelecionado.id,
-				alunos: newAlunos.map((aluno) => ({
+				alunos: alunosParaImportar.map((aluno) => ({
 					nome: aluno.nome.trim(),
 					dataNascimento: new Date(`${aluno.dataNascimento}T12:00:00`),
 					cpf: aluno.cpf.replace(/\D/g, ""),
@@ -357,22 +387,70 @@ export function useGerenciarAlunos() {
 					temComputador: aluno.temComputador === "Sim",
 					temSmartphone: aluno.temSmartphone === "Sim",
 					sistemaSmartphone: aluno.sistemaSmartphone || null,
-					turmaIds: exigeTurmaCadastrada
-						? [turmasPorTitulo.get(aluno.turma.trim().toLowerCase())!]
-						: [],
+					turmaIds: [...(turmasPorAluno.get(aluno.id) ?? [])],
 				})),
 			},
 			{
 				onSuccess: (result) => {
 					setIsImportModalOpen(false);
+					setAlunosParaImportar([]);
 					alert(
-						`${result.total} aluno(s) importado(s) para o banco com sucesso.${exigeTurmaCadastrada ? "" : " Como não há turmas cadastradas neste semestre, os alunos foram importados sem vínculo de turma."}`,
+						`${result.total} aluno(s) importado(s) com sucesso.${result.ignorados ? ` ${result.ignorados} linha(s) duplicada(s) foram ignoradas.` : ""}`,
 					);
 				},
 				onError: (error) =>
 					alert(`A importação não foi salva: ${error.message}`),
 			},
 		);
+	};
+	const alternarSelecaoImportacao = (alunoId: string) =>
+		setAlunosSelecionadosImportacao((ids) =>
+			ids.includes(alunoId)
+				? ids.filter((id) => id !== alunoId)
+				: [...ids, alunoId],
+		);
+	const alternarTurmaImportacao = (turmaId: string) =>
+		setTurmaIdsImportacao((ids) =>
+			ids.includes(turmaId)
+				? ids.filter((id) => id !== turmaId)
+				: [...ids, turmaId],
+		);
+	const adicionarVinculoImportacao = () => {
+		if (!alunosSelecionadosImportacao.length || !turmaIdsImportacao.length) return;
+		const paresExistentes = new Set(
+			vinculosImportacao.flatMap((vinculo) =>
+				vinculo.turmaIds.flatMap((turmaId) =>
+					vinculo.alunoIds.map((alunoId) => `${alunoId}:${turmaId}`),
+				),
+			),
+		);
+		const atualizados = [...vinculosImportacao];
+		const repetidos = turmaIdsImportacao.flatMap((turmaId) =>
+			alunosSelecionadosImportacao
+				.filter((alunoId) => paresExistentes.has(`${alunoId}:${turmaId}`))
+				.map((alunoId) => ({ alunoId, turmaId })),
+		);
+		for (const turmaId of turmaIdsImportacao) {
+			const alunosNovos = alunosSelecionadosImportacao.filter(
+				(alunoId) => !paresExistentes.has(`${alunoId}:${turmaId}`),
+			);
+			if (!alunosNovos.length) continue;
+			const indiceExistente = atualizados.findIndex(
+				(vinculo) =>
+					vinculo.turmaIds.length === 1 && vinculo.turmaIds[0] === turmaId,
+			);
+			if (indiceExistente >= 0) {
+				const existente = atualizados[indiceExistente]!;
+				atualizados[indiceExistente] = {
+					...existente,
+					alunoIds: [...existente.alunoIds, ...alunosNovos],
+				};
+			} else atualizados.push({ alunoIds: alunosNovos, turmaIds: [turmaId] });
+		}
+		setVinculosImportacao(atualizados);
+		setAvisosVinculoImportacao(repetidos);
+		setAlunosSelecionadosImportacao([]);
+		setTurmaIdsImportacao([]);
 	};
 
 	const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -572,6 +650,31 @@ export function useGerenciarAlunos() {
 		abrirContinuidade(
 			alunosFiltrados.filter((aluno) => alunosSelecionados.includes(aluno.id)),
 		);
+	const abrirVinculoTurmasEmLote = () => {
+		if (!alunosSelecionados.length) return;
+		setTurmaIdsParaVinculo([]);
+		setIsVinculoTurmasModalOpen(true);
+	};
+	const salvarVinculoTurmasEmLote = () => {
+		if (!semestreSelecionado || !turmaIdsParaVinculo.length) return;
+		vincularTurmasEmLote.mutate(
+			{
+				semestreId: semestreSelecionado.id,
+				alunoIds: alunosSelecionados,
+				turmaIds: turmaIdsParaVinculo,
+			},
+			{
+				onSuccess: (result) => {
+					setIsVinculoTurmasModalOpen(false);
+					alert(
+						`${alunosSelecionados.length} aluno(s) vinculados a ${turmaIdsParaVinculo.length} turma(s). ${result.total} novo(s) vínculo(s) criado(s).`,
+					);
+				},
+				onError: (error) =>
+					alert(`Não foi possível vincular as turmas: ${error.message}`),
+			},
+		);
+	};
 
 	const excluirAluno = (id: string) => {
 		if (confirm("Tem certeza que deseja remover este aluno?")) {
@@ -599,11 +702,6 @@ export function useGerenciarAlunos() {
 			delete formProcessado.necessidadeEspecialQual;
 
 		if (!semestreSelecionado) return;
-		const turmaIds = formProcessado.turma
-			? (turmasDb
-					?.filter((t) => t.titulo === formProcessado.turma)
-					.map((t) => t.id) ?? [])
-			: [];
 		const payload = {
 			semestreId: semestreSelecionado.id,
 			nome: formProcessado.nome,
@@ -631,7 +729,6 @@ export function useGerenciarAlunos() {
 			temComputador: formProcessado.temComputador === "Sim",
 			temSmartphone: formProcessado.temSmartphone === "Sim",
 			sistemaSmartphone: formProcessado.sistemaSmartphone || null,
-			turmaIds,
 		};
 		const options = {
 			onSuccess: () => setIsModalOpen(false),
@@ -679,6 +776,13 @@ export function useGerenciarAlunos() {
 		setAlunosParaContinuar,
 		setSemestreDestinoId,
 		setTurmaDestinoIds,
+		turmaIdsParaVinculo,
+		setTurmaIdsParaVinculo,
+		isVinculoTurmasModalOpen,
+		setIsVinculoTurmasModalOpen,
+		abrirVinculoTurmasEmLote,
+		salvarVinculoTurmasEmLote,
+		vincularTurmasEmLote,
 		setEtapaTrilha,
 		semestreDestino,
 		turmasDestino,
@@ -690,6 +794,15 @@ export function useGerenciarAlunos() {
 		setForm,
 		turmasDb,
 		isImportModalOpen,
+		alunosParaImportar,
+		alunosSelecionadosImportacao,
+		turmaIdsImportacao,
+		vinculosImportacao,
+		avisosVinculoImportacao,
+		alternarSelecaoImportacao,
+		alternarTurmaImportacao,
+		adicionarVinculoImportacao,
+		confirmarImportacao,
 		fileInputRef,
 		handleFileUpload,
 	};

@@ -47,15 +47,15 @@ export default function Dashboard() {
 				<section className="mt-8">
 					<div className="mb-4 flex min-w-0 flex-col items-start gap-3 min-[420px]:flex-row min-[420px]:items-end min-[420px]:justify-between">
 						<div>
-							<h2 className="text-lg font-black tracking-[-.025em] text-slate-900">
+							<h2 className="text-lg font-black tracking-[-.025em] text-slate-900 dark:text-slate-100">
 								Suas turmas
 							</h2>
-							<p className="mt-1 text-sm text-slate-500">
+							<p className="mt-1 text-sm text-slate-500 dark:text-slate-300">
 								Escolha uma turma para abrir seus materiais, calendário e
 								atividades.
 							</p>
 						</div>
-						<span className="shrink-0 rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-800">
+						<span className="shrink-0 rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-800 dark:bg-orange-950/60 dark:text-orange-200">
 							{turmas.length} {turmas.length === 1 ? "turma" : "turmas"}
 						</span>
 					</div>
@@ -64,7 +64,7 @@ export default function Dashboard() {
 							{Array.from({ length: 3 }).map((_, index) => (
 								<div
 									key={index}
-									className="h-52 animate-pulse rounded-2xl bg-sky-100"
+									className="h-52 animate-pulse rounded-2xl bg-sky-100 dark:bg-sky-950/50"
 								/>
 							))}
 						</div>
@@ -75,12 +75,12 @@ export default function Dashboard() {
 							))}
 						</div>
 					) : (
-						<div className="rounded-2xl border border-dashed border-sky-200 bg-white px-6 py-14 text-center">
+						<div className="rounded-2xl border border-dashed border-sky-200 bg-white px-6 py-14 text-center dark:border-sky-900 dark:bg-slate-900">
 							<CalendarDays className="mx-auto h-8 w-8 text-orange-500" />
-							<h3 className="mt-4 font-bold text-slate-800">
+							<h3 className="mt-4 font-bold text-slate-800 dark:text-slate-100">
 								Nenhuma turma disponível
 							</h3>
-							<p className="mx-auto mt-2 max-w-md text-sm text-slate-500">
+							<p className="mx-auto mt-2 max-w-md text-sm text-slate-500 dark:text-slate-300">
 								Quando você for vinculado a uma turma, ela aparecerá aqui
 								automaticamente.
 							</p>

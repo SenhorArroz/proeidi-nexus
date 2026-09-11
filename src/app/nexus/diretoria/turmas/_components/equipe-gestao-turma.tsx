@@ -5,10 +5,7 @@ import { SearchSelect } from "./search-select";
 
 type EquipeGestaoTurmaProps = {
 	turma: GestaoTurmaProps["turma"];
-	atualizarIds: (
-		campo: "professorIds" | "monitorIds" | "alunoIds",
-		ids: string[],
-	) => void;
+	atualizarIds: (campo: "professorIds" | "monitorIds", ids: string[]) => void;
 	pessoaOptions: (
 		pessoas: Array<{ id: string; nome: string; email?: string | null }>,
 	) => { id: string; nome: string; detalhe: string | undefined }[];

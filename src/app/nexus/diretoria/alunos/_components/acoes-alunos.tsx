@@ -3,13 +3,14 @@ import {
 	Award,
 	Download,
 	GitBranch,
+	Layers3,
 	Loader2,
 	Search,
 	Upload,
 	UserPlus,
 	Users,
 } from "lucide-react";
-import { useGerenciarAlunos } from "./use-gerenciar-alunos";
+import type { useGerenciarAlunos } from "./use-gerenciar-alunos";
 
 type Estado = ReturnType<typeof useGerenciarAlunos>;
 type AcoesAlunosProps = {
@@ -28,6 +29,7 @@ type AcoesAlunosProps = {
 	todosSelecionados: NonNullable<Estado["todosSelecionados"]>;
 	alunosSelecionados: NonNullable<Estado["alunosSelecionados"]>;
 	abrirContinuidadeEmLote: NonNullable<Estado["abrirContinuidadeEmLote"]>;
+	abrirVinculoTurmasEmLote: NonNullable<Estado["abrirVinculoTurmasEmLote"]>;
 };
 
 export function AcoesAlunos({
@@ -44,6 +46,7 @@ export function AcoesAlunos({
 	todosSelecionados,
 	alunosSelecionados,
 	abrirContinuidadeEmLote,
+	abrirVinculoTurmasEmLote,
 }: AcoesAlunosProps) {
 	return (
 		<div className="view-diretoria-alunos-acoes-alunos bg-white p-3 rounded-2xl border border-gray-200 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-4">
@@ -109,6 +112,15 @@ export function AcoesAlunos({
 					<Users className="h-4 w-4" />{" "}
 					{todosSelecionados ? "Limpar seleção" : "Selecionar todos"}
 				</button>
+				{alunosSelecionados.length > 0 && (
+					<button
+						onClick={abrirVinculoTurmasEmLote}
+						className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-sky-700 px-4 text-sm font-bold text-white hover:bg-sky-800"
+					>
+						<Layers3 className="h-4 w-4" /> Vincular {alunosSelecionados.length}{" "}
+						aluno(s)
+					</button>
+				)}
 				{alunosSelecionados.length > 0 && (
 					<button
 						onClick={abrirContinuidadeEmLote}

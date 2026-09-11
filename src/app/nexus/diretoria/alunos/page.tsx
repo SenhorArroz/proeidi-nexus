@@ -4,6 +4,7 @@ import { ListaAlunos } from "./_components/lista-alunos";
 import { ModalCadastroAluno } from "./_components/modal-cadastro-aluno";
 import { ModalContinuidadeAluno } from "./_components/modal-continuidade-aluno";
 import { ModalImportacaoAlunos } from "./_components/modal-importacao-alunos";
+import { ModalVinculoTurmasEmLote } from "./_components/modal-vinculo-turmas-em-lote";
 import { useGerenciarAlunos } from "./_components/use-gerenciar-alunos";
 
 import { GraduationCap } from "lucide-react";
@@ -33,6 +34,7 @@ export default function GerenciarAlunos() {
 		todosSelecionados,
 		alunosSelecionados,
 		abrirContinuidadeEmLote,
+		abrirVinculoTurmasEmLote,
 		carregandoSemestres,
 		carregandoAlunos,
 		carregandoTurmas,
@@ -66,6 +68,21 @@ export default function GerenciarAlunos() {
 		isImportModalOpen,
 		fileInputRef,
 		handleFileUpload,
+		alunosParaImportar,
+		alunosSelecionadosImportacao,
+		turmaIdsImportacao,
+		vinculosImportacao,
+		avisosVinculoImportacao,
+		alternarSelecaoImportacao,
+		alternarTurmaImportacao,
+		adicionarVinculoImportacao,
+		confirmarImportacao,
+		turmaIdsParaVinculo,
+		setTurmaIdsParaVinculo,
+		isVinculoTurmasModalOpen,
+		setIsVinculoTurmasModalOpen,
+		salvarVinculoTurmasEmLote,
+		vincularTurmasEmLote,
 	} = useGerenciarAlunos();
 
 	return (
@@ -128,6 +145,7 @@ export default function GerenciarAlunos() {
 					todosSelecionados={todosSelecionados}
 					alunosSelecionados={alunosSelecionados}
 					abrirContinuidadeEmLote={abrirContinuidadeEmLote}
+					abrirVinculoTurmasEmLote={abrirVinculoTurmasEmLote}
 				/>
 
 				{/* Lista de Alunos (Grid) */}
@@ -177,7 +195,6 @@ export default function GerenciarAlunos() {
 					form={form}
 					setForm={setForm}
 					semestresDb={semestresDb}
-					turmasDb={turmasDb}
 				/>
 			)}
 
@@ -186,9 +203,31 @@ export default function GerenciarAlunos() {
 				<ModalImportacaoAlunos
 					semestreSelecionado={semestreSelecionado}
 					setIsImportModalOpen={setIsImportModalOpen}
-					turmasDb={turmasDb}
 					fileInputRef={fileInputRef}
 					handleFileUpload={handleFileUpload}
+					alunosParaImportar={alunosParaImportar}
+					alunosSelecionadosImportacao={alunosSelecionadosImportacao}
+					turmaIdsImportacao={turmaIdsImportacao}
+					vinculosImportacao={vinculosImportacao}
+					avisosVinculoImportacao={avisosVinculoImportacao}
+					turmasDb={turmasDb}
+					alternarSelecaoImportacao={alternarSelecaoImportacao}
+					alternarTurmaImportacao={alternarTurmaImportacao}
+					adicionarVinculoImportacao={adicionarVinculoImportacao}
+					confirmarImportacao={confirmarImportacao}
+				/>
+			)}
+			{isVinculoTurmasModalOpen && (
+				<ModalVinculoTurmasEmLote
+					semestreSelecionado={semestreSelecionado}
+					alunosFiltrados={alunosFiltrados}
+					alunosSelecionados={alunosSelecionados}
+					turmasDb={turmasDb}
+					turmaIdsParaVinculo={turmaIdsParaVinculo}
+					setTurmaIdsParaVinculo={setTurmaIdsParaVinculo}
+					setIsVinculoTurmasModalOpen={setIsVinculoTurmasModalOpen}
+					salvarVinculoTurmasEmLote={salvarVinculoTurmasEmLote}
+					vincularTurmasEmLote={vincularTurmasEmLote}
 				/>
 			)}
 		</div>

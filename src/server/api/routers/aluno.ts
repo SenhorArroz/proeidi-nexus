@@ -52,6 +52,17 @@ const alunoInput = z.object({
 	temComputador: z.boolean(),
 	temSmartphone: z.boolean(),
 	sistemaSmartphone: z.string().trim().max(60).nullable().optional(),
+});
+
+// Planilhas históricas podem conter CPF incompleto. No cadastro manual, a
+// validação completa acima continua obrigatória; na importação preservamos os
+// dígitos que existirem para não descartar o registro.
+const alunoImportInput = alunoInput.extend({
+	cpf: z
+		.string()
+		.trim()
+		.transform((value) => value.replace(/\D/g, ""))
+		.pipe(z.string().min(1, "CPF deve conter ao menos um dígito.").max(11)),
 	turmaIds: z.array(id).max(20).optional().default([]),
 });
 
@@ -118,13 +129,13 @@ export const alunoRouter = createTRPCRouter({
 							}
 						: {}),
 				},
-			select: {
-				...alunoSelect,
-				turmas: {
-					where: { turma: { semestreId: input.semestreId } },
-					select: { turma: { select: { id: true, titulo: true } } },
+				select: {
+					...alunoSelect,
+					turmas: {
+						where: { turma: { semestreId: input.semestreId } },
+						select: { turma: { select: { id: true, titulo: true } } },
+					},
 				},
-			},
 				orderBy: { nome: "asc" },
 				take: 200,
 			}),
@@ -132,14 +143,12 @@ export const alunoRouter = createTRPCRouter({
 	create: directorProcedure
 		.input(alunoInput)
 		.mutation(async ({ ctx, input }) => {
-			const { turmaIds = [], semestreId, ...aluno } = input;
-			await validateTurmas(ctx, semestreId, turmaIds);
+			const { semestreId, ...aluno } = input;
 			return ctx.db.aluno.create({
 				data: {
 					...aluno,
 					email: aluno.email ?? null,
 					semestre: { connect: { id: semestreId } },
-					turmas: { create: turmaIds.map((turmaId) => ({ turmaId })) },
 				},
 				select: { id: true },
 			});
@@ -147,8 +156,7 @@ export const alunoRouter = createTRPCRouter({
 	update: directorProcedure
 		.input(alunoInput.extend({ id }))
 		.mutation(async ({ ctx, input }) => {
-			const { id: alunoId, turmaIds = [], semestreId, ...aluno } = input;
-			await validateTurmas(ctx, semestreId, turmaIds);
+			const { id: alunoId, semestreId, ...aluno } = input;
 			const exists = await ctx.db.aluno.findFirst({
 				where: { id: alunoId, semestreId },
 				select: { id: true },
@@ -158,19 +166,13 @@ export const alunoRouter = createTRPCRouter({
 					code: "NOT_FOUND",
 					message: "Aluno não encontrado neste semestre.",
 				});
-			return ctx.db.$transaction(async (tx: any) => {
-				await tx.alunoTurma.deleteMany({
-					where: { alunoId, turma: { semestreId } },
-				});
-				return tx.aluno.update({
-					where: { id: alunoId },
-					data: {
-						...aluno,
-						email: aluno.email ?? null,
-						turmas: { create: turmaIds.map((turmaId) => ({ turmaId })) },
-					},
-					select: { id: true },
-				});
+			return ctx.db.aluno.update({
+				where: { id: alunoId },
+				data: {
+					...aluno,
+					email: aluno.email ?? null,
+				},
+				select: { id: true },
 			});
 		}),
 	detalhe: directorProcedure
@@ -216,42 +218,75 @@ export const alunoRouter = createTRPCRouter({
 			z.object({
 				semestreId: id,
 				alunos: z
-					.array(alunoInput.omit({ semestreId: true }))
+					.array(alunoImportInput.omit({ semestreId: true }))
 					.min(1)
 					.max(500),
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
-			const cpfs = input.alunos.map((a) => a.cpf);
-			if (new Set(cpfs).size !== cpfs.length)
-				throw new TRPCError({
-					code: "BAD_REQUEST",
-					message: "A planilha possui CPFs duplicados.",
-				});
-			for (const aluno of input.alunos)
-				await validateTurmas(ctx, input.semestreId, aluno.turmaIds ?? []);
+			const alunosPorCpf = new Map<string, (typeof input.alunos)[number]>();
+			for (const aluno of input.alunos) {
+				const cpf = aluno.cpf.replace(/\D/g, "");
+				if (!alunosPorCpf.has(cpf)) alunosPorCpf.set(cpf, aluno);
+			}
+			const alunosUnicos = [...alunosPorCpf.values()];
+			const cpfs = alunosUnicos.map((a) => a.cpf);
 			const existing = await ctx.db.aluno.findMany({
-				where: { cpf: { in: cpfs } },
+				where: { cpf: { in: cpfs }, semestreId: input.semestreId },
 				select: { cpf: true },
 			});
-			if (existing.length)
-				throw new TRPCError({
-					code: "CONFLICT",
-					message: `CPF já cadastrado: ${existing.map((a: { cpf: string }) => a.cpf).join(", ")}.`,
-				});
+			const cpfsExistentes = new Set(
+				existing.map((aluno: { cpf: string }) => aluno.cpf),
+			);
+			const alunosParaCriar = alunosUnicos.filter(
+				(aluno) => !cpfsExistentes.has(aluno.cpf),
+			);
+			for (const aluno of alunosParaCriar)
+				await validateTurmas(ctx, input.semestreId, aluno.turmaIds);
 			await ctx.db.$transaction(
-				input.alunos.map((item) => {
-					const { turmaIds = [], ...aluno } = item;
+				alunosParaCriar.map((aluno) => {
+					const { turmaIds, ...dadosAluno } = aluno;
 					return ctx.db.aluno.create({
 						data: {
-							...aluno,
-							email: aluno.email ?? null,
+							...dadosAluno,
+							email: dadosAluno.email ?? null,
 							semestre: { connect: { id: input.semestreId } },
 							turmas: { create: turmaIds.map((turmaId) => ({ turmaId })) },
 						},
 					});
 				}),
 			);
-			return { total: input.alunos.length };
+			return {
+				total: alunosParaCriar.length,
+				ignorados: input.alunos.length - alunosParaCriar.length,
+			};
+		}),
+	vincularTurmasEmLote: directorProcedure
+		.input(
+			z.object({
+				semestreId: id,
+				alunoIds: z.array(id).min(1).max(300),
+				turmaIds: z.array(id).min(1).max(20),
+			}),
+		)
+		.mutation(async ({ ctx, input }) => {
+			const alunoIds = [...new Set(input.alunoIds)];
+			const turmaIds = [...new Set(input.turmaIds)];
+			await validateTurmas(ctx, input.semestreId, turmaIds);
+			const alunosValidos = await ctx.db.aluno.count({
+				where: { id: { in: alunoIds }, semestreId: input.semestreId },
+			});
+			if (alunosValidos !== alunoIds.length)
+				throw new TRPCError({
+					code: "BAD_REQUEST",
+					message: "Um ou mais alunos não pertencem ao semestre selecionado.",
+				});
+			const result = await ctx.db.alunoTurma.createMany({
+				data: alunoIds.flatMap((alunoId) =>
+					turmaIds.map((turmaId) => ({ alunoId, turmaId })),
+				),
+				skipDuplicates: true,
+			});
+			return { total: result.count };
 		}),
 });

@@ -250,7 +250,7 @@ export default function Sidebar() {
 			)}
 
 			<aside
-				className={`nexus-sidebar fixed inset-y-0 left-0 z-40 flex min-h-0 flex-col border-r border-sky-100 bg-white/95 shadow-[10px_0_30px_rgba(14,165,233,0.05)] transition-all duration-500 ease-in-out sm:relative sm:z-20 sm:h-full sm:shrink-0 ${
+				className={`nexus-sidebar fixed inset-y-0 left-0 z-40 flex min-h-0 flex-col border-r border-sky-100 bg-white/95 shadow-[10px_0_30px_rgba(14,165,233,0.05)] transition-all duration-500 ease-in-out dark:border-slate-700 dark:bg-slate-950 sm:relative sm:z-20 sm:h-full sm:shrink-0 ${
 					collapsed
 						? "w-0 -translate-x-full overflow-hidden sm:w-[72px] sm:translate-x-0 sm:overflow-visible"
 						: "w-60 max-w-[calc(100vw-3.5rem)] translate-x-0 sm:w-64 sm:max-w-none"
@@ -265,7 +265,7 @@ export default function Sidebar() {
 					}`}
 				>
 					<div>
-						<p className="text-sm font-medium text-slate-500">Bem-vindo,</p>
+						<p className="text-sm font-medium text-slate-500 dark:text-slate-300">Bem-vindo,</p>
 						<p className="sidebar-user-name break-all text-xl font-extrabold leading-7 text-sky-900 sm:text-2xl sm:leading-8">
 							{userName}
 							<span className="terminal-cursor ml-1 inline font-mono text-orange-500" aria-hidden="true">|</span>
@@ -276,7 +276,7 @@ export default function Sidebar() {
 				<button
 					type="button"
 					onClick={toggleSidebar}
-					className={`z-10 grid min-h-11 min-w-11 place-items-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-sky-600 flex-shrink-0 transition-colors ${
+					className={`z-10 grid min-h-11 min-w-11 place-items-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-sky-600 dark:text-slate-400 dark:hover:bg-slate-800 flex-shrink-0 transition-colors ${
 						collapsed ? "mx-auto" : "ml-auto"
 					}`}
 					aria-label={collapsed ? "Expandir menu" : "Recolher menu"}
@@ -302,7 +302,7 @@ export default function Sidebar() {
 							className={`flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
 								isActive
 									? "bg-sky-50 text-sky-600 shadow-sm ring-1 ring-sky-100"
-									: "text-gray-600 hover:bg-gray-50 hover:text-sky-900"
+									: "text-gray-600 hover:bg-gray-50 hover:text-sky-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-sky-200"
 							}`}
 						>
 							<Icon
@@ -372,7 +372,7 @@ export default function Sidebar() {
 					className={`flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
 						pathname.startsWith("/nexus/configuracoes")
 							? "bg-sky-50 text-sky-600 shadow-sm ring-1 ring-sky-100"
-							: "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+							: "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
 					}`}
 				>
 					<Settings className="w-5 h-5 flex-shrink-0 text-gray-400" />
@@ -486,7 +486,7 @@ function AccessibilityButton({
 			className={`flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-xs font-semibold transition-colors ${
 				active
 					? "bg-sky-600 text-white"
-					: "text-gray-700 hover:bg-white hover:text-sky-800"
+					: "text-gray-700 hover:bg-white hover:text-sky-800 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-sky-200"
 			} ${collapsed ? "justify-center" : ""}`}
 		>
 			<Icon className="h-4 w-4 shrink-0" />

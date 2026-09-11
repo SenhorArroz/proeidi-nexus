@@ -26,7 +26,7 @@ export default async function ConfiguracoesPage() {
 	if (!user) redirect("/nexus/login");
 
 	return (
-		<div className="min-h-full min-w-0 overflow-y-auto bg-slate-50 px-3 py-5 font-sans sm:px-4 sm:py-6">
+		<div className="min-h-full min-w-0 overflow-y-auto bg-slate-50 px-3 py-5 font-sans dark:bg-slate-950 sm:px-4 sm:py-6">
 			<div className="mx-auto w-full max-w-3xl">
 				<div className="relative mb-6 min-w-0 overflow-hidden rounded-[1.75rem] bg-sky-600 px-4 py-6 text-white shadow-[0_20px_45px_rgba(2,132,199,.22)] sm:px-6 sm:py-7">
 					<div className="absolute -right-8 -top-10 h-44 w-44 rounded-full bg-orange-500" />
@@ -46,10 +46,10 @@ export default async function ConfiguracoesPage() {
 					</div>
 				</div>
 
-				<section className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
-					<div className="border-b border-gray-100 px-4 py-4 sm:px-6 sm:py-5">
-						<h2 className="text-sm font-semibold text-gray-900">Sua conta</h2>
-						<p className="mt-1 text-sm text-gray-500">
+				<section className="overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-slate-700 dark:bg-slate-900">
+					<div className="border-b border-gray-100 px-4 py-4 dark:border-slate-700 sm:px-6 sm:py-5">
+						<h2 className="text-sm font-semibold text-gray-900 dark:text-slate-100">Sua conta</h2>
+						<p className="mt-1 text-sm text-gray-500 dark:text-slate-300">
 							Dados de acesso e perfil vinculados à sessão atual.
 						</p>
 					</div>
@@ -67,7 +67,7 @@ export default async function ConfiguracoesPage() {
 				{(user.role === "DIRETOR" || user.role === "COORDENADOR") && (
 					<Link
 						href="/nexus/questionarios"
-						className="mt-5 flex min-w-0 flex-col items-stretch gap-3 rounded-2xl bg-white p-4 text-slate-800 shadow-[0_12px_30px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,132,199,.13)] min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:p-5"
+						className="mt-5 flex min-w-0 flex-col items-stretch gap-3 rounded-2xl bg-white p-4 text-slate-800 shadow-[0_12px_30px_rgba(15,23,42,.06)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,132,199,.13)] dark:bg-slate-900 dark:text-slate-100 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:p-5"
 					>
 						<span className="flex min-w-0 items-center gap-3">
 							<span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-100 text-orange-700">

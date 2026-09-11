@@ -1,7 +1,5 @@
 "use client";
-import { AlunosGestaoTurma } from "./alunos-gestao-turma";
 import { EquipeGestaoTurma } from "./equipe-gestao-turma";
-import { ModalFichaAluno } from "./modal-ficha-aluno";
 import { VisaoGeralGestaoTurma } from "./visao-geral-gestao-turma";
 export type GestaoTurmaProps = {
 	turma: Turma;
@@ -27,9 +25,9 @@ import {
 	DoorOpen,
 	ShieldCheck,
 	TriangleAlert,
-	Users,
 } from "lucide-react";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import { useAccessibility } from "~/app/_components/accessibility-preferences";
 import { api } from "~/trpc/react";
 import { AulasEditor } from "./aulas-editor";
@@ -38,7 +36,7 @@ import { type AbaGestaoTurma, luminosidadeHex, type Turma } from "./suporte";
 export function JanelaGestaoTurma({
 	turma,
 	semestres,
-	alunosDb,
+	alunosDb: _alunosDb,
 	docentesDb,
 	monitoresDb,
 	onChange,
@@ -60,14 +58,6 @@ export function JanelaGestaoTurma({
 		theme === "dark" && luminosidadeHex(turma.corFundo) > 0.55
 			? "#162033"
 			: turma.corFundo;
-	const [alunoSelecionadoId, setAlunoSelecionadoId] = useState<string | null>(
-		null,
-	);
-	const { data: historicoAluno, isLoading: carregandoHistorico } =
-		api.aluno.detalhe.useQuery(
-			{ id: alunoSelecionadoId ?? "c0000000000000000000000000" },
-			{ enabled: Boolean(alunoSelecionadoId) },
-		);
 	const { data: registrosPresenca } = api.diretoria.presencas.list.useQuery(
 		{ turmaId: turma.id || "c0000000000000000000000000" },
 		{ enabled: Boolean(turma.id) },
@@ -95,27 +85,12 @@ export function JanelaGestaoTurma({
 			nome: pessoa.nome,
 			detalhe: pessoa.email ?? undefined,
 		}));
-	const alunosOptions = alunosDb.map((aluno) => ({
-		id: aluno.id,
-		nome: aluno.nome,
-		detalhe: aluno.email ?? aluno.telefone ?? undefined,
-	}));
 	const atualizarIds = (
-		campo: "professorIds" | "monitorIds" | "alunoIds",
+		campo: "professorIds" | "monitorIds",
 		ids: string[],
 	) => {
-		const fonte =
-			campo === "professorIds"
-				? docentesDb
-				: campo === "monitorIds"
-					? monitoresDb
-					: alunosDb;
-		const campoNomes =
-			campo === "professorIds"
-				? "professores"
-				: campo === "monitorIds"
-					? "monitores"
-					: "alunos";
+		const fonte = campo === "professorIds" ? docentesDb : monitoresDb;
+		const campoNomes = campo === "professorIds" ? "professores" : "monitores";
 		onChange({
 			...turma,
 			[campo]: ids,
@@ -132,7 +107,6 @@ export function JanelaGestaoTurma({
 	}> = [
 		{ id: "visao", label: "Visão geral", Icon: DoorOpen },
 		{ id: "equipe", label: "Equipe", Icon: ShieldCheck },
-		{ id: "alunos", label: "Alunos", Icon: Users },
 		{ id: "calendario", label: "Calendário", Icon: CalendarDays },
 	];
 
@@ -237,8 +211,8 @@ export function JanelaGestaoTurma({
 										.
 									</p>
 									<p className="mt-2 text-sm">
-										Remova alunos da seleção ou ajuste o limite na aba Visão
-										geral.
+										Ajuste os vínculos pela lista de alunos ou altere o limite
+										na aba Visão geral.
 									</p>
 								</div>
 							</div>
@@ -270,19 +244,6 @@ export function JanelaGestaoTurma({
 						/>
 					)}
 
-					{aba === "alunos" && (
-						<AlunosGestaoTurma
-							turma={turma}
-							atualizarIds={atualizarIds}
-							alunosOptions={alunosOptions}
-							corDescricao={corDescricao}
-							alunosDb={alunosDb}
-							setAlunoSelecionadoId={setAlunoSelecionadoId}
-							corFundo={corFundo}
-							corTexto={corTexto}
-						/>
-					)}
-
 					{aba === "calendario" && (
 						<div className="space-y-7">
 							<section
@@ -305,15 +266,6 @@ export function JanelaGestaoTurma({
 					)}
 				</div>
 			</div>
-
-			{alunoSelecionadoId && (
-				<ModalFichaAluno
-					turma={turma}
-					historicoAluno={historicoAluno}
-					setAlunoSelecionadoId={setAlunoSelecionadoId}
-					carregandoHistorico={carregandoHistorico}
-				/>
-			)}
 		</div>
 	);
 }
