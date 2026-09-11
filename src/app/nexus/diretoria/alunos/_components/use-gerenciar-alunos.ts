@@ -32,12 +32,15 @@ const PALAVRAS_GENERICAS_TURMA = new Set([
 	"para",
 ]);
 
+function removerHorarioDaTurma(valor: string) {
+	return valor.replace(/\s*\([^)]*\)\s*/g, " ").replace(/\s+/g, " ").trim();
+}
+
 function normalizarNomeTurma(valor: string) {
-	return valor
+	return removerHorarioDaTurma(valor)
 		.normalize("NFD")
 		.replace(/[\u0300-\u036f]/g, "")
 		.toLowerCase()
-		.replace(/\([^)]*\)/g, " ")
 		.replace(/turma\s*0*(\d+)/g, "t$1")
 		.replace(/\bt\s*0*(\d+)\b/g, "t$1");
 }
@@ -362,6 +365,7 @@ export function useGerenciarAlunos() {
 					}
 					if (targetField === "dataNascimento" && val.includes("T"))
 						val = val.split("T")[0] ?? "";
+					if (targetField === "turma") val = removerHorarioDaTurma(val);
 
 					(novoAluno as any)[targetField] = val;
 				}
