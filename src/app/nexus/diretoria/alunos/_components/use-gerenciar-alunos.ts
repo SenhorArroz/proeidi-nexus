@@ -55,6 +55,14 @@ function codigoDaTurma(valor: string) {
 	return codigo ? Number(codigo[1]) : null;
 }
 
+function nivelDaTurma(valor: string) {
+	const normalizado = normalizarNomeTurma(valor);
+	if (/\bavancad[oa]?\b/.test(normalizado)) return "AVANCADO";
+	if (/\b(introducao|basico|basica|iniciante)\b/.test(normalizado))
+		return "BASICO";
+	return null;
+}
+
 function pontuarSemelhancaTurma(origem: string, destino: string) {
 	const origemTokens = tokensDaTurma(origem);
 	const destinoTokens = tokensDaTurma(destino);
@@ -65,6 +73,11 @@ function pontuarSemelhancaTurma(origem: string, destino: string) {
 	const codigoDestino = codigoDaTurma(destino);
 	if (codigoOrigem !== null && codigoDestino !== null)
 		nota += codigoOrigem === codigoDestino ? 0.45 : -0.55;
+	const nivelOrigem = nivelDaTurma(origem);
+	const nivelDestino = nivelDaTurma(destino);
+	if (nivelOrigem && nivelDestino)
+		nota += nivelOrigem === nivelDestino ? 0.5 : -0.75;
+	else if (nivelOrigem && nivelDestino !== nivelOrigem) nota -= 0.45;
 	if (normalizarNomeTurma(destino).includes(normalizarNomeTurma(origem)))
 		nota += 0.15;
 	return Math.max(0, Math.min(1, nota));
