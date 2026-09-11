@@ -45,8 +45,10 @@ function normalizarNomeTurma(valor: string) {
 function tokensDaTurma(valor: string) {
 	return new Set(
 		(normalizarNomeTurma(valor).match(/[a-z]+\d*|\d+/g) ?? [])
-			.map((token) => (/^t0*\d+$/.test(token) ? `t${Number(token.slice(1))}` : token))
-			.filter((token) => !PALAVRAS_GENERICAS_TURMA.has(token)),
+			.filter(
+				(token) =>
+					!PALAVRAS_GENERICAS_TURMA.has(token) && !/^t0*\d+$/.test(token),
+			),
 	);
 }
 
@@ -68,18 +70,17 @@ function pontuarSemelhancaTurma(origem: string, destino: string) {
 	const destinoTokens = tokensDaTurma(destino);
 	const emComum = [...origemTokens].filter((token) => destinoTokens.has(token));
 	const limite = Math.max(origemTokens.size, destinoTokens.size, 1);
-	let nota = emComum.length / limite;
+	let nota = (emComum.length / limite) * 0.65;
 	const codigoOrigem = codigoDaTurma(origem);
 	const codigoDestino = codigoDaTurma(destino);
 	if (codigoOrigem !== null && codigoDestino !== null)
-		nota += codigoOrigem === codigoDestino ? 0.45 : -0.55;
+		nota += codigoOrigem === codigoDestino ? 0.2 : -0.55;
 	const nivelOrigem = nivelDaTurma(origem);
 	const nivelDestino = nivelDaTurma(destino);
 	if (nivelOrigem && nivelDestino)
-		nota += nivelOrigem === nivelDestino ? 0.5 : -0.75;
-	else if (nivelOrigem && nivelDestino !== nivelOrigem) nota -= 0.45;
+		nota += nivelOrigem === nivelDestino ? 0.15 : -0.55;
 	if (normalizarNomeTurma(destino).includes(normalizarNomeTurma(origem)))
-		nota += 0.15;
+		nota += 0.1;
 	return Math.max(0, Math.min(1, nota));
 }
 
