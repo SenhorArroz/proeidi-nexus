@@ -90,7 +90,7 @@ function pontuarSemelhancaTurma(origem: string, destino: string) {
 export function useGerenciarAlunos() {
 	const { theme } = useAccessibility();
 	const utils = api.useUtils();
-	const [semestreFiltro, setSemestreFiltro] = useState<string>("2026.1");
+	const [semestreFiltro, setSemestreFiltro] = useState<string>("");
 	const [busca, setBusca] = useState("");
 	const { data: semestresDb, isLoading: carregandoSemestres } =
 		api.diretoria.semestres.list.useQuery();
@@ -434,12 +434,19 @@ export function useGerenciarAlunos() {
 		for (const aluno of newAlunos) {
 			const turmaPlanilha = aluno.turma.trim();
 			if (!turmaPlanilha) continue;
-			const melhorTurma = (turmasDb ?? [])
-				.map((turma) => ({
-					turma,
-					confianca: pontuarSemelhancaTurma(turmaPlanilha, turma.titulo),
-				}))
-				.sort((a, b) => b.confianca - a.confianca)[0];
+			const turmaExata = turmasDb.find(
+				(turma) =>
+					normalizarNomeTurma(turma.titulo) ===
+					normalizarNomeTurma(turmaPlanilha),
+			);
+			const melhorTurma = turmaExata
+				? { turma: turmaExata, confianca: 1 }
+				: turmasDb
+						.map((turma) => ({
+							turma,
+							confianca: pontuarSemelhancaTurma(turmaPlanilha, turma.titulo),
+						}))
+						.sort((a, b) => b.confianca - a.confianca)[0];
 			const encontrouTurma = Boolean(melhorTurma && melhorTurma.confianca >= 0.55);
 			const chave = turmaPlanilha.toLocaleLowerCase("pt-BR");
 			const anterior = sugestoes.get(chave);

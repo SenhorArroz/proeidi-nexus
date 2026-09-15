@@ -202,7 +202,9 @@ export function InicioView({
 							<UploadButton
 								endpoint="avisoImagem"
 								onClientUploadComplete={(arquivos) => {
-									setImagemAviso(arquivos[0]?.ufsUrl ?? null);
+									const arquivo = arquivos[0];
+									const url = arquivo?.ufsUrl ?? (arquivo as unknown as { url?: string })?.url ?? null;
+									setImagemAviso(url);
 									setErro(null);
 								}}
 								onUploadError={(causa) =>
