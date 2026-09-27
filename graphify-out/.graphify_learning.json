@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-08T18:10:18.790259+00:00",
+  "generated_at": "2026-09-27T15:20:59.331116+00:00",
   "nodes": {
     "generated_prisma_index_d_alunoturma": {
-      "code_fingerprint": "1ab19844bb11d684994a79c69ff4f4b9aaed7f01bff4e2beec26eab5fe23e801",
+      "code_fingerprint": "38c3a9cb765450a504e71a379fa5da6374437c6197037e7a3b2ac6d34483b6cb",
       "label": "AlunoTurma",
       "last": "2026-08-29T13:23:47.498699+00:00",
       "provenance": [
@@ -12,13 +12,13 @@
           "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
         }
       ],
-      "score": 0.790060054,
+      "score": 0.510725655,
       "source_file": "generated/prisma/index.d.ts",
       "status": "tentative",
       "uses": 1
     },
     "generated_prisma_index_d_formularioresposta": {
-      "code_fingerprint": "1ab19844bb11d684994a79c69ff4f4b9aaed7f01bff4e2beec26eab5fe23e801",
+      "code_fingerprint": "38c3a9cb765450a504e71a379fa5da6374437c6197037e7a3b2ac6d34483b6cb",
       "label": "FormularioResposta",
       "last": "2026-08-29T13:50:19.740490+00:00",
       "provenance": [
@@ -38,7 +38,7 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 2.369477041,
+      "score": 1.531722439,
       "source_file": "generated/prisma/index.d.ts",
       "status": "preferred",
       "uses": 3
@@ -54,7 +54,7 @@
           "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
         }
       ],
-      "score": 0.778837335,
+      "score": 0.503470851,
       "source_file": "src/app/_components/diretoria-workspace.tsx",
       "status": "tentative",
       "uses": 1
@@ -70,13 +70,13 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.778772354,
+      "score": 0.503428845,
       "source_file": "src/app/_components/diretoria-workspace.tsx",
       "status": "tentative",
       "uses": 1
     },
     "src_app_components_sidebar_sidebar": {
-      "code_fingerprint": "dba8294bfe9a07261afd2a8ab6a63b54678e910ff06c1875c0623a5365f2f457",
+      "code_fingerprint": "9ce22053f4eb0b2ffdc74a50646a169ab44b53e1c0d61a1cff519e319dc3a476",
       "label": "Sidebar()",
       "last": "2026-08-28T22:26:55.898690+00:00",
       "provenance": [
@@ -86,8 +86,24 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.778772354,
+      "score": 0.503428845,
       "source_file": "src/app/_components/sidebar.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_dashboard_components_turma_dashboard_card_turmadashboardcard": {
+      "code_fingerprint": "e6465aa44070a599d30bf3c097bb570043856cf5410cdafad52d8137a87f4c76",
+      "label": "TurmaDashboardCard()",
+      "last": "2026-09-08T18:30:08.095526+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-08T18:30:08.095526+00:00",
+          "outcome": "useful",
+          "q": "Adicionar detalhes do banner da turma da dashboard ao PDF."
+        }
+      ],
+      "score": 0.646644657,
+      "source_file": "src/app/nexus/dashboard/_components/turma-dashboard-card.tsx",
       "status": "tentative",
       "uses": 1
     },
@@ -102,7 +118,7 @@
           "q": "Upload de imagens em avisos de turmas com UploadThing"
         }
       ],
-      "score": 0.790491663,
+      "score": 0.511004664,
       "source_file": "src/app/nexus/dashboard/turmas/[id]/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -118,7 +134,7 @@
           "q": "Configurações funcionais para questionários"
         }
       ],
-      "score": 0.790396528,
+      "score": 0.510943165,
       "source_file": "src/app/nexus/diretoria/formularios/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -134,7 +150,7 @@
           "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
         }
       ],
-      "score": 0.778837335,
+      "score": 0.503470851,
       "source_file": "src/app/nexus/diretoria/layout.tsx",
       "status": "tentative",
       "uses": 1
@@ -150,7 +166,7 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 0.776749845,
+      "score": 0.502121416,
       "source_file": "src/app/nexus/diretoria/layout.tsx",
       "status": "tentative",
       "uses": 1
@@ -166,7 +182,7 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 0.789020459,
+      "score": 0.51005362,
       "source_file": "src/app/nexus/diretoria/questionarios/[id]/_components/suporte.tsx",
       "status": "tentative",
       "uses": 1
@@ -182,7 +198,7 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 0.789020459,
+      "score": 0.51005362,
       "source_file": "src/app/nexus/diretoria/questionarios/[id]/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -203,7 +219,7 @@
           "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
         }
       ],
-      "score": 1.556643012,
+      "score": 1.006274798,
       "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -229,7 +245,7 @@
           "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
         }
       ],
-      "score": 2.335143951,
+      "score": 1.509528191,
       "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
       "status": "preferred",
       "uses": 3
@@ -265,7 +281,7 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 3.901691931,
+      "score": 2.522205947,
       "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
       "status": "preferred",
       "uses": 5
@@ -301,7 +317,7 @@
           "q": "faça o campo de Tirar números do sorteio ser retrátil"
         }
       ],
-      "score": 4.680464286,
+      "score": 3.025634792,
       "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
       "status": "preferred",
       "uses": 6
@@ -317,7 +333,7 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.778772354,
+      "score": 0.503428845,
       "source_file": "src/app/nexus/layout.tsx",
       "status": "tentative",
       "uses": 1
@@ -333,7 +349,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.77428179,
+      "score": 0.500525969,
       "source_file": "src/env.js",
       "status": "tentative",
       "uses": 1
@@ -349,13 +365,13 @@
           "q": "Mapear o controle de turma e o PDF para redesenho e paginação."
         }
       ],
-      "score": 0.996409093,
+      "score": 0.644117727,
       "source_file": "src/lib/controle-turma.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_lib_controle_turma_pdf_gerarcontroleturmapdf": {
-      "code_fingerprint": "1c6ee677b683d10cccc7c924f6ca2a8cf185ca2a2cd1f288d69cf64daef1a4e7",
+      "code_fingerprint": "2f08a97b65b4d57cf8fa8bb5efad2c823cb0ce9149635da0e03f7b400332ada1",
       "label": "gerarControleTurmaPdf()",
       "last": "2026-09-08T14:26:06.549410+00:00",
       "provenance": [
@@ -365,13 +381,13 @@
           "q": "Mapear o controle de turma e o PDF para redesenho e paginação."
         }
       ],
-      "score": 0.996409093,
+      "score": 0.644117727,
       "source_file": "src/lib/controle-turma-pdf.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_server_api_routers_aluno": {
-      "code_fingerprint": "c4d69636c56d63b0f4afc3e757504fb7314460554ea1a5c740e7ce7d754c745f",
+      "code_fingerprint": "8efb62adb6b59360237460af99f6b8d45cbaac44fa9c870331a328e3fd8052da",
       "label": "aluno.ts",
       "last": "2026-08-29T13:23:47.498699+00:00",
       "provenance": [
@@ -381,7 +397,7 @@
           "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
         }
       ],
-      "score": 0.790060054,
+      "score": 0.510725655,
       "source_file": "src/server/api/routers/aluno.ts",
       "status": "tentative",
       "uses": 1
@@ -407,16 +423,27 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 2.369477041,
+      "score": 1.531722439,
       "source_file": "src/server/api/routers/formulario.ts",
       "status": "preferred",
       "uses": 3
     },
     "src_server_api_routers_turma_turmarouter": {
-      "code_fingerprint": "d5c46d3b7e7ada12ab1d15622c9378c9f727fb29acd106d1577653e5db5ed93d",
+      "code_fingerprint": "a4382568b310ccc364e7132d1b2fdf9e9eaec5d8238488e104255140c10d7dd3",
       "label": "turmaRouter",
-      "last": "2026-08-29T13:57:49.808369+00:00",
+      "last": "2026-09-15T22:04:07.466696+00:00",
+      "neg": 1,
       "provenance": [
+        {
+          "date": "2026-09-15T22:04:07.466696+00:00",
+          "outcome": "useful",
+          "q": "usando o out do grafiphy para se mapear refiz parte do sistema de emails para enviar um novo post para os users daquela turma, mas alguns emails vão para a caixa principal dos destinatários e outros seguem para a área de spam. O que pode estar ocorrendo?"
+        },
+        {
+          "date": "2026-09-08T21:37:56.022439+00:00",
+          "outcome": "corrected",
+          "q": "Por que os cards de turma da Diretoria e o Controle de Turma não carregam em produção, enquanto a Dashboard carrega?"
+        },
         {
           "date": "2026-08-29T13:57:49.808369+00:00",
           "outcome": "useful",
@@ -428,10 +455,11 @@
           "q": "Persist avisos materiais notas da turma no banco"
         }
       ],
-      "score": 1.565135942,
+      "score": 1.125945122,
       "source_file": "src/server/api/routers/turma.ts",
-      "status": "preferred",
-      "uses": 2
+      "status": "contested",
+      "uses": 3,
+      "verdict": "useful"
     },
     "src_server_auth_config_authconfig": {
       "code_fingerprint": "1c43dc2168deb0ad23fb5aca3f089d57f37e40ac11e3cee583cc2d099eee0c49",
@@ -444,7 +472,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.77428179,
+      "score": 0.500525969,
       "source_file": "src/server/auth/config.ts",
       "status": "tentative",
       "uses": 1
@@ -460,7 +488,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.77428179,
+      "score": 0.500525969,
       "source_file": "src/server/auth/index.ts",
       "status": "tentative",
       "uses": 1

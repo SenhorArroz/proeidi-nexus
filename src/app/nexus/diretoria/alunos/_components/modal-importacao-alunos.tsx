@@ -21,6 +21,7 @@ type Props = Pick<
 	| "alternarTurmaImportacao"
 	| "adicionarVinculoImportacao"
 	| "confirmarImportacao"
+	| "importandoAlunos"
 > & { setIsImportModalOpen: Estado["setIsImportModalOpen"] };
 
 export function ModalImportacaoAlunos(p: Props) {
@@ -52,13 +53,11 @@ export function ModalImportacaoAlunos(p: Props) {
 			!p.alunosSelecionadosImportacao.length ||
 			!p.turmaIdsImportacao.length
 		) {
-			setRetorno(
-				"Selecione alunos e pelo menos uma turma para montar o vínculo.",
-			);
+			setRetorno("Selecione os alunos e uma turma para montar o vínculo.");
 			return;
 		}
 		setRetorno(
-			`Seleção adicionada: ${p.alunosSelecionadosImportacao.length} aluno(s) em ${p.turmaIdsImportacao.length} turma(s).`,
+			`Turma definida para ${p.alunosSelecionadosImportacao.length} aluno(s).`,
 		);
 		p.adicionarVinculoImportacao();
 	};
@@ -104,7 +103,7 @@ export function ModalImportacaoAlunos(p: Props) {
 					<div className="flex flex-1 flex-col items-center justify-center gap-5 p-6 sm:p-10">
 						<p className="max-w-xl text-center text-sm leading-6 text-slate-600 dark:text-slate-300">
 							A planilha será revisada antes de salvar. Monte seleções de alunos
-							e vincule cada seleção às turmas desejadas.
+							e defina uma turma para cada seleção.
 						</p>
 						<label className="flex w-full max-w-xl cursor-pointer flex-col items-center rounded-2xl border-2 border-dashed border-sky-200 bg-white p-8 text-center shadow-[0_12px_30px_rgba(15,23,42,.06)] transition hover:border-sky-500 hover:bg-sky-50 dark:border-sky-900 dark:bg-slate-900 dark:hover:bg-sky-950/50">
 							<Upload className="mb-3 h-10 w-10 text-orange-500" />
@@ -133,13 +132,18 @@ export function ModalImportacaoAlunos(p: Props) {
 											Vínculos reconhecidos na planilha
 										</h3>
 										<p className="mt-1 text-sm text-sky-800 dark:text-sky-200">
-											As sugestões já serão vinculadas ao importar. Você pode complementar
-											com seleções manuais abaixo.
+											Os títulos da coluna Turma são rastreados até as turmas
+											cadastradas no semestre. A seleção manual substitui a
+											sugestão.
 										</p>
 									</div>
 									<span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-xs font-bold text-sky-800 dark:bg-slate-900 dark:text-sky-200">
-										{p.sugestoesTurmaImportacao.filter((sugestao) => sugestao.turmaId).length}/
-										{p.sugestoesTurmaImportacao.length}
+										{
+											p.sugestoesTurmaImportacao.filter(
+												(sugestao) => sugestao.turmaId,
+											).length
+										}
+										/{p.sugestoesTurmaImportacao.length}
 									</span>
 								</div>
 								<div className="mt-3 max-h-44 space-y-2 overflow-y-auto pr-1">
@@ -193,7 +197,7 @@ export function ModalImportacaoAlunos(p: Props) {
 										{alunos.map((aluno) => (
 											<label
 												key={aluno.id}
-										className="flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-sm text-slate-700 hover:bg-sky-50 dark:text-slate-200 dark:hover:bg-slate-800"
+												className="flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-sm text-sky-950 hover:bg-sky-50 dark:text-sky-100 dark:hover:bg-slate-800"
 											>
 												<input
 													type="checkbox"
@@ -231,10 +235,11 @@ export function ModalImportacaoAlunos(p: Props) {
 										{turmas?.map((turma) => (
 											<label
 												key={turma.id}
-										className="flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-sm text-slate-700 hover:bg-orange-50 dark:text-slate-200 dark:hover:bg-slate-800"
+												className="flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-sm text-orange-950 hover:bg-orange-50 dark:text-orange-100 dark:hover:bg-slate-800"
 											>
 												<input
-													type="checkbox"
+													type="radio"
+													name="turma-importacao"
 													checked={p.turmaIdsImportacao.includes(turma.id)}
 													onChange={() => p.alternarTurmaImportacao(turma.id)}
 													className="h-4 w-4 accent-orange-500"
@@ -257,7 +262,7 @@ export function ModalImportacaoAlunos(p: Props) {
 										onClick={criarVinculo}
 										className="mt-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 text-sm font-bold text-white transition hover:bg-orange-600"
 									>
-										<Check className="h-4 w-4" /> Criar seleção e vínculo
+										<Check className="h-4 w-4" /> Definir turma da seleção
 									</button>
 									{retorno && (
 										<p
@@ -284,13 +289,13 @@ export function ModalImportacaoAlunos(p: Props) {
 										{p.vinculosImportacao.length} vínculo(s)
 									</span>
 								</div>
-								{p.avisosVinculoImportacao.map((aviso, index) => (
+								{p.avisosVinculoImportacao.map((aviso) => (
 									<div
-										key={`${aviso.alunoId}-${aviso.turmaId}-${index}`}
+										key={`${aviso.alunoId}-${aviso.turmaId}`}
 										className="mb-3 rounded-xl border border-orange-200 bg-orange-50 p-3 text-sm text-orange-950 dark:border-orange-900 dark:bg-orange-950/50 dark:text-orange-100"
 									>
-										<b>Vínculo repetido removido:</b> {nome(aviso.alunoId)} já
-										estava vinculado a {nomeTurma(aviso.turmaId)}.
+										<b>Turma anterior substituída:</b> {nome(aviso.alunoId)}{" "}
+										saiu de {nomeTurma(aviso.turmaId)}.
 									</div>
 								))}
 								{p.vinculosImportacao.length ? (
@@ -298,7 +303,7 @@ export function ModalImportacaoAlunos(p: Props) {
 										{p.vinculosImportacao.flatMap((vinculo, selecao) =>
 											vinculo.turmaIds.map((turmaId) => (
 												<article
-													key={`${selecao}-${turmaId}`}
+													key={turmaId}
 													className="overflow-hidden rounded-xl border border-sky-100 dark:border-sky-900"
 												>
 													<div className="bg-sky-600 px-4 py-3 text-white">
@@ -312,7 +317,7 @@ export function ModalImportacaoAlunos(p: Props) {
 														{vinculo.alunoIds.map((alunoId) => (
 															<p
 																key={alunoId}
-															className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-100"
+																className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-100"
 															>
 																{nome(alunoId)}
 															</p>
@@ -324,8 +329,8 @@ export function ModalImportacaoAlunos(p: Props) {
 									</div>
 								) : (
 									<div className="rounded-xl border border-dashed border-sky-200 bg-sky-50/60 p-5 text-sm text-sky-900 dark:border-sky-900 dark:bg-sky-950/50 dark:text-sky-100">
-										Ainda não há vínculos. Selecione alunos e turmas acima para
-										criar a primeira divisão.
+										Ainda não há vínculos. Selecione os alunos e uma turma
+										acima.
 									</div>
 								)}
 							</section>
@@ -341,9 +346,10 @@ export function ModalImportacaoAlunos(p: Props) {
 							<button
 								type="button"
 								onClick={p.confirmarImportacao}
-								className="min-h-11 rounded-xl bg-sky-600 px-5 text-sm font-bold text-white shadow-sm hover:bg-sky-700"
+								disabled={p.importandoAlunos}
+								className="min-h-11 rounded-xl bg-sky-600 px-5 text-sm font-bold text-white shadow-sm hover:bg-sky-700 disabled:cursor-wait disabled:opacity-60"
 							>
-								Importar alunos
+								{p.importandoAlunos ? "Importando..." : "Importar alunos"}
 							</button>
 						</footer>
 					</>

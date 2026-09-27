@@ -1,11 +1,11 @@
-# Graph Report - proeidi-nexus  (2026-09-27)
+# Graph Report - proeidi-nexus  (2026-09-15)
 
 ## Corpus Check
-- 357 files · ~691,542 words
+- 356 files · ~691,341 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 9015 nodes · 14414 edges · 352 communities (238 shown, 114 thin omitted)
+- 9010 nodes · 14410 edges · 355 communities (241 shown, 114 thin omitted)
 - Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 622 edges (avg confidence: 0.64)
 - Token cost: 0 input · 0 output
 
@@ -27,7 +27,7 @@
 - wasm-engine-edge.js
 - o
 - addErrorMessage
-- turmas/[id]/_components/suporte.tsx
+- turmas/[id]/page.tsx
 - use-editor-formulario.ts
 - addErrorMessage
 - page-intro.tsx
@@ -48,10 +48,10 @@
 - a
 - write
 - PrismaClient
-- ml
+- toString
 - transaction
 - co
-- from
+- slice
 - pl
 - janela-gestao-turma.tsx
 - a
@@ -60,41 +60,41 @@
 - compilerOptions
 - wo
 - .slice
-- i
+- slice
 - transaction
 - ia
-- db.ts
+- configuracoes/page.tsx
 - .slice
 - ji
 - write
-- hs
+- r
 - modal-cadastro-aluno.tsx
-- r
-- r
+- ha
+- k
 - root.ts
-- #c
+- Dt
 - transaction
 - Ca
 - use-gerenciar-sorteio.ts
 - impressao/page.tsx
 - fs
-- interpretNode
+- toString
 - ln
 - r
 - index-browser.d.ts
-- .includes
+- xu
 - toString
 - formulario.ts
 - requestInternal
-- t
+- ja
 - diretores/page.tsx
 - devDependencies
-- data-skeleton.tsx
+- diretoria/questionarios/page.tsx
 - [slug]/page.tsx
 - k
 - constructor
 - index.tsx
-- seed.mjs
+- index.js
 - AccountDelegate
 - AlunoDelegate
 - AlunoTurmaDelegate
@@ -128,18 +128,18 @@
 - VinculoEquipeSemestreDelegate
 - requestInternal
 - write
-- trpc.ts
+- server.ts
 - app/page.tsx
 - write
 - write
-- tu
+- no
 - handleRequestError
 - SqlDriverAdapter
 - from
 - expo
 - materiais-atualizacao/page.tsx
 - controle-turma-pdf.ts
-- constructor
+- T
 - write
 - prisma/package.json
 - .write
@@ -147,22 +147,22 @@
 - scripts
 - certificadoPM.ts
 - Prisma__TurmaClient
-- gn
+- H
 - zr
 - constructor
 - explore.tsx
 - include
-- sidebar.tsx
-- acessibilidade/page.tsx
+- useAccessibility
+- use-turma-view.ts
 - app-tabs.web.tsx
 - require
 - import
 - Span
-- go
+- turmas/[id]/_components/suporte.tsx
 - scripts
 - animated-icon.tsx
 - Product
-- useAccessibility
+- get
 - aluno.ts
 - exports
 - ./query_engine_bg.wasm?module
@@ -177,13 +177,13 @@
 - use-redefinir-senha-page.ts
 - Prisma__AlunoClient
 - a
-- Q: usando o out do grafiphy para se mapear refiz parte do sistema de emails para enviar um novo post para os users daquela turma, mas alguns emails vão para a caixa principal dos destinatários e outros seguem para a área de spam. O que pode estar ocorrendo?
+- jn
 - pn
 - NullTypesEnumValue
 - RequestHandler
 - reset-project.js
 - ProEIDI Nexus Project Overview
-- ai
+- zo
 - Prisma__RegistroPresencaClient
 - ./runtime/client
 - Prisma__FormularioClient
@@ -319,7 +319,7 @@
 - ErrorRegistry
 - JsonConvertible
 - AGENTS.md
-- painel-tema.tsx
+- $s
 - Q: Mapear o controle de turma e o PDF para redesenho e paginação.
 - Q: No PDF, o nome das turmas e as informações estão fora da visão; está só o banner.
 - Q: Diminuir o banner do PDF, usar detalhes semelhantes aos cards e aumentar a logo.
@@ -328,7 +328,10 @@
 - Q: Onde fica o formulário de edição de turmas da diretoria e quais campos de cor são persistidos?
 - Q: Como as turmas são carregadas na Diretoria, qual o papel do semestre selecionado e quais condições podem impedir a consulta em produção?
 - Q: Por que os cards de turma da Diretoria e o Controle de Turma não carregam em produção, enquanto a Dashboard carrega?
+- core.ts
+- editar-turma-modal.tsx
 - Refatoração das views
+- cabecalho-turma.tsx
 - expo-constants
 - expo-device
 - expo-font
@@ -375,10 +378,10 @@
   README.md → package.json
 - `Certificate Template` --semantically_similar_to--> `Public Certificate Template`  [INFERRED] [semantically similar]
   models/modelo-certificado.pdf → public/modelo-certificado.pdf
-- `ed()` --indirect_call--> `nt()`  [INFERRED]
-  generated/prisma/runtime/wasm-compiler-edge.js → generated/prisma/query_engine_bg.js
 - `z()` --indirect_call--> `o()`  [INFERRED]
   generated/prisma/query_engine_bg.js → generated/prisma/runtime/wasm-compiler-edge.js
+- `gn()` --indirect_call--> `H()`  [INFERRED]
+  generated/prisma/runtime/index-browser.js → generated/prisma/query_engine_bg.js
 
 ## Import Cycles
 - None detected.
@@ -387,7 +390,7 @@
 - **Certificate Asset Set** — models_modelo_certificado_certificate_template, public_modelo_certificado_certificate_template, public_certificado_monitor_professor_monitor_teacher_certificate [INFERRED 0.85]
 - **ProEIDI Brand Identity** — public_logo_proeidi_logo, public_logo_semfundo_proeidi_transparent_logo, public_nexus_logo_proeidi_nexus_branding [INFERRED 0.85]
 
-## Communities (352 total, 114 thin omitted)
+## Communities (355 total, 114 thin omitted)
 
 ### Community 0 - "index.d.ts"
 Cohesion: 0.00
@@ -399,11 +402,11 @@ Nodes (343): AccelerateEngineConfig, AccelerateExtensionFetch, AccelerateExtensi
 
 ### Community 2 - "react-native.js"
 Cohesion: 0.02
-Nodes (70): An(), applyPendingMigrations(), bs(), buildQueryError(), connect(), constructor(), consumeError(), cp() (+62 more)
+Nodes (78): An(), applyPendingMigrations(), bo(), bs(), buildQueryError(), connect(), constructor(), consumeError() (+70 more)
 
 ### Community 3 - "wasm-compiler-edge.js"
 Cohesion: 0.02
-Nodes (68): ac(), Ad(), Af(), Ai(), am(), Bd(), bf(), bi() (+60 more)
+Nodes (88): ac(), Ad(), Af(), Ai(), am(), Bd(), bf(), bi() (+80 more)
 
 ### Community 4 - "runtime/edge.js"
 Cohesion: 0.02
@@ -411,27 +414,27 @@ Nodes (69): addItem(), al(), ao(), bn(), bs(), bu(), Ci(), constructor() (+61 mo
 
 ### Community 5 - "edge-esm.js"
 Cohesion: 0.02
-Nodes (71): At(), bo(), Bt(), _c(), cs(), dc(), dispatchEngineSpans(), dr() (+63 more)
+Nodes (76): addItem(), At(), bo(), constructor(), cs(), dc(), dispatchEngineSpans(), dr() (+68 more)
 
 ### Community 8 - "library.js"
 Cohesion: 0.02
-Nodes (67): Af(), Bc(), bi(), bl(), Bo(), Bu(), Cm(), Co() (+59 more)
+Nodes (66): Af(), bi(), bl(), Bm(), Bo(), Bu(), Cm(), Co() (+58 more)
 
 ### Community 9 - "wasm-engine-edge.js"
 Cohesion: 0.03
-Nodes (47): Ai(), as(), L(), cn(), ct(), da(), dispatchEngineSpans(), dn() (+39 more)
+Nodes (49): Cs(), aa(), as(), L(), cn(), ct(), dispatchEngineSpans(), dn() (+41 more)
 
 ### Community 10 - "o"
-Cohesion: 0.08
-Nodes (50): nf(), _a(), Ae(), Au(), br(), byteLength(), Cm(), D() (+42 more)
+Cohesion: 0.07
+Nodes (68): nt(), dp(), nf(), _a(), Ae(), #c(), constructor(), D() (+60 more)
 
 ### Community 11 - "addErrorMessage"
 Cohesion: 0.13
 Nodes (46): addErrorMessage(), addField(), addSuggestion(), ap(), asObject(), at(), Do(), ec() (+38 more)
 
-### Community 12 - "turmas/[id]/_components/suporte.tsx"
-Cohesion: 0.08
-Nodes (47): AnotacoesView(), CabecalhoTurma(), CabecalhoTurmaProps, Estado, CalendarioAulas(), ConfirmacaoPresencaModal(), EditarTurmaModal(), InicioView() (+39 more)
+### Community 12 - "turmas/[id]/page.tsx"
+Cohesion: 0.14
+Nodes (13): AnotacoesView(), ConfirmacaoPresencaModal(), MateriaisView(), Estado, NavegacaoTurmaDesktop(), NavegacaoTurmaDesktopProps, Estado, NavegacaoTurmaMobile() (+5 more)
 
 ### Community 13 - "use-editor-formulario.ts"
 Cohesion: 0.07
@@ -442,16 +445,16 @@ Cohesion: 0.11
 Nodes (53): addErrorMessage(), addField(), addSuggestion(), ap(), ar(), asObject(), bp(), Cp() (+45 more)
 
 ### Community 15 - "page-intro.tsx"
-Cohesion: 0.12
-Nodes (20): DiretoriaBackLink(), DiretoriaPageIntro(), DiretoriaPageIntroProps, EstadoPresenca, hoje(), PessoaPresenca, PresenceGrid(), Estado (+12 more)
+Cohesion: 0.14
+Nodes (18): DiretoriaBackLink(), DiretoriaPageIntro(), DiretoriaPageIntroProps, EstadoPresenca, hoje(), PessoaPresenca, PresenceGrid(), Estado (+10 more)
 
 ### Community 16 - "r"
 Cohesion: 0.05
-Nodes (64): ae(), ai(), Ba(), be(), br(), co(), Do(), _e() (+56 more)
+Nodes (62): ae(), ai(), Ba(), be(), br(), co(), Do(), _e() (+54 more)
 
 ### Community 17 - "addErrorMessage"
 Cohesion: 0.11
-Nodes (54): ac(), addErrorMessage(), addField(), addSuggestion(), asObject(), bc(), _c(), cc() (+46 more)
+Nodes (54): ac(), addErrorMessage(), addSuggestion(), asObject(), bc(), _c(), cc(), dc() (+46 more)
 
 ### Community 18 - "use-gerenciar-alunos.ts"
 Cohesion: 0.11
@@ -462,8 +465,8 @@ Cohesion: 0.07
 Nodes (29): @auth/prisma-adapter, bcryptjs, lucide-react, nodemailer, dependencies, @auth/prisma-adapter, bcryptjs, lucide-react (+21 more)
 
 ### Community 20 - "i"
-Cohesion: 0.07
-Nodes (51): Zc(), Cn(), ap(), ar(), Ea(), em(), eo(), Et() (+43 more)
+Cohesion: 0.09
+Nodes (43): ar(), Ea(), em(), eo(), Et(), F(), findField(), ga() (+35 more)
 
 ### Community 21 - "addErrorMessage"
 Cohesion: 0.14
@@ -487,131 +490,131 @@ Nodes (35): downloadBase64Pdf(), iniciais(), initials(), PersonManagementCard(),
 
 ### Community 26 - "n"
 Cohesion: 0.08
-Nodes (47): ac(), ai(), au(), be(), bn(), cc(), d(), findField() (+39 more)
+Nodes (46): ac(), au(), be(), bn(), cc(), findField(), Ft(), getArgumentName() (+38 more)
 
 ### Community 27 - "r"
-Cohesion: 0.11
-Nodes (20): Bm(), cp(), io(), jm(), jp(), ki(), lp(), middlewareArgsToRequestArgs() (+12 more)
+Cohesion: 0.10
+Nodes (32): ai(), ba(), cp(), ec(), getOrCreate(), Hd(), hr(), ic() (+24 more)
 
 ### Community 28 - "react.tsx"
-Cohesion: 0.08
-Nodes (23): TurmaDashboardCard(), TurmaDashboardCardProps, FichaCadastralAluno(), FichaCadastralAlunoProps, HistoricoMatriculasAluno(), HistoricoMatriculasAlunoProps, simNao(), DetalheAluno() (+15 more)
+Cohesion: 0.07
+Nodes (29): DataSkeleton(), DataSkeletonProps, TurmaDashboardCard(), TurmaDashboardCardProps, FichaCadastralAluno(), FichaCadastralAlunoProps, HistoricoMatriculasAluno(), HistoricoMatriculasAlunoProps (+21 more)
 
 ### Community 29 - "slice"
-Cohesion: 0.08
-Nodes (36): fe(), bn(), Ci(), ed(), fn(), fp(), Fs(), Gc() (+28 more)
+Cohesion: 0.07
+Nodes (41): fe(), yn(), bn(), Ci(), ed(), fn(), fp(), Fs() (+33 more)
 
 ### Community 30 - "a"
-Cohesion: 0.08
-Nodes (14): a(), Ai(), Ga(), ja(), l(), Le(), re(), Ri() (+6 more)
+Cohesion: 0.06
+Nodes (27): a(), Ai(), bi(), cn(), Da(), de(), fn(), Ga() (+19 more)
 
 ### Community 31 - "write"
-Cohesion: 0.09
-Nodes (41): ze(), addField(), addMarginSymbol(), afterNextNewline(), compare(), copy(), eo(), equals() (+33 more)
+Cohesion: 0.10
+Nodes (37): ze(), addMarginSymbol(), afterNextNewline(), compare(), copy(), equals(), Er(), getCurrentLineLength() (+29 more)
 
-### Community 33 - "ml"
-Cohesion: 0.08
-Nodes (30): an(), ca(), cl(), fl(), get(), getCurrentBinaryTarget(), getURLAndAPIKey(), Gt() (+22 more)
+### Community 33 - "toString"
+Cohesion: 0.07
+Nodes (34): Zc(), Cn(), an(), ap(), Bc(), cl(), Er(), fl() (+26 more)
 
 ### Community 34 - "transaction"
 Cohesion: 0.08
-Nodes (39): wu(), Be(), buildQueryError(), consumeError(), convertProtocolErrorsToClientError(), Cu(), deref(), dispatchBatches() (+31 more)
+Nodes (40): wu(), Be(), buildQueryError(), consumeError(), convertProtocolErrorsToClientError(), Cu(), deref(), dispatchBatches() (+32 more)
 
 ### Community 35 - "co"
-Cohesion: 0.10
-Nodes (39): addSuggestion(), al(), bl(), br(), Ce(), co(), concat(), Fe() (+31 more)
+Cohesion: 0.20
+Nodes (21): co(), concat(), findField(), getArgumentName(), getArgumentPath(), getOutputTypeDescription(), getSelectionPath(), he() (+13 more)
 
-### Community 36 - "from"
+### Community 36 - "slice"
 Cohesion: 0.07
-Nodes (36): alloc(), allocUnsafe(), allocUnsafeSlow(), Bo(), Cd(), construct(), destroy(), digest() (+28 more)
+Nodes (40): alloc(), allocUnsafe(), allocUnsafeSlow(), Au(), Bo(), br(), byteLength(), Cd() (+32 more)
 
 ### Community 37 - "pl"
-Cohesion: 0.16
-Nodes (37): addErrorMessage(), addItem(), asObject(), cl(), dl(), fl(), getDeepField(), getDeepFieldValue() (+29 more)
+Cohesion: 0.14
+Nodes (44): addErrorMessage(), addItem(), addSuggestion(), al(), asObject(), bl(), cl(), dl() (+36 more)
 
 ### Community 38 - "janela-gestao-turma.tsx"
-Cohesion: 0.12
-Nodes (24): AlunosGestaoTurmaProps, AulasEditor(), EquipeGestaoTurma(), EquipeGestaoTurmaProps, GestaoTurmaProps, JanelaGestaoTurma(), MateriaisEditor(), SearchSelect() (+16 more)
+Cohesion: 0.10
+Nodes (27): AlunosGestaoTurmaProps, AulasEditor(), CampoFichaAluno(), EquipeGestaoTurma(), EquipeGestaoTurmaProps, FichaAlunoCompleta(), GestaoTurmaProps, JanelaGestaoTurma() (+19 more)
 
 ### Community 39 - "a"
-Cohesion: 0.08
-Nodes (15): a(), bc(), bi(), Ei(), I(), Ic(), jr(), l() (+7 more)
+Cohesion: 0.10
+Nodes (7): a(), bi(), Ei(), Le(), re(), W(), xi()
 
 ### Community 40 - "runtime/index-browser.js"
-Cohesion: 0.08
-Nodes (21): se(), b(), be(), bn(), constructor(), F(), Fn(), _getName() (+13 more)
+Cohesion: 0.07
+Nodes (27): b(), be(), bn(), ce(), constructor(), De(), F(), Fn() (+19 more)
 
 ### Community 41 - "e"
 Cohesion: 0.08
-Nodes (36): $l(), an(), at(), au(), Bi(), e(), el(), getAllClientExtensions() (+28 more)
+Nodes (37): $l(), an(), at(), au(), Bi(), e(), el(), getAllClientExtensions() (+29 more)
 
 ### Community 42 - "compilerOptions"
 Cohesion: 0.06
 Nodes (35): **/*.cjs, dom, dom.iterable, ES2022, generated, **/*.js, mobile, next-env.d.ts (+27 more)
 
 ### Community 43 - "wo"
-Cohesion: 0.11
-Nodes (34): bc(), be(), bo(), dc(), Er(), fc(), findField(), gc() (+26 more)
+Cohesion: 0.14
+Nodes (28): bc(), be(), dc(), fc(), findField(), gc(), getArgumentName(), getArgumentPath() (+20 more)
 
 ### Community 44 - ".slice"
-Cohesion: 0.08
-Nodes (35): br(), co(), cu(), enabled(), Pr(), He(), j(), Jl() (+27 more)
-
-### Community 45 - "i"
 Cohesion: 0.09
-Nodes (35): A(), C(), aa(), Ae(), byteLength(), ds(), enabled(), Et() (+27 more)
+Nodes (29): bo(), br(), co(), enabled(), Er(), _getName(), gl(), indentedCurrentLine() (+21 more)
+
+### Community 45 - "slice"
+Cohesion: 0.19
+Nodes (18): A(), C(), Ae(), Ai(), da(), Et(), hu(), me() (+10 more)
 
 ### Community 46 - "transaction"
-Cohesion: 0.06
-Nodes (48): Aa(), bf(), buildQueryError(), consumeError(), convertProtocolErrorsToClientError(), df(), dispatchBatches(), dr() (+40 more)
+Cohesion: 0.08
+Nodes (42): Aa(), bf(), buildQueryError(), consumeError(), convertProtocolErrorsToClientError(), df(), dispatchBatches(), dr() (+34 more)
 
 ### Community 47 - "ia"
-Cohesion: 0.14
-Nodes (29): cn(), concat(), findField(), fr(), getAllQueryCallbacks(), getArgumentName(), getArgumentPath(), getOutputTypeDescription() (+21 more)
+Cohesion: 0.06
+Nodes (56): addItem(), At(), Bl(), bs(), bt(), Ca(), cf(), cn() (+48 more)
 
-### Community 48 - "db.ts"
-Cohesion: 0.09
-Nodes (21): PrismaClient, f, OurFileRouter, { GET, POST }, DiretoriaWorkspace(), ROTAS, BotaoSair(), InfoRow() (+13 more)
+### Community 48 - "configuracoes/page.tsx"
+Cohesion: 0.12
+Nodes (16): DiretoriaWorkspace(), ROTAS, BotaoSair(), InfoRow(), ROLE_LABEL, ConfiguracoesPage(), DiretoresLayout(), DiretoriaLayout() (+8 more)
 
 ### Community 49 - ".slice"
 Cohesion: 0.09
 Nodes (29): cn(), Da(), enabled(), Er(), eu(), Fl(), gi(), hi() (+21 more)
 
 ### Community 50 - "ji"
-Cohesion: 0.10
-Nodes (27): zl(), Sa(), dm(), et(), fm(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions() (+19 more)
+Cohesion: 0.09
+Nodes (28): zl(), ou(), aa(), dm(), et(), fm(), getAllClientExtensions(), getAllComputedFields() (+20 more)
 
 ### Community 51 - "write"
-Cohesion: 0.13
-Nodes (31): addMarginSymbol(), afterNextNewline(), compare(), copy(), de(), ee(), getCurrentLineLength(), getPrintWidth() (+23 more)
+Cohesion: 0.12
+Nodes (32): addMarginSymbol(), afterNextNewline(), compare(), copy(), de(), ee(), fa(), getCurrentLineLength() (+24 more)
 
-### Community 52 - "hs"
-Cohesion: 0.11
-Nodes (21): $c(), d(), Ee(), g(), getAllClientExtensions(), getAllModelExtensions(), gl(), gs() (+13 more)
+### Community 52 - "r"
+Cohesion: 0.09
+Nodes (30): $c(), cc(), d(), di(), Ee(), g(), getAllClientExtensions(), getAllComputedFields() (+22 more)
 
 ### Community 53 - "modal-cadastro-aluno.tsx"
 Cohesion: 0.16
 Nodes (15): CamposDadosPessoaisAluno(), CamposDadosPessoaisAlunoProps, CamposInfraestruturaAluno(), CamposInfraestruturaAlunoProps, CamposSaudeAluno(), CamposSaudeAlunoProps, CamposTrabalhoEstudoAluno(), CamposTrabalhoEstudoAlunoProps (+7 more)
 
-### Community 54 - "r"
-Cohesion: 0.06
-Nodes (44): ba(), Ca(), disconnect(), dispatchBatches(), execute(), getConnectionInfo(), getOrCreate(), Gi() (+36 more)
+### Community 54 - "ha"
+Cohesion: 0.12
+Nodes (19): ba(), Gi(), ha(), handleAndLogRequestError(), handleRequestError(), ht(), If(), im() (+11 more)
 
-### Community 55 - "r"
-Cohesion: 0.08
-Nodes (29): bi(), cc(), cn(), Da(), de(), di(), es(), fn() (+21 more)
+### Community 55 - "k"
+Cohesion: 0.12
+Nodes (19): cu(), es(), Pr(), He(), Ia(), k(), ke(), li() (+11 more)
 
 ### Community 56 - "root.ts"
-Cohesion: 0.14
-Nodes (22): contaRouter, passwordInput, validarConfirmacao(), diretorRouter, id, alunoInput, candidatoInput, coordinatorProcedure (+14 more)
+Cohesion: 0.11
+Nodes (30): contaRouter, passwordInput, validarConfirmacao(), diretorRouter, id, alunoInput, candidatoInput, coordinatorProcedure (+22 more)
 
-### Community 57 - "#c"
-Cohesion: 0.07
-Nodes (32): ou(), At(), bs(), bt(), #c(), cf(), Df(), Dt() (+24 more)
+### Community 57 - "Dt"
+Cohesion: 0.19
+Nodes (13): Dd(), Dt(), equals(), Ga(), Hi(), Hn(), isBuffer(), isDecimal() (+5 more)
 
 ### Community 58 - "transaction"
-Cohesion: 0.15
-Nodes (20): bc(), commitTransaction(), convertProtocolErrorsToClientError(), ct(), Fo(), handleError(), hc(), jt() (+12 more)
+Cohesion: 0.12
+Nodes (25): Sa(), bc(), commitTransaction(), convertProtocolErrorsToClientError(), ct(), Fo(), handleError(), hc() (+17 more)
 
 ### Community 59 - "Ca"
 Cohesion: 0.08
@@ -626,12 +629,12 @@ Cohesion: 0.17
 Nodes (17): AcoesImpressao(), AcoesImpressaoProps, Estado, Campo(), Editor(), Estado, ListaSemanasImpressao(), ListaSemanasImpressaoProps (+9 more)
 
 ### Community 62 - "fs"
-Cohesion: 0.12
-Nodes (20): as(), bp(), fs(), ge(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions(), Gn() (+12 more)
+Cohesion: 0.08
+Nodes (28): Ip(), Op(), as(), bp(), ds(), fs(), ge(), getAllClientExtensions() (+20 more)
 
-### Community 63 - "interpretNode"
-Cohesion: 0.09
-Nodes (30): aa(), addItem(), Bl(), cc(), Dd(), Fd(), fp(), Ft() (+22 more)
+### Community 63 - "toString"
+Cohesion: 0.12
+Nodes (21): addField(), br(), Ce(), ds(), eo(), fs(), _getName(), gs() (+13 more)
 
 ### Community 64 - "ln"
 Cohesion: 0.13
@@ -645,17 +648,57 @@ Nodes (28): Aa(), ap(), ar(), Ca(), dispatchBatches(), En(), Et(), fo() (+20 mor
 Cohesion: 0.10
 Nodes (18): AnyNull, Args, Config, Constructor, DbNull, Exact, GetRuntimeOutput, Instance (+10 more)
 
-### Community 67 - ".includes"
-Cohesion: 0.12
-Nodes (17): Ip(), Op(), Ct(), ds(), ep(), getLocation(), gi(), gp() (+9 more)
+### Community 67 - "xu"
+Cohesion: 0.22
+Nodes (10): ep(), getLocation(), lineAt(), mapLineAt(), mapLines(), prependSymbolAt(), rp(), ts() (+2 more)
 
 ### Community 68 - "toString"
-Cohesion: 0.11
-Nodes (32): addItem(), bn(), dr(), es(), getAllBatchQueryCallbacks(), getArgumentName(), getArgumentPath(), _getName() (+24 more)
+Cohesion: 0.09
+Nodes (37): addField(), addItem(), bn(), Ct(), dr(), es(), getAllBatchQueryCallbacks(), getArgumentName() (+29 more)
 
 ### Community 69 - "formulario.ts"
+Cohesion: 0.25
+Nodes (10): configuracaoSchema, conteudoSchema, formularioRouter, garantirVisibilidadePermitida(), modoRespostaSchema, perguntaSchema, podeGerirTudo(), questionarioProcedure (+2 more)
+
+### Community 70 - "requestInternal"
 Cohesion: 0.12
-Nodes (17): config, fs, path, Prisma, {
+Nodes (24): convertProtocolErrorsToClientError(), cp(), getURLAndAPIKey(), handleError(), Hr(), ip(), je(), json() (+16 more)
+
+### Community 71 - "ja"
+Cohesion: 0.16
+Nodes (19): am(), Fr(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions(), he(), ja(), Lm() (+11 more)
+
+### Community 72 - "diretores/page.tsx"
+Cohesion: 0.16
+Nodes (15): DiretoriaFormField(), DiretoriaFormFieldProps, Estado, FormularioDiretor(), FormularioDiretorProps, Estado, ListaDiretores(), ListaDiretoresProps (+7 more)
+
+### Community 73 - "devDependencies"
+Cohesion: 0.12
+Nodes (17): @biomejs/biome, devDependencies, @biomejs/biome, postcss, @tailwindcss/postcss, @types/node, @types/nodemailer, @types/react (+9 more)
+
+### Community 74 - "diretoria/questionarios/page.tsx"
+Cohesion: 0.18
+Nodes (13): Estado, ListaQuestionarios(), ListaQuestionariosProps, Estado, ModalExcluirQuestionario(), ModalExcluirQuestionarioProps, Estado, ModalQrQuestionario() (+5 more)
+
+### Community 75 - "[slug]/page.tsx"
+Cohesion: 0.21
+Nodes (13): EstadoEnviado(), EstadoRespondido(), FormularioRespostaQuestionario(), FormularioRespostaQuestionarioProps, PerguntaCampo(), ConfiguracaoFormulario, configuracaoPadrao, COOKIE_NAME (+5 more)
+
+### Community 76 - "k"
+Cohesion: 0.17
+Nodes (8): b(), be(), ee(), k, l(), q(), W(), y()
+
+### Community 77 - "constructor"
+Cohesion: 0.12
+Nodes (20): constructor(), Ds(), e(), getAllBatchQueryCallbacks(), _getNamespace(), hp(), hu(), If() (+12 more)
+
+### Community 78 - "index.tsx"
+Cohesion: 0.20
+Nodes (12): getDevMenuHint(), HomeScreen(), styles, HintRow(), HintRowProps, styles, styles, ThemedTextProps (+4 more)
+
+### Community 79 - "index.js"
+Cohesion: 0.08
+Nodes (19): config, fs, path, Prisma, PrismaClient, {
   PrismaClientKnownRequestError,
   PrismaClientUnknownRequestError,
   PrismaClientRustPanicError,
@@ -677,47 +720,7 @@ Nodes (17): config, fs, path, Prisma, {
   Public,
   getRuntime,
   createParam,
-}, { warnEnvConflicts }, empty(), configuracaoSchema (+9 more)
-
-### Community 70 - "requestInternal"
-Cohesion: 0.12
-Nodes (24): convertProtocolErrorsToClientError(), cp(), getURLAndAPIKey(), handleError(), Hr(), ip(), je(), json() (+16 more)
-
-### Community 71 - "t"
-Cohesion: 0.10
-Nodes (30): yn(), am(), ba(), Fr(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions(), getComputedFields() (+22 more)
-
-### Community 72 - "diretores/page.tsx"
-Cohesion: 0.16
-Nodes (15): DiretoriaFormField(), DiretoriaFormFieldProps, Estado, FormularioDiretor(), FormularioDiretorProps, Estado, ListaDiretores(), ListaDiretoresProps (+7 more)
-
-### Community 73 - "devDependencies"
-Cohesion: 0.12
-Nodes (17): @biomejs/biome, devDependencies, @biomejs/biome, postcss, @tailwindcss/postcss, @types/node, @types/nodemailer, @types/react (+9 more)
-
-### Community 74 - "data-skeleton.tsx"
-Cohesion: 0.10
-Nodes (19): DataSkeleton(), DataSkeletonProps, AcessoRapido(), StatMini(), Ferramenta, FERRAMENTAS, Estado, ListaQuestionarios() (+11 more)
-
-### Community 75 - "[slug]/page.tsx"
-Cohesion: 0.21
-Nodes (13): EstadoEnviado(), EstadoRespondido(), FormularioRespostaQuestionario(), FormularioRespostaQuestionarioProps, PerguntaCampo(), ConfiguracaoFormulario, configuracaoPadrao, COOKIE_NAME (+5 more)
-
-### Community 76 - "k"
-Cohesion: 0.17
-Nodes (8): b(), be(), ee(), k, l(), q(), W(), y()
-
-### Community 77 - "constructor"
-Cohesion: 0.13
-Nodes (19): constructor(), Cs(), Ds(), e(), getAllBatchQueryCallbacks(), _getNamespace(), hp(), hu() (+11 more)
-
-### Community 78 - "index.tsx"
-Cohesion: 0.20
-Nodes (12): getDevMenuHint(), HomeScreen(), styles, HintRow(), HintRowProps, styles, styles, ThemedTextProps (+4 more)
-
-### Community 79 - "seed.mjs"
-Cohesion: 0.29
-Nodes (7): db, email, hashPassword(), matricula, nome, scrypt, semestres
+}, { warnEnvConflicts }, empty() (+11 more)
 
 ### Community 111 - "requestInternal"
 Cohesion: 0.17
@@ -727,9 +730,9 @@ Nodes (18): convertProtocolErrorsToClientError(), ep(), getURLAndAPIKey(), handl
 Cohesion: 0.22
 Nodes (18): Cr(), addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPrintWidth(), indent(), indentedCurrentLine(), newLine() (+10 more)
 
-### Community 113 - "trpc.ts"
-Cohesion: 0.13
-Nodes (15): config, createContext(), handler(), env, AppRouter, createCaller, createCallerFactory, createTRPCContext() (+7 more)
+### Community 113 - "server.ts"
+Cohesion: 0.25
+Nodes (9): createContext(), handler(), AppRouter, createCaller, createTRPCContext(), caller, createContext, getQueryClient (+1 more)
 
 ### Community 114 - "app/page.tsx"
 Cohesion: 0.16
@@ -743,21 +746,21 @@ Nodes (17): addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPr
 Cohesion: 0.12
 Nodes (27): addMarginSymbol(), afterNextNewline(), Fr(), getCurrentLineLength(), getPrintWidth(), indent(), indentedCurrentLine(), io() (+19 more)
 
-### Community 117 - "tu"
-Cohesion: 0.12
-Nodes (17): Vl(), ao(), getAllModelExtensions(), getAllQueryCallbacks(), isEmpty(), jo(), Lo(), Ne() (+9 more)
+### Community 117 - "no"
+Cohesion: 0.10
+Nodes (21): eu(), fn(), getAllComputedFields(), getAllModelExtensions(), getComputedFields(), isEmpty(), it(), iu() (+13 more)
 
 ### Community 118 - "handleRequestError"
-Cohesion: 0.29
-Nodes (8): eu(), handleAndLogRequestError(), handleRequestError(), _n(), Nn(), Of(), renderAllMessages(), Tn()
+Cohesion: 0.33
+Nodes (7): eu(), handleRequestError(), _n(), Nn(), Of(), renderAllMessages(), Tn()
 
 ### Community 119 - "SqlDriverAdapter"
 Cohesion: 0.12
 Nodes (7): AdapterInfo, DriverAdapterFactory, Queryable, SqlDriverAdapter, SqlDriverAdapterFactory, SqlQueryable, $transaction()
 
 ### Community 120 - "from"
-Cohesion: 0.13
-Nodes (17): alloc(), allocUnsafe(), allocUnsafeSlow(), construct(), es(), fill(), from(), ho() (+9 more)
+Cohesion: 0.20
+Nodes (12): alloc(), allocUnsafe(), allocUnsafeSlow(), byteLength(), construct(), fill(), from(), ho() (+4 more)
 
 ### Community 121 - "expo"
 Cohesion: 0.12
@@ -771,9 +774,9 @@ Nodes (12): Editor(), Estado, ListaMateriaisAtualizacao(), ListaMateriaisAtualiz
 Cohesion: 0.22
 Nodes (13): ControleCard(), useControleTurmasPage(), baixarPdf(), ControleTurmasPage(), AlunoControle, folhasControle(), ordenarAlunos(), cor() (+5 more)
 
-### Community 124 - "constructor"
-Cohesion: 0.10
-Nodes (23): addItem(), constructor(), e(), ec(), getAllBatchQueryCallbacks(), getGlobalOmit(), _getName(), _getNamespace() (+15 more)
+### Community 124 - "T"
+Cohesion: 0.14
+Nodes (14): ai(), bc(), d(), g(), h(), I(), Ic(), jc() (+6 more)
 
 ### Community 125 - "write"
 Cohesion: 0.24
@@ -799,17 +802,17 @@ Nodes (15): scripts, build, check, check:unsafe, check:write, db:generate, db:mi
 Cohesion: 0.24
 Nodes (13): calcularCargaHoraria(), carregarModeloCertificado(), certificadoRouter, dataDeEmissao(), desenharParagrafoFormatado(), formatarPeriodo(), FormatoPeriodo, meses (+5 more)
 
-### Community 132 - "gn"
-Cohesion: 0.20
-Nodes (12): ce(), H(), An(), ce(), De(), gn(), He(), je() (+4 more)
+### Community 132 - "H"
+Cohesion: 0.50
+Nodes (4): ce(), H(), An(), V()
 
 ### Community 133 - "zr"
 Cohesion: 0.25
 Nodes (8): as(), ft(), ls(), rp(), ss(), us(), zr(), Xc()
 
 ### Community 134 - "constructor"
-Cohesion: 0.18
-Nodes (13): Bo(), constructor(), getAllBatchQueryCallbacks(), _getNamespace(), Kn(), ko(), mapQueryEngineResult(), pa() (+5 more)
+Cohesion: 0.10
+Nodes (22): Vl(), ao(), Bo(), constructor(), Fe(), getAllBatchQueryCallbacks(), getAllQueryCallbacks(), getGlobalOmit() (+14 more)
 
 ### Community 135 - "explore.tsx"
 Cohesion: 0.26
@@ -819,13 +822,13 @@ Nodes (11): styles, TabTwoScreen(), ThemedText(), ThemedView(), ThemedViewProps,
 Cohesion: 0.15
 Nodes (12): compilerOptions, paths, strict, extends, include, **/*.ts, **/*.tsx, @/assets/* (+4 more)
 
-### Community 137 - "sidebar.tsx"
-Cohesion: 0.19
-Nodes (7): ForcePasswordChange(), DIRETORIA_ITEMS, firstName(), NAV_ITEMS, NavItem, QUESTIONARIOS_ITEM, Sidebar()
+### Community 137 - "useAccessibility"
+Cohesion: 0.07
+Nodes (26): AccessibilityContext, AccessibilityPreferences, AccessibilityProvider(), useAccessibility(), ForcePasswordChange(), HomeThemeLock(), DIRETORIA_ITEMS, firstName() (+18 more)
 
-### Community 138 - "acessibilidade/page.tsx"
-Cohesion: 0.22
-Nodes (8): PainelContraste(), PainelContrasteProps, PainelTamanhoTexto(), PainelTamanhoTextoProps, PreviaAcessibilidade(), PreviaAcessibilidadeProps, scaleLabel(), AcessibilidadePage()
+### Community 138 - "use-turma-view.ts"
+Cohesion: 0.21
+Nodes (15): PresencaView(), ConfirmacaoPresenca, contraste(), corDeAcaoLegivel(), corLegivel(), EstadoPresenca, hexParaRgb(), luminancia() (+7 more)
 
 ### Community 139 - "app-tabs.web.tsx"
 Cohesion: 0.22
@@ -839,9 +842,9 @@ Nodes (12): default, require, ./client, require, browser, default, edge-light, n
 Cohesion: 0.26
 Nodes (12): import, ./sql, browser, default, edge-light, node, types, worker (+4 more)
 
-### Community 143 - "go"
-Cohesion: 0.17
-Nodes (12): bo(), get(), go(), highlight(), ic(), jc(), Nt(), qn() (+4 more)
+### Community 143 - "turmas/[id]/_components/suporte.tsx"
+Cohesion: 0.26
+Nodes (12): CalendarioAulas(), InicioView(), Aviso, DIAS_SEMANA, EVENTO_CONFIG, EventoCalendario, gerarDiasMes(), NOMES_MES (+4 more)
 
 ### Community 144 - "scripts"
 Cohesion: 0.29
@@ -855,9 +858,9 @@ Nodes (8): AnimatedIcon(), AnimatedSplashOverlay(), glowKeyframe, keyframe, logo
 Cohesion: 0.17
 Nodes (11): Accessibility & Inclusion, Brand Commitments, Capabilities and Constraints, Evidence on Hand, Operating Context, Platform, Positioning, Product (+3 more)
 
-### Community 147 - "useAccessibility"
-Cohesion: 0.21
-Nodes (8): AccessibilityContext, AccessibilityPreferences, AccessibilityProvider(), useAccessibility(), HomeThemeLock(), geist, metadata, viewport
+### Community 147 - "get"
+Cohesion: 0.17
+Nodes (13): ca(), get(), getURLAndAPIKey(), jr(), Kl(), lt(), ro(), sm() (+5 more)
 
 ### Community 148 - "aluno.ts"
 Cohesion: 0.20
@@ -868,8 +871,8 @@ Cohesion: 0.18
 Nodes (11): exports, ./generator-build, ./index-browser, ./package.json, default, import, require, default (+3 more)
 
 ### Community 150 - "./query_engine_bg.wasm?module"
-Cohesion: 0.05
-Nodes (19): ./query_engine_bg.wasm?module, ae(), E(), et(), ft(), g(), ge(), it() (+11 more)
+Cohesion: 0.06
+Nodes (18): ./query_engine_bg.wasm?module, ae(), E(), et(), ft(), g(), ge(), it() (+10 more)
 
 ### Community 152 - "Et"
 Cohesion: 0.24
@@ -896,12 +899,12 @@ Cohesion: 0.33
 Nodes (6): Estado, FormularioRedefinirSenha(), FormularioRedefinirSenhaProps, TAMANHO_CODIGO, useRedefinirSenhaPage(), RedefinirSenhaPage()
 
 ### Community 161 - "a"
-Cohesion: 0.33
-Nodes (9): a(), at(), dt(), gt(), lt(), st(), x(), xe() (+1 more)
+Cohesion: 0.25
+Nodes (11): a(), at(), dt(), gt(), lt(), se(), st(), x() (+3 more)
 
-### Community 162 - "Q: usando o out do grafiphy para se mapear refiz parte do sistema de emails para enviar um novo post para os users daquela turma, mas alguns emails vão para a caixa principal dos destinatários e outros seguem para a área de spam. O que pode estar ocorrendo?"
-Cohesion: 0.40
-Nodes (4): Answer, Outcome, Q: usando o out do grafiphy para se mapear refiz parte do sistema de emails para enviar um novo post para os users daquela turma, mas alguns emails vão para a caixa principal dos destinatários e outros seguem para a área de spam. O que pode estar ocorrendo?, Source Nodes
+### Community 162 - "jn"
+Cohesion: 0.31
+Nodes (9): Bt(), _c(), getAllClientExtensions(), jn(), ls(), me(), qt(), te() (+1 more)
 
 ### Community 163 - "pn"
 Cohesion: 0.33
@@ -919,9 +922,9 @@ Nodes (7): exampleDirPath, fs, oldDirs, path, readline, rl, root
 Cohesion: 0.22
 Nodes (9): prisma, tailwindcss, prisma, Create T3 App, Next.js, NextAuth.js, ProEIDI Nexus Project Overview, tRPC (+1 more)
 
-### Community 168 - "ai"
-Cohesion: 0.16
-Nodes (21): ai(), ec(), hr(), ic(), Jo(), Jt(), nc(), oc() (+13 more)
+### Community 168 - "zo"
+Cohesion: 0.25
+Nodes (11): Jo(), nc(), rc(), sc(), tc(), Wo(), Xo(), Xu() (+3 more)
 
 ### Community 170 - "./runtime/client"
 Cohesion: 0.25
@@ -1315,8 +1318,8 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Como a tela de Professores gera certificados e quais validações impedem diretores docentes de receber certificado de professor?, Source Nodes
 
 ### Community 282 - "email.ts"
-Cohesion: 0.26
-Nodes (13): acessoTurma(), texto, turmaId, turmaRouter, protectedProcedure, createTransporter(), emailButton(), emailLayout() (+5 more)
+Cohesion: 0.50
+Nodes (8): createTransporter(), emailButton(), emailLayout(), escapeHtml(), getFrom(), logoAttachment, sendPasswordResetEmail(), sendPostTurmaEmail()
 
 ### Community 293 - "Public Certificate Template"
 Cohesion: 0.67
@@ -1326,9 +1329,9 @@ Nodes (3): Certificate Template, Monitor and Teacher Certificate, Public Certifi
 Cohesion: 0.67
 Nodes (3): ProEIDI Logo, ProEIDI Transparent Logo, ProEIDI Nexus Branding Illustration
 
-### Community 310 - "painel-tema.tsx"
-Cohesion: 0.50
-Nodes (3): PainelTema(), PainelTemaProps, ThemeOption()
+### Community 310 - "$s"
+Cohesion: 0.40
+Nodes (4): lp(), qs(), $s(), wt()
 
 ### Community 311 - "Q: Mapear o controle de turma e o PDF para redesenho e paginação."
 Cohesion: 0.40
@@ -1362,12 +1365,24 @@ Nodes (4): Answer, Outcome, Q: Como as turmas são carregadas na Diretoria, qual
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Por que os cards de turma da Diretoria e o Controle de Turma não carregam em produção, enquanto a Dashboard carrega?, Source Nodes
 
+### Community 319 - "core.ts"
+Cohesion: 0.50
+Nodes (3): f, OurFileRouter, { GET, POST }
+
+### Community 320 - "editar-turma-modal.tsx"
+Cohesion: 0.50
+Nodes (3): EditarTurmaModal(), SearchSelect(), DadosTurma
+
 ### Community 321 - "Refatoração das views"
 Cohesion: 0.50
 Nodes (3): Inventário, Refatoração das views, Validação
 
+### Community 322 - "cabecalho-turma.tsx"
+Cohesion: 0.50
+Nodes (3): CabecalhoTurma(), CabecalhoTurmaProps, Estado
+
 ## Knowledge Gaps
-- **4141 isolated node(s):** `{
+- **4138 isolated node(s):** `{
   PrismaClientKnownRequestError,
   PrismaClientUnknownRequestError,
   PrismaClientRustPanicError,
@@ -1396,24 +1411,25 @@ Nodes (3): Inventário, Refatoração das views, Validação
   Public,
   getRuntime,
   skip
-}` (+4136 more)
+}` (+4133 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **114 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
 **Preferred sources** — corroborated by past sessions; start here.
-- `SorteadorOrganico()` (6× useful, score=3.966659434)
-- `sorteador/page.tsx` (5× useful, score=3.306655529)
-- `FormularioResposta` (3× useful, score=2.008114555)
-- `formulario.ts` (3× useful, score=2.008114555)
-- `GerenciarSorteio()` (3× useful, score=1.979017512)
-- `sorteio/page.tsx` (2× useful, score=1.319243629)
+- `SorteadorOrganico()` (6× useful, score=4.680464286)
+- `sorteador/page.tsx` (5× useful, score=3.901691931)
+- `FormularioResposta` (3× useful, score=2.369477041) _(code changed — re-verify)_
+- `formulario.ts` (3× useful, score=2.369477041)
+- `GerenciarSorteio()` (3× useful, score=2.335143951)
+- `turmaRouter` (2× useful, score=1.565135942) _(code changed — re-verify)_
+- `sorteio/page.tsx` (2× useful, score=1.556643012)
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `n()` connect `n` to `react-native.js`, `wasm-compiler-edge.js`, `runtime/edge.js`, `edge-esm.js`, `constructor`, `library.js`, `o`, `addErrorMessage`, `r`, `i`, `addErrorMessage`, `./query_engine_bg.wasm?module`, `ju`, `r`, `slice`, `write`, `a`, `ml`, `pn`, `from`, `runtime/index-browser.js`, `e`, `wo`, `.slice`, `i`, `transaction`, `.slice`, `ji`, `write`, `hs`, `r`, `r`, `#c`, `transaction`, `Ca`, `interpretNode`, `r`, `.includes`, `k`, `constructor`, `write`, `write`, `write`, `constructor`, `write`, `.write`?**
+- **Why does `n()` connect `n` to `react-native.js`, `runtime/edge.js`, `edge-esm.js`, `constructor`, `library.js`, `o`, `addErrorMessage`, `r`, `get`, `i`, `addErrorMessage`, `./query_engine_bg.wasm?module`, `ju`, `r`, `slice`, `a`, `write`, `a`, `jn`, `pn`, `toString`, `slice`, `runtime/index-browser.js`, `e`, `wo`, `.slice`, `transaction`, `ia`, `.slice`, `ji`, `write`, `r`, `transaction`, `Ca`, `toString`, `r`, `xu`, `k`, `constructor`, `write`, `write`, `write`, `T`, `write`, `.write`?**
   _High betweenness centrality (0.063) - this node is a cross-community bridge._
 - **Why does `kr()` connect `i` to `write`, `library.js`, `runtime/edge.js`?**
   _High betweenness centrality (0.056) - this node is a cross-community bridge._
@@ -1446,6 +1462,6 @@ _Questions this graph is uniquely positioned to answer:_
   getRuntime,
   createParam,
 }`, `Prisma`, `config` to the rest of the system?**
-  _4141 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _4138 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `index.d.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.0006408202499198974 - nodes in this community are weakly interconnected._

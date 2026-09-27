@@ -63,7 +63,11 @@ const alunoImportInput = alunoInput.extend({
 		.trim()
 		.transform((value) => value.replace(/\D/g, ""))
 		.pipe(z.string().min(1, "CPF deve conter ao menos um dígito.").max(11)),
-	turmaIds: z.array(id).max(20).optional().default([]),
+	turmaIds: z
+		.array(id)
+		.max(1, "Cada aluno pode ser importado em apenas uma turma.")
+		.optional()
+		.default([]),
 });
 
 const alunoSelect = {

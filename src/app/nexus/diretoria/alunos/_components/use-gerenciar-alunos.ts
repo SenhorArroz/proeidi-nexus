@@ -5,6 +5,10 @@ import * as XLSX from "xlsx";
 import { useAccessibility } from "~/app/_components/accessibility-preferences";
 import { normalizarBusca } from "~/lib/texto";
 import { api } from "~/trpc/react";
+import {
+	encontrarTurmaDaPlanilha,
+	removerHorarioDaTurma,
+} from "./mapeamento-turmas-importacao";
 import { type Aluno, downloadBase64Pdf, formatarCpf } from "./suporte";
 
 type SugestaoTurmaImportacao = {
@@ -14,78 +18,6 @@ type SugestaoTurmaImportacao = {
 	confianca: number;
 	totalAlunos: number;
 };
-
-const PALAVRAS_GENERICAS_TURMA = new Set([
-	"a",
-	"ao",
-	"basica",
-	"basico",
-	"curso",
-	"da",
-	"de",
-	"do",
-	"em",
-	"introducao",
-	"na",
-	"no",
-	"o",
-	"para",
-]);
-
-function removerHorarioDaTurma(valor: string) {
-	return valor.replace(/\s*\([^)]*\)\s*/g, " ").replace(/\s+/g, " ").trim();
-}
-
-function normalizarNomeTurma(valor: string) {
-	return removerHorarioDaTurma(valor)
-		.normalize("NFD")
-		.replace(/[\u0300-\u036f]/g, "")
-		.toLowerCase()
-		.replace(/turma\s*0*(\d+)/g, "t$1")
-		.replace(/\bt\s*0*(\d+)\b/g, "t$1");
-}
-
-function tokensDaTurma(valor: string) {
-	return new Set(
-		(normalizarNomeTurma(valor).match(/[a-z]+\d*|\d+/g) ?? [])
-			.filter(
-				(token) =>
-					!PALAVRAS_GENERICAS_TURMA.has(token) && !/^t0*\d+$/.test(token),
-			),
-	);
-}
-
-function codigoDaTurma(valor: string) {
-	const codigo = normalizarNomeTurma(valor).match(/\bt(\d+)\b/);
-	return codigo ? Number(codigo[1]) : null;
-}
-
-function nivelDaTurma(valor: string) {
-	const normalizado = normalizarNomeTurma(valor);
-	if (/\bavancad[oa]?\b/.test(normalizado)) return "AVANCADO";
-	if (/\b(introducao|basico|basica|iniciante)\b/.test(normalizado))
-		return "BASICO";
-	return null;
-}
-
-function pontuarSemelhancaTurma(origem: string, destino: string) {
-	const origemTokens = tokensDaTurma(origem);
-	const destinoTokens = tokensDaTurma(destino);
-	const emComum = [...origemTokens].filter((token) => destinoTokens.has(token));
-	const limite = Math.max(origemTokens.size, destinoTokens.size, 1);
-	let nota = (emComum.length / limite) * 0.65;
-	const codigoOrigem = codigoDaTurma(origem);
-	const codigoDestino = codigoDaTurma(destino);
-	if (codigoOrigem !== null && codigoDestino !== null)
-		nota += codigoOrigem === codigoDestino ? 0.2 : -0.55;
-	const nivelOrigem = nivelDaTurma(origem);
-	const nivelDestino = nivelDaTurma(destino);
-	if (nivelOrigem && nivelDestino)
-		nota += nivelOrigem === nivelDestino ? 0.15 : -0.55;
-	if (normalizarNomeTurma(destino).includes(normalizarNomeTurma(origem)))
-		nota += 0.1;
-	return Math.max(0, Math.min(1, nota));
-}
 
 export function useGerenciarAlunos() {
 	const { theme } = useAccessibility();
@@ -382,7 +314,9 @@ export function useGerenciarAlunos() {
 			return;
 		}
 		if (!turmasDb) {
-			alert("As turmas do semestre ainda estão carregando. Aguarde um instante e selecione a planilha novamente.");
+			alert(
+				"As turmas do semestre ainda estão carregando. Aguarde um instante e selecione a planilha novamente.",
+			);
 			return;
 		}
 		if (!newAlunos.length) {
@@ -434,32 +368,20 @@ export function useGerenciarAlunos() {
 		for (const aluno of newAlunos) {
 			const turmaPlanilha = aluno.turma.trim();
 			if (!turmaPlanilha) continue;
-			const turmaExata = turmasDb.find(
-				(turma) =>
-					normalizarNomeTurma(turma.titulo) ===
-					normalizarNomeTurma(turmaPlanilha),
-			);
-			const melhorTurma = turmaExata
-				? { turma: turmaExata, confianca: 1 }
-				: turmasDb
-						.map((turma) => ({
-							turma,
-							confianca: pontuarSemelhancaTurma(turmaPlanilha, turma.titulo),
-						}))
-						.sort((a, b) => b.confianca - a.confianca)[0];
-			const encontrouTurma = Boolean(melhorTurma && melhorTurma.confianca >= 0.55);
+			const correspondencia = encontrarTurmaDaPlanilha(turmaPlanilha, turmasDb);
+			const encontrouTurma = Boolean(correspondencia.turma);
 			const chave = turmaPlanilha.toLocaleLowerCase("pt-BR");
 			const anterior = sugestoes.get(chave);
 			sugestoes.set(chave, {
 				turmaPlanilha,
-				turmaId: encontrouTurma ? melhorTurma?.turma.id ?? null : null,
-				turmaSistema: encontrouTurma ? melhorTurma?.turma.titulo ?? null : null,
-				confianca: encontrouTurma ? Math.round((melhorTurma?.confianca ?? 0) * 100) : 0,
+				turmaId: correspondencia.turma?.id ?? null,
+				turmaSistema: correspondencia.turma?.titulo ?? null,
+				confianca: correspondencia.confianca,
 				totalAlunos: (anterior?.totalAlunos ?? 0) + 1,
 			});
-			if (encontrouTurma && melhorTurma)
-				vinculosAutomaticos.set(melhorTurma.turma.id, [
-					...(vinculosAutomaticos.get(melhorTurma.turma.id) ?? []),
+			if (encontrouTurma && correspondencia.turma)
+				vinculosAutomaticos.set(correspondencia.turma.id, [
+					...(vinculosAutomaticos.get(correspondencia.turma.id) ?? []),
 					aluno.id,
 				]);
 		}
@@ -479,45 +401,47 @@ export function useGerenciarAlunos() {
 
 	const confirmarImportacao = () => {
 		if (!semestreSelecionado || !alunosParaImportar.length) return;
-		const turmasPorAluno = new Map<string, Set<string>>();
+		const turmaPorAluno = new Map<string, string>();
 		for (const vinculo of vinculosImportacao) {
 			for (const alunoId of vinculo.alunoIds) {
-				const turmas = turmasPorAluno.get(alunoId) ?? new Set<string>();
-				vinculo.turmaIds.forEach((turmaId) => turmas.add(turmaId));
-				turmasPorAluno.set(alunoId, turmas);
+				const turmaId = vinculo.turmaIds[0];
+				if (turmaId) turmaPorAluno.set(alunoId, turmaId);
 			}
 		}
 		importarAlunos.mutate(
 			{
 				semestreId: semestreSelecionado.id,
-				alunos: alunosParaImportar.map((aluno) => ({
-					nome: aluno.nome.trim(),
-					dataNascimento: new Date(`${aluno.dataNascimento}T12:00:00`),
-					cpf: aluno.cpf.replace(/\D/g, ""),
-					corRaca: aluno.corRaca.trim(),
-					identidadeGenero: aluno.identidadeGenero.trim(),
-					lgbtqiapn: aluno.lgbtqiapn.trim(),
-					telefone: aluno.telefone?.trim() || null,
-					contatoEmergencia: aluno.contatoEmergencia?.trim() || null,
-					email: aluno.email?.trim() || null,
-					escolaridade: aluno.escolaridade.trim(),
-					cuidaTerceiros: aluno.cuidaTerceiros === "Sim",
-					trabalha: aluno.trabalha === "Sim",
-					trabalhoLocal: aluno.trabalhoLocal || null,
-					trabalhoFuncao: aluno.trabalhoFuncao || null,
-					estuda: aluno.estuda === "Sim",
-					estudoLocal: aluno.estudoLocal || null,
-					estudoCurso: aluno.estudoCurso || null,
-					problemaSaude: aluno.problemaSaude === "Sim",
-					problemaSaudeQual: aluno.problemaSaudeQual || null,
-					necessidadeEspecial: aluno.necessidadeEspecial === "Sim",
-					necessidadeEspecialQual: aluno.necessidadeEspecialQual || null,
-					acessoInternet: aluno.acessoInternet === "Sim",
-					temComputador: aluno.temComputador === "Sim",
-					temSmartphone: aluno.temSmartphone === "Sim",
-					sistemaSmartphone: aluno.sistemaSmartphone || null,
-					turmaIds: [...(turmasPorAluno.get(aluno.id) ?? [])],
-				})),
+				alunos: alunosParaImportar.map((aluno) => {
+					const turmaId = turmaPorAluno.get(aluno.id);
+					return {
+						nome: aluno.nome.trim(),
+						dataNascimento: new Date(`${aluno.dataNascimento}T12:00:00`),
+						cpf: aluno.cpf.replace(/\D/g, ""),
+						corRaca: aluno.corRaca.trim(),
+						identidadeGenero: aluno.identidadeGenero.trim(),
+						lgbtqiapn: aluno.lgbtqiapn.trim(),
+						telefone: aluno.telefone?.trim() || null,
+						contatoEmergencia: aluno.contatoEmergencia?.trim() || null,
+						email: aluno.email?.trim() || null,
+						escolaridade: aluno.escolaridade.trim(),
+						cuidaTerceiros: aluno.cuidaTerceiros === "Sim",
+						trabalha: aluno.trabalha === "Sim",
+						trabalhoLocal: aluno.trabalhoLocal || null,
+						trabalhoFuncao: aluno.trabalhoFuncao || null,
+						estuda: aluno.estuda === "Sim",
+						estudoLocal: aluno.estudoLocal || null,
+						estudoCurso: aluno.estudoCurso || null,
+						problemaSaude: aluno.problemaSaude === "Sim",
+						problemaSaudeQual: aluno.problemaSaudeQual || null,
+						necessidadeEspecial: aluno.necessidadeEspecial === "Sim",
+						necessidadeEspecialQual: aluno.necessidadeEspecialQual || null,
+						acessoInternet: aluno.acessoInternet === "Sim",
+						temComputador: aluno.temComputador === "Sim",
+						temSmartphone: aluno.temSmartphone === "Sim",
+						sistemaSmartphone: aluno.sistemaSmartphone || null,
+						turmaIds: turmaId ? [turmaId] : [],
+					};
+				}),
 			},
 			{
 				onSuccess: (result) => {
@@ -539,45 +463,41 @@ export function useGerenciarAlunos() {
 				: [...ids, alunoId],
 		);
 	const alternarTurmaImportacao = (turmaId: string) =>
-		setTurmaIdsImportacao((ids) =>
-			ids.includes(turmaId)
-				? ids.filter((id) => id !== turmaId)
-				: [...ids, turmaId],
-		);
+		setTurmaIdsImportacao((ids) => (ids[0] === turmaId ? [] : [turmaId]));
 	const adicionarVinculoImportacao = () => {
-		if (!alunosSelecionadosImportacao.length || !turmaIdsImportacao.length) return;
-		const paresExistentes = new Set(
-			vinculosImportacao.flatMap((vinculo) =>
-				vinculo.turmaIds.flatMap((turmaId) =>
-					vinculo.alunoIds.map((alunoId) => `${alunoId}:${turmaId}`),
-				),
-			),
-		);
-		const atualizados = [...vinculosImportacao];
-		const repetidos = turmaIdsImportacao.flatMap((turmaId) =>
-			alunosSelecionadosImportacao
-				.filter((alunoId) => paresExistentes.has(`${alunoId}:${turmaId}`))
-				.map((alunoId) => ({ alunoId, turmaId })),
-		);
-		for (const turmaId of turmaIdsImportacao) {
-			const alunosNovos = alunosSelecionadosImportacao.filter(
-				(alunoId) => !paresExistentes.has(`${alunoId}:${turmaId}`),
-			);
-			if (!alunosNovos.length) continue;
-			const indiceExistente = atualizados.findIndex(
-				(vinculo) =>
-					vinculo.turmaIds.length === 1 && vinculo.turmaIds[0] === turmaId,
-			);
-			if (indiceExistente >= 0) {
-				const existente = atualizados[indiceExistente]!;
-				atualizados[indiceExistente] = {
-					...existente,
-					alunoIds: [...existente.alunoIds, ...alunosNovos],
-				};
-			} else atualizados.push({ alunoIds: alunosNovos, turmaIds: [turmaId] });
+		if (!alunosSelecionadosImportacao.length || !turmaIdsImportacao.length)
+			return;
+		const turmaSelecionada = turmaIdsImportacao[0];
+		if (!turmaSelecionada) return;
+		const turmaAtualPorAluno = new Map<string, string>();
+		for (const vinculo of vinculosImportacao) {
+			const turmaId = vinculo.turmaIds[0];
+			if (!turmaId) continue;
+			for (const alunoId of vinculo.alunoIds)
+				turmaAtualPorAluno.set(alunoId, turmaId);
 		}
-		setVinculosImportacao(atualizados);
-		setAvisosVinculoImportacao(repetidos);
+		const substituidos = alunosSelecionadosImportacao.flatMap((alunoId) => {
+			const turmaAnterior = turmaAtualPorAluno.get(alunoId);
+			return turmaAnterior && turmaAnterior !== turmaSelecionada
+				? [{ alunoId, turmaId: turmaAnterior }]
+				: [];
+		});
+		for (const alunoId of alunosSelecionadosImportacao)
+			turmaAtualPorAluno.set(alunoId, turmaSelecionada);
+		const alunosPorTurma = new Map<string, string[]>();
+		for (const [alunoId, turmaId] of turmaAtualPorAluno) {
+			alunosPorTurma.set(turmaId, [
+				...(alunosPorTurma.get(turmaId) ?? []),
+				alunoId,
+			]);
+		}
+		setVinculosImportacao(
+			[...alunosPorTurma].map(([turmaId, alunoIds]) => ({
+				alunoIds,
+				turmaIds: [turmaId],
+			})),
+		);
+		setAvisosVinculoImportacao(substituidos);
 		setAlunosSelecionadosImportacao([]);
 		setTurmaIdsImportacao([]);
 	};
@@ -933,6 +853,7 @@ export function useGerenciarAlunos() {
 		alternarTurmaImportacao,
 		adicionarVinculoImportacao,
 		confirmarImportacao,
+		importandoAlunos: importarAlunos.isPending,
 		fileInputRef,
 		handleFileUpload,
 	};

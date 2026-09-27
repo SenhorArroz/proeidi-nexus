@@ -78,6 +78,7 @@ export default function GerenciarAlunos() {
 		alternarTurmaImportacao,
 		adicionarVinculoImportacao,
 		confirmarImportacao,
+		importandoAlunos,
 		turmaIdsParaVinculo,
 		setTurmaIdsParaVinculo,
 		isVinculoTurmasModalOpen,
@@ -217,6 +218,7 @@ export default function GerenciarAlunos() {
 					alternarTurmaImportacao={alternarTurmaImportacao}
 					adicionarVinculoImportacao={adicionarVinculoImportacao}
 					confirmarImportacao={confirmarImportacao}
+					importandoAlunos={importandoAlunos}
 				/>
 			)}
 			{isVinculoTurmasModalOpen && (
