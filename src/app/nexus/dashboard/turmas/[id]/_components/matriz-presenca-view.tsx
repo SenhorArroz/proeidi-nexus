@@ -40,7 +40,7 @@ export function MatrizPresencaView({
 	return (
 		<div className="view-dashboard-turmas-id-matriz-presenca mx-auto w-full max-w-6xl min-w-0 space-y-4 px-3 py-5 sm:px-6 lg:px-8">
 			<section
-				className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,.06)] sm:flex-row sm:items-center sm:justify-between sm:p-5"
+				className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,.06)] sm:p-5 lg:flex-row lg:items-center lg:justify-between"
 				style={{ "--turma-secao-cor": cor } as React.CSSProperties}
 			>
 				<div className="min-w-0">
