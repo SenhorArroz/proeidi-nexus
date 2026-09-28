@@ -1,7 +1,11 @@
 "use client";
 import { Home } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type {
+	EstadoPresenca,
+	PessoaPresenca,
+} from "~/app/_components/diretoria/presence-grid";
 import { api } from "~/trpc/react";
 import {
 	type Anotacao,
@@ -10,7 +14,6 @@ import {
 	type DadosTurma,
 	type EventoCalendario,
 	type Material,
-	type Pessoa,
 	type TabId,
 	type TipoEvento,
 	corDeAcaoLegivel,
@@ -21,29 +24,25 @@ import {
 	useTemaEscuro,
 } from "./suporte";
 
+type GrupoPresenca = "ALUNOS" | "MONITORES" | "PROFESSORES";
+
 export function useTurmaView() {
 	const utils = api.useUtils();
 	const params = useParams<{ id: string }>();
 	const turmaId = Array.isArray(params.id) ? params.id[0] : params.id;
 	const { data: detalhe, isLoading: carregandoTurma } =
 		api.turma.detalhe.useQuery({ id: turmaId }, { enabled: Boolean(turmaId) });
+	const { data: registrosPresenca, isLoading: carregandoPresencas } =
+		api.turma.presencas.list.useQuery(
+			{ turmaId },
+			{
+				enabled: Boolean(turmaId && detalhe && detalhe.role !== "MONITOR"),
+			},
+		);
 	const [erroPresenca, setErroPresenca] = useState<string | null>(null);
 	const [confirmacaoPresenca, setConfirmacaoPresenca] =
 		useState<ConfirmacaoPresenca | null>(null);
-	const salvarPresencas = api.turma.presencas.salvar.useMutation({
-		onSuccess: (_resultado, variaveis) => {
-			setErroPresenca(null);
-			setConfirmacaoPresenca({
-				data: variaveis.data.toLocaleDateString("pt-BR"),
-				total:
-					variaveis.alunos.length +
-					variaveis.monitores.length +
-					variaveis.professores.length,
-			});
-			void utils.turma.presencas.list.invalidate({ turmaId });
-		},
-		onError: (erro) => setErroPresenca(erro.message),
-	});
+	const salvarPresencas = api.turma.presencas.salvar.useMutation();
 	const [tab, setTab] = useState<TabId>("inicio");
 	const [turma, setTurma] = useState<DadosTurma>(TURMA_VAZIA);
 	const [avisos, setAvisos] = useState<Aviso[]>([]);
@@ -53,57 +52,134 @@ export function useTurmaView() {
 	const [editando, setEditando] = useState(false);
 	const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
-	// Constroi lista de presença a partir dos nomes da turma
-	const [presencaAlunos, setPresencaAlunos] = useState<Pessoa[]>(
+	const [presencaAlunos, setPresencaAlunos] = useState<PessoaPresenca[]>(
 		turma.alunos.map((nome, i) => ({
 			id: `aluno-${i}`,
 			nome,
-			presente: "presente",
+			estado: "PRESENTE",
 		})),
 	);
-	const [presencaMonitores, setPresencaMonitores] = useState<Pessoa[]>(
+	const [presencaMonitores, setPresencaMonitores] = useState<PessoaPresenca[]>(
 		turma.monitores.map((nome, i) => ({
 			id: `monitor-${i}`,
 			nome,
-			presente: "presente",
+			estado: "PRESENTE",
 		})),
 	);
-	const [presencaProfessores, setPresencaProfessores] = useState<Pessoa[]>(
+	const [presencaProfessores, setPresencaProfessores] = useState<
+		PessoaPresenca[]
+	>(
 		turma.professores.map((nome, i) => ({
 			id: `professor-${i}`,
 			nome,
-			presente: "presente",
+			estado: "PRESENTE",
 		})),
 	);
-	const salvarNaData = (data: string) => {
-		const todas = [
-			...presencaAlunos,
-			...presencaMonitores,
-			...presencaProfessores,
-		];
-		if (todas.some((pessoa) => pessoa.presente === "a_registrar")) {
-			setErroPresenca("Marque a presença de todas as pessoas antes de salvar.");
-			return;
-		}
+	const [rascunhosPresenca, setRascunhosPresenca] = useState<
+		Record<string, EstadoPresenca>
+	>({});
+	const datasDeAula = useMemo(
+		() =>
+			eventos
+				.filter((evento) => evento.tipo === "aula")
+				.map((evento) => evento.data)
+				.sort(),
+		[eventos],
+	);
+	const chavePresenca = (grupo: GrupoPresenca, id: string, data: string) =>
+		`${data}:${grupo}:${id}`;
+	const estadoRegistrado = (
+		grupo: GrupoPresenca,
+		id: string,
+		data: string,
+	): EstadoPresenca => {
+		const registro = registrosPresenca?.find(
+			(item) => item.data.toISOString().slice(0, 10) === data,
+		);
+		if (grupo === "ALUNOS")
+			return (
+				registro?.alunos.find((item) => item.alunoId === id)?.estado ??
+				"PRESENTE"
+			);
+		if (grupo === "MONITORES")
+			return (
+				registro?.monitores.find((item) => item.monitorId === id)?.estado ??
+				"PRESENTE"
+			);
+		return (
+			registro?.professores.find((item) => item.professorId === id)?.estado ??
+			"PRESENTE"
+		);
+	};
+	const estadoPresenca = (grupo: GrupoPresenca, id: string, data: string) =>
+		rascunhosPresenca[chavePresenca(grupo, id, data)] ??
+		estadoRegistrado(grupo, id, data);
+	const alterarPresenca = (
+		grupo: GrupoPresenca,
+		id: string,
+		data: string,
+		estado: EstadoPresenca,
+	) => {
 		setErroPresenca(null);
-		const estado = (pessoa: Pessoa) =>
-			pessoa.presente.toUpperCase() as "PRESENTE" | "AUSENTE" | "JUSTIFICADO";
-		salvarPresencas.mutate({
-			turmaId,
-			data: new Date(`${data}T12:00:00`),
-			alunos: presencaAlunos.map((pessoa) => ({
-				id: pessoa.id,
-				estado: estado(pessoa),
-			})),
-			monitores: presencaMonitores.map((pessoa) => ({
-				id: pessoa.id,
-				estado: estado(pessoa),
-			})),
-			professores: presencaProfessores.map((pessoa) => ({
-				id: pessoa.id,
-				estado: estado(pessoa),
-			})),
-		});
+		setRascunhosPresenca((rascunhos) => ({
+			...rascunhos,
+			[chavePresenca(grupo, id, data)]: estado,
+		}));
+	};
+	const salvarAlteracoesPresenca = async () => {
+		const datasAlteradas = [
+			...new Set(
+				Object.keys(rascunhosPresenca).map(
+					(chave) => chave.split(":", 1)[0] ?? chave,
+				),
+			),
+		];
+		if (!datasAlteradas.length) return;
+
+		setErroPresenca(null);
+		try {
+			await Promise.all(
+				datasAlteradas.map((data) =>
+					salvarPresencas.mutateAsync({
+						turmaId,
+						data: new Date(`${data}T12:00:00`),
+						alunos: presencaAlunos.map((pessoa) => ({
+							id: pessoa.id,
+							estado: estadoPresenca("ALUNOS", pessoa.id, data),
+						})),
+						monitores: presencaMonitores.map((pessoa) => ({
+							id: pessoa.id,
+							estado: estadoPresenca("MONITORES", pessoa.id, data),
+						})),
+						professores: presencaProfessores.map((pessoa) => ({
+							id: pessoa.id,
+							estado: estadoPresenca("PROFESSORES", pessoa.id, data),
+						})),
+					}),
+				),
+			);
+			await utils.turma.presencas.list.invalidate({ turmaId });
+			setRascunhosPresenca({});
+			setConfirmacaoPresenca({
+				data:
+					datasAlteradas.length === 1
+						? new Date(`${datasAlteradas[0]}T12:00:00`).toLocaleDateString(
+								"pt-BR",
+							)
+						: `${datasAlteradas.length} dias de aula`,
+				total:
+					datasAlteradas.length *
+					(presencaAlunos.length +
+						presencaMonitores.length +
+						presencaProfessores.length),
+			});
+		} catch (erro) {
+			setErroPresenca(
+				erro instanceof Error
+					? erro.message
+					: "Não foi possível salvar as presenças. Tente novamente.",
+			);
+		}
 	};
 
 	useEffect(() => {
@@ -168,23 +244,24 @@ export function useTurmaView() {
 			dados.alunos.map((item) => ({
 				id: item.aluno.id,
 				nome: item.aluno.nome,
-				presente: "presente",
+				estado: "PRESENTE",
 			})),
 		);
 		setPresencaMonitores(
 			dados.monitores.map((item) => ({
 				id: item.user.id,
 				nome: item.user.nome,
-				presente: "presente",
+				estado: "PRESENTE",
 			})),
 		);
 		setPresencaProfessores(
 			dados.professores.map((item) => ({
 				id: item.user.id,
 				nome: item.user.nome,
-				presente: "presente",
+				estado: "PRESENTE",
 			})),
 		);
+		setRascunhosPresenca({});
 	}, [detalhe]);
 
 	// Atualiza presença quando turma muda (editor)
@@ -204,32 +281,6 @@ export function useTurmaView() {
 			fonte: novaTurma.fonte ?? "SANS",
 		});
 		setTurma(novaTurma);
-		setPresencaAlunos(
-			novaTurma.alunos.map((nome, i) => ({
-				id: `aluno-${i}`,
-				nome,
-				presente:
-					presencaAlunos.find((p) => p.nome === nome)?.presente ?? "presente",
-			})),
-		);
-		setPresencaMonitores(
-			novaTurma.monitores.map((nome, i) => ({
-				id: `monitor-${i}`,
-				nome,
-				presente:
-					presencaMonitores.find((p) => p.nome === nome)?.presente ??
-					"presente",
-			})),
-		);
-		setPresencaProfessores(
-			novaTurma.professores.map((nome, i) => ({
-				id: `professor-${i}`,
-				nome,
-				presente:
-					presencaProfessores.find((p) => p.nome === nome)?.presente ??
-					"presente",
-			})),
-		);
 		setEditando(false);
 	};
 
@@ -301,14 +352,16 @@ export function useTurmaView() {
 		materiais,
 		anotacoes,
 		presencaAlunos,
-		setPresencaAlunos,
-		salvarNaData,
+		datasDeAula,
+		estadoPresenca,
+		alterarPresenca,
+		salvarAlteracoesPresenca,
+		temAlteracoesPresenca: Object.keys(rascunhosPresenca).length > 0,
+		carregandoPresencas,
 		erroPresenca,
 		salvarPresencas,
 		presencaMonitores,
-		setPresencaMonitores,
 		presencaProfessores,
-		setPresencaProfessores,
 		confirmacaoPresenca,
 		setConfirmacaoPresenca,
 		mobileNavOpen,

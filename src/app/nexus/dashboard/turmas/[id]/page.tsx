@@ -5,10 +5,10 @@ import { CalendarioAulas } from "./_components/calendario-aulas";
 import { ConfirmacaoPresencaModal } from "./_components/confirmacao-presenca-modal";
 import { EditarTurmaModal } from "./_components/editar-turma-modal";
 import { InicioView } from "./_components/inicio-view";
+import { MatrizPresencaView } from "./_components/matriz-presenca-view";
 import { MateriaisView } from "./_components/materiais-view";
 import { NavegacaoTurmaDesktop } from "./_components/navegacao-turma-desktop";
 import { NavegacaoTurmaMobile } from "./_components/navegacao-turma-mobile";
-import { PresencaView } from "./_components/presenca-view";
 import { useTurmaView } from "./_components/use-turma-view";
 
 import { AlertTriangle, CalendarDays } from "lucide-react";
@@ -41,14 +41,16 @@ export default function TurmaView() {
 		materiais,
 		anotacoes,
 		presencaAlunos,
-		setPresencaAlunos,
-		salvarNaData,
+		datasDeAula,
+		estadoPresenca,
+		alterarPresenca,
+		salvarAlteracoesPresenca,
+		temAlteracoesPresenca,
+		carregandoPresencas,
 		erroPresenca,
 		salvarPresencas,
 		presencaMonitores,
-		setPresencaMonitores,
 		presencaProfessores,
-		setPresencaProfessores,
 		confirmacaoPresenca,
 		setConfirmacaoPresenca,
 		mobileNavOpen,
@@ -158,53 +160,68 @@ export default function TurmaView() {
 					</div>
 				)}
 				{tab === "presenca-alunos" && (
-					<PresencaView
+					<MatrizPresencaView
 						titulo="Presença de alunos"
 						pessoas={presencaAlunos}
-						setPessoas={setPresencaAlunos}
+						datas={datasDeAula}
+						estadoNaData={(id, data) => estadoPresenca("ALUNOS", id, data)}
+						onAlterar={(id, data, estado) =>
+							alterarPresenca("ALUNOS", id, data, estado)
+						}
 						cor={corDestaqueLegivel}
-						eventos={eventos}
-						onSalvar={salvarNaData}
+						onSalvar={() => void salvarAlteracoesPresenca()}
+						temAlteracoes={temAlteracoesPresenca}
 						erroSalvar={erroPresenca}
 						salvando={salvarPresencas.isPending}
+						carregando={carregandoPresencas}
 						coresEstado={{
 							presente: turma.cor,
 							ausente: corDestaqueLegivel,
-							justificado: fundoTurma,
+							justificado: "#b45309",
 						}}
 					/>
 				)}
 				{tab === "presenca-monitores" && (
-					<PresencaView
+					<MatrizPresencaView
 						titulo="Presença de monitores"
 						pessoas={presencaMonitores}
-						setPessoas={setPresencaMonitores}
+						datas={datasDeAula}
+						estadoNaData={(id, data) => estadoPresenca("MONITORES", id, data)}
+						onAlterar={(id, data, estado) =>
+							alterarPresenca("MONITORES", id, data, estado)
+						}
 						cor={corDestaqueLegivel}
-						eventos={eventos}
-						onSalvar={salvarNaData}
+						onSalvar={() => void salvarAlteracoesPresenca()}
+						temAlteracoes={temAlteracoesPresenca}
 						erroSalvar={erroPresenca}
 						salvando={salvarPresencas.isPending}
+						carregando={carregandoPresencas}
 						coresEstado={{
 							presente: turma.cor,
 							ausente: corDestaqueLegivel,
-							justificado: fundoTurma,
+							justificado: "#b45309",
 						}}
 					/>
 				)}
 				{tab === "presenca-professores" && (
-					<PresencaView
+					<MatrizPresencaView
 						titulo="Presença de professores"
 						pessoas={presencaProfessores}
-						setPessoas={setPresencaProfessores}
+						datas={datasDeAula}
+						estadoNaData={(id, data) => estadoPresenca("PROFESSORES", id, data)}
+						onAlterar={(id, data, estado) =>
+							alterarPresenca("PROFESSORES", id, data, estado)
+						}
 						cor={corDestaqueLegivel}
-						eventos={eventos}
-						onSalvar={salvarNaData}
+						onSalvar={() => void salvarAlteracoesPresenca()}
+						temAlteracoes={temAlteracoesPresenca}
 						erroSalvar={erroPresenca}
 						salvando={salvarPresencas.isPending}
+						carregando={carregandoPresencas}
 						coresEstado={{
 							presente: turma.cor,
 							ausente: corDestaqueLegivel,
-							justificado: fundoTurma,
+							justificado: "#b45309",
 						}}
 					/>
 				)}

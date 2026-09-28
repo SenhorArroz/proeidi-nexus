@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T15:20:59.331116+00:00",
+  "generated_at": "2026-09-28T22:42:26.619012+00:00",
   "nodes": {
     "generated_prisma_index_d_alunoturma": {
       "code_fingerprint": "38c3a9cb765450a504e71a379fa5da6374437c6197037e7a3b2ac6d34483b6cb",
@@ -12,7 +12,7 @@
           "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
         }
       ],
-      "score": 0.510725655,
+      "score": 0.49553822,
       "source_file": "generated/prisma/index.d.ts",
       "status": "tentative",
       "uses": 1
@@ -38,7 +38,7 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 1.531722439,
+      "score": 1.486173653,
       "source_file": "generated/prisma/index.d.ts",
       "status": "preferred",
       "uses": 3
@@ -54,7 +54,7 @@
           "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
         }
       ],
-      "score": 0.503470851,
+      "score": 0.488499153,
       "source_file": "src/app/_components/diretoria-workspace.tsx",
       "status": "tentative",
       "uses": 1
@@ -70,7 +70,7 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.503428845,
+      "score": 0.488458396,
       "source_file": "src/app/_components/diretoria-workspace.tsx",
       "status": "tentative",
       "uses": 1
@@ -86,7 +86,7 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.503428845,
+      "score": 0.488458396,
       "source_file": "src/app/_components/sidebar.tsx",
       "status": "tentative",
       "uses": 1
@@ -102,7 +102,7 @@
           "q": "Adicionar detalhes do banner da turma da dashboard ao PDF."
         }
       ],
-      "score": 0.646644657,
+      "score": 0.627415403,
       "source_file": "src/app/nexus/dashboard/_components/turma-dashboard-card.tsx",
       "status": "tentative",
       "uses": 1
@@ -118,8 +118,40 @@
           "q": "Upload de imagens em avisos de turmas com UploadThing"
         }
       ],
-      "score": 0.511004664,
+      "score": 0.495808933,
       "source_file": "src/app/nexus/dashboard/turmas/[id]/page.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_diretoria_alunos_components_modal_importacao_alunos_modalimportacaoalunos": {
+      "code_fingerprint": "3c7e8b03d27760c5a7397a305851807b3e6f28fa25e8876e2f1f2df0f9436a0e",
+      "label": "ModalImportacaoAlunos()",
+      "last": "2026-09-27T15:31:53.886150+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-27T15:31:53.886150+00:00",
+          "outcome": "useful",
+          "q": "vá na importação dos alunos e ajuste a importação automática para mapear uma única turma por aluno pelos nomes da coluna Turma e pelos nomes cadastrados no banco"
+        }
+      ],
+      "score": 0.970432878,
+      "source_file": "src/app/nexus/diretoria/alunos/_components/modal-importacao-alunos.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_diretoria_alunos_components_use_gerenciar_alunos_usegerenciaralunos": {
+      "code_fingerprint": "3001ab539f6f784007b2df38440be8524de2cb060b40d5e66c7a093db0c592a8",
+      "label": "useGerenciarAlunos()",
+      "last": "2026-09-27T15:31:53.886150+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-27T15:31:53.886150+00:00",
+          "outcome": "useful",
+          "q": "vá na importação dos alunos e ajuste a importação automática para mapear uma única turma por aluno pelos nomes da coluna Turma e pelos nomes cadastrados no banco"
+        }
+      ],
+      "score": 0.970432878,
+      "source_file": "src/app/nexus/diretoria/alunos/_components/use-gerenciar-alunos.ts",
       "status": "tentative",
       "uses": 1
     },
@@ -134,7 +166,7 @@
           "q": "Configurações funcionais para questionários"
         }
       ],
-      "score": 0.510943165,
+      "score": 0.495749263,
       "source_file": "src/app/nexus/diretoria/formularios/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -150,7 +182,7 @@
           "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
         }
       ],
-      "score": 0.503470851,
+      "score": 0.488499153,
       "source_file": "src/app/nexus/diretoria/layout.tsx",
       "status": "tentative",
       "uses": 1
@@ -166,7 +198,7 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 0.502121416,
+      "score": 0.487189846,
       "source_file": "src/app/nexus/diretoria/layout.tsx",
       "status": "tentative",
       "uses": 1
@@ -182,7 +214,7 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 0.51005362,
+      "score": 0.49488617,
       "source_file": "src/app/nexus/diretoria/questionarios/[id]/_components/suporte.tsx",
       "status": "tentative",
       "uses": 1
@@ -198,7 +230,7 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 0.51005362,
+      "score": 0.49488617,
       "source_file": "src/app/nexus/diretoria/questionarios/[id]/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -219,7 +251,7 @@
           "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
         }
       ],
-      "score": 1.006274798,
+      "score": 0.976351233,
       "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -245,7 +277,7 @@
           "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
         }
       ],
-      "score": 1.509528191,
+      "score": 1.464639394,
       "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
       "status": "preferred",
       "uses": 3
@@ -281,7 +313,7 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 2.522205947,
+      "score": 2.447203181,
       "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
       "status": "preferred",
       "uses": 5
@@ -317,7 +349,7 @@
           "q": "faça o campo de Tirar números do sorteio ser retrátil"
         }
       ],
-      "score": 3.025634792,
+      "score": 2.935661577,
       "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
       "status": "preferred",
       "uses": 6
@@ -333,7 +365,7 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.503428845,
+      "score": 0.488458396,
       "source_file": "src/app/nexus/layout.tsx",
       "status": "tentative",
       "uses": 1
@@ -349,7 +381,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.500525969,
+      "score": 0.485641843,
       "source_file": "src/env.js",
       "status": "tentative",
       "uses": 1
@@ -365,7 +397,7 @@
           "q": "Mapear o controle de turma e o PDF para redesenho e paginação."
         }
       ],
-      "score": 0.644117727,
+      "score": 0.624963617,
       "source_file": "src/lib/controle-turma.ts",
       "status": "tentative",
       "uses": 1
@@ -381,26 +413,31 @@
           "q": "Mapear o controle de turma e o PDF para redesenho e paginação."
         }
       ],
-      "score": 0.644117727,
+      "score": 0.624963617,
       "source_file": "src/lib/controle-turma-pdf.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_server_api_routers_aluno": {
-      "code_fingerprint": "8efb62adb6b59360237460af99f6b8d45cbaac44fa9c870331a328e3fd8052da",
+      "code_fingerprint": "ac2aa44efa05b0034e3df8ec34676b6cf71f95a2bee7a17209c2be0cab8c0f1f",
       "label": "aluno.ts",
-      "last": "2026-08-29T13:23:47.498699+00:00",
+      "last": "2026-09-27T15:31:53.886150+00:00",
       "provenance": [
+        {
+          "date": "2026-09-27T15:31:53.886150+00:00",
+          "outcome": "useful",
+          "q": "vá na importação dos alunos e ajuste a importação automática para mapear uma única turma por aluno pelos nomes da coluna Turma e pelos nomes cadastrados no banco"
+        },
         {
           "date": "2026-08-29T13:23:47.498699+00:00",
           "outcome": "useful",
           "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
         }
       ],
-      "score": 0.510725655,
+      "score": 1.465971098,
       "source_file": "src/server/api/routers/aluno.ts",
-      "status": "tentative",
-      "uses": 1
+      "status": "preferred",
+      "uses": 2
     },
     "src_server_api_routers_formulario": {
       "code_fingerprint": "95fc1a4f70daf871778b8d39dfda268603920468b1490680e19fbae84e95481d",
@@ -423,7 +460,7 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 1.531722439,
+      "score": 1.486173653,
       "source_file": "src/server/api/routers/formulario.ts",
       "status": "preferred",
       "uses": 3
@@ -455,7 +492,7 @@
           "q": "Persist avisos materiais notas da turma no banco"
         }
       ],
-      "score": 1.125945122,
+      "score": 1.092462924,
       "source_file": "src/server/api/routers/turma.ts",
       "status": "contested",
       "uses": 3,
@@ -472,7 +509,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.500525969,
+      "score": 0.485641843,
       "source_file": "src/server/auth/config.ts",
       "status": "tentative",
       "uses": 1
@@ -488,7 +525,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.500525969,
+      "score": 0.485641843,
       "source_file": "src/server/auth/index.ts",
       "status": "tentative",
       "uses": 1
