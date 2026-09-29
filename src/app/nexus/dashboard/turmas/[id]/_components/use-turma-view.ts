@@ -20,6 +20,7 @@ import {
 	corLegivel,
 	misturarCores,
 	TABS,
+	TABS_MONITOR,
 	TURMA_VAZIA,
 	useTemaEscuro,
 } from "./suporte";
@@ -51,6 +52,14 @@ export function useTurmaView() {
 	const [eventos, setEventos] = useState<EventoCalendario[]>([]);
 	const [editando, setEditando] = useState(false);
 	const [mobileNavOpen, setMobileNavOpen] = useState(false);
+	const tabsDisponiveis = detalhe?.role === "MONITOR" ? TABS_MONITOR : TABS;
+
+	useEffect(() => {
+		if (!tabsDisponiveis.some((item) => item.id === tab)) {
+			setTab("inicio");
+			setMobileNavOpen(false);
+		}
+	}, [tab, tabsDisponiveis]);
 
 	const [presencaAlunos, setPresencaAlunos] = useState<PessoaPresenca[]>(
 		turma.alunos.map((nome, i) => ({
@@ -296,7 +305,8 @@ export function useTurmaView() {
 		document.addEventListener("mousedown", handler);
 		return () => document.removeEventListener("mousedown", handler);
 	}, [menuAberto]);
-	const tabAtual = TABS.find((item) => item.id === tab) ?? TABS[0];
+	const tabAtual =
+		tabsDisponiveis.find((item) => item.id === tab) ?? tabsDisponiveis[0];
 	const IconeTabAtual = tabAtual?.icon ?? Home;
 	const podeEditarTurma = detalhe?.role !== "MONITOR";
 	const temaEscuro = useTemaEscuro();
@@ -365,6 +375,7 @@ export function useTurmaView() {
 		confirmacaoPresenca,
 		setConfirmacaoPresenca,
 		mobileNavOpen,
+		tabsDisponiveis,
 		setTab,
 		setMobileNavOpen,
 		tabAtual,

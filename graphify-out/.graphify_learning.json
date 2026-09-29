@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T22:42:26.619012+00:00",
+  "generated_at": "2026-09-29T00:12:35.789025+00:00",
   "nodes": {
     "generated_prisma_index_d_alunoturma": {
       "code_fingerprint": "38c3a9cb765450a504e71a379fa5da6374437c6197037e7a3b2ac6d34483b6cb",
@@ -12,7 +12,7 @@
           "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
         }
       ],
-      "score": 0.49553822,
+      "score": 0.494821938,
       "source_file": "generated/prisma/index.d.ts",
       "status": "tentative",
       "uses": 1
@@ -38,10 +38,42 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 1.486173653,
+      "score": 1.484025444,
       "source_file": "generated/prisma/index.d.ts",
       "status": "preferred",
       "uses": 3
+    },
+    "src_app_components_diretoria_presence_grid": {
+      "code_fingerprint": "6afc0165151594e9ab0a2c35a4971fa2ccc9ac00526dc6481dd91f003013ed12",
+      "label": "presence-grid.tsx",
+      "last": "2026-09-28T23:49:31.663023+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-28T23:49:31.663023+00:00",
+          "outcome": "useful",
+          "q": "Como manter a grade de presença compacta e responsiva em dispositivos móveis sem seletor direto de dia?"
+        }
+      ],
+      "score": 0.999629928,
+      "source_file": "src/app/_components/diretoria/presence-grid.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_components_diretoria_presence_grid_presencegrid": {
+      "code_fingerprint": "6afc0165151594e9ab0a2c35a4971fa2ccc9ac00526dc6481dd91f003013ed12",
+      "label": "PresenceGrid()",
+      "last": "2026-09-28T23:49:31.663023+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-28T23:49:31.663023+00:00",
+          "outcome": "useful",
+          "q": "Como manter a grade de presença compacta e responsiva em dispositivos móveis sem seletor direto de dia?"
+        }
+      ],
+      "score": 0.999629928,
+      "source_file": "src/app/_components/diretoria/presence-grid.tsx",
+      "status": "tentative",
+      "uses": 1
     },
     "src_app_components_diretoria_workspace": {
       "code_fingerprint": "3d55caf6c48e4c295c171258b517d47b7b15b0a73ce91638d471eb41117b4ee0",
@@ -54,7 +86,7 @@
           "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
         }
       ],
-      "score": 0.488499153,
+      "score": 0.487793045,
       "source_file": "src/app/_components/diretoria-workspace.tsx",
       "status": "tentative",
       "uses": 1
@@ -70,7 +102,7 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.488458396,
+      "score": 0.487752347,
       "source_file": "src/app/_components/diretoria-workspace.tsx",
       "status": "tentative",
       "uses": 1
@@ -86,8 +118,24 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.488458396,
+      "score": 0.487752347,
       "source_file": "src/app/_components/sidebar.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_layout_viewport": {
+      "code_fingerprint": "d80e497530b45c5c36a29cc2a0ef310f499043c331f3b705967793dc4d0b8673",
+      "label": "viewport",
+      "last": "2026-09-28T23:49:31.663023+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-28T23:49:31.663023+00:00",
+          "outcome": "useful",
+          "q": "Como manter a grade de presença compacta e responsiva em dispositivos móveis sem seletor direto de dia?"
+        }
+      ],
+      "score": 0.999629928,
+      "source_file": "src/app/layout.tsx",
       "status": "tentative",
       "uses": 1
     },
@@ -102,13 +150,45 @@
           "q": "Adicionar detalhes do banner da turma da dashboard ao PDF."
         }
       ],
-      "score": 0.627415403,
+      "score": 0.626508498,
       "source_file": "src/app/nexus/dashboard/_components/turma-dashboard-card.tsx",
       "status": "tentative",
       "uses": 1
     },
+    "src_app_nexus_dashboard_turmas_id_components_presenca_view": {
+      "code_fingerprint": "c4a1266ef8b244cedd92020e30f6dba65a13ccb9ba19d6ef3db53e54cb8c207d",
+      "label": "presenca-view.tsx",
+      "last": "2026-09-28T22:54:08.203489+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-28T22:54:08.203489+00:00",
+          "outcome": "useful",
+          "q": "Usando o out do Graphify, mudar a gerência de presença nas turmas da dashboard para uma tabela com dias nas colunas, pessoas nas linhas e salvamento por botão."
+        }
+      ],
+      "score": 0.998741899,
+      "source_file": "src/app/nexus/dashboard/turmas/[id]/_components/presenca-view.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_dashboard_turmas_id_components_use_turma_view": {
+      "code_fingerprint": "222a92764d3c0be8a515053ee567cc26e5b30c03a130ff28ae280b7ec7e92c4b",
+      "label": "use-turma-view.ts",
+      "last": "2026-09-28T22:54:08.203489+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-28T22:54:08.203489+00:00",
+          "outcome": "useful",
+          "q": "Usando o out do Graphify, mudar a gerência de presença nas turmas da dashboard para uma tabela com dias nas colunas, pessoas nas linhas e salvamento por botão."
+        }
+      ],
+      "score": 0.998741899,
+      "source_file": "src/app/nexus/dashboard/turmas/[id]/_components/use-turma-view.ts",
+      "status": "tentative",
+      "uses": 1
+    },
     "src_app_nexus_dashboard_turmas_id_page": {
-      "code_fingerprint": "bfb76cf6ebb863dbeb6613f999b8ed097bb3c669fe1ffc4c4ff58439e651f87a",
+      "code_fingerprint": "76098cb6caa1cf10dea85e1361dfd56c2795305d956e429f8779d265f7bb6fae",
       "label": "turmas/[id]/page.tsx",
       "last": "2026-08-29T13:57:49.808369+00:00",
       "provenance": [
@@ -118,7 +198,7 @@
           "q": "Upload de imagens em avisos de turmas com UploadThing"
         }
       ],
-      "score": 0.495808933,
+      "score": 0.495092259,
       "source_file": "src/app/nexus/dashboard/turmas/[id]/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -134,7 +214,7 @@
           "q": "vá na importação dos alunos e ajuste a importação automática para mapear uma única turma por aluno pelos nomes da coluna Turma e pelos nomes cadastrados no banco"
         }
       ],
-      "score": 0.970432878,
+      "score": 0.969030153,
       "source_file": "src/app/nexus/diretoria/alunos/_components/modal-importacao-alunos.tsx",
       "status": "tentative",
       "uses": 1
@@ -150,7 +230,7 @@
           "q": "vá na importação dos alunos e ajuste a importação automática para mapear uma única turma por aluno pelos nomes da coluna Turma e pelos nomes cadastrados no banco"
         }
       ],
-      "score": 0.970432878,
+      "score": 0.969030153,
       "source_file": "src/app/nexus/diretoria/alunos/_components/use-gerenciar-alunos.ts",
       "status": "tentative",
       "uses": 1
@@ -166,7 +246,7 @@
           "q": "Configurações funcionais para questionários"
         }
       ],
-      "score": 0.495749263,
+      "score": 0.495032675,
       "source_file": "src/app/nexus/diretoria/formularios/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -182,7 +262,7 @@
           "q": "conserte a responsividade do sorteador, em telas 1920x1080 ele está normal, mas em telas 1366x768 ele fiqca pequeno e passa da tela"
         }
       ],
-      "score": 0.488499153,
+      "score": 0.487793045,
       "source_file": "src/app/nexus/diretoria/layout.tsx",
       "status": "tentative",
       "uses": 1
@@ -198,8 +278,40 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 0.487189846,
+      "score": 0.486485631,
       "source_file": "src/app/nexus/diretoria/layout.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_diretoria_presencas_components_use_gerenciar_presencas_usegerenciarpresencas": {
+      "code_fingerprint": "6dfce5ee6087980ba9a8e286126e4021fb70ec7bd60784347bc72a07eb1a1b45",
+      "label": "useGerenciarPresencas()",
+      "last": "2026-09-28T22:54:08.203489+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-28T22:54:08.203489+00:00",
+          "outcome": "useful",
+          "q": "Usando o out do Graphify, mudar a gerência de presença nas turmas da dashboard para uma tabela com dias nas colunas, pessoas nas linhas e salvamento por botão."
+        }
+      ],
+      "score": 0.998741899,
+      "source_file": "src/app/nexus/diretoria/presencas/_components/use-gerenciar-presencas.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_nexus_diretoria_presencas_page": {
+      "code_fingerprint": "d6f975ef757b341afd9517289fa2e5b822cbdb197275f267ee8c869e19e1fd8f",
+      "label": "presencas/page.tsx",
+      "last": "2026-09-28T22:54:08.203489+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-28T22:54:08.203489+00:00",
+          "outcome": "useful",
+          "q": "Usando o out do Graphify, mudar a gerência de presença nas turmas da dashboard para uma tabela com dias nas colunas, pessoas nas linhas e salvamento por botão."
+        }
+      ],
+      "score": 0.998741899,
+      "source_file": "src/app/nexus/diretoria/presencas/page.tsx",
       "status": "tentative",
       "uses": 1
     },
@@ -214,7 +326,7 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 0.49488617,
+      "score": 0.49417083,
       "source_file": "src/app/nexus/diretoria/questionarios/[id]/_components/suporte.tsx",
       "status": "tentative",
       "uses": 1
@@ -230,7 +342,7 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 0.49488617,
+      "score": 0.49417083,
       "source_file": "src/app/nexus/diretoria/questionarios/[id]/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -251,7 +363,7 @@
           "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
         }
       ],
-      "score": 0.976351233,
+      "score": 0.974939954,
       "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -277,7 +389,7 @@
           "q": "Exportar inscrições em planilha com campos do Controle de Inscrições"
         }
       ],
-      "score": 1.464639394,
+      "score": 1.462522312,
       "source_file": "src/app/nexus/diretoria/sorteio/page.tsx",
       "status": "preferred",
       "uses": 3
@@ -313,7 +425,7 @@
           "q": "ajuste a responsividade para se adequar a telas e a não passar delas"
         }
       ],
-      "score": 2.447203181,
+      "score": 2.443665839,
       "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
       "status": "preferred",
       "uses": 5
@@ -349,7 +461,7 @@
           "q": "faça o campo de Tirar números do sorteio ser retrátil"
         }
       ],
-      "score": 2.935661577,
+      "score": 2.931418186,
       "source_file": "src/app/nexus/diretoria/sorteio/sorteador/page.tsx",
       "status": "preferred",
       "uses": 6
@@ -365,7 +477,7 @@
           "q": "Auditar a responsividade do sorteador em 1366x768 e sua relação com layout, workspace e sidebar"
         }
       ],
-      "score": 0.488458396,
+      "score": 0.487752347,
       "source_file": "src/app/nexus/layout.tsx",
       "status": "tentative",
       "uses": 1
@@ -381,7 +493,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.485641843,
+      "score": 0.484939865,
       "source_file": "src/env.js",
       "status": "tentative",
       "uses": 1
@@ -397,7 +509,7 @@
           "q": "Mapear o controle de turma e o PDF para redesenho e paginação."
         }
       ],
-      "score": 0.624963617,
+      "score": 0.624060255,
       "source_file": "src/lib/controle-turma.ts",
       "status": "tentative",
       "uses": 1
@@ -413,7 +525,7 @@
           "q": "Mapear o controle de turma e o PDF para redesenho e paginação."
         }
       ],
-      "score": 0.624963617,
+      "score": 0.624060255,
       "source_file": "src/lib/controle-turma-pdf.ts",
       "status": "tentative",
       "uses": 1
@@ -434,7 +546,7 @@
           "q": "Implementação de questionários identificados por cookie e histórico de turmas de alunos"
         }
       ],
-      "score": 1.465971098,
+      "score": 1.463852091,
       "source_file": "src/server/api/routers/aluno.ts",
       "status": "preferred",
       "uses": 2
@@ -460,10 +572,33 @@
           "q": "Questionários identificados com resposta única e estatísticas individuais"
         }
       ],
-      "score": 1.486173653,
+      "score": 1.484025444,
       "source_file": "src/server/api/routers/formulario.ts",
       "status": "preferred",
       "uses": 3
+    },
+    "src_server_api_routers_turma": {
+      "code_fingerprint": "a4382568b310ccc364e7132d1b2fdf9e9eaec5d8238488e104255140c10d7dd3",
+      "label": "turma.ts",
+      "last": "2026-09-28T22:54:08.203489+00:00",
+      "neg": 1,
+      "provenance": [
+        {
+          "date": "2026-09-28T22:54:08.203489+00:00",
+          "outcome": "useful",
+          "q": "Usando o out do Graphify, mudar a gerência de presença nas turmas da dashboard para uma tabela com dias nas colunas, pessoas nas linhas e salvamento por botão."
+        },
+        {
+          "date": "2026-09-08T21:37:56.022439+00:00",
+          "outcome": "corrected",
+          "q": "Por que os cards de turma da Diretoria e o Controle de Turma não carregam em produção, enquanto a Dashboard carrega?"
+        }
+      ],
+      "score": 0.370342731,
+      "source_file": "src/server/api/routers/turma.ts",
+      "status": "contested",
+      "uses": 1,
+      "verdict": "useful"
     },
     "src_server_api_routers_turma_turmarouter": {
       "code_fingerprint": "a4382568b310ccc364e7132d1b2fdf9e9eaec5d8238488e104255140c10d7dd3",
@@ -492,7 +627,7 @@
           "q": "Persist avisos materiais notas da turma no banco"
         }
       ],
-      "score": 1.092462924,
+      "score": 1.090883809,
       "source_file": "src/server/api/routers/turma.ts",
       "status": "contested",
       "uses": 3,
@@ -509,7 +644,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.485641843,
+      "score": 0.484939865,
       "source_file": "src/server/auth/config.ts",
       "status": "tentative",
       "uses": 1
@@ -525,7 +660,7 @@
           "q": "Authentication failed against database server during credentials login"
         }
       ],
-      "score": 0.485641843,
+      "score": 0.484939865,
       "source_file": "src/server/auth/index.ts",
       "status": "tentative",
       "uses": 1

@@ -1,26 +1,28 @@
 "use client";
-import { TABS } from "./suporte";
-import { useTurmaView } from "./use-turma-view";
+import type { useTurmaView } from "./use-turma-view";
 
 type Estado = ReturnType<typeof useTurmaView>;
 type NavegacaoTurmaDesktopProps = {
+	tabs: NonNullable<Estado["tabsDisponiveis"]>;
 	tab: NonNullable<Estado["tab"]>;
 	setTab: NonNullable<Estado["setTab"]>;
 };
 
 export function NavegacaoTurmaDesktop({
+	tabs,
 	tab,
 	setTab,
 }: NavegacaoTurmaDesktopProps) {
 	return (
 		<nav className="view-dashboard-turmas-id-navegacao-turma-desktop hidden flex-shrink-0 items-stretch border-t border-sky-100 bg-white shadow-[0_-8px_24px_rgba(15,23,42,.05)] sm:flex">
 			<div className="flex w-full max-w-6xl mx-auto items-stretch overflow-x-auto">
-				{TABS.map((t) => {
+				{tabs.map((t) => {
 					const Icon = t.icon;
 					const active = tab === t.id;
 					return (
 						<button
 							key={t.id}
+							type="button"
 							onClick={() => setTab(t.id)}
 							className="flex min-w-20 flex-1 flex-col items-center justify-center gap-1 py-2.5 sm:py-3 relative transition-colors cursor-pointer"
 						>

@@ -1,11 +1,11 @@
 "use client";
 import { X } from "lucide-react";
-import { TABS } from "./suporte";
-import { useTurmaView } from "./use-turma-view";
+import type { useTurmaView } from "./use-turma-view";
 
 type Estado = ReturnType<typeof useTurmaView>;
 type NavegacaoTurmaMobileProps = {
 	mobileNavOpen: NonNullable<Estado["mobileNavOpen"]>;
+	tabs: NonNullable<Estado["tabsDisponiveis"]>;
 	tab: NonNullable<Estado["tab"]>;
 	setTab: NonNullable<Estado["setTab"]>;
 	setMobileNavOpen: NonNullable<Estado["setMobileNavOpen"]>;
@@ -18,6 +18,7 @@ type NavegacaoTurmaMobileProps = {
 
 export function NavegacaoTurmaMobile({
 	mobileNavOpen,
+	tabs,
 	tab,
 	setTab,
 	setMobileNavOpen,
@@ -31,7 +32,7 @@ export function NavegacaoTurmaMobile({
 		<div className="view-dashboard-turmas-id-navegacao-turma-mobile fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 sm:hidden">
 			{mobileNavOpen && (
 				<div className="absolute right-0 bottom-14 max-h-[min(24rem,calc(100dvh-6rem))] w-[min(14rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-sky-100 bg-white p-1.5 shadow-[0_14px_32px_rgb(15_23_42_/_0.2)]">
-					{TABS.map((item) => {
+					{tabs.map((item) => {
 						const Icon = item.icon;
 						const active = tab === item.id;
 						return (

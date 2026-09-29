@@ -303,3 +303,7 @@ export const TABS: { id: TabId; label: string; icon: React.ElementType }[] = [
 	{ id: "presenca-monitores", label: "Monitores", icon: ShieldCheck },
 	{ id: "presenca-professores", label: "Professores", icon: GraduationCap },
 ];
+
+export const TABS_MONITOR = TABS.filter(
+	(tab) => tab.id === "inicio" || tab.id === "materiais",
+);

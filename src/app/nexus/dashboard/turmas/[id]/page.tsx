@@ -54,6 +54,7 @@ export default function TurmaView() {
 		confirmacaoPresenca,
 		setConfirmacaoPresenca,
 		mobileNavOpen,
+		tabsDisponiveis,
 		setTab,
 		setMobileNavOpen,
 		tabAtual,
@@ -93,6 +94,8 @@ export default function TurmaView() {
 			</div>
 		);
 	}
+
+	const podeAcessarGestao = detalhe.role !== "MONITOR";
 
 	return (
 		<div
@@ -137,14 +140,14 @@ export default function TurmaView() {
 						podeGerenciar={detalhe.role !== "MONITOR"}
 					/>
 				)}
-				{tab === "anotacoes" && (
+				{podeAcessarGestao && tab === "anotacoes" && (
 					<AnotacoesView
 						anotacoes={anotacoes}
 						turmaId={turmaId}
 						cor={corDestaqueLegivel}
 					/>
 				)}
-				{tab === "calendario" && (
+				{podeAcessarGestao && tab === "calendario" && (
 					<div className="mx-auto w-full max-w-6xl min-w-0 px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
 						<div className="mb-4">
 							<h3 className="turma-semantic-text text-base sm:text-lg font-bold flex items-center gap-2">
@@ -159,7 +162,7 @@ export default function TurmaView() {
 						<CalendarioAulas eventos={eventos} cor={corDestaqueLegivel} />
 					</div>
 				)}
-				{tab === "presenca-alunos" && (
+				{podeAcessarGestao && tab === "presenca-alunos" && (
 					<MatrizPresencaView
 						titulo="Presença de alunos"
 						pessoas={presencaAlunos}
@@ -181,7 +184,7 @@ export default function TurmaView() {
 						}}
 					/>
 				)}
-				{tab === "presenca-monitores" && (
+				{podeAcessarGestao && tab === "presenca-monitores" && (
 					<MatrizPresencaView
 						titulo="Presença de monitores"
 						pessoas={presencaMonitores}
@@ -203,7 +206,7 @@ export default function TurmaView() {
 						}}
 					/>
 				)}
-				{tab === "presenca-professores" && (
+				{podeAcessarGestao && tab === "presenca-professores" && (
 					<MatrizPresencaView
 						titulo="Presença de professores"
 						pessoas={presencaProfessores}
@@ -227,7 +230,7 @@ export default function TurmaView() {
 				)}
 			</div>
 
-			{confirmacaoPresenca && (
+			{podeAcessarGestao && confirmacaoPresenca && (
 				<ConfirmacaoPresencaModal
 					confirmacao={confirmacaoPresenca}
 					onFechar={() => setConfirmacaoPresenca(null)}
@@ -237,6 +240,7 @@ export default function TurmaView() {
 			{/* Navegação de turmas: menu flutuante no celular */}
 			<NavegacaoTurmaMobile
 				mobileNavOpen={mobileNavOpen}
+				tabs={tabsDisponiveis}
 				tab={tab}
 				setTab={setTab}
 				setMobileNavOpen={setMobileNavOpen}
@@ -248,7 +252,7 @@ export default function TurmaView() {
 			/>
 
 			{/* Bottom nav */}
-			<NavegacaoTurmaDesktop tab={tab} setTab={setTab} />
+			<NavegacaoTurmaDesktop tabs={tabsDisponiveis} tab={tab} setTab={setTab} />
 
 			{/* Modal de edição */}
 			{editando && podeEditarTurma && (

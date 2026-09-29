@@ -393,7 +393,11 @@ export const turmaRouter = createTRPCRouter({
 				}),
 			)
 			.mutation(async ({ ctx, input }) => {
-				await acessoTurma(ctx, input.turmaId);
+				if ((await acessoTurma(ctx, input.turmaId)) === "MONITOR")
+					throw new TRPCError({
+						code: "FORBIDDEN",
+						message: "Monitores não podem gerenciar o calendário.",
+					});
 				return ctx.db.eventoCalendario.create({
 					data: input,
 					select: { id: true },
@@ -402,7 +406,11 @@ export const turmaRouter = createTRPCRouter({
 		remove: protectedProcedure
 			.input(z.object({ turmaId, id: z.string().cuid() }))
 			.mutation(async ({ ctx, input }) => {
-				await acessoTurma(ctx, input.turmaId);
+				if ((await acessoTurma(ctx, input.turmaId)) === "MONITOR")
+					throw new TRPCError({
+						code: "FORBIDDEN",
+						message: "Monitores não podem gerenciar o calendário.",
+					});
 				const result = await ctx.db.eventoCalendario.deleteMany({
 					where: { id: input.id, turmaId: input.turmaId },
 				});
