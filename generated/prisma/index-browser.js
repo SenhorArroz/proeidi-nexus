@@ -164,6 +164,21 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CategoriaItemEstoqueScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ItemEstoqueScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  qtd: 'qtd',
+  validade: 'validade',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.PasswordResetRequestScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -507,6 +522,8 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   User: 'User',
+  CategoriaItemEstoque: 'CategoriaItemEstoque',
+  ItemEstoque: 'ItemEstoque',
   PasswordResetRequest: 'PasswordResetRequest',
   Semestre: 'Semestre',
   SemanaImpressao: 'SemanaImpressao',

@@ -10,6 +10,7 @@ import {
 	Printer,
 	ShieldCheck,
 	Users,
+	Boxes,
 } from "lucide-react";
 import React from "react";
 
@@ -23,6 +24,14 @@ export interface Ferramenta {
 }
 
 export const FERRAMENTAS: Ferramenta[] = [
+	{
+		id: "estoque",
+		nome: "Gerenciar Estoque",
+		descricao: "Itens, quantidades, validade e categorias",
+		link: "/nexus/diretoria/estoque",
+		icon: Boxes,
+		cor: "#0284c7",
+	},
 	{
 		id: "semestres",
 		nome: "Gerenciar Semestres",

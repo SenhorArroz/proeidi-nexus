@@ -20,6 +20,7 @@ import {
 	ClipboardCheck,
 	Printer,
 	Wrench,
+	Boxes,
 	Contrast,
 	Moon,
 	Sun,
@@ -91,6 +92,12 @@ const DIRETORIA_ITEMS: NavItem[] = [
 		label: "Presenças",
 		link: "/nexus/diretoria/presencas",
 		icon: ClipboardCheck,
+	},
+	{
+		id: "estoque",
+		label: "Estoque",
+		link: "/nexus/diretoria/estoque",
+		icon: Boxes,
 	},
 	{
 		id: "impressao",

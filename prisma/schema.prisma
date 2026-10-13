@@ -136,6 +136,26 @@ model User {
   materiaisAtualizacaoResponsavel ResponsavelMaterialAtualizacao[]
 }
 
+model CategoriaItemEstoque {
+  id        String        @id @default(cuid())
+  nome      String        @unique
+  itens     ItemEstoque[]
+  createdAt DateTime      @default(now())
+}
+
+model ItemEstoque {
+  id         String                 @id @default(cuid())
+  nome       String
+  qtd        Int
+  validade   DateTime               @db.Date
+  categorias CategoriaItemEstoque[]
+  createdAt  DateTime               @default(now())
+  updatedAt  DateTime               @updatedAt
+
+  @@index([nome])
+  @@index([validade])
+}
+
 // O código é persistido somente como hash e expira após o uso.
 model PasswordResetRequest {
   id            String   @id @default(cuid())

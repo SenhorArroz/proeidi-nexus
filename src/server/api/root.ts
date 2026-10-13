@@ -8,6 +8,7 @@ import { monitorRouter } from "~/server/api/routers/monitor";
 import { diretorRouter } from "~/server/api/routers/diretor";
 import { formularioRouter } from "~/server/api/routers/formulario";
 import { contaRouter } from "~/server/api/routers/conta";
+import { estoqueRouter } from "~/server/api/routers/estoque";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -26,6 +27,7 @@ export const appRouter = createTRPCRouter({
 	diretor: diretorRouter,
 	formulario: formularioRouter,
 	conta: contaRouter,
+	estoque: estoqueRouter,
 });
 
 // export type definition of API

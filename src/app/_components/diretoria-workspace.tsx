@@ -14,6 +14,7 @@ const ROTAS: Record<string, string> = {
 	"/nexus/diretoria/semestres": "Semestres",
 	"/nexus/diretoria/formularios": "Formulários",
 	"/nexus/diretoria/sorteio": "Sorteio",
+	"/nexus/diretoria/estoque": "Estoque",
 	"/nexus/diretoria/diretores": "Diretores",
 };
 

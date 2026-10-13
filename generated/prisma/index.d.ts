@@ -34,6 +34,16 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model CategoriaItemEstoque
+ * 
+ */
+export type CategoriaItemEstoque = $Result.DefaultSelection<Prisma.$CategoriaItemEstoquePayload>
+/**
+ * Model ItemEstoque
+ * 
+ */
+export type ItemEstoque = $Result.DefaultSelection<Prisma.$ItemEstoquePayload>
+/**
  * Model PasswordResetRequest
  * 
  */
@@ -445,6 +455,26 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.categoriaItemEstoque`: Exposes CRUD operations for the **CategoriaItemEstoque** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CategoriaItemEstoques
+    * const categoriaItemEstoques = await prisma.categoriaItemEstoque.findMany()
+    * ```
+    */
+  get categoriaItemEstoque(): Prisma.CategoriaItemEstoqueDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.itemEstoque`: Exposes CRUD operations for the **ItemEstoque** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ItemEstoques
+    * const itemEstoques = await prisma.itemEstoque.findMany()
+    * ```
+    */
+  get itemEstoque(): Prisma.ItemEstoqueDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.passwordResetRequest`: Exposes CRUD operations for the **PasswordResetRequest** model.
@@ -1150,6 +1180,8 @@ export namespace Prisma {
     Session: 'Session',
     VerificationToken: 'VerificationToken',
     User: 'User',
+    CategoriaItemEstoque: 'CategoriaItemEstoque',
+    ItemEstoque: 'ItemEstoque',
     PasswordResetRequest: 'PasswordResetRequest',
     Semestre: 'Semestre',
     SemanaImpressao: 'SemanaImpressao',
@@ -1194,7 +1226,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "passwordResetRequest" | "semestre" | "semanaImpressao" | "apostilaImpressao" | "responsavelApostila" | "materialAtualizacao" | "responsavelMaterialAtualizacao" | "turma" | "professorTurma" | "monitorTurma" | "alunoTurma" | "aluno" | "vinculoEquipeSemestre" | "material" | "eventoCalendario" | "aviso" | "anotacao" | "registroPresenca" | "presencaAluno" | "presencaMonitor" | "presencaProfessor" | "candidato" | "formulario" | "formularioResposta" | "pergunta" | "opcao"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "categoriaItemEstoque" | "itemEstoque" | "passwordResetRequest" | "semestre" | "semanaImpressao" | "apostilaImpressao" | "responsavelApostila" | "materialAtualizacao" | "responsavelMaterialAtualizacao" | "turma" | "professorTurma" | "monitorTurma" | "alunoTurma" | "aluno" | "vinculoEquipeSemestre" | "material" | "eventoCalendario" | "aviso" | "anotacao" | "registroPresenca" | "presencaAluno" | "presencaMonitor" | "presencaProfessor" | "candidato" | "formulario" | "formularioResposta" | "pergunta" | "opcao"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1491,6 +1523,154 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      CategoriaItemEstoque: {
+        payload: Prisma.$CategoriaItemEstoquePayload<ExtArgs>
+        fields: Prisma.CategoriaItemEstoqueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CategoriaItemEstoqueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CategoriaItemEstoqueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload>
+          }
+          findFirst: {
+            args: Prisma.CategoriaItemEstoqueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CategoriaItemEstoqueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload>
+          }
+          findMany: {
+            args: Prisma.CategoriaItemEstoqueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload>[]
+          }
+          create: {
+            args: Prisma.CategoriaItemEstoqueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload>
+          }
+          createMany: {
+            args: Prisma.CategoriaItemEstoqueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CategoriaItemEstoqueCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload>[]
+          }
+          delete: {
+            args: Prisma.CategoriaItemEstoqueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload>
+          }
+          update: {
+            args: Prisma.CategoriaItemEstoqueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload>
+          }
+          deleteMany: {
+            args: Prisma.CategoriaItemEstoqueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CategoriaItemEstoqueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CategoriaItemEstoqueUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload>[]
+          }
+          upsert: {
+            args: Prisma.CategoriaItemEstoqueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoriaItemEstoquePayload>
+          }
+          aggregate: {
+            args: Prisma.CategoriaItemEstoqueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCategoriaItemEstoque>
+          }
+          groupBy: {
+            args: Prisma.CategoriaItemEstoqueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CategoriaItemEstoqueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CategoriaItemEstoqueCountArgs<ExtArgs>
+            result: $Utils.Optional<CategoriaItemEstoqueCountAggregateOutputType> | number
+          }
+        }
+      }
+      ItemEstoque: {
+        payload: Prisma.$ItemEstoquePayload<ExtArgs>
+        fields: Prisma.ItemEstoqueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ItemEstoqueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ItemEstoqueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          findFirst: {
+            args: Prisma.ItemEstoqueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ItemEstoqueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          findMany: {
+            args: Prisma.ItemEstoqueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>[]
+          }
+          create: {
+            args: Prisma.ItemEstoqueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          createMany: {
+            args: Prisma.ItemEstoqueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ItemEstoqueCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>[]
+          }
+          delete: {
+            args: Prisma.ItemEstoqueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          update: {
+            args: Prisma.ItemEstoqueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          deleteMany: {
+            args: Prisma.ItemEstoqueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ItemEstoqueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ItemEstoqueUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>[]
+          }
+          upsert: {
+            args: Prisma.ItemEstoqueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          aggregate: {
+            args: Prisma.ItemEstoqueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateItemEstoque>
+          }
+          groupBy: {
+            args: Prisma.ItemEstoqueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ItemEstoqueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ItemEstoqueCountArgs<ExtArgs>
+            result: $Utils.Optional<ItemEstoqueCountAggregateOutputType> | number
           }
         }
       }
@@ -3518,6 +3698,8 @@ export namespace Prisma {
     session?: SessionOmit
     verificationToken?: VerificationTokenOmit
     user?: UserOmit
+    categoriaItemEstoque?: CategoriaItemEstoqueOmit
+    itemEstoque?: ItemEstoqueOmit
     passwordResetRequest?: PasswordResetRequestOmit
     semestre?: SemestreOmit
     semanaImpressao?: SemanaImpressaoOmit
@@ -3764,6 +3946,68 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMateriaisAtualizacaoResponsavelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ResponsavelMaterialAtualizacaoWhereInput
+  }
+
+
+  /**
+   * Count Type CategoriaItemEstoqueCountOutputType
+   */
+
+  export type CategoriaItemEstoqueCountOutputType = {
+    itens: number
+  }
+
+  export type CategoriaItemEstoqueCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    itens?: boolean | CategoriaItemEstoqueCountOutputTypeCountItensArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CategoriaItemEstoqueCountOutputType without action
+   */
+  export type CategoriaItemEstoqueCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoqueCountOutputType
+     */
+    select?: CategoriaItemEstoqueCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CategoriaItemEstoqueCountOutputType without action
+   */
+  export type CategoriaItemEstoqueCountOutputTypeCountItensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemEstoqueWhereInput
+  }
+
+
+  /**
+   * Count Type ItemEstoqueCountOutputType
+   */
+
+  export type ItemEstoqueCountOutputType = {
+    categorias: number
+  }
+
+  export type ItemEstoqueCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    categorias?: boolean | ItemEstoqueCountOutputTypeCountCategoriasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ItemEstoqueCountOutputType without action
+   */
+  export type ItemEstoqueCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoqueCountOutputType
+     */
+    select?: ItemEstoqueCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ItemEstoqueCountOutputType without action
+   */
+  export type ItemEstoqueCountOutputTypeCountCategoriasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoriaItemEstoqueWhereInput
   }
 
 
@@ -8926,6 +9170,2167 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CategoriaItemEstoque
+   */
+
+  export type AggregateCategoriaItemEstoque = {
+    _count: CategoriaItemEstoqueCountAggregateOutputType | null
+    _min: CategoriaItemEstoqueMinAggregateOutputType | null
+    _max: CategoriaItemEstoqueMaxAggregateOutputType | null
+  }
+
+  export type CategoriaItemEstoqueMinAggregateOutputType = {
+    id: string | null
+    nome: string | null
+    createdAt: Date | null
+  }
+
+  export type CategoriaItemEstoqueMaxAggregateOutputType = {
+    id: string | null
+    nome: string | null
+    createdAt: Date | null
+  }
+
+  export type CategoriaItemEstoqueCountAggregateOutputType = {
+    id: number
+    nome: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CategoriaItemEstoqueMinAggregateInputType = {
+    id?: true
+    nome?: true
+    createdAt?: true
+  }
+
+  export type CategoriaItemEstoqueMaxAggregateInputType = {
+    id?: true
+    nome?: true
+    createdAt?: true
+  }
+
+  export type CategoriaItemEstoqueCountAggregateInputType = {
+    id?: true
+    nome?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CategoriaItemEstoqueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CategoriaItemEstoque to aggregate.
+     */
+    where?: CategoriaItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CategoriaItemEstoques to fetch.
+     */
+    orderBy?: CategoriaItemEstoqueOrderByWithRelationInput | CategoriaItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CategoriaItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CategoriaItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CategoriaItemEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CategoriaItemEstoques
+    **/
+    _count?: true | CategoriaItemEstoqueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CategoriaItemEstoqueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CategoriaItemEstoqueMaxAggregateInputType
+  }
+
+  export type GetCategoriaItemEstoqueAggregateType<T extends CategoriaItemEstoqueAggregateArgs> = {
+        [P in keyof T & keyof AggregateCategoriaItemEstoque]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCategoriaItemEstoque[P]>
+      : GetScalarType<T[P], AggregateCategoriaItemEstoque[P]>
+  }
+
+
+
+
+  export type CategoriaItemEstoqueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoriaItemEstoqueWhereInput
+    orderBy?: CategoriaItemEstoqueOrderByWithAggregationInput | CategoriaItemEstoqueOrderByWithAggregationInput[]
+    by: CategoriaItemEstoqueScalarFieldEnum[] | CategoriaItemEstoqueScalarFieldEnum
+    having?: CategoriaItemEstoqueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CategoriaItemEstoqueCountAggregateInputType | true
+    _min?: CategoriaItemEstoqueMinAggregateInputType
+    _max?: CategoriaItemEstoqueMaxAggregateInputType
+  }
+
+  export type CategoriaItemEstoqueGroupByOutputType = {
+    id: string
+    nome: string
+    createdAt: Date
+    _count: CategoriaItemEstoqueCountAggregateOutputType | null
+    _min: CategoriaItemEstoqueMinAggregateOutputType | null
+    _max: CategoriaItemEstoqueMaxAggregateOutputType | null
+  }
+
+  type GetCategoriaItemEstoqueGroupByPayload<T extends CategoriaItemEstoqueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CategoriaItemEstoqueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CategoriaItemEstoqueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CategoriaItemEstoqueGroupByOutputType[P]>
+            : GetScalarType<T[P], CategoriaItemEstoqueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CategoriaItemEstoqueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    createdAt?: boolean
+    itens?: boolean | CategoriaItemEstoque$itensArgs<ExtArgs>
+    _count?: boolean | CategoriaItemEstoqueCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["categoriaItemEstoque"]>
+
+  export type CategoriaItemEstoqueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["categoriaItemEstoque"]>
+
+  export type CategoriaItemEstoqueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["categoriaItemEstoque"]>
+
+  export type CategoriaItemEstoqueSelectScalar = {
+    id?: boolean
+    nome?: boolean
+    createdAt?: boolean
+  }
+
+  export type CategoriaItemEstoqueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "createdAt", ExtArgs["result"]["categoriaItemEstoque"]>
+  export type CategoriaItemEstoqueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    itens?: boolean | CategoriaItemEstoque$itensArgs<ExtArgs>
+    _count?: boolean | CategoriaItemEstoqueCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CategoriaItemEstoqueIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CategoriaItemEstoqueIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CategoriaItemEstoquePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CategoriaItemEstoque"
+    objects: {
+      itens: Prisma.$ItemEstoquePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      nome: string
+      createdAt: Date
+    }, ExtArgs["result"]["categoriaItemEstoque"]>
+    composites: {}
+  }
+
+  type CategoriaItemEstoqueGetPayload<S extends boolean | null | undefined | CategoriaItemEstoqueDefaultArgs> = $Result.GetResult<Prisma.$CategoriaItemEstoquePayload, S>
+
+  type CategoriaItemEstoqueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CategoriaItemEstoqueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CategoriaItemEstoqueCountAggregateInputType | true
+    }
+
+  export interface CategoriaItemEstoqueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CategoriaItemEstoque'], meta: { name: 'CategoriaItemEstoque' } }
+    /**
+     * Find zero or one CategoriaItemEstoque that matches the filter.
+     * @param {CategoriaItemEstoqueFindUniqueArgs} args - Arguments to find a CategoriaItemEstoque
+     * @example
+     * // Get one CategoriaItemEstoque
+     * const categoriaItemEstoque = await prisma.categoriaItemEstoque.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CategoriaItemEstoqueFindUniqueArgs>(args: SelectSubset<T, CategoriaItemEstoqueFindUniqueArgs<ExtArgs>>): Prisma__CategoriaItemEstoqueClient<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CategoriaItemEstoque that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CategoriaItemEstoqueFindUniqueOrThrowArgs} args - Arguments to find a CategoriaItemEstoque
+     * @example
+     * // Get one CategoriaItemEstoque
+     * const categoriaItemEstoque = await prisma.categoriaItemEstoque.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CategoriaItemEstoqueFindUniqueOrThrowArgs>(args: SelectSubset<T, CategoriaItemEstoqueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CategoriaItemEstoqueClient<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CategoriaItemEstoque that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoriaItemEstoqueFindFirstArgs} args - Arguments to find a CategoriaItemEstoque
+     * @example
+     * // Get one CategoriaItemEstoque
+     * const categoriaItemEstoque = await prisma.categoriaItemEstoque.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CategoriaItemEstoqueFindFirstArgs>(args?: SelectSubset<T, CategoriaItemEstoqueFindFirstArgs<ExtArgs>>): Prisma__CategoriaItemEstoqueClient<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CategoriaItemEstoque that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoriaItemEstoqueFindFirstOrThrowArgs} args - Arguments to find a CategoriaItemEstoque
+     * @example
+     * // Get one CategoriaItemEstoque
+     * const categoriaItemEstoque = await prisma.categoriaItemEstoque.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CategoriaItemEstoqueFindFirstOrThrowArgs>(args?: SelectSubset<T, CategoriaItemEstoqueFindFirstOrThrowArgs<ExtArgs>>): Prisma__CategoriaItemEstoqueClient<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CategoriaItemEstoques that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoriaItemEstoqueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CategoriaItemEstoques
+     * const categoriaItemEstoques = await prisma.categoriaItemEstoque.findMany()
+     * 
+     * // Get first 10 CategoriaItemEstoques
+     * const categoriaItemEstoques = await prisma.categoriaItemEstoque.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const categoriaItemEstoqueWithIdOnly = await prisma.categoriaItemEstoque.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CategoriaItemEstoqueFindManyArgs>(args?: SelectSubset<T, CategoriaItemEstoqueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CategoriaItemEstoque.
+     * @param {CategoriaItemEstoqueCreateArgs} args - Arguments to create a CategoriaItemEstoque.
+     * @example
+     * // Create one CategoriaItemEstoque
+     * const CategoriaItemEstoque = await prisma.categoriaItemEstoque.create({
+     *   data: {
+     *     // ... data to create a CategoriaItemEstoque
+     *   }
+     * })
+     * 
+     */
+    create<T extends CategoriaItemEstoqueCreateArgs>(args: SelectSubset<T, CategoriaItemEstoqueCreateArgs<ExtArgs>>): Prisma__CategoriaItemEstoqueClient<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CategoriaItemEstoques.
+     * @param {CategoriaItemEstoqueCreateManyArgs} args - Arguments to create many CategoriaItemEstoques.
+     * @example
+     * // Create many CategoriaItemEstoques
+     * const categoriaItemEstoque = await prisma.categoriaItemEstoque.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CategoriaItemEstoqueCreateManyArgs>(args?: SelectSubset<T, CategoriaItemEstoqueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CategoriaItemEstoques and returns the data saved in the database.
+     * @param {CategoriaItemEstoqueCreateManyAndReturnArgs} args - Arguments to create many CategoriaItemEstoques.
+     * @example
+     * // Create many CategoriaItemEstoques
+     * const categoriaItemEstoque = await prisma.categoriaItemEstoque.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CategoriaItemEstoques and only return the `id`
+     * const categoriaItemEstoqueWithIdOnly = await prisma.categoriaItemEstoque.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CategoriaItemEstoqueCreateManyAndReturnArgs>(args?: SelectSubset<T, CategoriaItemEstoqueCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CategoriaItemEstoque.
+     * @param {CategoriaItemEstoqueDeleteArgs} args - Arguments to delete one CategoriaItemEstoque.
+     * @example
+     * // Delete one CategoriaItemEstoque
+     * const CategoriaItemEstoque = await prisma.categoriaItemEstoque.delete({
+     *   where: {
+     *     // ... filter to delete one CategoriaItemEstoque
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CategoriaItemEstoqueDeleteArgs>(args: SelectSubset<T, CategoriaItemEstoqueDeleteArgs<ExtArgs>>): Prisma__CategoriaItemEstoqueClient<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CategoriaItemEstoque.
+     * @param {CategoriaItemEstoqueUpdateArgs} args - Arguments to update one CategoriaItemEstoque.
+     * @example
+     * // Update one CategoriaItemEstoque
+     * const categoriaItemEstoque = await prisma.categoriaItemEstoque.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CategoriaItemEstoqueUpdateArgs>(args: SelectSubset<T, CategoriaItemEstoqueUpdateArgs<ExtArgs>>): Prisma__CategoriaItemEstoqueClient<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CategoriaItemEstoques.
+     * @param {CategoriaItemEstoqueDeleteManyArgs} args - Arguments to filter CategoriaItemEstoques to delete.
+     * @example
+     * // Delete a few CategoriaItemEstoques
+     * const { count } = await prisma.categoriaItemEstoque.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CategoriaItemEstoqueDeleteManyArgs>(args?: SelectSubset<T, CategoriaItemEstoqueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CategoriaItemEstoques.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoriaItemEstoqueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CategoriaItemEstoques
+     * const categoriaItemEstoque = await prisma.categoriaItemEstoque.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CategoriaItemEstoqueUpdateManyArgs>(args: SelectSubset<T, CategoriaItemEstoqueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CategoriaItemEstoques and returns the data updated in the database.
+     * @param {CategoriaItemEstoqueUpdateManyAndReturnArgs} args - Arguments to update many CategoriaItemEstoques.
+     * @example
+     * // Update many CategoriaItemEstoques
+     * const categoriaItemEstoque = await prisma.categoriaItemEstoque.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CategoriaItemEstoques and only return the `id`
+     * const categoriaItemEstoqueWithIdOnly = await prisma.categoriaItemEstoque.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CategoriaItemEstoqueUpdateManyAndReturnArgs>(args: SelectSubset<T, CategoriaItemEstoqueUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CategoriaItemEstoque.
+     * @param {CategoriaItemEstoqueUpsertArgs} args - Arguments to update or create a CategoriaItemEstoque.
+     * @example
+     * // Update or create a CategoriaItemEstoque
+     * const categoriaItemEstoque = await prisma.categoriaItemEstoque.upsert({
+     *   create: {
+     *     // ... data to create a CategoriaItemEstoque
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CategoriaItemEstoque we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CategoriaItemEstoqueUpsertArgs>(args: SelectSubset<T, CategoriaItemEstoqueUpsertArgs<ExtArgs>>): Prisma__CategoriaItemEstoqueClient<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CategoriaItemEstoques.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoriaItemEstoqueCountArgs} args - Arguments to filter CategoriaItemEstoques to count.
+     * @example
+     * // Count the number of CategoriaItemEstoques
+     * const count = await prisma.categoriaItemEstoque.count({
+     *   where: {
+     *     // ... the filter for the CategoriaItemEstoques we want to count
+     *   }
+     * })
+    **/
+    count<T extends CategoriaItemEstoqueCountArgs>(
+      args?: Subset<T, CategoriaItemEstoqueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CategoriaItemEstoqueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CategoriaItemEstoque.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoriaItemEstoqueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CategoriaItemEstoqueAggregateArgs>(args: Subset<T, CategoriaItemEstoqueAggregateArgs>): Prisma.PrismaPromise<GetCategoriaItemEstoqueAggregateType<T>>
+
+    /**
+     * Group by CategoriaItemEstoque.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoriaItemEstoqueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CategoriaItemEstoqueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CategoriaItemEstoqueGroupByArgs['orderBy'] }
+        : { orderBy?: CategoriaItemEstoqueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CategoriaItemEstoqueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCategoriaItemEstoqueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CategoriaItemEstoque model
+   */
+  readonly fields: CategoriaItemEstoqueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CategoriaItemEstoque.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CategoriaItemEstoqueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    itens<T extends CategoriaItemEstoque$itensArgs<ExtArgs> = {}>(args?: Subset<T, CategoriaItemEstoque$itensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CategoriaItemEstoque model
+   */
+  interface CategoriaItemEstoqueFieldRefs {
+    readonly id: FieldRef<"CategoriaItemEstoque", 'String'>
+    readonly nome: FieldRef<"CategoriaItemEstoque", 'String'>
+    readonly createdAt: FieldRef<"CategoriaItemEstoque", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CategoriaItemEstoque findUnique
+   */
+  export type CategoriaItemEstoqueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which CategoriaItemEstoque to fetch.
+     */
+    where: CategoriaItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * CategoriaItemEstoque findUniqueOrThrow
+   */
+  export type CategoriaItemEstoqueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which CategoriaItemEstoque to fetch.
+     */
+    where: CategoriaItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * CategoriaItemEstoque findFirst
+   */
+  export type CategoriaItemEstoqueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which CategoriaItemEstoque to fetch.
+     */
+    where?: CategoriaItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CategoriaItemEstoques to fetch.
+     */
+    orderBy?: CategoriaItemEstoqueOrderByWithRelationInput | CategoriaItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CategoriaItemEstoques.
+     */
+    cursor?: CategoriaItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CategoriaItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CategoriaItemEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CategoriaItemEstoques.
+     */
+    distinct?: CategoriaItemEstoqueScalarFieldEnum | CategoriaItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * CategoriaItemEstoque findFirstOrThrow
+   */
+  export type CategoriaItemEstoqueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which CategoriaItemEstoque to fetch.
+     */
+    where?: CategoriaItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CategoriaItemEstoques to fetch.
+     */
+    orderBy?: CategoriaItemEstoqueOrderByWithRelationInput | CategoriaItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CategoriaItemEstoques.
+     */
+    cursor?: CategoriaItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CategoriaItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CategoriaItemEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CategoriaItemEstoques.
+     */
+    distinct?: CategoriaItemEstoqueScalarFieldEnum | CategoriaItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * CategoriaItemEstoque findMany
+   */
+  export type CategoriaItemEstoqueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which CategoriaItemEstoques to fetch.
+     */
+    where?: CategoriaItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CategoriaItemEstoques to fetch.
+     */
+    orderBy?: CategoriaItemEstoqueOrderByWithRelationInput | CategoriaItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CategoriaItemEstoques.
+     */
+    cursor?: CategoriaItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CategoriaItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CategoriaItemEstoques.
+     */
+    skip?: number
+    distinct?: CategoriaItemEstoqueScalarFieldEnum | CategoriaItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * CategoriaItemEstoque create
+   */
+  export type CategoriaItemEstoqueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CategoriaItemEstoque.
+     */
+    data: XOR<CategoriaItemEstoqueCreateInput, CategoriaItemEstoqueUncheckedCreateInput>
+  }
+
+  /**
+   * CategoriaItemEstoque createMany
+   */
+  export type CategoriaItemEstoqueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CategoriaItemEstoques.
+     */
+    data: CategoriaItemEstoqueCreateManyInput | CategoriaItemEstoqueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CategoriaItemEstoque createManyAndReturn
+   */
+  export type CategoriaItemEstoqueCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * The data used to create many CategoriaItemEstoques.
+     */
+    data: CategoriaItemEstoqueCreateManyInput | CategoriaItemEstoqueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CategoriaItemEstoque update
+   */
+  export type CategoriaItemEstoqueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CategoriaItemEstoque.
+     */
+    data: XOR<CategoriaItemEstoqueUpdateInput, CategoriaItemEstoqueUncheckedUpdateInput>
+    /**
+     * Choose, which CategoriaItemEstoque to update.
+     */
+    where: CategoriaItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * CategoriaItemEstoque updateMany
+   */
+  export type CategoriaItemEstoqueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CategoriaItemEstoques.
+     */
+    data: XOR<CategoriaItemEstoqueUpdateManyMutationInput, CategoriaItemEstoqueUncheckedUpdateManyInput>
+    /**
+     * Filter which CategoriaItemEstoques to update
+     */
+    where?: CategoriaItemEstoqueWhereInput
+    /**
+     * Limit how many CategoriaItemEstoques to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CategoriaItemEstoque updateManyAndReturn
+   */
+  export type CategoriaItemEstoqueUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * The data used to update CategoriaItemEstoques.
+     */
+    data: XOR<CategoriaItemEstoqueUpdateManyMutationInput, CategoriaItemEstoqueUncheckedUpdateManyInput>
+    /**
+     * Filter which CategoriaItemEstoques to update
+     */
+    where?: CategoriaItemEstoqueWhereInput
+    /**
+     * Limit how many CategoriaItemEstoques to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CategoriaItemEstoque upsert
+   */
+  export type CategoriaItemEstoqueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CategoriaItemEstoque to update in case it exists.
+     */
+    where: CategoriaItemEstoqueWhereUniqueInput
+    /**
+     * In case the CategoriaItemEstoque found by the `where` argument doesn't exist, create a new CategoriaItemEstoque with this data.
+     */
+    create: XOR<CategoriaItemEstoqueCreateInput, CategoriaItemEstoqueUncheckedCreateInput>
+    /**
+     * In case the CategoriaItemEstoque was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CategoriaItemEstoqueUpdateInput, CategoriaItemEstoqueUncheckedUpdateInput>
+  }
+
+  /**
+   * CategoriaItemEstoque delete
+   */
+  export type CategoriaItemEstoqueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter which CategoriaItemEstoque to delete.
+     */
+    where: CategoriaItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * CategoriaItemEstoque deleteMany
+   */
+  export type CategoriaItemEstoqueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CategoriaItemEstoques to delete
+     */
+    where?: CategoriaItemEstoqueWhereInput
+    /**
+     * Limit how many CategoriaItemEstoques to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CategoriaItemEstoque.itens
+   */
+  export type CategoriaItemEstoque$itensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    where?: ItemEstoqueWhereInput
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    cursor?: ItemEstoqueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItemEstoqueScalarFieldEnum | ItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * CategoriaItemEstoque without action
+   */
+  export type CategoriaItemEstoqueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ItemEstoque
+   */
+
+  export type AggregateItemEstoque = {
+    _count: ItemEstoqueCountAggregateOutputType | null
+    _avg: ItemEstoqueAvgAggregateOutputType | null
+    _sum: ItemEstoqueSumAggregateOutputType | null
+    _min: ItemEstoqueMinAggregateOutputType | null
+    _max: ItemEstoqueMaxAggregateOutputType | null
+  }
+
+  export type ItemEstoqueAvgAggregateOutputType = {
+    qtd: number | null
+  }
+
+  export type ItemEstoqueSumAggregateOutputType = {
+    qtd: number | null
+  }
+
+  export type ItemEstoqueMinAggregateOutputType = {
+    id: string | null
+    nome: string | null
+    qtd: number | null
+    validade: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ItemEstoqueMaxAggregateOutputType = {
+    id: string | null
+    nome: string | null
+    qtd: number | null
+    validade: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ItemEstoqueCountAggregateOutputType = {
+    id: number
+    nome: number
+    qtd: number
+    validade: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ItemEstoqueAvgAggregateInputType = {
+    qtd?: true
+  }
+
+  export type ItemEstoqueSumAggregateInputType = {
+    qtd?: true
+  }
+
+  export type ItemEstoqueMinAggregateInputType = {
+    id?: true
+    nome?: true
+    qtd?: true
+    validade?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ItemEstoqueMaxAggregateInputType = {
+    id?: true
+    nome?: true
+    qtd?: true
+    validade?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ItemEstoqueCountAggregateInputType = {
+    id?: true
+    nome?: true
+    qtd?: true
+    validade?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ItemEstoqueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemEstoque to aggregate.
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemEstoques to fetch.
+     */
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ItemEstoques
+    **/
+    _count?: true | ItemEstoqueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ItemEstoqueAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ItemEstoqueSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ItemEstoqueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ItemEstoqueMaxAggregateInputType
+  }
+
+  export type GetItemEstoqueAggregateType<T extends ItemEstoqueAggregateArgs> = {
+        [P in keyof T & keyof AggregateItemEstoque]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateItemEstoque[P]>
+      : GetScalarType<T[P], AggregateItemEstoque[P]>
+  }
+
+
+
+
+  export type ItemEstoqueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemEstoqueWhereInput
+    orderBy?: ItemEstoqueOrderByWithAggregationInput | ItemEstoqueOrderByWithAggregationInput[]
+    by: ItemEstoqueScalarFieldEnum[] | ItemEstoqueScalarFieldEnum
+    having?: ItemEstoqueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ItemEstoqueCountAggregateInputType | true
+    _avg?: ItemEstoqueAvgAggregateInputType
+    _sum?: ItemEstoqueSumAggregateInputType
+    _min?: ItemEstoqueMinAggregateInputType
+    _max?: ItemEstoqueMaxAggregateInputType
+  }
+
+  export type ItemEstoqueGroupByOutputType = {
+    id: string
+    nome: string
+    qtd: number
+    validade: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: ItemEstoqueCountAggregateOutputType | null
+    _avg: ItemEstoqueAvgAggregateOutputType | null
+    _sum: ItemEstoqueSumAggregateOutputType | null
+    _min: ItemEstoqueMinAggregateOutputType | null
+    _max: ItemEstoqueMaxAggregateOutputType | null
+  }
+
+  type GetItemEstoqueGroupByPayload<T extends ItemEstoqueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ItemEstoqueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ItemEstoqueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ItemEstoqueGroupByOutputType[P]>
+            : GetScalarType<T[P], ItemEstoqueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ItemEstoqueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    qtd?: boolean
+    validade?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    categorias?: boolean | ItemEstoque$categoriasArgs<ExtArgs>
+    _count?: boolean | ItemEstoqueCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itemEstoque"]>
+
+  export type ItemEstoqueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    qtd?: boolean
+    validade?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["itemEstoque"]>
+
+  export type ItemEstoqueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    qtd?: boolean
+    validade?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["itemEstoque"]>
+
+  export type ItemEstoqueSelectScalar = {
+    id?: boolean
+    nome?: boolean
+    qtd?: boolean
+    validade?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ItemEstoqueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "qtd" | "validade" | "createdAt" | "updatedAt", ExtArgs["result"]["itemEstoque"]>
+  export type ItemEstoqueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    categorias?: boolean | ItemEstoque$categoriasArgs<ExtArgs>
+    _count?: boolean | ItemEstoqueCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ItemEstoqueIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ItemEstoqueIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ItemEstoquePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ItemEstoque"
+    objects: {
+      categorias: Prisma.$CategoriaItemEstoquePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      nome: string
+      qtd: number
+      validade: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["itemEstoque"]>
+    composites: {}
+  }
+
+  type ItemEstoqueGetPayload<S extends boolean | null | undefined | ItemEstoqueDefaultArgs> = $Result.GetResult<Prisma.$ItemEstoquePayload, S>
+
+  type ItemEstoqueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ItemEstoqueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ItemEstoqueCountAggregateInputType | true
+    }
+
+  export interface ItemEstoqueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ItemEstoque'], meta: { name: 'ItemEstoque' } }
+    /**
+     * Find zero or one ItemEstoque that matches the filter.
+     * @param {ItemEstoqueFindUniqueArgs} args - Arguments to find a ItemEstoque
+     * @example
+     * // Get one ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ItemEstoqueFindUniqueArgs>(args: SelectSubset<T, ItemEstoqueFindUniqueArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ItemEstoque that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ItemEstoqueFindUniqueOrThrowArgs} args - Arguments to find a ItemEstoque
+     * @example
+     * // Get one ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ItemEstoqueFindUniqueOrThrowArgs>(args: SelectSubset<T, ItemEstoqueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ItemEstoque that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueFindFirstArgs} args - Arguments to find a ItemEstoque
+     * @example
+     * // Get one ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ItemEstoqueFindFirstArgs>(args?: SelectSubset<T, ItemEstoqueFindFirstArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ItemEstoque that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueFindFirstOrThrowArgs} args - Arguments to find a ItemEstoque
+     * @example
+     * // Get one ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ItemEstoqueFindFirstOrThrowArgs>(args?: SelectSubset<T, ItemEstoqueFindFirstOrThrowArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ItemEstoques that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ItemEstoques
+     * const itemEstoques = await prisma.itemEstoque.findMany()
+     * 
+     * // Get first 10 ItemEstoques
+     * const itemEstoques = await prisma.itemEstoque.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const itemEstoqueWithIdOnly = await prisma.itemEstoque.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ItemEstoqueFindManyArgs>(args?: SelectSubset<T, ItemEstoqueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ItemEstoque.
+     * @param {ItemEstoqueCreateArgs} args - Arguments to create a ItemEstoque.
+     * @example
+     * // Create one ItemEstoque
+     * const ItemEstoque = await prisma.itemEstoque.create({
+     *   data: {
+     *     // ... data to create a ItemEstoque
+     *   }
+     * })
+     * 
+     */
+    create<T extends ItemEstoqueCreateArgs>(args: SelectSubset<T, ItemEstoqueCreateArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ItemEstoques.
+     * @param {ItemEstoqueCreateManyArgs} args - Arguments to create many ItemEstoques.
+     * @example
+     * // Create many ItemEstoques
+     * const itemEstoque = await prisma.itemEstoque.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ItemEstoqueCreateManyArgs>(args?: SelectSubset<T, ItemEstoqueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ItemEstoques and returns the data saved in the database.
+     * @param {ItemEstoqueCreateManyAndReturnArgs} args - Arguments to create many ItemEstoques.
+     * @example
+     * // Create many ItemEstoques
+     * const itemEstoque = await prisma.itemEstoque.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ItemEstoques and only return the `id`
+     * const itemEstoqueWithIdOnly = await prisma.itemEstoque.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ItemEstoqueCreateManyAndReturnArgs>(args?: SelectSubset<T, ItemEstoqueCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ItemEstoque.
+     * @param {ItemEstoqueDeleteArgs} args - Arguments to delete one ItemEstoque.
+     * @example
+     * // Delete one ItemEstoque
+     * const ItemEstoque = await prisma.itemEstoque.delete({
+     *   where: {
+     *     // ... filter to delete one ItemEstoque
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ItemEstoqueDeleteArgs>(args: SelectSubset<T, ItemEstoqueDeleteArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ItemEstoque.
+     * @param {ItemEstoqueUpdateArgs} args - Arguments to update one ItemEstoque.
+     * @example
+     * // Update one ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ItemEstoqueUpdateArgs>(args: SelectSubset<T, ItemEstoqueUpdateArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ItemEstoques.
+     * @param {ItemEstoqueDeleteManyArgs} args - Arguments to filter ItemEstoques to delete.
+     * @example
+     * // Delete a few ItemEstoques
+     * const { count } = await prisma.itemEstoque.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ItemEstoqueDeleteManyArgs>(args?: SelectSubset<T, ItemEstoqueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItemEstoques.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ItemEstoques
+     * const itemEstoque = await prisma.itemEstoque.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ItemEstoqueUpdateManyArgs>(args: SelectSubset<T, ItemEstoqueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItemEstoques and returns the data updated in the database.
+     * @param {ItemEstoqueUpdateManyAndReturnArgs} args - Arguments to update many ItemEstoques.
+     * @example
+     * // Update many ItemEstoques
+     * const itemEstoque = await prisma.itemEstoque.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ItemEstoques and only return the `id`
+     * const itemEstoqueWithIdOnly = await prisma.itemEstoque.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ItemEstoqueUpdateManyAndReturnArgs>(args: SelectSubset<T, ItemEstoqueUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ItemEstoque.
+     * @param {ItemEstoqueUpsertArgs} args - Arguments to update or create a ItemEstoque.
+     * @example
+     * // Update or create a ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.upsert({
+     *   create: {
+     *     // ... data to create a ItemEstoque
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ItemEstoque we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ItemEstoqueUpsertArgs>(args: SelectSubset<T, ItemEstoqueUpsertArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ItemEstoques.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueCountArgs} args - Arguments to filter ItemEstoques to count.
+     * @example
+     * // Count the number of ItemEstoques
+     * const count = await prisma.itemEstoque.count({
+     *   where: {
+     *     // ... the filter for the ItemEstoques we want to count
+     *   }
+     * })
+    **/
+    count<T extends ItemEstoqueCountArgs>(
+      args?: Subset<T, ItemEstoqueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ItemEstoqueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ItemEstoque.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ItemEstoqueAggregateArgs>(args: Subset<T, ItemEstoqueAggregateArgs>): Prisma.PrismaPromise<GetItemEstoqueAggregateType<T>>
+
+    /**
+     * Group by ItemEstoque.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ItemEstoqueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ItemEstoqueGroupByArgs['orderBy'] }
+        : { orderBy?: ItemEstoqueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ItemEstoqueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetItemEstoqueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ItemEstoque model
+   */
+  readonly fields: ItemEstoqueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ItemEstoque.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ItemEstoqueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    categorias<T extends ItemEstoque$categoriasArgs<ExtArgs> = {}>(args?: Subset<T, ItemEstoque$categoriasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoriaItemEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ItemEstoque model
+   */
+  interface ItemEstoqueFieldRefs {
+    readonly id: FieldRef<"ItemEstoque", 'String'>
+    readonly nome: FieldRef<"ItemEstoque", 'String'>
+    readonly qtd: FieldRef<"ItemEstoque", 'Int'>
+    readonly validade: FieldRef<"ItemEstoque", 'DateTime'>
+    readonly createdAt: FieldRef<"ItemEstoque", 'DateTime'>
+    readonly updatedAt: FieldRef<"ItemEstoque", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ItemEstoque findUnique
+   */
+  export type ItemEstoqueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemEstoque to fetch.
+     */
+    where: ItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * ItemEstoque findUniqueOrThrow
+   */
+  export type ItemEstoqueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemEstoque to fetch.
+     */
+    where: ItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * ItemEstoque findFirst
+   */
+  export type ItemEstoqueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemEstoque to fetch.
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemEstoques to fetch.
+     */
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemEstoques.
+     */
+    cursor?: ItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemEstoques.
+     */
+    distinct?: ItemEstoqueScalarFieldEnum | ItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * ItemEstoque findFirstOrThrow
+   */
+  export type ItemEstoqueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemEstoque to fetch.
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemEstoques to fetch.
+     */
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemEstoques.
+     */
+    cursor?: ItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemEstoques.
+     */
+    distinct?: ItemEstoqueScalarFieldEnum | ItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * ItemEstoque findMany
+   */
+  export type ItemEstoqueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemEstoques to fetch.
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemEstoques to fetch.
+     */
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ItemEstoques.
+     */
+    cursor?: ItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemEstoques.
+     */
+    skip?: number
+    distinct?: ItemEstoqueScalarFieldEnum | ItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * ItemEstoque create
+   */
+  export type ItemEstoqueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ItemEstoque.
+     */
+    data: XOR<ItemEstoqueCreateInput, ItemEstoqueUncheckedCreateInput>
+  }
+
+  /**
+   * ItemEstoque createMany
+   */
+  export type ItemEstoqueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ItemEstoques.
+     */
+    data: ItemEstoqueCreateManyInput | ItemEstoqueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ItemEstoque createManyAndReturn
+   */
+  export type ItemEstoqueCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * The data used to create many ItemEstoques.
+     */
+    data: ItemEstoqueCreateManyInput | ItemEstoqueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ItemEstoque update
+   */
+  export type ItemEstoqueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ItemEstoque.
+     */
+    data: XOR<ItemEstoqueUpdateInput, ItemEstoqueUncheckedUpdateInput>
+    /**
+     * Choose, which ItemEstoque to update.
+     */
+    where: ItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * ItemEstoque updateMany
+   */
+  export type ItemEstoqueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ItemEstoques.
+     */
+    data: XOR<ItemEstoqueUpdateManyMutationInput, ItemEstoqueUncheckedUpdateManyInput>
+    /**
+     * Filter which ItemEstoques to update
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * Limit how many ItemEstoques to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ItemEstoque updateManyAndReturn
+   */
+  export type ItemEstoqueUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * The data used to update ItemEstoques.
+     */
+    data: XOR<ItemEstoqueUpdateManyMutationInput, ItemEstoqueUncheckedUpdateManyInput>
+    /**
+     * Filter which ItemEstoques to update
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * Limit how many ItemEstoques to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ItemEstoque upsert
+   */
+  export type ItemEstoqueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ItemEstoque to update in case it exists.
+     */
+    where: ItemEstoqueWhereUniqueInput
+    /**
+     * In case the ItemEstoque found by the `where` argument doesn't exist, create a new ItemEstoque with this data.
+     */
+    create: XOR<ItemEstoqueCreateInput, ItemEstoqueUncheckedCreateInput>
+    /**
+     * In case the ItemEstoque was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ItemEstoqueUpdateInput, ItemEstoqueUncheckedUpdateInput>
+  }
+
+  /**
+   * ItemEstoque delete
+   */
+  export type ItemEstoqueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter which ItemEstoque to delete.
+     */
+    where: ItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * ItemEstoque deleteMany
+   */
+  export type ItemEstoqueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemEstoques to delete
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * Limit how many ItemEstoques to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ItemEstoque.categorias
+   */
+  export type ItemEstoque$categoriasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoriaItemEstoque
+     */
+    select?: CategoriaItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoriaItemEstoque
+     */
+    omit?: CategoriaItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoriaItemEstoqueInclude<ExtArgs> | null
+    where?: CategoriaItemEstoqueWhereInput
+    orderBy?: CategoriaItemEstoqueOrderByWithRelationInput | CategoriaItemEstoqueOrderByWithRelationInput[]
+    cursor?: CategoriaItemEstoqueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CategoriaItemEstoqueScalarFieldEnum | CategoriaItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * ItemEstoque without action
+   */
+  export type ItemEstoqueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
   }
 
 
@@ -38157,6 +40562,27 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const CategoriaItemEstoqueScalarFieldEnum: {
+    id: 'id',
+    nome: 'nome',
+    createdAt: 'createdAt'
+  };
+
+  export type CategoriaItemEstoqueScalarFieldEnum = (typeof CategoriaItemEstoqueScalarFieldEnum)[keyof typeof CategoriaItemEstoqueScalarFieldEnum]
+
+
+  export const ItemEstoqueScalarFieldEnum: {
+    id: 'id',
+    nome: 'nome',
+    qtd: 'qtd',
+    validade: 'validade',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ItemEstoqueScalarFieldEnum = (typeof ItemEstoqueScalarFieldEnum)[keyof typeof ItemEstoqueScalarFieldEnum]
+
+
   export const PasswordResetRequestScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -39060,6 +41486,113 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type CategoriaItemEstoqueWhereInput = {
+    AND?: CategoriaItemEstoqueWhereInput | CategoriaItemEstoqueWhereInput[]
+    OR?: CategoriaItemEstoqueWhereInput[]
+    NOT?: CategoriaItemEstoqueWhereInput | CategoriaItemEstoqueWhereInput[]
+    id?: StringFilter<"CategoriaItemEstoque"> | string
+    nome?: StringFilter<"CategoriaItemEstoque"> | string
+    createdAt?: DateTimeFilter<"CategoriaItemEstoque"> | Date | string
+    itens?: ItemEstoqueListRelationFilter
+  }
+
+  export type CategoriaItemEstoqueOrderByWithRelationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    createdAt?: SortOrder
+    itens?: ItemEstoqueOrderByRelationAggregateInput
+  }
+
+  export type CategoriaItemEstoqueWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    nome?: string
+    AND?: CategoriaItemEstoqueWhereInput | CategoriaItemEstoqueWhereInput[]
+    OR?: CategoriaItemEstoqueWhereInput[]
+    NOT?: CategoriaItemEstoqueWhereInput | CategoriaItemEstoqueWhereInput[]
+    createdAt?: DateTimeFilter<"CategoriaItemEstoque"> | Date | string
+    itens?: ItemEstoqueListRelationFilter
+  }, "id" | "nome">
+
+  export type CategoriaItemEstoqueOrderByWithAggregationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    createdAt?: SortOrder
+    _count?: CategoriaItemEstoqueCountOrderByAggregateInput
+    _max?: CategoriaItemEstoqueMaxOrderByAggregateInput
+    _min?: CategoriaItemEstoqueMinOrderByAggregateInput
+  }
+
+  export type CategoriaItemEstoqueScalarWhereWithAggregatesInput = {
+    AND?: CategoriaItemEstoqueScalarWhereWithAggregatesInput | CategoriaItemEstoqueScalarWhereWithAggregatesInput[]
+    OR?: CategoriaItemEstoqueScalarWhereWithAggregatesInput[]
+    NOT?: CategoriaItemEstoqueScalarWhereWithAggregatesInput | CategoriaItemEstoqueScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CategoriaItemEstoque"> | string
+    nome?: StringWithAggregatesFilter<"CategoriaItemEstoque"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"CategoriaItemEstoque"> | Date | string
+  }
+
+  export type ItemEstoqueWhereInput = {
+    AND?: ItemEstoqueWhereInput | ItemEstoqueWhereInput[]
+    OR?: ItemEstoqueWhereInput[]
+    NOT?: ItemEstoqueWhereInput | ItemEstoqueWhereInput[]
+    id?: StringFilter<"ItemEstoque"> | string
+    nome?: StringFilter<"ItemEstoque"> | string
+    qtd?: IntFilter<"ItemEstoque"> | number
+    validade?: DateTimeFilter<"ItemEstoque"> | Date | string
+    createdAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+    updatedAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+    categorias?: CategoriaItemEstoqueListRelationFilter
+  }
+
+  export type ItemEstoqueOrderByWithRelationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    qtd?: SortOrder
+    validade?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    categorias?: CategoriaItemEstoqueOrderByRelationAggregateInput
+  }
+
+  export type ItemEstoqueWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ItemEstoqueWhereInput | ItemEstoqueWhereInput[]
+    OR?: ItemEstoqueWhereInput[]
+    NOT?: ItemEstoqueWhereInput | ItemEstoqueWhereInput[]
+    nome?: StringFilter<"ItemEstoque"> | string
+    qtd?: IntFilter<"ItemEstoque"> | number
+    validade?: DateTimeFilter<"ItemEstoque"> | Date | string
+    createdAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+    updatedAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+    categorias?: CategoriaItemEstoqueListRelationFilter
+  }, "id">
+
+  export type ItemEstoqueOrderByWithAggregationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    qtd?: SortOrder
+    validade?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ItemEstoqueCountOrderByAggregateInput
+    _avg?: ItemEstoqueAvgOrderByAggregateInput
+    _max?: ItemEstoqueMaxOrderByAggregateInput
+    _min?: ItemEstoqueMinOrderByAggregateInput
+    _sum?: ItemEstoqueSumOrderByAggregateInput
+  }
+
+  export type ItemEstoqueScalarWhereWithAggregatesInput = {
+    AND?: ItemEstoqueScalarWhereWithAggregatesInput | ItemEstoqueScalarWhereWithAggregatesInput[]
+    OR?: ItemEstoqueScalarWhereWithAggregatesInput[]
+    NOT?: ItemEstoqueScalarWhereWithAggregatesInput | ItemEstoqueScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ItemEstoque"> | string
+    nome?: StringWithAggregatesFilter<"ItemEstoque"> | string
+    qtd?: IntWithAggregatesFilter<"ItemEstoque"> | number
+    validade?: DateTimeWithAggregatesFilter<"ItemEstoque"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"ItemEstoque"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ItemEstoque"> | Date | string
   }
 
   export type PasswordResetRequestWhereInput = {
@@ -41207,6 +43740,119 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     image?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoriaItemEstoqueCreateInput = {
+    id?: string
+    nome: string
+    createdAt?: Date | string
+    itens?: ItemEstoqueCreateNestedManyWithoutCategoriasInput
+  }
+
+  export type CategoriaItemEstoqueUncheckedCreateInput = {
+    id?: string
+    nome: string
+    createdAt?: Date | string
+    itens?: ItemEstoqueUncheckedCreateNestedManyWithoutCategoriasInput
+  }
+
+  export type CategoriaItemEstoqueUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    itens?: ItemEstoqueUpdateManyWithoutCategoriasNestedInput
+  }
+
+  export type CategoriaItemEstoqueUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    itens?: ItemEstoqueUncheckedUpdateManyWithoutCategoriasNestedInput
+  }
+
+  export type CategoriaItemEstoqueCreateManyInput = {
+    id?: string
+    nome: string
+    createdAt?: Date | string
+  }
+
+  export type CategoriaItemEstoqueUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoriaItemEstoqueUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemEstoqueCreateInput = {
+    id?: string
+    nome: string
+    qtd: number
+    validade: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categorias?: CategoriaItemEstoqueCreateNestedManyWithoutItensInput
+  }
+
+  export type ItemEstoqueUncheckedCreateInput = {
+    id?: string
+    nome: string
+    qtd: number
+    validade: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categorias?: CategoriaItemEstoqueUncheckedCreateNestedManyWithoutItensInput
+  }
+
+  export type ItemEstoqueUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    qtd?: IntFieldUpdateOperationsInput | number
+    validade?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categorias?: CategoriaItemEstoqueUpdateManyWithoutItensNestedInput
+  }
+
+  export type ItemEstoqueUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    qtd?: IntFieldUpdateOperationsInput | number
+    validade?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categorias?: CategoriaItemEstoqueUncheckedUpdateManyWithoutItensNestedInput
+  }
+
+  export type ItemEstoqueCreateManyInput = {
+    id?: string
+    nome: string
+    qtd: number
+    validade: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemEstoqueUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    qtd?: IntFieldUpdateOperationsInput | number
+    validade?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemEstoqueUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    qtd?: IntFieldUpdateOperationsInput | number
+    validade?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -43503,6 +46149,106 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
+  export type ItemEstoqueListRelationFilter = {
+    every?: ItemEstoqueWhereInput
+    some?: ItemEstoqueWhereInput
+    none?: ItemEstoqueWhereInput
+  }
+
+  export type ItemEstoqueOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CategoriaItemEstoqueCountOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CategoriaItemEstoqueMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CategoriaItemEstoqueMinOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type CategoriaItemEstoqueListRelationFilter = {
+    every?: CategoriaItemEstoqueWhereInput
+    some?: CategoriaItemEstoqueWhereInput
+    none?: CategoriaItemEstoqueWhereInput
+  }
+
+  export type CategoriaItemEstoqueOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ItemEstoqueCountOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    qtd?: SortOrder
+    validade?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ItemEstoqueAvgOrderByAggregateInput = {
+    qtd?: SortOrder
+  }
+
+  export type ItemEstoqueMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    qtd?: SortOrder
+    validade?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ItemEstoqueMinOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    qtd?: SortOrder
+    validade?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ItemEstoqueSumOrderByAggregateInput = {
+    qtd?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type PasswordResetRequestCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -43617,17 +46363,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type SemestreScalarRelationFilter = {
     is?: SemestreWhereInput
     isNot?: SemestreWhereInput
@@ -43684,22 +46419,6 @@ export namespace Prisma {
 
   export type SemanaImpressaoSumOrderByAggregateInput = {
     numero?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type SemanaImpressaoScalarRelationFilter = {
@@ -45484,6 +48203,90 @@ export namespace Prisma {
     deleteMany?: ResponsavelMaterialAtualizacaoScalarWhereInput | ResponsavelMaterialAtualizacaoScalarWhereInput[]
   }
 
+  export type ItemEstoqueCreateNestedManyWithoutCategoriasInput = {
+    create?: XOR<ItemEstoqueCreateWithoutCategoriasInput, ItemEstoqueUncheckedCreateWithoutCategoriasInput> | ItemEstoqueCreateWithoutCategoriasInput[] | ItemEstoqueUncheckedCreateWithoutCategoriasInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutCategoriasInput | ItemEstoqueCreateOrConnectWithoutCategoriasInput[]
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+  }
+
+  export type ItemEstoqueUncheckedCreateNestedManyWithoutCategoriasInput = {
+    create?: XOR<ItemEstoqueCreateWithoutCategoriasInput, ItemEstoqueUncheckedCreateWithoutCategoriasInput> | ItemEstoqueCreateWithoutCategoriasInput[] | ItemEstoqueUncheckedCreateWithoutCategoriasInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutCategoriasInput | ItemEstoqueCreateOrConnectWithoutCategoriasInput[]
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+  }
+
+  export type ItemEstoqueUpdateManyWithoutCategoriasNestedInput = {
+    create?: XOR<ItemEstoqueCreateWithoutCategoriasInput, ItemEstoqueUncheckedCreateWithoutCategoriasInput> | ItemEstoqueCreateWithoutCategoriasInput[] | ItemEstoqueUncheckedCreateWithoutCategoriasInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutCategoriasInput | ItemEstoqueCreateOrConnectWithoutCategoriasInput[]
+    upsert?: ItemEstoqueUpsertWithWhereUniqueWithoutCategoriasInput | ItemEstoqueUpsertWithWhereUniqueWithoutCategoriasInput[]
+    set?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    disconnect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    delete?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    update?: ItemEstoqueUpdateWithWhereUniqueWithoutCategoriasInput | ItemEstoqueUpdateWithWhereUniqueWithoutCategoriasInput[]
+    updateMany?: ItemEstoqueUpdateManyWithWhereWithoutCategoriasInput | ItemEstoqueUpdateManyWithWhereWithoutCategoriasInput[]
+    deleteMany?: ItemEstoqueScalarWhereInput | ItemEstoqueScalarWhereInput[]
+  }
+
+  export type ItemEstoqueUncheckedUpdateManyWithoutCategoriasNestedInput = {
+    create?: XOR<ItemEstoqueCreateWithoutCategoriasInput, ItemEstoqueUncheckedCreateWithoutCategoriasInput> | ItemEstoqueCreateWithoutCategoriasInput[] | ItemEstoqueUncheckedCreateWithoutCategoriasInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutCategoriasInput | ItemEstoqueCreateOrConnectWithoutCategoriasInput[]
+    upsert?: ItemEstoqueUpsertWithWhereUniqueWithoutCategoriasInput | ItemEstoqueUpsertWithWhereUniqueWithoutCategoriasInput[]
+    set?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    disconnect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    delete?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    update?: ItemEstoqueUpdateWithWhereUniqueWithoutCategoriasInput | ItemEstoqueUpdateWithWhereUniqueWithoutCategoriasInput[]
+    updateMany?: ItemEstoqueUpdateManyWithWhereWithoutCategoriasInput | ItemEstoqueUpdateManyWithWhereWithoutCategoriasInput[]
+    deleteMany?: ItemEstoqueScalarWhereInput | ItemEstoqueScalarWhereInput[]
+  }
+
+  export type CategoriaItemEstoqueCreateNestedManyWithoutItensInput = {
+    create?: XOR<CategoriaItemEstoqueCreateWithoutItensInput, CategoriaItemEstoqueUncheckedCreateWithoutItensInput> | CategoriaItemEstoqueCreateWithoutItensInput[] | CategoriaItemEstoqueUncheckedCreateWithoutItensInput[]
+    connectOrCreate?: CategoriaItemEstoqueCreateOrConnectWithoutItensInput | CategoriaItemEstoqueCreateOrConnectWithoutItensInput[]
+    connect?: CategoriaItemEstoqueWhereUniqueInput | CategoriaItemEstoqueWhereUniqueInput[]
+  }
+
+  export type CategoriaItemEstoqueUncheckedCreateNestedManyWithoutItensInput = {
+    create?: XOR<CategoriaItemEstoqueCreateWithoutItensInput, CategoriaItemEstoqueUncheckedCreateWithoutItensInput> | CategoriaItemEstoqueCreateWithoutItensInput[] | CategoriaItemEstoqueUncheckedCreateWithoutItensInput[]
+    connectOrCreate?: CategoriaItemEstoqueCreateOrConnectWithoutItensInput | CategoriaItemEstoqueCreateOrConnectWithoutItensInput[]
+    connect?: CategoriaItemEstoqueWhereUniqueInput | CategoriaItemEstoqueWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type CategoriaItemEstoqueUpdateManyWithoutItensNestedInput = {
+    create?: XOR<CategoriaItemEstoqueCreateWithoutItensInput, CategoriaItemEstoqueUncheckedCreateWithoutItensInput> | CategoriaItemEstoqueCreateWithoutItensInput[] | CategoriaItemEstoqueUncheckedCreateWithoutItensInput[]
+    connectOrCreate?: CategoriaItemEstoqueCreateOrConnectWithoutItensInput | CategoriaItemEstoqueCreateOrConnectWithoutItensInput[]
+    upsert?: CategoriaItemEstoqueUpsertWithWhereUniqueWithoutItensInput | CategoriaItemEstoqueUpsertWithWhereUniqueWithoutItensInput[]
+    set?: CategoriaItemEstoqueWhereUniqueInput | CategoriaItemEstoqueWhereUniqueInput[]
+    disconnect?: CategoriaItemEstoqueWhereUniqueInput | CategoriaItemEstoqueWhereUniqueInput[]
+    delete?: CategoriaItemEstoqueWhereUniqueInput | CategoriaItemEstoqueWhereUniqueInput[]
+    connect?: CategoriaItemEstoqueWhereUniqueInput | CategoriaItemEstoqueWhereUniqueInput[]
+    update?: CategoriaItemEstoqueUpdateWithWhereUniqueWithoutItensInput | CategoriaItemEstoqueUpdateWithWhereUniqueWithoutItensInput[]
+    updateMany?: CategoriaItemEstoqueUpdateManyWithWhereWithoutItensInput | CategoriaItemEstoqueUpdateManyWithWhereWithoutItensInput[]
+    deleteMany?: CategoriaItemEstoqueScalarWhereInput | CategoriaItemEstoqueScalarWhereInput[]
+  }
+
+  export type CategoriaItemEstoqueUncheckedUpdateManyWithoutItensNestedInput = {
+    create?: XOR<CategoriaItemEstoqueCreateWithoutItensInput, CategoriaItemEstoqueUncheckedCreateWithoutItensInput> | CategoriaItemEstoqueCreateWithoutItensInput[] | CategoriaItemEstoqueUncheckedCreateWithoutItensInput[]
+    connectOrCreate?: CategoriaItemEstoqueCreateOrConnectWithoutItensInput | CategoriaItemEstoqueCreateOrConnectWithoutItensInput[]
+    upsert?: CategoriaItemEstoqueUpsertWithWhereUniqueWithoutItensInput | CategoriaItemEstoqueUpsertWithWhereUniqueWithoutItensInput[]
+    set?: CategoriaItemEstoqueWhereUniqueInput | CategoriaItemEstoqueWhereUniqueInput[]
+    disconnect?: CategoriaItemEstoqueWhereUniqueInput | CategoriaItemEstoqueWhereUniqueInput[]
+    delete?: CategoriaItemEstoqueWhereUniqueInput | CategoriaItemEstoqueWhereUniqueInput[]
+    connect?: CategoriaItemEstoqueWhereUniqueInput | CategoriaItemEstoqueWhereUniqueInput[]
+    update?: CategoriaItemEstoqueUpdateWithWhereUniqueWithoutItensInput | CategoriaItemEstoqueUpdateWithWhereUniqueWithoutItensInput[]
+    updateMany?: CategoriaItemEstoqueUpdateManyWithWhereWithoutItensInput | CategoriaItemEstoqueUpdateManyWithWhereWithoutItensInput[]
+    deleteMany?: CategoriaItemEstoqueScalarWhereInput | CategoriaItemEstoqueScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutRedefinicoesRecebidasInput = {
     create?: XOR<UserCreateWithoutRedefinicoesRecebidasInput, UserUncheckedCreateWithoutRedefinicoesRecebidasInput>
     connectOrCreate?: UserCreateOrConnectWithoutRedefinicoesRecebidasInput
@@ -45786,14 +48589,6 @@ export namespace Prisma {
     connectOrCreate?: ApostilaImpressaoCreateOrConnectWithoutSemanaInput | ApostilaImpressaoCreateOrConnectWithoutSemanaInput[]
     createMany?: ApostilaImpressaoCreateManySemanaInputEnvelope
     connect?: ApostilaImpressaoWhereUniqueInput | ApostilaImpressaoWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type SemestreUpdateOneRequiredWithoutSemanasImpressaoNestedInput = {
@@ -47334,19 +50129,6 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -47372,6 +50154,19 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumStatusMatriculaFilter<$PrismaModel = never> = {
@@ -48525,6 +51320,99 @@ export namespace Prisma {
     NOT?: ResponsavelMaterialAtualizacaoScalarWhereInput | ResponsavelMaterialAtualizacaoScalarWhereInput[]
     materialId?: StringFilter<"ResponsavelMaterialAtualizacao"> | string
     userId?: StringFilter<"ResponsavelMaterialAtualizacao"> | string
+  }
+
+  export type ItemEstoqueCreateWithoutCategoriasInput = {
+    id?: string
+    nome: string
+    qtd: number
+    validade: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemEstoqueUncheckedCreateWithoutCategoriasInput = {
+    id?: string
+    nome: string
+    qtd: number
+    validade: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemEstoqueCreateOrConnectWithoutCategoriasInput = {
+    where: ItemEstoqueWhereUniqueInput
+    create: XOR<ItemEstoqueCreateWithoutCategoriasInput, ItemEstoqueUncheckedCreateWithoutCategoriasInput>
+  }
+
+  export type ItemEstoqueUpsertWithWhereUniqueWithoutCategoriasInput = {
+    where: ItemEstoqueWhereUniqueInput
+    update: XOR<ItemEstoqueUpdateWithoutCategoriasInput, ItemEstoqueUncheckedUpdateWithoutCategoriasInput>
+    create: XOR<ItemEstoqueCreateWithoutCategoriasInput, ItemEstoqueUncheckedCreateWithoutCategoriasInput>
+  }
+
+  export type ItemEstoqueUpdateWithWhereUniqueWithoutCategoriasInput = {
+    where: ItemEstoqueWhereUniqueInput
+    data: XOR<ItemEstoqueUpdateWithoutCategoriasInput, ItemEstoqueUncheckedUpdateWithoutCategoriasInput>
+  }
+
+  export type ItemEstoqueUpdateManyWithWhereWithoutCategoriasInput = {
+    where: ItemEstoqueScalarWhereInput
+    data: XOR<ItemEstoqueUpdateManyMutationInput, ItemEstoqueUncheckedUpdateManyWithoutCategoriasInput>
+  }
+
+  export type ItemEstoqueScalarWhereInput = {
+    AND?: ItemEstoqueScalarWhereInput | ItemEstoqueScalarWhereInput[]
+    OR?: ItemEstoqueScalarWhereInput[]
+    NOT?: ItemEstoqueScalarWhereInput | ItemEstoqueScalarWhereInput[]
+    id?: StringFilter<"ItemEstoque"> | string
+    nome?: StringFilter<"ItemEstoque"> | string
+    qtd?: IntFilter<"ItemEstoque"> | number
+    validade?: DateTimeFilter<"ItemEstoque"> | Date | string
+    createdAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+    updatedAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+  }
+
+  export type CategoriaItemEstoqueCreateWithoutItensInput = {
+    id?: string
+    nome: string
+    createdAt?: Date | string
+  }
+
+  export type CategoriaItemEstoqueUncheckedCreateWithoutItensInput = {
+    id?: string
+    nome: string
+    createdAt?: Date | string
+  }
+
+  export type CategoriaItemEstoqueCreateOrConnectWithoutItensInput = {
+    where: CategoriaItemEstoqueWhereUniqueInput
+    create: XOR<CategoriaItemEstoqueCreateWithoutItensInput, CategoriaItemEstoqueUncheckedCreateWithoutItensInput>
+  }
+
+  export type CategoriaItemEstoqueUpsertWithWhereUniqueWithoutItensInput = {
+    where: CategoriaItemEstoqueWhereUniqueInput
+    update: XOR<CategoriaItemEstoqueUpdateWithoutItensInput, CategoriaItemEstoqueUncheckedUpdateWithoutItensInput>
+    create: XOR<CategoriaItemEstoqueCreateWithoutItensInput, CategoriaItemEstoqueUncheckedCreateWithoutItensInput>
+  }
+
+  export type CategoriaItemEstoqueUpdateWithWhereUniqueWithoutItensInput = {
+    where: CategoriaItemEstoqueWhereUniqueInput
+    data: XOR<CategoriaItemEstoqueUpdateWithoutItensInput, CategoriaItemEstoqueUncheckedUpdateWithoutItensInput>
+  }
+
+  export type CategoriaItemEstoqueUpdateManyWithWhereWithoutItensInput = {
+    where: CategoriaItemEstoqueScalarWhereInput
+    data: XOR<CategoriaItemEstoqueUpdateManyMutationInput, CategoriaItemEstoqueUncheckedUpdateManyWithoutItensInput>
+  }
+
+  export type CategoriaItemEstoqueScalarWhereInput = {
+    AND?: CategoriaItemEstoqueScalarWhereInput | CategoriaItemEstoqueScalarWhereInput[]
+    OR?: CategoriaItemEstoqueScalarWhereInput[]
+    NOT?: CategoriaItemEstoqueScalarWhereInput | CategoriaItemEstoqueScalarWhereInput[]
+    id?: StringFilter<"CategoriaItemEstoque"> | string
+    nome?: StringFilter<"CategoriaItemEstoque"> | string
+    createdAt?: DateTimeFilter<"CategoriaItemEstoque"> | Date | string
   }
 
   export type UserCreateWithoutRedefinicoesRecebidasInput = {
@@ -54122,6 +57010,51 @@ export namespace Prisma {
 
   export type ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserInput = {
     materialId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ItemEstoqueUpdateWithoutCategoriasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    qtd?: IntFieldUpdateOperationsInput | number
+    validade?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemEstoqueUncheckedUpdateWithoutCategoriasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    qtd?: IntFieldUpdateOperationsInput | number
+    validade?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemEstoqueUncheckedUpdateManyWithoutCategoriasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    qtd?: IntFieldUpdateOperationsInput | number
+    validade?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoriaItemEstoqueUpdateWithoutItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoriaItemEstoqueUncheckedUpdateWithoutItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoriaItemEstoqueUncheckedUpdateManyWithoutItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TurmaCreateManySemestreInput = {
