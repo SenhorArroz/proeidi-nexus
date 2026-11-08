@@ -42,7 +42,7 @@ export function ModalCadastroAluno({
 						{alunoEditando ? "Editar Ficha do Aluno" : "Matricular Novo Aluno"}
 					</h3>
 					<button
-						onClick={() => setIsModalOpen(false)}
+						onClick={() => setIsModalOpen(false)} data-tour="alunos-cadastro-fechar"
 						className="p-2 text-gray-400 hover:bg-gray-100 rounded-full"
 					>
 						<X className="w-5 h-5" />

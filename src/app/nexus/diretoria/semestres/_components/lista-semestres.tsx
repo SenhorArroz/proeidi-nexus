@@ -81,6 +81,7 @@ export function ListaSemestres({
 								</button>
 							)}
 							<button
+								data-tour="semestre-duplicar"
 								onClick={() => {
 									setSemestreParaDuplicar({
 										id: semestre.id,
@@ -93,6 +94,7 @@ export function ListaSemestres({
 								<Copy className="h-3.5 w-3.5" /> Duplicar
 							</button>
 							<button
+								data-tour="semestre-remover"
 								onClick={() => {
 									if (confirm(`Excluir o semestre ${semestre.codigo}?`))
 										remover.mutate({ id: semestre.id });

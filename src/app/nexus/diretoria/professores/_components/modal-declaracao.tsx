@@ -73,6 +73,7 @@ export function ModalDeclaracao({
 					</div>
 					<button
 						onClick={onClose}
+						data-tour="professor-declaracao-fechar"
 						className="grid h-11 w-11 shrink-0 place-items-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600"
 					>
 						<X className="w-4 h-4" />
@@ -116,6 +117,7 @@ export function ModalDeclaracao({
 							Turma de referência *
 						</label>
 						<select
+							data-tour="professor-declaracao-turma"
 							value={turmaId}
 							onChange={(e) => setTurmaId(e.target.value)}
 							className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
@@ -140,6 +142,7 @@ export function ModalDeclaracao({
 							value={form.curso}
 							onChange={(e) => setForm({ ...form, curso: e.target.value })}
 							placeholder="Pensamento Computacional e Computador"
+							data-tour="professor-declaracao-dados"
 							className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:bg-white focus:border-sky-300 focus:outline-none transition-colors"
 						/>
 						<p className="text-[11px] text-gray-400 mt-1">
@@ -232,7 +235,7 @@ export function ModalDeclaracao({
 					</div>
 
 					{/* Preview do texto */}
-					<div className="p-3 rounded-xl bg-gray-50 border border-gray-100">
+					<div data-tour="professor-declaracao-previa" className="p-3 rounded-xl bg-gray-50 border border-gray-100">
 						<p className="text-[11px] font-medium text-gray-400 uppercase tracking-wide mb-1.5">
 							Prévia do texto
 						</p>
@@ -263,6 +266,7 @@ export function ModalDeclaracao({
 					</button>
 					<button
 						onClick={handleGerar}
+						data-tour="professor-declaracao-gerar"
 						disabled={!formValido || gerarMutation.isPending}
 						className="flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg bg-amber-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-amber-700 disabled:opacity-50 sm:w-auto"
 					>

@@ -118,7 +118,7 @@ export function PainelSorteador({
 						<div className="grid min-w-0 grid-cols-2 rounded-xl bg-gray-100 p-1">
 							<button
 								type="button"
-								onClick={() => setModo("vinculado")}
+								onClick={() => setModo("vinculado")} data-tour="sorteador-vinculado"
 								className={`flex min-h-11 min-w-0 items-center justify-center gap-1.5 rounded-lg px-1 py-2 text-xs font-semibold tracking-wide transition-all ${
 									modo === "vinculado"
 										? "bg-white shadow-sm text-sky-600 ring-1 ring-gray-200"
@@ -130,7 +130,7 @@ export function PainelSorteador({
 							</button>
 							<button
 								type="button"
-								onClick={() => setModo("simples")}
+								onClick={() => setModo("simples")} data-tour="sorteador-simples"
 								className={`flex min-h-11 min-w-0 items-center justify-center gap-1.5 rounded-lg px-1 py-2 text-xs font-semibold tracking-wide transition-all ${
 									modo === "simples"
 										? "bg-white shadow-sm text-sky-600 ring-1 ring-gray-200"
@@ -177,7 +177,7 @@ export function PainelSorteador({
 					</div>
 
 					{modo === "vinculado" && (
-						<div className="sorteador-availability rounded-xl border border-sky-100 bg-sky-50 px-3 py-2.5 text-center">
+						<div data-tour="sorteador-vinculado-dados" className="sorteador-availability rounded-xl border border-sky-100 bg-sky-50 px-3 py-2.5 text-center">
 							<p className="text-xs font-semibold text-sky-800">
 								{candidatosDoModulo.length} ficha(s) de {deviceType}{" "}
 								disponível(is)
@@ -236,6 +236,7 @@ export function PainelSorteador({
 							type="button"
 							onClick={() => setExclusoesAbertas((abertas) => !abertas)}
 							aria-expanded={exclusoesAbertas}
+							data-tour="sorteador-exclusoes"
 							aria-controls="painel-numeros-excluidos"
 							className="flex min-h-11 w-full min-w-0 items-center justify-between gap-3 rounded-lg px-1.5 text-left transition-colors hover:bg-white focus:outline-none focus:ring-2 focus:ring-sky-200"
 						>

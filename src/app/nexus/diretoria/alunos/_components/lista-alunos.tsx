@@ -107,6 +107,7 @@ export function ListaAlunos({
 									onClick={() => abrirContinuidade([aluno])}
 									className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-emerald-50 px-3 text-xs font-bold text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-950/60 dark:text-emerald-300 dark:hover:bg-emerald-900"
 									title="Continuar em outro semestre"
+									data-tour="aluno-continuar"
 								>
 									<GitBranch className="w-4 h-4" /> Continuar
 								</button>
@@ -138,6 +139,7 @@ export function ListaAlunos({
 									onClick={() => abrirModalEdicao(aluno)}
 									className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-sky-50 px-3 text-xs font-bold text-sky-800 hover:bg-sky-100 dark:bg-sky-950/60 dark:text-sky-300 dark:hover:bg-sky-900"
 									title="Editar aluno"
+									data-tour="aluno-editar"
 								>
 									<Pencil className="w-4 h-4" /> Editar
 								</button>

@@ -71,6 +71,7 @@ export function TurmaCard({
 							onClick={onEditar}
 							className="grid min-h-11 min-w-11 place-items-center rounded-lg text-white/80 hover:bg-white/20 hover:text-white sm:min-h-0 sm:min-w-0 sm:p-1.5"
 							aria-label="Editar turma"
+							data-tour="turma-editar"
 						>
 							<Pencil className="w-3.5 h-3.5" />
 						</button>

@@ -113,6 +113,7 @@ export default function GerenciarAlunos() {
 							Selecionar semestre
 						</span>
 						<select
+							data-tour="alunos-semestre"
 							value={semestreFiltro}
 							onChange={(e) => {
 								setBusca("");

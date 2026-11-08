@@ -78,7 +78,7 @@ export function AcoesAlunos({
 						</span>
 					</button>
 					<button
-						onClick={() => setIsImportModalOpen(true)}
+						onClick={() => setIsImportModalOpen(true)} data-tour="alunos-importar"
 						disabled={!semestreSelecionado}
 						className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 shadow-sm transition-all shrink-0"
 					>
@@ -87,6 +87,7 @@ export function AcoesAlunos({
 					</button>
 					<button
 						onClick={handleExport}
+						data-tour="alunos-exportar"
 						disabled={!semestreSelecionado}
 						className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 shadow-sm transition-all shrink-0"
 					>
@@ -95,6 +96,7 @@ export function AcoesAlunos({
 					</button>
 					<button
 						onClick={abrirModalNovo}
+						data-tour="alunos-novo"
 						disabled={!semestreSelecionado}
 						className="flex items-center justify-center gap-2 px-5 py-2.5 bg-sky-600 text-white text-sm font-bold rounded-xl hover:bg-sky-700 shadow-sm transition-all shrink-0"
 					>

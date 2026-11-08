@@ -68,6 +68,7 @@ export function ModalContinuidadeAluno({
 						onClick={() => setAlunosParaContinuar([])}
 						className="grid h-11 w-11 place-items-center rounded-lg text-slate-500 hover:bg-slate-100"
 						aria-label="Fechar"
+						data-tour="alunos-continuar-fechar"
 					>
 						<X className="h-5 w-5" />
 					</button>

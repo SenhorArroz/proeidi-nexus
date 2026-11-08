@@ -128,6 +128,7 @@ export function JanelaGestaoTurma({
 						<div className="min-w-0">
 							<button
 								onClick={onVoltar}
+								data-tour="turma-voltar"
 								className="mb-4 inline-flex min-h-10 items-center gap-2 rounded-lg px-2 text-sm font-semibold hover:bg-white/15"
 								style={{ color: turma.corTitulo }}
 							>
@@ -156,7 +157,7 @@ export function JanelaGestaoTurma({
 							</div>
 						</div>
 						<button
-							onClick={() => void onSalvar()}
+							onClick={() => void onSalvar()} data-tour="turma-salvar"
 							disabled={salvando || !turma.titulo.trim() || !turma.semestreId}
 							className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-bold shadow-sm transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60"
 							style={{ color: turma.cor }}
@@ -174,7 +175,7 @@ export function JanelaGestaoTurma({
 					{abas.map(({ id, label, Icon }) => (
 						<button
 							key={id}
-							onClick={() => setAba(id)}
+							onClick={() => setAba(id)} data-tour={`turma-${id}`}
 							className="flex min-h-13 shrink-0 items-center gap-2 border-b-2 px-4 text-sm font-semibold transition"
 							style={{
 								borderColor: aba === id ? turma.corDestaque : "transparent",

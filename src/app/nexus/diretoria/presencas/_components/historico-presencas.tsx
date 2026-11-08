@@ -50,6 +50,7 @@ export function HistoricoPresencas({
 										});
 								}}
 								className="rounded p-2 text-gray-400 hover:bg-red-50 hover:text-red-600"
+								aria-label={`Excluir registro de presença de ${registro.data.toLocaleDateString("pt-BR")}`}
 							>
 								<Trash2 className="h-4 w-4" />
 							</button>

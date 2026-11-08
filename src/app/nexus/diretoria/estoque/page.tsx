@@ -201,6 +201,7 @@ export default function EstoqueDiretoria() {
 						{itens.length === 1 ? "item cadastrado" : "itens cadastrados"}
 					</p>
 					<button
+						data-tour="estoque-novo"
 						type="button"
 						className={botaoPrimario}
 						onClick={() => {
@@ -337,6 +338,7 @@ export default function EstoqueDiretoria() {
 									type="button"
 									className="min-h-11 rounded-xl px-4 text-sm font-semibold text-slate-600 hover:bg-slate-100"
 									onClick={fecharForm}
+									data-tour="estoque-cancelar"
 								>
 									Cancelar
 								</button>

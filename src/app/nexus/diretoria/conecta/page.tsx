@@ -60,7 +60,7 @@ export default function ConectaPage() {
 						<button
 							key={item.id}
 							type="button"
-							onClick={() => setAba(item.id)}
+							onClick={() => setAba(item.id)} data-tour={`conecta-${item.id}`}
 							aria-current={aba === item.id ? "true" : undefined}
 							className={`min-h-11 rounded-xl px-3 py-2 text-sm font-semibold ${aba === item.id ? "bg-sky-700 text-white" : "hover:bg-[var(--nexus-hover)]"}`}
 						>
@@ -294,6 +294,7 @@ function ConectaSemestre({
 			{data && aba === "equipes" && (
 				<section className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
 					<form
+						data-tour="conecta-form-equipes"
 						onSubmit={(event) => {
 							event.preventDefault();
 							const input = {
@@ -458,6 +459,7 @@ function ConectaSemestre({
 			{data && aba === "itens" && (
 				<section className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
 					<form
+						data-tour="conecta-form-itens"
 						onSubmit={(event) => {
 							event.preventDefault();
 							const input = {
@@ -594,6 +596,7 @@ function ConectaSemestre({
 			{data && aba === "doacoes" && (
 				<section className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
 					<form
+						data-tour="conecta-form-doacoes"
 						onSubmit={(event) => {
 							event.preventDefault();
 							const input = {
@@ -794,6 +797,7 @@ function ConectaSemestre({
 			{data && aba === "provas" && (
 				<section className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
 					<form
+						data-tour="conecta-form-provas"
 						onSubmit={(event) => {
 							event.preventDefault();
 							const input = {

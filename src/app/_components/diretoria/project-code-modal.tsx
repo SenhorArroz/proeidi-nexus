@@ -83,6 +83,7 @@ export function ProjectCodeModal({
 						disabled={isSubmitting}
 						className="grid h-11 w-11 shrink-0 place-items-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
 						aria-label="Fechar"
+						data-tour="certificados-lote-fechar"
 					>
 						<X className="h-5 w-5" aria-hidden="true" />
 					</button>
@@ -102,6 +103,7 @@ export function ProjectCodeModal({
 								if (error) setError("");
 							}}
 							placeholder="Ex.: PJ457-2026"
+							data-tour="certificados-lote-codigo"
 							autoComplete="off"
 							aria-invalid={Boolean(error)}
 							aria-describedby={error ? `${inputId}-error` : undefined}

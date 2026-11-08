@@ -56,6 +56,7 @@ export function ListaSemanasImpressao({
 						<label className={styles.lessonCheck}>
 							<input
 								type="checkbox"
+								data-tour="impressao-aula-realizada"
 								checked={semana.aulaRealizada}
 								disabled={salvarSemana.isPending || ocupado}
 								onChange={(evento) =>

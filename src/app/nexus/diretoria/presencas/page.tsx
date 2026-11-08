@@ -68,6 +68,7 @@ export default function GerenciarPresencas() {
 					<label className="text-sm font-medium text-gray-600">
 						Semestre
 						<select
+							data-tour="presenca-semestre"
 							value={semestre?.id ?? ""}
 							onChange={(e) => {
 								setSemestreId(e.target.value);
@@ -85,6 +86,7 @@ export default function GerenciarPresencas() {
 					<label className="text-sm font-medium text-gray-600">
 						Turma
 						<select
+							data-tour="presenca-turma"
 							value={turma?.id ?? ""}
 							onChange={(e) => setTurmaId(e.target.value)}
 							className="mt-1 block w-full rounded-lg border border-gray-200 p-2"

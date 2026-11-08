@@ -105,6 +105,7 @@ export default function SemestresDiretoria() {
 									value={codigoDestino}
 									onChange={(event) => setCodigoDestino(event.target.value)}
 									placeholder="Ex.: 2026.2"
+									data-tour="semestre-duplicar-codigo"
 									pattern="\d{4}\.[12]"
 									className="mt-2 min-h-11 w-full rounded-xl border border-slate-300 px-3 text-sm outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
 								/>
@@ -112,7 +113,7 @@ export default function SemestresDiretoria() {
 							<div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
 								<button
 									type="button"
-									onClick={() => setSemestreParaDuplicar(null)}
+									onClick={() => setSemestreParaDuplicar(null)} data-tour="semestre-duplicar-cancelar"
 									className="min-h-11 rounded-xl px-4 text-sm font-semibold text-slate-600 hover:bg-slate-100"
 								>
 									Cancelar
