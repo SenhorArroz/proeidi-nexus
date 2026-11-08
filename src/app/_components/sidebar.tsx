@@ -21,6 +21,7 @@ import {
 	Printer,
 	Wrench,
 	Boxes,
+	Trophy,
 	Contrast,
 	Moon,
 	Sun,
@@ -51,6 +52,12 @@ const QUESTIONARIOS_ITEM: NavItem = {
 };
 
 const DIRETORIA_ITEMS: NavItem[] = [
+	{
+		id: "conecta",
+		label: "Conecta View",
+		link: "/nexus/diretoria/conecta",
+		icon: Trophy,
+	},
 	{
 		id: "diretoria-inicio",
 		label: "Painel da Diretoria",

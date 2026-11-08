@@ -9,6 +9,8 @@ import { diretorRouter } from "~/server/api/routers/diretor";
 import { formularioRouter } from "~/server/api/routers/formulario";
 import { contaRouter } from "~/server/api/routers/conta";
 import { estoqueRouter } from "~/server/api/routers/estoque";
+import { tourRouter } from "~/server/api/routers/tour";
+import { conectaRouter } from "~/server/api/routers/conecta";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -28,6 +30,8 @@ export const appRouter = createTRPCRouter({
 	formulario: formularioRouter,
 	conta: contaRouter,
 	estoque: estoqueRouter,
+	tour: tourRouter,
+	conecta: conectaRouter,
 });
 
 // export type definition of API

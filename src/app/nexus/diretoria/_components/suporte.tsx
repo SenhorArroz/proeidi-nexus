@@ -11,6 +11,7 @@ import {
 	ShieldCheck,
 	Users,
 	Boxes,
+	Trophy,
 } from "lucide-react";
 import React from "react";
 
@@ -24,6 +25,14 @@ export interface Ferramenta {
 }
 
 export const FERRAMENTAS: Ferramenta[] = [
+	{
+		id: "conecta",
+		nome: "Conecta View",
+		descricao: "Gincana, doações, provas e ranking das turmas",
+		link: "/nexus/diretoria/conecta",
+		icon: Trophy,
+		cor: "#d97706",
+	},
 	{
 		id: "estoque",
 		nome: "Gerenciar Estoque",

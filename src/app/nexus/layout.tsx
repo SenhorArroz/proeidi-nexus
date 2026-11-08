@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { usePathname } from "next/navigation";
 import Sidebar from "~/app/_components/sidebar";
 import { ForcePasswordChange } from "~/app/_components/force-password-change";
+import { ScreenTour } from "~/app/_components/screen-tour";
 
 export default function DashboardLayout({
 	children,
@@ -42,6 +43,7 @@ export default function DashboardLayout({
 					</Suspense>
 				</main>
 				<ForcePasswordChange />
+				<ScreenTour />
 			</div>
 		</div>
 	);

@@ -1137,7 +1137,7 @@ export const diretoriaRouter = createTRPCRouter({
 					await tx.eventoCalendario.deleteMany({
 						where: { turmaId: input.id },
 					});
-					return tx.turma.update({
+					const turma = await tx.turma.update({
 						where: { id: input.id },
 						data: {
 							semestreId: input.semestreId,
@@ -1168,6 +1168,13 @@ export const diretoriaRouter = createTRPCRouter({
 						},
 						select: { id: true },
 					});
+					if (mudouSemestre) {
+						await tx.conectaProva.updateMany({
+							where: { equipe: { turmaId: turma.id } },
+							data: { semestreId: input.semestreId },
+						});
+					}
+					return turma;
 				});
 			}),
 		remove: directorProcedure

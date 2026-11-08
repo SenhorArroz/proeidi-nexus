@@ -134,6 +134,17 @@ model User {
   presencasProfessor              PresencaProfessor[]
   apostilasResponsavel            ResponsavelApostila[]
   materiaisAtualizacaoResponsavel ResponsavelMaterialAtualizacao[]
+  toursConcluidos                 TourConcluido[]
+}
+
+model TourConcluido {
+  userId      String
+  tela        String
+  concluidoEm DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, tela])
 }
 
 model CategoriaItemEstoque {
@@ -189,6 +200,7 @@ model Semestre {
   vinculosEquipe       VinculoEquipeSemestre[]
   semanasImpressao     SemanaImpressao[]
   materiaisAtualizacao MaterialAtualizacao[]
+  conectaProvas        ConectaProva[]
 }
 
 // ---------------------------------------------------------------------------
@@ -303,9 +315,82 @@ model Turma {
   anotacoes Anotacao[]
 
   // Presença
-  presencas RegistroPresenca[]
+  presencas     RegistroPresenca[]
+  conectaEquipe ConectaEquipe?
 
   @@index([semestreId])
+}
+
+// Gincana Conecta View: equipes e lançamentos pertencem à turma/semestre;
+// o catálogo de itens é compartilhado entre todos os semestres.
+model ConectaEquipe {
+  id         String   @id @default(cuid())
+  turmaId    String   @unique
+  nome       String
+  tema       String
+  corInicial String   @default("#0284c7")
+  corFinal   String   @default("#0284c7")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  turma   Turma           @relation(fields: [turmaId], references: [id], onDelete: Cascade)
+  doacoes ConectaDoacao[]
+  provas  ConectaProva[]
+}
+
+model ConectaItem {
+  id        String   @id @default(cuid())
+  nome      String   @unique
+  descricao String?
+  pontos    Int
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  doacoes ConectaDoacaoItem[]
+}
+
+model ConectaDoacao {
+  id         String   @id @default(cuid())
+  equipeId   String
+  nomeDoador String
+  descricao  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  equipe ConectaEquipe       @relation(fields: [equipeId], references: [id], onDelete: Cascade)
+  itens  ConectaDoacaoItem[]
+
+  @@index([equipeId, createdAt])
+}
+
+model ConectaDoacaoItem {
+  id              String @id @default(cuid())
+  doacaoId        String
+  itemId          String
+  quantidade      Int
+  pontosUnitarios Int
+
+  doacao ConectaDoacao @relation(fields: [doacaoId], references: [id], onDelete: Cascade)
+  item   ConectaItem   @relation(fields: [itemId], references: [id], onDelete: Restrict)
+
+  @@unique([doacaoId, itemId])
+}
+
+model ConectaProva {
+  id         String   @id @default(cuid())
+  semestreId String
+  equipeId   String?
+  nome       String
+  descricao  String?
+  pontos     Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  semestre Semestre       @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  equipe   ConectaEquipe? @relation(fields: [equipeId], references: [id], onDelete: SetNull)
+
+  @@index([semestreId, createdAt])
 }
 
 // ---------------------------------------------------------------------------

@@ -33,6 +33,7 @@ Para outros sistemas operacionais, copie `.env.example` para `.env` com o comand
 | Estoque | Cadastro e edição de itens com nome, quantidade, validade e uma ou mais categorias; filtros por categoria, nome e data; total de unidades no banner. |
 | Coordenação | Além das áreas da diretoria, gestão de contas de diretores. |
 | Conta e acessibilidade | Login, alteração ou redefinição de senha, tema claro/escuro, contraste e tamanho de fonte. |
+| Tours das telas | Guia contextual na primeira visita de cada tela interna, com passos para recursos e botões; o progresso é salvo por usuário e a ajuda pode ser reaberta. |
 
 Os perfis do sistema são **coordenador, diretor, professor e monitor**. Alunos são registros administrativos, sem login. A diretoria e o estoque exigem perfil de diretor ou coordenador; o cadastro de diretores é exclusivo da coordenação. A API também valida permissões, além dos controles de navegação.
 
@@ -47,7 +48,7 @@ Detalhes e limites de cada área estão em [funcionalidades](docs/funcionalidade
 | `src/server/api/routers` | Procedures tRPC, validação, autorização e acesso aos dados. |
 | `src/server/auth` | Autenticação por credenciais e utilitários de senha. |
 | `prisma/schema.prisma` | Modelos PostgreSQL. |
-| `prisma/migrations` | Histórico SQL de migrações, incluindo a base e o estoque. |
+| `prisma/migrations` | Histórico SQL de migrações, incluindo a base, o estoque e os tours. |
 | `prisma/seed.mjs` | Provisionamento do coordenador e dos semestres. |
 | `docs` | Documentação funcional, técnica e operacional. |
 | `mobile` | Projeto Expo inicial, ainda sem integração com o Nexus web. |

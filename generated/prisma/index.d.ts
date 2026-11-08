@@ -34,6 +34,11 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model TourConcluido
+ * 
+ */
+export type TourConcluido = $Result.DefaultSelection<Prisma.$TourConcluidoPayload>
+/**
  * Model CategoriaItemEstoque
  * 
  */
@@ -83,6 +88,31 @@ export type ResponsavelMaterialAtualizacao = $Result.DefaultSelection<Prisma.$Re
  * 
  */
 export type Turma = $Result.DefaultSelection<Prisma.$TurmaPayload>
+/**
+ * Model ConectaEquipe
+ * 
+ */
+export type ConectaEquipe = $Result.DefaultSelection<Prisma.$ConectaEquipePayload>
+/**
+ * Model ConectaItem
+ * 
+ */
+export type ConectaItem = $Result.DefaultSelection<Prisma.$ConectaItemPayload>
+/**
+ * Model ConectaDoacao
+ * 
+ */
+export type ConectaDoacao = $Result.DefaultSelection<Prisma.$ConectaDoacaoPayload>
+/**
+ * Model ConectaDoacaoItem
+ * 
+ */
+export type ConectaDoacaoItem = $Result.DefaultSelection<Prisma.$ConectaDoacaoItemPayload>
+/**
+ * Model ConectaProva
+ * 
+ */
+export type ConectaProva = $Result.DefaultSelection<Prisma.$ConectaProvaPayload>
 /**
  * Model ProfessorTurma
  * 
@@ -457,6 +487,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.tourConcluido`: Exposes CRUD operations for the **TourConcluido** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TourConcluidos
+    * const tourConcluidos = await prisma.tourConcluido.findMany()
+    * ```
+    */
+  get tourConcluido(): Prisma.TourConcluidoDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.categoriaItemEstoque`: Exposes CRUD operations for the **CategoriaItemEstoque** model.
     * Example usage:
     * ```ts
@@ -555,6 +595,56 @@ export class PrismaClient<
     * ```
     */
   get turma(): Prisma.TurmaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.conectaEquipe`: Exposes CRUD operations for the **ConectaEquipe** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ConectaEquipes
+    * const conectaEquipes = await prisma.conectaEquipe.findMany()
+    * ```
+    */
+  get conectaEquipe(): Prisma.ConectaEquipeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.conectaItem`: Exposes CRUD operations for the **ConectaItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ConectaItems
+    * const conectaItems = await prisma.conectaItem.findMany()
+    * ```
+    */
+  get conectaItem(): Prisma.ConectaItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.conectaDoacao`: Exposes CRUD operations for the **ConectaDoacao** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ConectaDoacaos
+    * const conectaDoacaos = await prisma.conectaDoacao.findMany()
+    * ```
+    */
+  get conectaDoacao(): Prisma.ConectaDoacaoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.conectaDoacaoItem`: Exposes CRUD operations for the **ConectaDoacaoItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ConectaDoacaoItems
+    * const conectaDoacaoItems = await prisma.conectaDoacaoItem.findMany()
+    * ```
+    */
+  get conectaDoacaoItem(): Prisma.ConectaDoacaoItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.conectaProva`: Exposes CRUD operations for the **ConectaProva** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ConectaProva
+    * const conectaProva = await prisma.conectaProva.findMany()
+    * ```
+    */
+  get conectaProva(): Prisma.ConectaProvaDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.professorTurma`: Exposes CRUD operations for the **ProfessorTurma** model.
@@ -1180,6 +1270,7 @@ export namespace Prisma {
     Session: 'Session',
     VerificationToken: 'VerificationToken',
     User: 'User',
+    TourConcluido: 'TourConcluido',
     CategoriaItemEstoque: 'CategoriaItemEstoque',
     ItemEstoque: 'ItemEstoque',
     PasswordResetRequest: 'PasswordResetRequest',
@@ -1190,6 +1281,11 @@ export namespace Prisma {
     MaterialAtualizacao: 'MaterialAtualizacao',
     ResponsavelMaterialAtualizacao: 'ResponsavelMaterialAtualizacao',
     Turma: 'Turma',
+    ConectaEquipe: 'ConectaEquipe',
+    ConectaItem: 'ConectaItem',
+    ConectaDoacao: 'ConectaDoacao',
+    ConectaDoacaoItem: 'ConectaDoacaoItem',
+    ConectaProva: 'ConectaProva',
     ProfessorTurma: 'ProfessorTurma',
     MonitorTurma: 'MonitorTurma',
     AlunoTurma: 'AlunoTurma',
@@ -1226,7 +1322,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "categoriaItemEstoque" | "itemEstoque" | "passwordResetRequest" | "semestre" | "semanaImpressao" | "apostilaImpressao" | "responsavelApostila" | "materialAtualizacao" | "responsavelMaterialAtualizacao" | "turma" | "professorTurma" | "monitorTurma" | "alunoTurma" | "aluno" | "vinculoEquipeSemestre" | "material" | "eventoCalendario" | "aviso" | "anotacao" | "registroPresenca" | "presencaAluno" | "presencaMonitor" | "presencaProfessor" | "candidato" | "formulario" | "formularioResposta" | "pergunta" | "opcao"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "tourConcluido" | "categoriaItemEstoque" | "itemEstoque" | "passwordResetRequest" | "semestre" | "semanaImpressao" | "apostilaImpressao" | "responsavelApostila" | "materialAtualizacao" | "responsavelMaterialAtualizacao" | "turma" | "conectaEquipe" | "conectaItem" | "conectaDoacao" | "conectaDoacaoItem" | "conectaProva" | "professorTurma" | "monitorTurma" | "alunoTurma" | "aluno" | "vinculoEquipeSemestre" | "material" | "eventoCalendario" | "aviso" | "anotacao" | "registroPresenca" | "presencaAluno" | "presencaMonitor" | "presencaProfessor" | "candidato" | "formulario" | "formularioResposta" | "pergunta" | "opcao"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1523,6 +1619,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      TourConcluido: {
+        payload: Prisma.$TourConcluidoPayload<ExtArgs>
+        fields: Prisma.TourConcluidoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TourConcluidoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TourConcluidoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload>
+          }
+          findFirst: {
+            args: Prisma.TourConcluidoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TourConcluidoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload>
+          }
+          findMany: {
+            args: Prisma.TourConcluidoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload>[]
+          }
+          create: {
+            args: Prisma.TourConcluidoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload>
+          }
+          createMany: {
+            args: Prisma.TourConcluidoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TourConcluidoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload>[]
+          }
+          delete: {
+            args: Prisma.TourConcluidoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload>
+          }
+          update: {
+            args: Prisma.TourConcluidoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload>
+          }
+          deleteMany: {
+            args: Prisma.TourConcluidoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TourConcluidoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TourConcluidoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload>[]
+          }
+          upsert: {
+            args: Prisma.TourConcluidoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TourConcluidoPayload>
+          }
+          aggregate: {
+            args: Prisma.TourConcluidoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTourConcluido>
+          }
+          groupBy: {
+            args: Prisma.TourConcluidoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TourConcluidoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TourConcluidoCountArgs<ExtArgs>
+            result: $Utils.Optional<TourConcluidoCountAggregateOutputType> | number
           }
         }
       }
@@ -2263,6 +2433,376 @@ export namespace Prisma {
           count: {
             args: Prisma.TurmaCountArgs<ExtArgs>
             result: $Utils.Optional<TurmaCountAggregateOutputType> | number
+          }
+        }
+      }
+      ConectaEquipe: {
+        payload: Prisma.$ConectaEquipePayload<ExtArgs>
+        fields: Prisma.ConectaEquipeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConectaEquipeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConectaEquipeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload>
+          }
+          findFirst: {
+            args: Prisma.ConectaEquipeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConectaEquipeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload>
+          }
+          findMany: {
+            args: Prisma.ConectaEquipeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload>[]
+          }
+          create: {
+            args: Prisma.ConectaEquipeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload>
+          }
+          createMany: {
+            args: Prisma.ConectaEquipeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ConectaEquipeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload>[]
+          }
+          delete: {
+            args: Prisma.ConectaEquipeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload>
+          }
+          update: {
+            args: Prisma.ConectaEquipeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload>
+          }
+          deleteMany: {
+            args: Prisma.ConectaEquipeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConectaEquipeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ConectaEquipeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload>[]
+          }
+          upsert: {
+            args: Prisma.ConectaEquipeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaEquipePayload>
+          }
+          aggregate: {
+            args: Prisma.ConectaEquipeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConectaEquipe>
+          }
+          groupBy: {
+            args: Prisma.ConectaEquipeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConectaEquipeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ConectaEquipeCountArgs<ExtArgs>
+            result: $Utils.Optional<ConectaEquipeCountAggregateOutputType> | number
+          }
+        }
+      }
+      ConectaItem: {
+        payload: Prisma.$ConectaItemPayload<ExtArgs>
+        fields: Prisma.ConectaItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConectaItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConectaItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload>
+          }
+          findFirst: {
+            args: Prisma.ConectaItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConectaItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload>
+          }
+          findMany: {
+            args: Prisma.ConectaItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload>[]
+          }
+          create: {
+            args: Prisma.ConectaItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload>
+          }
+          createMany: {
+            args: Prisma.ConectaItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ConectaItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload>[]
+          }
+          delete: {
+            args: Prisma.ConectaItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload>
+          }
+          update: {
+            args: Prisma.ConectaItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.ConectaItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConectaItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ConectaItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.ConectaItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaItemPayload>
+          }
+          aggregate: {
+            args: Prisma.ConectaItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConectaItem>
+          }
+          groupBy: {
+            args: Prisma.ConectaItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConectaItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ConectaItemCountArgs<ExtArgs>
+            result: $Utils.Optional<ConectaItemCountAggregateOutputType> | number
+          }
+        }
+      }
+      ConectaDoacao: {
+        payload: Prisma.$ConectaDoacaoPayload<ExtArgs>
+        fields: Prisma.ConectaDoacaoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConectaDoacaoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConectaDoacaoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload>
+          }
+          findFirst: {
+            args: Prisma.ConectaDoacaoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConectaDoacaoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload>
+          }
+          findMany: {
+            args: Prisma.ConectaDoacaoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload>[]
+          }
+          create: {
+            args: Prisma.ConectaDoacaoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload>
+          }
+          createMany: {
+            args: Prisma.ConectaDoacaoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ConectaDoacaoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload>[]
+          }
+          delete: {
+            args: Prisma.ConectaDoacaoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload>
+          }
+          update: {
+            args: Prisma.ConectaDoacaoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload>
+          }
+          deleteMany: {
+            args: Prisma.ConectaDoacaoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConectaDoacaoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ConectaDoacaoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload>[]
+          }
+          upsert: {
+            args: Prisma.ConectaDoacaoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoPayload>
+          }
+          aggregate: {
+            args: Prisma.ConectaDoacaoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConectaDoacao>
+          }
+          groupBy: {
+            args: Prisma.ConectaDoacaoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConectaDoacaoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ConectaDoacaoCountArgs<ExtArgs>
+            result: $Utils.Optional<ConectaDoacaoCountAggregateOutputType> | number
+          }
+        }
+      }
+      ConectaDoacaoItem: {
+        payload: Prisma.$ConectaDoacaoItemPayload<ExtArgs>
+        fields: Prisma.ConectaDoacaoItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConectaDoacaoItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConectaDoacaoItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload>
+          }
+          findFirst: {
+            args: Prisma.ConectaDoacaoItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConectaDoacaoItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload>
+          }
+          findMany: {
+            args: Prisma.ConectaDoacaoItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload>[]
+          }
+          create: {
+            args: Prisma.ConectaDoacaoItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload>
+          }
+          createMany: {
+            args: Prisma.ConectaDoacaoItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ConectaDoacaoItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload>[]
+          }
+          delete: {
+            args: Prisma.ConectaDoacaoItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload>
+          }
+          update: {
+            args: Prisma.ConectaDoacaoItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.ConectaDoacaoItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConectaDoacaoItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ConectaDoacaoItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.ConectaDoacaoItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaDoacaoItemPayload>
+          }
+          aggregate: {
+            args: Prisma.ConectaDoacaoItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConectaDoacaoItem>
+          }
+          groupBy: {
+            args: Prisma.ConectaDoacaoItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConectaDoacaoItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ConectaDoacaoItemCountArgs<ExtArgs>
+            result: $Utils.Optional<ConectaDoacaoItemCountAggregateOutputType> | number
+          }
+        }
+      }
+      ConectaProva: {
+        payload: Prisma.$ConectaProvaPayload<ExtArgs>
+        fields: Prisma.ConectaProvaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConectaProvaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConectaProvaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload>
+          }
+          findFirst: {
+            args: Prisma.ConectaProvaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConectaProvaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload>
+          }
+          findMany: {
+            args: Prisma.ConectaProvaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload>[]
+          }
+          create: {
+            args: Prisma.ConectaProvaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload>
+          }
+          createMany: {
+            args: Prisma.ConectaProvaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ConectaProvaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload>[]
+          }
+          delete: {
+            args: Prisma.ConectaProvaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload>
+          }
+          update: {
+            args: Prisma.ConectaProvaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload>
+          }
+          deleteMany: {
+            args: Prisma.ConectaProvaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConectaProvaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ConectaProvaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload>[]
+          }
+          upsert: {
+            args: Prisma.ConectaProvaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConectaProvaPayload>
+          }
+          aggregate: {
+            args: Prisma.ConectaProvaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConectaProva>
+          }
+          groupBy: {
+            args: Prisma.ConectaProvaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConectaProvaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ConectaProvaCountArgs<ExtArgs>
+            result: $Utils.Optional<ConectaProvaCountAggregateOutputType> | number
           }
         }
       }
@@ -3698,6 +4238,7 @@ export namespace Prisma {
     session?: SessionOmit
     verificationToken?: VerificationTokenOmit
     user?: UserOmit
+    tourConcluido?: TourConcluidoOmit
     categoriaItemEstoque?: CategoriaItemEstoqueOmit
     itemEstoque?: ItemEstoqueOmit
     passwordResetRequest?: PasswordResetRequestOmit
@@ -3708,6 +4249,11 @@ export namespace Prisma {
     materialAtualizacao?: MaterialAtualizacaoOmit
     responsavelMaterialAtualizacao?: ResponsavelMaterialAtualizacaoOmit
     turma?: TurmaOmit
+    conectaEquipe?: ConectaEquipeOmit
+    conectaItem?: ConectaItemOmit
+    conectaDoacao?: ConectaDoacaoOmit
+    conectaDoacaoItem?: ConectaDoacaoItemOmit
+    conectaProva?: ConectaProvaOmit
     professorTurma?: ProfessorTurmaOmit
     monitorTurma?: MonitorTurmaOmit
     alunoTurma?: AlunoTurmaOmit
@@ -3820,6 +4366,7 @@ export namespace Prisma {
     presencasProfessor: number
     apostilasResponsavel: number
     materiaisAtualizacaoResponsavel: number
+    toursConcluidos: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3837,6 +4384,7 @@ export namespace Prisma {
     presencasProfessor?: boolean | UserCountOutputTypeCountPresencasProfessorArgs
     apostilasResponsavel?: boolean | UserCountOutputTypeCountApostilasResponsavelArgs
     materiaisAtualizacaoResponsavel?: boolean | UserCountOutputTypeCountMateriaisAtualizacaoResponsavelArgs
+    toursConcluidos?: boolean | UserCountOutputTypeCountToursConcluidosArgs
   }
 
   // Custom InputTypes
@@ -3948,6 +4496,13 @@ export namespace Prisma {
     where?: ResponsavelMaterialAtualizacaoWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountToursConcluidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TourConcluidoWhereInput
+  }
+
 
   /**
    * Count Type CategoriaItemEstoqueCountOutputType
@@ -4022,6 +4577,7 @@ export namespace Prisma {
     vinculosEquipe: number
     semanasImpressao: number
     materiaisAtualizacao: number
+    conectaProvas: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4031,6 +4587,7 @@ export namespace Prisma {
     vinculosEquipe?: boolean | SemestreCountOutputTypeCountVinculosEquipeArgs
     semanasImpressao?: boolean | SemestreCountOutputTypeCountSemanasImpressaoArgs
     materiaisAtualizacao?: boolean | SemestreCountOutputTypeCountMateriaisAtualizacaoArgs
+    conectaProvas?: boolean | SemestreCountOutputTypeCountConectaProvasArgs
   }
 
   // Custom InputTypes
@@ -4084,6 +4641,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountMateriaisAtualizacaoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaterialAtualizacaoWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountConectaProvasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConectaProvaWhereInput
   }
 
 
@@ -4271,6 +4835,108 @@ export namespace Prisma {
    */
   export type TurmaCountOutputTypeCountPresencasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RegistroPresencaWhereInput
+  }
+
+
+  /**
+   * Count Type ConectaEquipeCountOutputType
+   */
+
+  export type ConectaEquipeCountOutputType = {
+    doacoes: number
+    provas: number
+  }
+
+  export type ConectaEquipeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doacoes?: boolean | ConectaEquipeCountOutputTypeCountDoacoesArgs
+    provas?: boolean | ConectaEquipeCountOutputTypeCountProvasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ConectaEquipeCountOutputType without action
+   */
+  export type ConectaEquipeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipeCountOutputType
+     */
+    select?: ConectaEquipeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ConectaEquipeCountOutputType without action
+   */
+  export type ConectaEquipeCountOutputTypeCountDoacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConectaDoacaoWhereInput
+  }
+
+  /**
+   * ConectaEquipeCountOutputType without action
+   */
+  export type ConectaEquipeCountOutputTypeCountProvasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConectaProvaWhereInput
+  }
+
+
+  /**
+   * Count Type ConectaItemCountOutputType
+   */
+
+  export type ConectaItemCountOutputType = {
+    doacoes: number
+  }
+
+  export type ConectaItemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doacoes?: boolean | ConectaItemCountOutputTypeCountDoacoesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ConectaItemCountOutputType without action
+   */
+  export type ConectaItemCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItemCountOutputType
+     */
+    select?: ConectaItemCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ConectaItemCountOutputType without action
+   */
+  export type ConectaItemCountOutputTypeCountDoacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConectaDoacaoItemWhereInput
+  }
+
+
+  /**
+   * Count Type ConectaDoacaoCountOutputType
+   */
+
+  export type ConectaDoacaoCountOutputType = {
+    itens: number
+  }
+
+  export type ConectaDoacaoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    itens?: boolean | ConectaDoacaoCountOutputTypeCountItensArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ConectaDoacaoCountOutputType without action
+   */
+  export type ConectaDoacaoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoCountOutputType
+     */
+    select?: ConectaDoacaoCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ConectaDoacaoCountOutputType without action
+   */
+  export type ConectaDoacaoCountOutputTypeCountItensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConectaDoacaoItemWhereInput
   }
 
 
@@ -7887,6 +8553,7 @@ export namespace Prisma {
     presencasProfessor?: boolean | User$presencasProfessorArgs<ExtArgs>
     apostilasResponsavel?: boolean | User$apostilasResponsavelArgs<ExtArgs>
     materiaisAtualizacaoResponsavel?: boolean | User$materiaisAtualizacaoResponsavelArgs<ExtArgs>
+    toursConcluidos?: boolean | User$toursConcluidosArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -7948,6 +8615,7 @@ export namespace Prisma {
     presencasProfessor?: boolean | User$presencasProfessorArgs<ExtArgs>
     apostilasResponsavel?: boolean | User$apostilasResponsavelArgs<ExtArgs>
     materiaisAtualizacaoResponsavel?: boolean | User$materiaisAtualizacaoResponsavelArgs<ExtArgs>
+    toursConcluidos?: boolean | User$toursConcluidosArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7970,6 +8638,7 @@ export namespace Prisma {
       presencasProfessor: Prisma.$PresencaProfessorPayload<ExtArgs>[]
       apostilasResponsavel: Prisma.$ResponsavelApostilaPayload<ExtArgs>[]
       materiaisAtualizacaoResponsavel: Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>[]
+      toursConcluidos: Prisma.$TourConcluidoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8391,6 +9060,7 @@ export namespace Prisma {
     presencasProfessor<T extends User$presencasProfessorArgs<ExtArgs> = {}>(args?: Subset<T, User$presencasProfessorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PresencaProfessorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     apostilasResponsavel<T extends User$apostilasResponsavelArgs<ExtArgs> = {}>(args?: Subset<T, User$apostilasResponsavelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelApostilaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     materiaisAtualizacaoResponsavel<T extends User$materiaisAtualizacaoResponsavelArgs<ExtArgs> = {}>(args?: Subset<T, User$materiaisAtualizacaoResponsavelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsavelMaterialAtualizacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    toursConcluidos<T extends User$toursConcluidosArgs<ExtArgs> = {}>(args?: Subset<T, User$toursConcluidosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9155,6 +9825,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.toursConcluidos
+   */
+  export type User$toursConcluidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
+    where?: TourConcluidoWhereInput
+    orderBy?: TourConcluidoOrderByWithRelationInput | TourConcluidoOrderByWithRelationInput[]
+    cursor?: TourConcluidoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TourConcluidoScalarFieldEnum | TourConcluidoScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9170,6 +9864,1038 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TourConcluido
+   */
+
+  export type AggregateTourConcluido = {
+    _count: TourConcluidoCountAggregateOutputType | null
+    _min: TourConcluidoMinAggregateOutputType | null
+    _max: TourConcluidoMaxAggregateOutputType | null
+  }
+
+  export type TourConcluidoMinAggregateOutputType = {
+    userId: string | null
+    tela: string | null
+    concluidoEm: Date | null
+  }
+
+  export type TourConcluidoMaxAggregateOutputType = {
+    userId: string | null
+    tela: string | null
+    concluidoEm: Date | null
+  }
+
+  export type TourConcluidoCountAggregateOutputType = {
+    userId: number
+    tela: number
+    concluidoEm: number
+    _all: number
+  }
+
+
+  export type TourConcluidoMinAggregateInputType = {
+    userId?: true
+    tela?: true
+    concluidoEm?: true
+  }
+
+  export type TourConcluidoMaxAggregateInputType = {
+    userId?: true
+    tela?: true
+    concluidoEm?: true
+  }
+
+  export type TourConcluidoCountAggregateInputType = {
+    userId?: true
+    tela?: true
+    concluidoEm?: true
+    _all?: true
+  }
+
+  export type TourConcluidoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TourConcluido to aggregate.
+     */
+    where?: TourConcluidoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TourConcluidos to fetch.
+     */
+    orderBy?: TourConcluidoOrderByWithRelationInput | TourConcluidoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TourConcluidoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TourConcluidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TourConcluidos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TourConcluidos
+    **/
+    _count?: true | TourConcluidoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TourConcluidoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TourConcluidoMaxAggregateInputType
+  }
+
+  export type GetTourConcluidoAggregateType<T extends TourConcluidoAggregateArgs> = {
+        [P in keyof T & keyof AggregateTourConcluido]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTourConcluido[P]>
+      : GetScalarType<T[P], AggregateTourConcluido[P]>
+  }
+
+
+
+
+  export type TourConcluidoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TourConcluidoWhereInput
+    orderBy?: TourConcluidoOrderByWithAggregationInput | TourConcluidoOrderByWithAggregationInput[]
+    by: TourConcluidoScalarFieldEnum[] | TourConcluidoScalarFieldEnum
+    having?: TourConcluidoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TourConcluidoCountAggregateInputType | true
+    _min?: TourConcluidoMinAggregateInputType
+    _max?: TourConcluidoMaxAggregateInputType
+  }
+
+  export type TourConcluidoGroupByOutputType = {
+    userId: string
+    tela: string
+    concluidoEm: Date
+    _count: TourConcluidoCountAggregateOutputType | null
+    _min: TourConcluidoMinAggregateOutputType | null
+    _max: TourConcluidoMaxAggregateOutputType | null
+  }
+
+  type GetTourConcluidoGroupByPayload<T extends TourConcluidoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TourConcluidoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TourConcluidoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TourConcluidoGroupByOutputType[P]>
+            : GetScalarType<T[P], TourConcluidoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TourConcluidoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    tela?: boolean
+    concluidoEm?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tourConcluido"]>
+
+  export type TourConcluidoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    tela?: boolean
+    concluidoEm?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tourConcluido"]>
+
+  export type TourConcluidoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    tela?: boolean
+    concluidoEm?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tourConcluido"]>
+
+  export type TourConcluidoSelectScalar = {
+    userId?: boolean
+    tela?: boolean
+    concluidoEm?: boolean
+  }
+
+  export type TourConcluidoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "tela" | "concluidoEm", ExtArgs["result"]["tourConcluido"]>
+  export type TourConcluidoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TourConcluidoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TourConcluidoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TourConcluidoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TourConcluido"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      tela: string
+      concluidoEm: Date
+    }, ExtArgs["result"]["tourConcluido"]>
+    composites: {}
+  }
+
+  type TourConcluidoGetPayload<S extends boolean | null | undefined | TourConcluidoDefaultArgs> = $Result.GetResult<Prisma.$TourConcluidoPayload, S>
+
+  type TourConcluidoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TourConcluidoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TourConcluidoCountAggregateInputType | true
+    }
+
+  export interface TourConcluidoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TourConcluido'], meta: { name: 'TourConcluido' } }
+    /**
+     * Find zero or one TourConcluido that matches the filter.
+     * @param {TourConcluidoFindUniqueArgs} args - Arguments to find a TourConcluido
+     * @example
+     * // Get one TourConcluido
+     * const tourConcluido = await prisma.tourConcluido.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TourConcluidoFindUniqueArgs>(args: SelectSubset<T, TourConcluidoFindUniqueArgs<ExtArgs>>): Prisma__TourConcluidoClient<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TourConcluido that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TourConcluidoFindUniqueOrThrowArgs} args - Arguments to find a TourConcluido
+     * @example
+     * // Get one TourConcluido
+     * const tourConcluido = await prisma.tourConcluido.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TourConcluidoFindUniqueOrThrowArgs>(args: SelectSubset<T, TourConcluidoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TourConcluidoClient<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TourConcluido that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TourConcluidoFindFirstArgs} args - Arguments to find a TourConcluido
+     * @example
+     * // Get one TourConcluido
+     * const tourConcluido = await prisma.tourConcluido.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TourConcluidoFindFirstArgs>(args?: SelectSubset<T, TourConcluidoFindFirstArgs<ExtArgs>>): Prisma__TourConcluidoClient<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TourConcluido that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TourConcluidoFindFirstOrThrowArgs} args - Arguments to find a TourConcluido
+     * @example
+     * // Get one TourConcluido
+     * const tourConcluido = await prisma.tourConcluido.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TourConcluidoFindFirstOrThrowArgs>(args?: SelectSubset<T, TourConcluidoFindFirstOrThrowArgs<ExtArgs>>): Prisma__TourConcluidoClient<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TourConcluidos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TourConcluidoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TourConcluidos
+     * const tourConcluidos = await prisma.tourConcluido.findMany()
+     * 
+     * // Get first 10 TourConcluidos
+     * const tourConcluidos = await prisma.tourConcluido.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const tourConcluidoWithUserIdOnly = await prisma.tourConcluido.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends TourConcluidoFindManyArgs>(args?: SelectSubset<T, TourConcluidoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TourConcluido.
+     * @param {TourConcluidoCreateArgs} args - Arguments to create a TourConcluido.
+     * @example
+     * // Create one TourConcluido
+     * const TourConcluido = await prisma.tourConcluido.create({
+     *   data: {
+     *     // ... data to create a TourConcluido
+     *   }
+     * })
+     * 
+     */
+    create<T extends TourConcluidoCreateArgs>(args: SelectSubset<T, TourConcluidoCreateArgs<ExtArgs>>): Prisma__TourConcluidoClient<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TourConcluidos.
+     * @param {TourConcluidoCreateManyArgs} args - Arguments to create many TourConcluidos.
+     * @example
+     * // Create many TourConcluidos
+     * const tourConcluido = await prisma.tourConcluido.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TourConcluidoCreateManyArgs>(args?: SelectSubset<T, TourConcluidoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TourConcluidos and returns the data saved in the database.
+     * @param {TourConcluidoCreateManyAndReturnArgs} args - Arguments to create many TourConcluidos.
+     * @example
+     * // Create many TourConcluidos
+     * const tourConcluido = await prisma.tourConcluido.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TourConcluidos and only return the `userId`
+     * const tourConcluidoWithUserIdOnly = await prisma.tourConcluido.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TourConcluidoCreateManyAndReturnArgs>(args?: SelectSubset<T, TourConcluidoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TourConcluido.
+     * @param {TourConcluidoDeleteArgs} args - Arguments to delete one TourConcluido.
+     * @example
+     * // Delete one TourConcluido
+     * const TourConcluido = await prisma.tourConcluido.delete({
+     *   where: {
+     *     // ... filter to delete one TourConcluido
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TourConcluidoDeleteArgs>(args: SelectSubset<T, TourConcluidoDeleteArgs<ExtArgs>>): Prisma__TourConcluidoClient<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TourConcluido.
+     * @param {TourConcluidoUpdateArgs} args - Arguments to update one TourConcluido.
+     * @example
+     * // Update one TourConcluido
+     * const tourConcluido = await prisma.tourConcluido.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TourConcluidoUpdateArgs>(args: SelectSubset<T, TourConcluidoUpdateArgs<ExtArgs>>): Prisma__TourConcluidoClient<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TourConcluidos.
+     * @param {TourConcluidoDeleteManyArgs} args - Arguments to filter TourConcluidos to delete.
+     * @example
+     * // Delete a few TourConcluidos
+     * const { count } = await prisma.tourConcluido.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TourConcluidoDeleteManyArgs>(args?: SelectSubset<T, TourConcluidoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TourConcluidos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TourConcluidoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TourConcluidos
+     * const tourConcluido = await prisma.tourConcluido.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TourConcluidoUpdateManyArgs>(args: SelectSubset<T, TourConcluidoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TourConcluidos and returns the data updated in the database.
+     * @param {TourConcluidoUpdateManyAndReturnArgs} args - Arguments to update many TourConcluidos.
+     * @example
+     * // Update many TourConcluidos
+     * const tourConcluido = await prisma.tourConcluido.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TourConcluidos and only return the `userId`
+     * const tourConcluidoWithUserIdOnly = await prisma.tourConcluido.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TourConcluidoUpdateManyAndReturnArgs>(args: SelectSubset<T, TourConcluidoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TourConcluido.
+     * @param {TourConcluidoUpsertArgs} args - Arguments to update or create a TourConcluido.
+     * @example
+     * // Update or create a TourConcluido
+     * const tourConcluido = await prisma.tourConcluido.upsert({
+     *   create: {
+     *     // ... data to create a TourConcluido
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TourConcluido we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TourConcluidoUpsertArgs>(args: SelectSubset<T, TourConcluidoUpsertArgs<ExtArgs>>): Prisma__TourConcluidoClient<$Result.GetResult<Prisma.$TourConcluidoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TourConcluidos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TourConcluidoCountArgs} args - Arguments to filter TourConcluidos to count.
+     * @example
+     * // Count the number of TourConcluidos
+     * const count = await prisma.tourConcluido.count({
+     *   where: {
+     *     // ... the filter for the TourConcluidos we want to count
+     *   }
+     * })
+    **/
+    count<T extends TourConcluidoCountArgs>(
+      args?: Subset<T, TourConcluidoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TourConcluidoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TourConcluido.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TourConcluidoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TourConcluidoAggregateArgs>(args: Subset<T, TourConcluidoAggregateArgs>): Prisma.PrismaPromise<GetTourConcluidoAggregateType<T>>
+
+    /**
+     * Group by TourConcluido.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TourConcluidoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TourConcluidoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TourConcluidoGroupByArgs['orderBy'] }
+        : { orderBy?: TourConcluidoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TourConcluidoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTourConcluidoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TourConcluido model
+   */
+  readonly fields: TourConcluidoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TourConcluido.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TourConcluidoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TourConcluido model
+   */
+  interface TourConcluidoFieldRefs {
+    readonly userId: FieldRef<"TourConcluido", 'String'>
+    readonly tela: FieldRef<"TourConcluido", 'String'>
+    readonly concluidoEm: FieldRef<"TourConcluido", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TourConcluido findUnique
+   */
+  export type TourConcluidoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
+    /**
+     * Filter, which TourConcluido to fetch.
+     */
+    where: TourConcluidoWhereUniqueInput
+  }
+
+  /**
+   * TourConcluido findUniqueOrThrow
+   */
+  export type TourConcluidoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
+    /**
+     * Filter, which TourConcluido to fetch.
+     */
+    where: TourConcluidoWhereUniqueInput
+  }
+
+  /**
+   * TourConcluido findFirst
+   */
+  export type TourConcluidoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
+    /**
+     * Filter, which TourConcluido to fetch.
+     */
+    where?: TourConcluidoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TourConcluidos to fetch.
+     */
+    orderBy?: TourConcluidoOrderByWithRelationInput | TourConcluidoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TourConcluidos.
+     */
+    cursor?: TourConcluidoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TourConcluidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TourConcluidos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TourConcluidos.
+     */
+    distinct?: TourConcluidoScalarFieldEnum | TourConcluidoScalarFieldEnum[]
+  }
+
+  /**
+   * TourConcluido findFirstOrThrow
+   */
+  export type TourConcluidoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
+    /**
+     * Filter, which TourConcluido to fetch.
+     */
+    where?: TourConcluidoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TourConcluidos to fetch.
+     */
+    orderBy?: TourConcluidoOrderByWithRelationInput | TourConcluidoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TourConcluidos.
+     */
+    cursor?: TourConcluidoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TourConcluidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TourConcluidos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TourConcluidos.
+     */
+    distinct?: TourConcluidoScalarFieldEnum | TourConcluidoScalarFieldEnum[]
+  }
+
+  /**
+   * TourConcluido findMany
+   */
+  export type TourConcluidoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
+    /**
+     * Filter, which TourConcluidos to fetch.
+     */
+    where?: TourConcluidoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TourConcluidos to fetch.
+     */
+    orderBy?: TourConcluidoOrderByWithRelationInput | TourConcluidoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TourConcluidos.
+     */
+    cursor?: TourConcluidoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TourConcluidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TourConcluidos.
+     */
+    skip?: number
+    distinct?: TourConcluidoScalarFieldEnum | TourConcluidoScalarFieldEnum[]
+  }
+
+  /**
+   * TourConcluido create
+   */
+  export type TourConcluidoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TourConcluido.
+     */
+    data: XOR<TourConcluidoCreateInput, TourConcluidoUncheckedCreateInput>
+  }
+
+  /**
+   * TourConcluido createMany
+   */
+  export type TourConcluidoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TourConcluidos.
+     */
+    data: TourConcluidoCreateManyInput | TourConcluidoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TourConcluido createManyAndReturn
+   */
+  export type TourConcluidoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * The data used to create many TourConcluidos.
+     */
+    data: TourConcluidoCreateManyInput | TourConcluidoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TourConcluido update
+   */
+  export type TourConcluidoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TourConcluido.
+     */
+    data: XOR<TourConcluidoUpdateInput, TourConcluidoUncheckedUpdateInput>
+    /**
+     * Choose, which TourConcluido to update.
+     */
+    where: TourConcluidoWhereUniqueInput
+  }
+
+  /**
+   * TourConcluido updateMany
+   */
+  export type TourConcluidoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TourConcluidos.
+     */
+    data: XOR<TourConcluidoUpdateManyMutationInput, TourConcluidoUncheckedUpdateManyInput>
+    /**
+     * Filter which TourConcluidos to update
+     */
+    where?: TourConcluidoWhereInput
+    /**
+     * Limit how many TourConcluidos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TourConcluido updateManyAndReturn
+   */
+  export type TourConcluidoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * The data used to update TourConcluidos.
+     */
+    data: XOR<TourConcluidoUpdateManyMutationInput, TourConcluidoUncheckedUpdateManyInput>
+    /**
+     * Filter which TourConcluidos to update
+     */
+    where?: TourConcluidoWhereInput
+    /**
+     * Limit how many TourConcluidos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TourConcluido upsert
+   */
+  export type TourConcluidoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TourConcluido to update in case it exists.
+     */
+    where: TourConcluidoWhereUniqueInput
+    /**
+     * In case the TourConcluido found by the `where` argument doesn't exist, create a new TourConcluido with this data.
+     */
+    create: XOR<TourConcluidoCreateInput, TourConcluidoUncheckedCreateInput>
+    /**
+     * In case the TourConcluido was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TourConcluidoUpdateInput, TourConcluidoUncheckedUpdateInput>
+  }
+
+  /**
+   * TourConcluido delete
+   */
+  export type TourConcluidoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
+    /**
+     * Filter which TourConcluido to delete.
+     */
+    where: TourConcluidoWhereUniqueInput
+  }
+
+  /**
+   * TourConcluido deleteMany
+   */
+  export type TourConcluidoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TourConcluidos to delete
+     */
+    where?: TourConcluidoWhereInput
+    /**
+     * Limit how many TourConcluidos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TourConcluido without action
+   */
+  export type TourConcluidoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TourConcluido
+     */
+    select?: TourConcluidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TourConcluido
+     */
+    omit?: TourConcluidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TourConcluidoInclude<ExtArgs> | null
   }
 
 
@@ -12588,6 +14314,7 @@ export namespace Prisma {
     vinculosEquipe?: boolean | Semestre$vinculosEquipeArgs<ExtArgs>
     semanasImpressao?: boolean | Semestre$semanasImpressaoArgs<ExtArgs>
     materiaisAtualizacao?: boolean | Semestre$materiaisAtualizacaoArgs<ExtArgs>
+    conectaProvas?: boolean | Semestre$conectaProvasArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -12620,6 +14347,7 @@ export namespace Prisma {
     vinculosEquipe?: boolean | Semestre$vinculosEquipeArgs<ExtArgs>
     semanasImpressao?: boolean | Semestre$semanasImpressaoArgs<ExtArgs>
     materiaisAtualizacao?: boolean | Semestre$materiaisAtualizacaoArgs<ExtArgs>
+    conectaProvas?: boolean | Semestre$conectaProvasArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -12634,6 +14362,7 @@ export namespace Prisma {
       vinculosEquipe: Prisma.$VinculoEquipeSemestrePayload<ExtArgs>[]
       semanasImpressao: Prisma.$SemanaImpressaoPayload<ExtArgs>[]
       materiaisAtualizacao: Prisma.$MaterialAtualizacaoPayload<ExtArgs>[]
+      conectaProvas: Prisma.$ConectaProvaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13040,6 +14769,7 @@ export namespace Prisma {
     vinculosEquipe<T extends Semestre$vinculosEquipeArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$vinculosEquipeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VinculoEquipeSemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     semanasImpressao<T extends Semestre$semanasImpressaoArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$semanasImpressaoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemanaImpressaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     materiaisAtualizacao<T extends Semestre$materiaisAtualizacaoArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$materiaisAtualizacaoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaterialAtualizacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    conectaProvas<T extends Semestre$conectaProvasArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$conectaProvasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13602,6 +15332,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MaterialAtualizacaoScalarFieldEnum | MaterialAtualizacaoScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.conectaProvas
+   */
+  export type Semestre$conectaProvasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    where?: ConectaProvaWhereInput
+    orderBy?: ConectaProvaOrderByWithRelationInput | ConectaProvaOrderByWithRelationInput[]
+    cursor?: ConectaProvaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConectaProvaScalarFieldEnum | ConectaProvaScalarFieldEnum[]
   }
 
   /**
@@ -19453,6 +21207,7 @@ export namespace Prisma {
     avisos?: boolean | Turma$avisosArgs<ExtArgs>
     anotacoes?: boolean | Turma$anotacoesArgs<ExtArgs>
     presencas?: boolean | Turma$presencasArgs<ExtArgs>
+    conectaEquipe?: boolean | Turma$conectaEquipeArgs<ExtArgs>
     _count?: boolean | TurmaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["turma"]>
 
@@ -19517,6 +21272,7 @@ export namespace Prisma {
     avisos?: boolean | Turma$avisosArgs<ExtArgs>
     anotacoes?: boolean | Turma$anotacoesArgs<ExtArgs>
     presencas?: boolean | Turma$presencasArgs<ExtArgs>
+    conectaEquipe?: boolean | Turma$conectaEquipeArgs<ExtArgs>
     _count?: boolean | TurmaCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TurmaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19538,6 +21294,7 @@ export namespace Prisma {
       avisos: Prisma.$AvisoPayload<ExtArgs>[]
       anotacoes: Prisma.$AnotacaoPayload<ExtArgs>[]
       presencas: Prisma.$RegistroPresencaPayload<ExtArgs>[]
+      conectaEquipe: Prisma.$ConectaEquipePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -19956,6 +21713,7 @@ export namespace Prisma {
     avisos<T extends Turma$avisosArgs<ExtArgs> = {}>(args?: Subset<T, Turma$avisosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvisoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     anotacoes<T extends Turma$anotacoesArgs<ExtArgs> = {}>(args?: Subset<T, Turma$anotacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnotacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     presencas<T extends Turma$presencasArgs<ExtArgs> = {}>(args?: Subset<T, Turma$presencasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroPresencaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    conectaEquipe<T extends Turma$conectaEquipeArgs<ExtArgs> = {}>(args?: Subset<T, Turma$conectaEquipeArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20586,6 +22344,25 @@ export namespace Prisma {
   }
 
   /**
+   * Turma.conectaEquipe
+   */
+  export type Turma$conectaEquipeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    where?: ConectaEquipeWhereInput
+  }
+
+  /**
    * Turma without action
    */
   export type TurmaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -20601,6 +22378,5654 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TurmaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ConectaEquipe
+   */
+
+  export type AggregateConectaEquipe = {
+    _count: ConectaEquipeCountAggregateOutputType | null
+    _min: ConectaEquipeMinAggregateOutputType | null
+    _max: ConectaEquipeMaxAggregateOutputType | null
+  }
+
+  export type ConectaEquipeMinAggregateOutputType = {
+    id: string | null
+    turmaId: string | null
+    nome: string | null
+    tema: string | null
+    corInicial: string | null
+    corFinal: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConectaEquipeMaxAggregateOutputType = {
+    id: string | null
+    turmaId: string | null
+    nome: string | null
+    tema: string | null
+    corInicial: string | null
+    corFinal: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConectaEquipeCountAggregateOutputType = {
+    id: number
+    turmaId: number
+    nome: number
+    tema: number
+    corInicial: number
+    corFinal: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ConectaEquipeMinAggregateInputType = {
+    id?: true
+    turmaId?: true
+    nome?: true
+    tema?: true
+    corInicial?: true
+    corFinal?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConectaEquipeMaxAggregateInputType = {
+    id?: true
+    turmaId?: true
+    nome?: true
+    tema?: true
+    corInicial?: true
+    corFinal?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConectaEquipeCountAggregateInputType = {
+    id?: true
+    turmaId?: true
+    nome?: true
+    tema?: true
+    corInicial?: true
+    corFinal?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ConectaEquipeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ConectaEquipe to aggregate.
+     */
+    where?: ConectaEquipeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaEquipes to fetch.
+     */
+    orderBy?: ConectaEquipeOrderByWithRelationInput | ConectaEquipeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConectaEquipeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaEquipes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaEquipes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ConectaEquipes
+    **/
+    _count?: true | ConectaEquipeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConectaEquipeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConectaEquipeMaxAggregateInputType
+  }
+
+  export type GetConectaEquipeAggregateType<T extends ConectaEquipeAggregateArgs> = {
+        [P in keyof T & keyof AggregateConectaEquipe]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConectaEquipe[P]>
+      : GetScalarType<T[P], AggregateConectaEquipe[P]>
+  }
+
+
+
+
+  export type ConectaEquipeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConectaEquipeWhereInput
+    orderBy?: ConectaEquipeOrderByWithAggregationInput | ConectaEquipeOrderByWithAggregationInput[]
+    by: ConectaEquipeScalarFieldEnum[] | ConectaEquipeScalarFieldEnum
+    having?: ConectaEquipeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConectaEquipeCountAggregateInputType | true
+    _min?: ConectaEquipeMinAggregateInputType
+    _max?: ConectaEquipeMaxAggregateInputType
+  }
+
+  export type ConectaEquipeGroupByOutputType = {
+    id: string
+    turmaId: string
+    nome: string
+    tema: string
+    corInicial: string
+    corFinal: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ConectaEquipeCountAggregateOutputType | null
+    _min: ConectaEquipeMinAggregateOutputType | null
+    _max: ConectaEquipeMaxAggregateOutputType | null
+  }
+
+  type GetConectaEquipeGroupByPayload<T extends ConectaEquipeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConectaEquipeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConectaEquipeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConectaEquipeGroupByOutputType[P]>
+            : GetScalarType<T[P], ConectaEquipeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConectaEquipeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    turmaId?: boolean
+    nome?: boolean
+    tema?: boolean
+    corInicial?: boolean
+    corFinal?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    turma?: boolean | TurmaDefaultArgs<ExtArgs>
+    doacoes?: boolean | ConectaEquipe$doacoesArgs<ExtArgs>
+    provas?: boolean | ConectaEquipe$provasArgs<ExtArgs>
+    _count?: boolean | ConectaEquipeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaEquipe"]>
+
+  export type ConectaEquipeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    turmaId?: boolean
+    nome?: boolean
+    tema?: boolean
+    corInicial?: boolean
+    corFinal?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    turma?: boolean | TurmaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaEquipe"]>
+
+  export type ConectaEquipeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    turmaId?: boolean
+    nome?: boolean
+    tema?: boolean
+    corInicial?: boolean
+    corFinal?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    turma?: boolean | TurmaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaEquipe"]>
+
+  export type ConectaEquipeSelectScalar = {
+    id?: boolean
+    turmaId?: boolean
+    nome?: boolean
+    tema?: boolean
+    corInicial?: boolean
+    corFinal?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ConectaEquipeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "turmaId" | "nome" | "tema" | "corInicial" | "corFinal" | "createdAt" | "updatedAt", ExtArgs["result"]["conectaEquipe"]>
+  export type ConectaEquipeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    turma?: boolean | TurmaDefaultArgs<ExtArgs>
+    doacoes?: boolean | ConectaEquipe$doacoesArgs<ExtArgs>
+    provas?: boolean | ConectaEquipe$provasArgs<ExtArgs>
+    _count?: boolean | ConectaEquipeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ConectaEquipeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    turma?: boolean | TurmaDefaultArgs<ExtArgs>
+  }
+  export type ConectaEquipeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    turma?: boolean | TurmaDefaultArgs<ExtArgs>
+  }
+
+  export type $ConectaEquipePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ConectaEquipe"
+    objects: {
+      turma: Prisma.$TurmaPayload<ExtArgs>
+      doacoes: Prisma.$ConectaDoacaoPayload<ExtArgs>[]
+      provas: Prisma.$ConectaProvaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      turmaId: string
+      nome: string
+      tema: string
+      corInicial: string
+      corFinal: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["conectaEquipe"]>
+    composites: {}
+  }
+
+  type ConectaEquipeGetPayload<S extends boolean | null | undefined | ConectaEquipeDefaultArgs> = $Result.GetResult<Prisma.$ConectaEquipePayload, S>
+
+  type ConectaEquipeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ConectaEquipeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ConectaEquipeCountAggregateInputType | true
+    }
+
+  export interface ConectaEquipeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ConectaEquipe'], meta: { name: 'ConectaEquipe' } }
+    /**
+     * Find zero or one ConectaEquipe that matches the filter.
+     * @param {ConectaEquipeFindUniqueArgs} args - Arguments to find a ConectaEquipe
+     * @example
+     * // Get one ConectaEquipe
+     * const conectaEquipe = await prisma.conectaEquipe.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConectaEquipeFindUniqueArgs>(args: SelectSubset<T, ConectaEquipeFindUniqueArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ConectaEquipe that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ConectaEquipeFindUniqueOrThrowArgs} args - Arguments to find a ConectaEquipe
+     * @example
+     * // Get one ConectaEquipe
+     * const conectaEquipe = await prisma.conectaEquipe.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConectaEquipeFindUniqueOrThrowArgs>(args: SelectSubset<T, ConectaEquipeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ConectaEquipe that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaEquipeFindFirstArgs} args - Arguments to find a ConectaEquipe
+     * @example
+     * // Get one ConectaEquipe
+     * const conectaEquipe = await prisma.conectaEquipe.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConectaEquipeFindFirstArgs>(args?: SelectSubset<T, ConectaEquipeFindFirstArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ConectaEquipe that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaEquipeFindFirstOrThrowArgs} args - Arguments to find a ConectaEquipe
+     * @example
+     * // Get one ConectaEquipe
+     * const conectaEquipe = await prisma.conectaEquipe.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConectaEquipeFindFirstOrThrowArgs>(args?: SelectSubset<T, ConectaEquipeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ConectaEquipes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaEquipeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ConectaEquipes
+     * const conectaEquipes = await prisma.conectaEquipe.findMany()
+     * 
+     * // Get first 10 ConectaEquipes
+     * const conectaEquipes = await prisma.conectaEquipe.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const conectaEquipeWithIdOnly = await prisma.conectaEquipe.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConectaEquipeFindManyArgs>(args?: SelectSubset<T, ConectaEquipeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ConectaEquipe.
+     * @param {ConectaEquipeCreateArgs} args - Arguments to create a ConectaEquipe.
+     * @example
+     * // Create one ConectaEquipe
+     * const ConectaEquipe = await prisma.conectaEquipe.create({
+     *   data: {
+     *     // ... data to create a ConectaEquipe
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConectaEquipeCreateArgs>(args: SelectSubset<T, ConectaEquipeCreateArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ConectaEquipes.
+     * @param {ConectaEquipeCreateManyArgs} args - Arguments to create many ConectaEquipes.
+     * @example
+     * // Create many ConectaEquipes
+     * const conectaEquipe = await prisma.conectaEquipe.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConectaEquipeCreateManyArgs>(args?: SelectSubset<T, ConectaEquipeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ConectaEquipes and returns the data saved in the database.
+     * @param {ConectaEquipeCreateManyAndReturnArgs} args - Arguments to create many ConectaEquipes.
+     * @example
+     * // Create many ConectaEquipes
+     * const conectaEquipe = await prisma.conectaEquipe.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ConectaEquipes and only return the `id`
+     * const conectaEquipeWithIdOnly = await prisma.conectaEquipe.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ConectaEquipeCreateManyAndReturnArgs>(args?: SelectSubset<T, ConectaEquipeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ConectaEquipe.
+     * @param {ConectaEquipeDeleteArgs} args - Arguments to delete one ConectaEquipe.
+     * @example
+     * // Delete one ConectaEquipe
+     * const ConectaEquipe = await prisma.conectaEquipe.delete({
+     *   where: {
+     *     // ... filter to delete one ConectaEquipe
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConectaEquipeDeleteArgs>(args: SelectSubset<T, ConectaEquipeDeleteArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ConectaEquipe.
+     * @param {ConectaEquipeUpdateArgs} args - Arguments to update one ConectaEquipe.
+     * @example
+     * // Update one ConectaEquipe
+     * const conectaEquipe = await prisma.conectaEquipe.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConectaEquipeUpdateArgs>(args: SelectSubset<T, ConectaEquipeUpdateArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ConectaEquipes.
+     * @param {ConectaEquipeDeleteManyArgs} args - Arguments to filter ConectaEquipes to delete.
+     * @example
+     * // Delete a few ConectaEquipes
+     * const { count } = await prisma.conectaEquipe.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConectaEquipeDeleteManyArgs>(args?: SelectSubset<T, ConectaEquipeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ConectaEquipes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaEquipeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ConectaEquipes
+     * const conectaEquipe = await prisma.conectaEquipe.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConectaEquipeUpdateManyArgs>(args: SelectSubset<T, ConectaEquipeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ConectaEquipes and returns the data updated in the database.
+     * @param {ConectaEquipeUpdateManyAndReturnArgs} args - Arguments to update many ConectaEquipes.
+     * @example
+     * // Update many ConectaEquipes
+     * const conectaEquipe = await prisma.conectaEquipe.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ConectaEquipes and only return the `id`
+     * const conectaEquipeWithIdOnly = await prisma.conectaEquipe.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ConectaEquipeUpdateManyAndReturnArgs>(args: SelectSubset<T, ConectaEquipeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ConectaEquipe.
+     * @param {ConectaEquipeUpsertArgs} args - Arguments to update or create a ConectaEquipe.
+     * @example
+     * // Update or create a ConectaEquipe
+     * const conectaEquipe = await prisma.conectaEquipe.upsert({
+     *   create: {
+     *     // ... data to create a ConectaEquipe
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ConectaEquipe we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConectaEquipeUpsertArgs>(args: SelectSubset<T, ConectaEquipeUpsertArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ConectaEquipes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaEquipeCountArgs} args - Arguments to filter ConectaEquipes to count.
+     * @example
+     * // Count the number of ConectaEquipes
+     * const count = await prisma.conectaEquipe.count({
+     *   where: {
+     *     // ... the filter for the ConectaEquipes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConectaEquipeCountArgs>(
+      args?: Subset<T, ConectaEquipeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConectaEquipeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ConectaEquipe.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaEquipeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConectaEquipeAggregateArgs>(args: Subset<T, ConectaEquipeAggregateArgs>): Prisma.PrismaPromise<GetConectaEquipeAggregateType<T>>
+
+    /**
+     * Group by ConectaEquipe.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaEquipeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConectaEquipeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConectaEquipeGroupByArgs['orderBy'] }
+        : { orderBy?: ConectaEquipeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConectaEquipeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConectaEquipeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ConectaEquipe model
+   */
+  readonly fields: ConectaEquipeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ConectaEquipe.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConectaEquipeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    turma<T extends TurmaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TurmaDefaultArgs<ExtArgs>>): Prisma__TurmaClient<$Result.GetResult<Prisma.$TurmaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    doacoes<T extends ConectaEquipe$doacoesArgs<ExtArgs> = {}>(args?: Subset<T, ConectaEquipe$doacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    provas<T extends ConectaEquipe$provasArgs<ExtArgs> = {}>(args?: Subset<T, ConectaEquipe$provasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ConectaEquipe model
+   */
+  interface ConectaEquipeFieldRefs {
+    readonly id: FieldRef<"ConectaEquipe", 'String'>
+    readonly turmaId: FieldRef<"ConectaEquipe", 'String'>
+    readonly nome: FieldRef<"ConectaEquipe", 'String'>
+    readonly tema: FieldRef<"ConectaEquipe", 'String'>
+    readonly corInicial: FieldRef<"ConectaEquipe", 'String'>
+    readonly corFinal: FieldRef<"ConectaEquipe", 'String'>
+    readonly createdAt: FieldRef<"ConectaEquipe", 'DateTime'>
+    readonly updatedAt: FieldRef<"ConectaEquipe", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ConectaEquipe findUnique
+   */
+  export type ConectaEquipeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaEquipe to fetch.
+     */
+    where: ConectaEquipeWhereUniqueInput
+  }
+
+  /**
+   * ConectaEquipe findUniqueOrThrow
+   */
+  export type ConectaEquipeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaEquipe to fetch.
+     */
+    where: ConectaEquipeWhereUniqueInput
+  }
+
+  /**
+   * ConectaEquipe findFirst
+   */
+  export type ConectaEquipeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaEquipe to fetch.
+     */
+    where?: ConectaEquipeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaEquipes to fetch.
+     */
+    orderBy?: ConectaEquipeOrderByWithRelationInput | ConectaEquipeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ConectaEquipes.
+     */
+    cursor?: ConectaEquipeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaEquipes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaEquipes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ConectaEquipes.
+     */
+    distinct?: ConectaEquipeScalarFieldEnum | ConectaEquipeScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaEquipe findFirstOrThrow
+   */
+  export type ConectaEquipeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaEquipe to fetch.
+     */
+    where?: ConectaEquipeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaEquipes to fetch.
+     */
+    orderBy?: ConectaEquipeOrderByWithRelationInput | ConectaEquipeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ConectaEquipes.
+     */
+    cursor?: ConectaEquipeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaEquipes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaEquipes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ConectaEquipes.
+     */
+    distinct?: ConectaEquipeScalarFieldEnum | ConectaEquipeScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaEquipe findMany
+   */
+  export type ConectaEquipeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaEquipes to fetch.
+     */
+    where?: ConectaEquipeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaEquipes to fetch.
+     */
+    orderBy?: ConectaEquipeOrderByWithRelationInput | ConectaEquipeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ConectaEquipes.
+     */
+    cursor?: ConectaEquipeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaEquipes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaEquipes.
+     */
+    skip?: number
+    distinct?: ConectaEquipeScalarFieldEnum | ConectaEquipeScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaEquipe create
+   */
+  export type ConectaEquipeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ConectaEquipe.
+     */
+    data: XOR<ConectaEquipeCreateInput, ConectaEquipeUncheckedCreateInput>
+  }
+
+  /**
+   * ConectaEquipe createMany
+   */
+  export type ConectaEquipeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ConectaEquipes.
+     */
+    data: ConectaEquipeCreateManyInput | ConectaEquipeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ConectaEquipe createManyAndReturn
+   */
+  export type ConectaEquipeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * The data used to create many ConectaEquipes.
+     */
+    data: ConectaEquipeCreateManyInput | ConectaEquipeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ConectaEquipe update
+   */
+  export type ConectaEquipeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ConectaEquipe.
+     */
+    data: XOR<ConectaEquipeUpdateInput, ConectaEquipeUncheckedUpdateInput>
+    /**
+     * Choose, which ConectaEquipe to update.
+     */
+    where: ConectaEquipeWhereUniqueInput
+  }
+
+  /**
+   * ConectaEquipe updateMany
+   */
+  export type ConectaEquipeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ConectaEquipes.
+     */
+    data: XOR<ConectaEquipeUpdateManyMutationInput, ConectaEquipeUncheckedUpdateManyInput>
+    /**
+     * Filter which ConectaEquipes to update
+     */
+    where?: ConectaEquipeWhereInput
+    /**
+     * Limit how many ConectaEquipes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaEquipe updateManyAndReturn
+   */
+  export type ConectaEquipeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * The data used to update ConectaEquipes.
+     */
+    data: XOR<ConectaEquipeUpdateManyMutationInput, ConectaEquipeUncheckedUpdateManyInput>
+    /**
+     * Filter which ConectaEquipes to update
+     */
+    where?: ConectaEquipeWhereInput
+    /**
+     * Limit how many ConectaEquipes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ConectaEquipe upsert
+   */
+  export type ConectaEquipeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ConectaEquipe to update in case it exists.
+     */
+    where: ConectaEquipeWhereUniqueInput
+    /**
+     * In case the ConectaEquipe found by the `where` argument doesn't exist, create a new ConectaEquipe with this data.
+     */
+    create: XOR<ConectaEquipeCreateInput, ConectaEquipeUncheckedCreateInput>
+    /**
+     * In case the ConectaEquipe was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConectaEquipeUpdateInput, ConectaEquipeUncheckedUpdateInput>
+  }
+
+  /**
+   * ConectaEquipe delete
+   */
+  export type ConectaEquipeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    /**
+     * Filter which ConectaEquipe to delete.
+     */
+    where: ConectaEquipeWhereUniqueInput
+  }
+
+  /**
+   * ConectaEquipe deleteMany
+   */
+  export type ConectaEquipeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ConectaEquipes to delete
+     */
+    where?: ConectaEquipeWhereInput
+    /**
+     * Limit how many ConectaEquipes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaEquipe.doacoes
+   */
+  export type ConectaEquipe$doacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+    where?: ConectaDoacaoWhereInput
+    orderBy?: ConectaDoacaoOrderByWithRelationInput | ConectaDoacaoOrderByWithRelationInput[]
+    cursor?: ConectaDoacaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConectaDoacaoScalarFieldEnum | ConectaDoacaoScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaEquipe.provas
+   */
+  export type ConectaEquipe$provasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    where?: ConectaProvaWhereInput
+    orderBy?: ConectaProvaOrderByWithRelationInput | ConectaProvaOrderByWithRelationInput[]
+    cursor?: ConectaProvaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConectaProvaScalarFieldEnum | ConectaProvaScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaEquipe without action
+   */
+  export type ConectaEquipeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ConectaItem
+   */
+
+  export type AggregateConectaItem = {
+    _count: ConectaItemCountAggregateOutputType | null
+    _avg: ConectaItemAvgAggregateOutputType | null
+    _sum: ConectaItemSumAggregateOutputType | null
+    _min: ConectaItemMinAggregateOutputType | null
+    _max: ConectaItemMaxAggregateOutputType | null
+  }
+
+  export type ConectaItemAvgAggregateOutputType = {
+    pontos: number | null
+  }
+
+  export type ConectaItemSumAggregateOutputType = {
+    pontos: number | null
+  }
+
+  export type ConectaItemMinAggregateOutputType = {
+    id: string | null
+    nome: string | null
+    descricao: string | null
+    pontos: number | null
+    ativo: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConectaItemMaxAggregateOutputType = {
+    id: string | null
+    nome: string | null
+    descricao: string | null
+    pontos: number | null
+    ativo: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConectaItemCountAggregateOutputType = {
+    id: number
+    nome: number
+    descricao: number
+    pontos: number
+    ativo: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ConectaItemAvgAggregateInputType = {
+    pontos?: true
+  }
+
+  export type ConectaItemSumAggregateInputType = {
+    pontos?: true
+  }
+
+  export type ConectaItemMinAggregateInputType = {
+    id?: true
+    nome?: true
+    descricao?: true
+    pontos?: true
+    ativo?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConectaItemMaxAggregateInputType = {
+    id?: true
+    nome?: true
+    descricao?: true
+    pontos?: true
+    ativo?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConectaItemCountAggregateInputType = {
+    id?: true
+    nome?: true
+    descricao?: true
+    pontos?: true
+    ativo?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ConectaItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ConectaItem to aggregate.
+     */
+    where?: ConectaItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaItems to fetch.
+     */
+    orderBy?: ConectaItemOrderByWithRelationInput | ConectaItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConectaItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ConectaItems
+    **/
+    _count?: true | ConectaItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ConectaItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ConectaItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConectaItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConectaItemMaxAggregateInputType
+  }
+
+  export type GetConectaItemAggregateType<T extends ConectaItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateConectaItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConectaItem[P]>
+      : GetScalarType<T[P], AggregateConectaItem[P]>
+  }
+
+
+
+
+  export type ConectaItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConectaItemWhereInput
+    orderBy?: ConectaItemOrderByWithAggregationInput | ConectaItemOrderByWithAggregationInput[]
+    by: ConectaItemScalarFieldEnum[] | ConectaItemScalarFieldEnum
+    having?: ConectaItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConectaItemCountAggregateInputType | true
+    _avg?: ConectaItemAvgAggregateInputType
+    _sum?: ConectaItemSumAggregateInputType
+    _min?: ConectaItemMinAggregateInputType
+    _max?: ConectaItemMaxAggregateInputType
+  }
+
+  export type ConectaItemGroupByOutputType = {
+    id: string
+    nome: string
+    descricao: string | null
+    pontos: number
+    ativo: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: ConectaItemCountAggregateOutputType | null
+    _avg: ConectaItemAvgAggregateOutputType | null
+    _sum: ConectaItemSumAggregateOutputType | null
+    _min: ConectaItemMinAggregateOutputType | null
+    _max: ConectaItemMaxAggregateOutputType | null
+  }
+
+  type GetConectaItemGroupByPayload<T extends ConectaItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConectaItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConectaItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConectaItemGroupByOutputType[P]>
+            : GetScalarType<T[P], ConectaItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConectaItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    descricao?: boolean
+    pontos?: boolean
+    ativo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    doacoes?: boolean | ConectaItem$doacoesArgs<ExtArgs>
+    _count?: boolean | ConectaItemCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaItem"]>
+
+  export type ConectaItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    descricao?: boolean
+    pontos?: boolean
+    ativo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["conectaItem"]>
+
+  export type ConectaItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    descricao?: boolean
+    pontos?: boolean
+    ativo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["conectaItem"]>
+
+  export type ConectaItemSelectScalar = {
+    id?: boolean
+    nome?: boolean
+    descricao?: boolean
+    pontos?: boolean
+    ativo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ConectaItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "descricao" | "pontos" | "ativo" | "createdAt" | "updatedAt", ExtArgs["result"]["conectaItem"]>
+  export type ConectaItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doacoes?: boolean | ConectaItem$doacoesArgs<ExtArgs>
+    _count?: boolean | ConectaItemCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ConectaItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ConectaItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ConectaItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ConectaItem"
+    objects: {
+      doacoes: Prisma.$ConectaDoacaoItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      nome: string
+      descricao: string | null
+      pontos: number
+      ativo: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["conectaItem"]>
+    composites: {}
+  }
+
+  type ConectaItemGetPayload<S extends boolean | null | undefined | ConectaItemDefaultArgs> = $Result.GetResult<Prisma.$ConectaItemPayload, S>
+
+  type ConectaItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ConectaItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ConectaItemCountAggregateInputType | true
+    }
+
+  export interface ConectaItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ConectaItem'], meta: { name: 'ConectaItem' } }
+    /**
+     * Find zero or one ConectaItem that matches the filter.
+     * @param {ConectaItemFindUniqueArgs} args - Arguments to find a ConectaItem
+     * @example
+     * // Get one ConectaItem
+     * const conectaItem = await prisma.conectaItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConectaItemFindUniqueArgs>(args: SelectSubset<T, ConectaItemFindUniqueArgs<ExtArgs>>): Prisma__ConectaItemClient<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ConectaItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ConectaItemFindUniqueOrThrowArgs} args - Arguments to find a ConectaItem
+     * @example
+     * // Get one ConectaItem
+     * const conectaItem = await prisma.conectaItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConectaItemFindUniqueOrThrowArgs>(args: SelectSubset<T, ConectaItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConectaItemClient<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ConectaItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaItemFindFirstArgs} args - Arguments to find a ConectaItem
+     * @example
+     * // Get one ConectaItem
+     * const conectaItem = await prisma.conectaItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConectaItemFindFirstArgs>(args?: SelectSubset<T, ConectaItemFindFirstArgs<ExtArgs>>): Prisma__ConectaItemClient<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ConectaItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaItemFindFirstOrThrowArgs} args - Arguments to find a ConectaItem
+     * @example
+     * // Get one ConectaItem
+     * const conectaItem = await prisma.conectaItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConectaItemFindFirstOrThrowArgs>(args?: SelectSubset<T, ConectaItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConectaItemClient<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ConectaItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ConectaItems
+     * const conectaItems = await prisma.conectaItem.findMany()
+     * 
+     * // Get first 10 ConectaItems
+     * const conectaItems = await prisma.conectaItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const conectaItemWithIdOnly = await prisma.conectaItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConectaItemFindManyArgs>(args?: SelectSubset<T, ConectaItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ConectaItem.
+     * @param {ConectaItemCreateArgs} args - Arguments to create a ConectaItem.
+     * @example
+     * // Create one ConectaItem
+     * const ConectaItem = await prisma.conectaItem.create({
+     *   data: {
+     *     // ... data to create a ConectaItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConectaItemCreateArgs>(args: SelectSubset<T, ConectaItemCreateArgs<ExtArgs>>): Prisma__ConectaItemClient<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ConectaItems.
+     * @param {ConectaItemCreateManyArgs} args - Arguments to create many ConectaItems.
+     * @example
+     * // Create many ConectaItems
+     * const conectaItem = await prisma.conectaItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConectaItemCreateManyArgs>(args?: SelectSubset<T, ConectaItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ConectaItems and returns the data saved in the database.
+     * @param {ConectaItemCreateManyAndReturnArgs} args - Arguments to create many ConectaItems.
+     * @example
+     * // Create many ConectaItems
+     * const conectaItem = await prisma.conectaItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ConectaItems and only return the `id`
+     * const conectaItemWithIdOnly = await prisma.conectaItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ConectaItemCreateManyAndReturnArgs>(args?: SelectSubset<T, ConectaItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ConectaItem.
+     * @param {ConectaItemDeleteArgs} args - Arguments to delete one ConectaItem.
+     * @example
+     * // Delete one ConectaItem
+     * const ConectaItem = await prisma.conectaItem.delete({
+     *   where: {
+     *     // ... filter to delete one ConectaItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConectaItemDeleteArgs>(args: SelectSubset<T, ConectaItemDeleteArgs<ExtArgs>>): Prisma__ConectaItemClient<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ConectaItem.
+     * @param {ConectaItemUpdateArgs} args - Arguments to update one ConectaItem.
+     * @example
+     * // Update one ConectaItem
+     * const conectaItem = await prisma.conectaItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConectaItemUpdateArgs>(args: SelectSubset<T, ConectaItemUpdateArgs<ExtArgs>>): Prisma__ConectaItemClient<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ConectaItems.
+     * @param {ConectaItemDeleteManyArgs} args - Arguments to filter ConectaItems to delete.
+     * @example
+     * // Delete a few ConectaItems
+     * const { count } = await prisma.conectaItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConectaItemDeleteManyArgs>(args?: SelectSubset<T, ConectaItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ConectaItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ConectaItems
+     * const conectaItem = await prisma.conectaItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConectaItemUpdateManyArgs>(args: SelectSubset<T, ConectaItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ConectaItems and returns the data updated in the database.
+     * @param {ConectaItemUpdateManyAndReturnArgs} args - Arguments to update many ConectaItems.
+     * @example
+     * // Update many ConectaItems
+     * const conectaItem = await prisma.conectaItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ConectaItems and only return the `id`
+     * const conectaItemWithIdOnly = await prisma.conectaItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ConectaItemUpdateManyAndReturnArgs>(args: SelectSubset<T, ConectaItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ConectaItem.
+     * @param {ConectaItemUpsertArgs} args - Arguments to update or create a ConectaItem.
+     * @example
+     * // Update or create a ConectaItem
+     * const conectaItem = await prisma.conectaItem.upsert({
+     *   create: {
+     *     // ... data to create a ConectaItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ConectaItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConectaItemUpsertArgs>(args: SelectSubset<T, ConectaItemUpsertArgs<ExtArgs>>): Prisma__ConectaItemClient<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ConectaItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaItemCountArgs} args - Arguments to filter ConectaItems to count.
+     * @example
+     * // Count the number of ConectaItems
+     * const count = await prisma.conectaItem.count({
+     *   where: {
+     *     // ... the filter for the ConectaItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConectaItemCountArgs>(
+      args?: Subset<T, ConectaItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConectaItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ConectaItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConectaItemAggregateArgs>(args: Subset<T, ConectaItemAggregateArgs>): Prisma.PrismaPromise<GetConectaItemAggregateType<T>>
+
+    /**
+     * Group by ConectaItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConectaItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConectaItemGroupByArgs['orderBy'] }
+        : { orderBy?: ConectaItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConectaItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConectaItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ConectaItem model
+   */
+  readonly fields: ConectaItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ConectaItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConectaItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    doacoes<T extends ConectaItem$doacoesArgs<ExtArgs> = {}>(args?: Subset<T, ConectaItem$doacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ConectaItem model
+   */
+  interface ConectaItemFieldRefs {
+    readonly id: FieldRef<"ConectaItem", 'String'>
+    readonly nome: FieldRef<"ConectaItem", 'String'>
+    readonly descricao: FieldRef<"ConectaItem", 'String'>
+    readonly pontos: FieldRef<"ConectaItem", 'Int'>
+    readonly ativo: FieldRef<"ConectaItem", 'Boolean'>
+    readonly createdAt: FieldRef<"ConectaItem", 'DateTime'>
+    readonly updatedAt: FieldRef<"ConectaItem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ConectaItem findUnique
+   */
+  export type ConectaItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaItem to fetch.
+     */
+    where: ConectaItemWhereUniqueInput
+  }
+
+  /**
+   * ConectaItem findUniqueOrThrow
+   */
+  export type ConectaItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaItem to fetch.
+     */
+    where: ConectaItemWhereUniqueInput
+  }
+
+  /**
+   * ConectaItem findFirst
+   */
+  export type ConectaItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaItem to fetch.
+     */
+    where?: ConectaItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaItems to fetch.
+     */
+    orderBy?: ConectaItemOrderByWithRelationInput | ConectaItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ConectaItems.
+     */
+    cursor?: ConectaItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ConectaItems.
+     */
+    distinct?: ConectaItemScalarFieldEnum | ConectaItemScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaItem findFirstOrThrow
+   */
+  export type ConectaItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaItem to fetch.
+     */
+    where?: ConectaItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaItems to fetch.
+     */
+    orderBy?: ConectaItemOrderByWithRelationInput | ConectaItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ConectaItems.
+     */
+    cursor?: ConectaItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ConectaItems.
+     */
+    distinct?: ConectaItemScalarFieldEnum | ConectaItemScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaItem findMany
+   */
+  export type ConectaItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaItems to fetch.
+     */
+    where?: ConectaItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaItems to fetch.
+     */
+    orderBy?: ConectaItemOrderByWithRelationInput | ConectaItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ConectaItems.
+     */
+    cursor?: ConectaItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaItems.
+     */
+    skip?: number
+    distinct?: ConectaItemScalarFieldEnum | ConectaItemScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaItem create
+   */
+  export type ConectaItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ConectaItem.
+     */
+    data: XOR<ConectaItemCreateInput, ConectaItemUncheckedCreateInput>
+  }
+
+  /**
+   * ConectaItem createMany
+   */
+  export type ConectaItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ConectaItems.
+     */
+    data: ConectaItemCreateManyInput | ConectaItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ConectaItem createManyAndReturn
+   */
+  export type ConectaItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many ConectaItems.
+     */
+    data: ConectaItemCreateManyInput | ConectaItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ConectaItem update
+   */
+  export type ConectaItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ConectaItem.
+     */
+    data: XOR<ConectaItemUpdateInput, ConectaItemUncheckedUpdateInput>
+    /**
+     * Choose, which ConectaItem to update.
+     */
+    where: ConectaItemWhereUniqueInput
+  }
+
+  /**
+   * ConectaItem updateMany
+   */
+  export type ConectaItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ConectaItems.
+     */
+    data: XOR<ConectaItemUpdateManyMutationInput, ConectaItemUncheckedUpdateManyInput>
+    /**
+     * Filter which ConectaItems to update
+     */
+    where?: ConectaItemWhereInput
+    /**
+     * Limit how many ConectaItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaItem updateManyAndReturn
+   */
+  export type ConectaItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * The data used to update ConectaItems.
+     */
+    data: XOR<ConectaItemUpdateManyMutationInput, ConectaItemUncheckedUpdateManyInput>
+    /**
+     * Filter which ConectaItems to update
+     */
+    where?: ConectaItemWhereInput
+    /**
+     * Limit how many ConectaItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaItem upsert
+   */
+  export type ConectaItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ConectaItem to update in case it exists.
+     */
+    where: ConectaItemWhereUniqueInput
+    /**
+     * In case the ConectaItem found by the `where` argument doesn't exist, create a new ConectaItem with this data.
+     */
+    create: XOR<ConectaItemCreateInput, ConectaItemUncheckedCreateInput>
+    /**
+     * In case the ConectaItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConectaItemUpdateInput, ConectaItemUncheckedUpdateInput>
+  }
+
+  /**
+   * ConectaItem delete
+   */
+  export type ConectaItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaItemInclude<ExtArgs> | null
+    /**
+     * Filter which ConectaItem to delete.
+     */
+    where: ConectaItemWhereUniqueInput
+  }
+
+  /**
+   * ConectaItem deleteMany
+   */
+  export type ConectaItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ConectaItems to delete
+     */
+    where?: ConectaItemWhereInput
+    /**
+     * Limit how many ConectaItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaItem.doacoes
+   */
+  export type ConectaItem$doacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    where?: ConectaDoacaoItemWhereInput
+    orderBy?: ConectaDoacaoItemOrderByWithRelationInput | ConectaDoacaoItemOrderByWithRelationInput[]
+    cursor?: ConectaDoacaoItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConectaDoacaoItemScalarFieldEnum | ConectaDoacaoItemScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaItem without action
+   */
+  export type ConectaItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaItem
+     */
+    select?: ConectaItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaItem
+     */
+    omit?: ConectaItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ConectaDoacao
+   */
+
+  export type AggregateConectaDoacao = {
+    _count: ConectaDoacaoCountAggregateOutputType | null
+    _min: ConectaDoacaoMinAggregateOutputType | null
+    _max: ConectaDoacaoMaxAggregateOutputType | null
+  }
+
+  export type ConectaDoacaoMinAggregateOutputType = {
+    id: string | null
+    equipeId: string | null
+    nomeDoador: string | null
+    descricao: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConectaDoacaoMaxAggregateOutputType = {
+    id: string | null
+    equipeId: string | null
+    nomeDoador: string | null
+    descricao: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConectaDoacaoCountAggregateOutputType = {
+    id: number
+    equipeId: number
+    nomeDoador: number
+    descricao: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ConectaDoacaoMinAggregateInputType = {
+    id?: true
+    equipeId?: true
+    nomeDoador?: true
+    descricao?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConectaDoacaoMaxAggregateInputType = {
+    id?: true
+    equipeId?: true
+    nomeDoador?: true
+    descricao?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConectaDoacaoCountAggregateInputType = {
+    id?: true
+    equipeId?: true
+    nomeDoador?: true
+    descricao?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ConectaDoacaoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ConectaDoacao to aggregate.
+     */
+    where?: ConectaDoacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaDoacaos to fetch.
+     */
+    orderBy?: ConectaDoacaoOrderByWithRelationInput | ConectaDoacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConectaDoacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaDoacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaDoacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ConectaDoacaos
+    **/
+    _count?: true | ConectaDoacaoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConectaDoacaoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConectaDoacaoMaxAggregateInputType
+  }
+
+  export type GetConectaDoacaoAggregateType<T extends ConectaDoacaoAggregateArgs> = {
+        [P in keyof T & keyof AggregateConectaDoacao]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConectaDoacao[P]>
+      : GetScalarType<T[P], AggregateConectaDoacao[P]>
+  }
+
+
+
+
+  export type ConectaDoacaoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConectaDoacaoWhereInput
+    orderBy?: ConectaDoacaoOrderByWithAggregationInput | ConectaDoacaoOrderByWithAggregationInput[]
+    by: ConectaDoacaoScalarFieldEnum[] | ConectaDoacaoScalarFieldEnum
+    having?: ConectaDoacaoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConectaDoacaoCountAggregateInputType | true
+    _min?: ConectaDoacaoMinAggregateInputType
+    _max?: ConectaDoacaoMaxAggregateInputType
+  }
+
+  export type ConectaDoacaoGroupByOutputType = {
+    id: string
+    equipeId: string
+    nomeDoador: string
+    descricao: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ConectaDoacaoCountAggregateOutputType | null
+    _min: ConectaDoacaoMinAggregateOutputType | null
+    _max: ConectaDoacaoMaxAggregateOutputType | null
+  }
+
+  type GetConectaDoacaoGroupByPayload<T extends ConectaDoacaoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConectaDoacaoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConectaDoacaoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConectaDoacaoGroupByOutputType[P]>
+            : GetScalarType<T[P], ConectaDoacaoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConectaDoacaoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    equipeId?: boolean
+    nomeDoador?: boolean
+    descricao?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    equipe?: boolean | ConectaEquipeDefaultArgs<ExtArgs>
+    itens?: boolean | ConectaDoacao$itensArgs<ExtArgs>
+    _count?: boolean | ConectaDoacaoCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaDoacao"]>
+
+  export type ConectaDoacaoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    equipeId?: boolean
+    nomeDoador?: boolean
+    descricao?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    equipe?: boolean | ConectaEquipeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaDoacao"]>
+
+  export type ConectaDoacaoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    equipeId?: boolean
+    nomeDoador?: boolean
+    descricao?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    equipe?: boolean | ConectaEquipeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaDoacao"]>
+
+  export type ConectaDoacaoSelectScalar = {
+    id?: boolean
+    equipeId?: boolean
+    nomeDoador?: boolean
+    descricao?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ConectaDoacaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "equipeId" | "nomeDoador" | "descricao" | "createdAt" | "updatedAt", ExtArgs["result"]["conectaDoacao"]>
+  export type ConectaDoacaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    equipe?: boolean | ConectaEquipeDefaultArgs<ExtArgs>
+    itens?: boolean | ConectaDoacao$itensArgs<ExtArgs>
+    _count?: boolean | ConectaDoacaoCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ConectaDoacaoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    equipe?: boolean | ConectaEquipeDefaultArgs<ExtArgs>
+  }
+  export type ConectaDoacaoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    equipe?: boolean | ConectaEquipeDefaultArgs<ExtArgs>
+  }
+
+  export type $ConectaDoacaoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ConectaDoacao"
+    objects: {
+      equipe: Prisma.$ConectaEquipePayload<ExtArgs>
+      itens: Prisma.$ConectaDoacaoItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      equipeId: string
+      nomeDoador: string
+      descricao: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["conectaDoacao"]>
+    composites: {}
+  }
+
+  type ConectaDoacaoGetPayload<S extends boolean | null | undefined | ConectaDoacaoDefaultArgs> = $Result.GetResult<Prisma.$ConectaDoacaoPayload, S>
+
+  type ConectaDoacaoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ConectaDoacaoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ConectaDoacaoCountAggregateInputType | true
+    }
+
+  export interface ConectaDoacaoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ConectaDoacao'], meta: { name: 'ConectaDoacao' } }
+    /**
+     * Find zero or one ConectaDoacao that matches the filter.
+     * @param {ConectaDoacaoFindUniqueArgs} args - Arguments to find a ConectaDoacao
+     * @example
+     * // Get one ConectaDoacao
+     * const conectaDoacao = await prisma.conectaDoacao.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConectaDoacaoFindUniqueArgs>(args: SelectSubset<T, ConectaDoacaoFindUniqueArgs<ExtArgs>>): Prisma__ConectaDoacaoClient<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ConectaDoacao that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ConectaDoacaoFindUniqueOrThrowArgs} args - Arguments to find a ConectaDoacao
+     * @example
+     * // Get one ConectaDoacao
+     * const conectaDoacao = await prisma.conectaDoacao.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConectaDoacaoFindUniqueOrThrowArgs>(args: SelectSubset<T, ConectaDoacaoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConectaDoacaoClient<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ConectaDoacao that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoFindFirstArgs} args - Arguments to find a ConectaDoacao
+     * @example
+     * // Get one ConectaDoacao
+     * const conectaDoacao = await prisma.conectaDoacao.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConectaDoacaoFindFirstArgs>(args?: SelectSubset<T, ConectaDoacaoFindFirstArgs<ExtArgs>>): Prisma__ConectaDoacaoClient<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ConectaDoacao that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoFindFirstOrThrowArgs} args - Arguments to find a ConectaDoacao
+     * @example
+     * // Get one ConectaDoacao
+     * const conectaDoacao = await prisma.conectaDoacao.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConectaDoacaoFindFirstOrThrowArgs>(args?: SelectSubset<T, ConectaDoacaoFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConectaDoacaoClient<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ConectaDoacaos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ConectaDoacaos
+     * const conectaDoacaos = await prisma.conectaDoacao.findMany()
+     * 
+     * // Get first 10 ConectaDoacaos
+     * const conectaDoacaos = await prisma.conectaDoacao.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const conectaDoacaoWithIdOnly = await prisma.conectaDoacao.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConectaDoacaoFindManyArgs>(args?: SelectSubset<T, ConectaDoacaoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ConectaDoacao.
+     * @param {ConectaDoacaoCreateArgs} args - Arguments to create a ConectaDoacao.
+     * @example
+     * // Create one ConectaDoacao
+     * const ConectaDoacao = await prisma.conectaDoacao.create({
+     *   data: {
+     *     // ... data to create a ConectaDoacao
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConectaDoacaoCreateArgs>(args: SelectSubset<T, ConectaDoacaoCreateArgs<ExtArgs>>): Prisma__ConectaDoacaoClient<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ConectaDoacaos.
+     * @param {ConectaDoacaoCreateManyArgs} args - Arguments to create many ConectaDoacaos.
+     * @example
+     * // Create many ConectaDoacaos
+     * const conectaDoacao = await prisma.conectaDoacao.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConectaDoacaoCreateManyArgs>(args?: SelectSubset<T, ConectaDoacaoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ConectaDoacaos and returns the data saved in the database.
+     * @param {ConectaDoacaoCreateManyAndReturnArgs} args - Arguments to create many ConectaDoacaos.
+     * @example
+     * // Create many ConectaDoacaos
+     * const conectaDoacao = await prisma.conectaDoacao.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ConectaDoacaos and only return the `id`
+     * const conectaDoacaoWithIdOnly = await prisma.conectaDoacao.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ConectaDoacaoCreateManyAndReturnArgs>(args?: SelectSubset<T, ConectaDoacaoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ConectaDoacao.
+     * @param {ConectaDoacaoDeleteArgs} args - Arguments to delete one ConectaDoacao.
+     * @example
+     * // Delete one ConectaDoacao
+     * const ConectaDoacao = await prisma.conectaDoacao.delete({
+     *   where: {
+     *     // ... filter to delete one ConectaDoacao
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConectaDoacaoDeleteArgs>(args: SelectSubset<T, ConectaDoacaoDeleteArgs<ExtArgs>>): Prisma__ConectaDoacaoClient<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ConectaDoacao.
+     * @param {ConectaDoacaoUpdateArgs} args - Arguments to update one ConectaDoacao.
+     * @example
+     * // Update one ConectaDoacao
+     * const conectaDoacao = await prisma.conectaDoacao.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConectaDoacaoUpdateArgs>(args: SelectSubset<T, ConectaDoacaoUpdateArgs<ExtArgs>>): Prisma__ConectaDoacaoClient<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ConectaDoacaos.
+     * @param {ConectaDoacaoDeleteManyArgs} args - Arguments to filter ConectaDoacaos to delete.
+     * @example
+     * // Delete a few ConectaDoacaos
+     * const { count } = await prisma.conectaDoacao.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConectaDoacaoDeleteManyArgs>(args?: SelectSubset<T, ConectaDoacaoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ConectaDoacaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ConectaDoacaos
+     * const conectaDoacao = await prisma.conectaDoacao.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConectaDoacaoUpdateManyArgs>(args: SelectSubset<T, ConectaDoacaoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ConectaDoacaos and returns the data updated in the database.
+     * @param {ConectaDoacaoUpdateManyAndReturnArgs} args - Arguments to update many ConectaDoacaos.
+     * @example
+     * // Update many ConectaDoacaos
+     * const conectaDoacao = await prisma.conectaDoacao.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ConectaDoacaos and only return the `id`
+     * const conectaDoacaoWithIdOnly = await prisma.conectaDoacao.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ConectaDoacaoUpdateManyAndReturnArgs>(args: SelectSubset<T, ConectaDoacaoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ConectaDoacao.
+     * @param {ConectaDoacaoUpsertArgs} args - Arguments to update or create a ConectaDoacao.
+     * @example
+     * // Update or create a ConectaDoacao
+     * const conectaDoacao = await prisma.conectaDoacao.upsert({
+     *   create: {
+     *     // ... data to create a ConectaDoacao
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ConectaDoacao we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConectaDoacaoUpsertArgs>(args: SelectSubset<T, ConectaDoacaoUpsertArgs<ExtArgs>>): Prisma__ConectaDoacaoClient<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ConectaDoacaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoCountArgs} args - Arguments to filter ConectaDoacaos to count.
+     * @example
+     * // Count the number of ConectaDoacaos
+     * const count = await prisma.conectaDoacao.count({
+     *   where: {
+     *     // ... the filter for the ConectaDoacaos we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConectaDoacaoCountArgs>(
+      args?: Subset<T, ConectaDoacaoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConectaDoacaoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ConectaDoacao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConectaDoacaoAggregateArgs>(args: Subset<T, ConectaDoacaoAggregateArgs>): Prisma.PrismaPromise<GetConectaDoacaoAggregateType<T>>
+
+    /**
+     * Group by ConectaDoacao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConectaDoacaoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConectaDoacaoGroupByArgs['orderBy'] }
+        : { orderBy?: ConectaDoacaoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConectaDoacaoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConectaDoacaoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ConectaDoacao model
+   */
+  readonly fields: ConectaDoacaoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ConectaDoacao.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConectaDoacaoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    equipe<T extends ConectaEquipeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConectaEquipeDefaultArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    itens<T extends ConectaDoacao$itensArgs<ExtArgs> = {}>(args?: Subset<T, ConectaDoacao$itensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ConectaDoacao model
+   */
+  interface ConectaDoacaoFieldRefs {
+    readonly id: FieldRef<"ConectaDoacao", 'String'>
+    readonly equipeId: FieldRef<"ConectaDoacao", 'String'>
+    readonly nomeDoador: FieldRef<"ConectaDoacao", 'String'>
+    readonly descricao: FieldRef<"ConectaDoacao", 'String'>
+    readonly createdAt: FieldRef<"ConectaDoacao", 'DateTime'>
+    readonly updatedAt: FieldRef<"ConectaDoacao", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ConectaDoacao findUnique
+   */
+  export type ConectaDoacaoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaDoacao to fetch.
+     */
+    where: ConectaDoacaoWhereUniqueInput
+  }
+
+  /**
+   * ConectaDoacao findUniqueOrThrow
+   */
+  export type ConectaDoacaoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaDoacao to fetch.
+     */
+    where: ConectaDoacaoWhereUniqueInput
+  }
+
+  /**
+   * ConectaDoacao findFirst
+   */
+  export type ConectaDoacaoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaDoacao to fetch.
+     */
+    where?: ConectaDoacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaDoacaos to fetch.
+     */
+    orderBy?: ConectaDoacaoOrderByWithRelationInput | ConectaDoacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ConectaDoacaos.
+     */
+    cursor?: ConectaDoacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaDoacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaDoacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ConectaDoacaos.
+     */
+    distinct?: ConectaDoacaoScalarFieldEnum | ConectaDoacaoScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaDoacao findFirstOrThrow
+   */
+  export type ConectaDoacaoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaDoacao to fetch.
+     */
+    where?: ConectaDoacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaDoacaos to fetch.
+     */
+    orderBy?: ConectaDoacaoOrderByWithRelationInput | ConectaDoacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ConectaDoacaos.
+     */
+    cursor?: ConectaDoacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaDoacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaDoacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ConectaDoacaos.
+     */
+    distinct?: ConectaDoacaoScalarFieldEnum | ConectaDoacaoScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaDoacao findMany
+   */
+  export type ConectaDoacaoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaDoacaos to fetch.
+     */
+    where?: ConectaDoacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaDoacaos to fetch.
+     */
+    orderBy?: ConectaDoacaoOrderByWithRelationInput | ConectaDoacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ConectaDoacaos.
+     */
+    cursor?: ConectaDoacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaDoacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaDoacaos.
+     */
+    skip?: number
+    distinct?: ConectaDoacaoScalarFieldEnum | ConectaDoacaoScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaDoacao create
+   */
+  export type ConectaDoacaoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ConectaDoacao.
+     */
+    data: XOR<ConectaDoacaoCreateInput, ConectaDoacaoUncheckedCreateInput>
+  }
+
+  /**
+   * ConectaDoacao createMany
+   */
+  export type ConectaDoacaoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ConectaDoacaos.
+     */
+    data: ConectaDoacaoCreateManyInput | ConectaDoacaoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ConectaDoacao createManyAndReturn
+   */
+  export type ConectaDoacaoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * The data used to create many ConectaDoacaos.
+     */
+    data: ConectaDoacaoCreateManyInput | ConectaDoacaoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ConectaDoacao update
+   */
+  export type ConectaDoacaoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ConectaDoacao.
+     */
+    data: XOR<ConectaDoacaoUpdateInput, ConectaDoacaoUncheckedUpdateInput>
+    /**
+     * Choose, which ConectaDoacao to update.
+     */
+    where: ConectaDoacaoWhereUniqueInput
+  }
+
+  /**
+   * ConectaDoacao updateMany
+   */
+  export type ConectaDoacaoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ConectaDoacaos.
+     */
+    data: XOR<ConectaDoacaoUpdateManyMutationInput, ConectaDoacaoUncheckedUpdateManyInput>
+    /**
+     * Filter which ConectaDoacaos to update
+     */
+    where?: ConectaDoacaoWhereInput
+    /**
+     * Limit how many ConectaDoacaos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaDoacao updateManyAndReturn
+   */
+  export type ConectaDoacaoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * The data used to update ConectaDoacaos.
+     */
+    data: XOR<ConectaDoacaoUpdateManyMutationInput, ConectaDoacaoUncheckedUpdateManyInput>
+    /**
+     * Filter which ConectaDoacaos to update
+     */
+    where?: ConectaDoacaoWhereInput
+    /**
+     * Limit how many ConectaDoacaos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ConectaDoacao upsert
+   */
+  export type ConectaDoacaoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ConectaDoacao to update in case it exists.
+     */
+    where: ConectaDoacaoWhereUniqueInput
+    /**
+     * In case the ConectaDoacao found by the `where` argument doesn't exist, create a new ConectaDoacao with this data.
+     */
+    create: XOR<ConectaDoacaoCreateInput, ConectaDoacaoUncheckedCreateInput>
+    /**
+     * In case the ConectaDoacao was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConectaDoacaoUpdateInput, ConectaDoacaoUncheckedUpdateInput>
+  }
+
+  /**
+   * ConectaDoacao delete
+   */
+  export type ConectaDoacaoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter which ConectaDoacao to delete.
+     */
+    where: ConectaDoacaoWhereUniqueInput
+  }
+
+  /**
+   * ConectaDoacao deleteMany
+   */
+  export type ConectaDoacaoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ConectaDoacaos to delete
+     */
+    where?: ConectaDoacaoWhereInput
+    /**
+     * Limit how many ConectaDoacaos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaDoacao.itens
+   */
+  export type ConectaDoacao$itensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    where?: ConectaDoacaoItemWhereInput
+    orderBy?: ConectaDoacaoItemOrderByWithRelationInput | ConectaDoacaoItemOrderByWithRelationInput[]
+    cursor?: ConectaDoacaoItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConectaDoacaoItemScalarFieldEnum | ConectaDoacaoItemScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaDoacao without action
+   */
+  export type ConectaDoacaoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacao
+     */
+    select?: ConectaDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacao
+     */
+    omit?: ConectaDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ConectaDoacaoItem
+   */
+
+  export type AggregateConectaDoacaoItem = {
+    _count: ConectaDoacaoItemCountAggregateOutputType | null
+    _avg: ConectaDoacaoItemAvgAggregateOutputType | null
+    _sum: ConectaDoacaoItemSumAggregateOutputType | null
+    _min: ConectaDoacaoItemMinAggregateOutputType | null
+    _max: ConectaDoacaoItemMaxAggregateOutputType | null
+  }
+
+  export type ConectaDoacaoItemAvgAggregateOutputType = {
+    quantidade: number | null
+    pontosUnitarios: number | null
+  }
+
+  export type ConectaDoacaoItemSumAggregateOutputType = {
+    quantidade: number | null
+    pontosUnitarios: number | null
+  }
+
+  export type ConectaDoacaoItemMinAggregateOutputType = {
+    id: string | null
+    doacaoId: string | null
+    itemId: string | null
+    quantidade: number | null
+    pontosUnitarios: number | null
+  }
+
+  export type ConectaDoacaoItemMaxAggregateOutputType = {
+    id: string | null
+    doacaoId: string | null
+    itemId: string | null
+    quantidade: number | null
+    pontosUnitarios: number | null
+  }
+
+  export type ConectaDoacaoItemCountAggregateOutputType = {
+    id: number
+    doacaoId: number
+    itemId: number
+    quantidade: number
+    pontosUnitarios: number
+    _all: number
+  }
+
+
+  export type ConectaDoacaoItemAvgAggregateInputType = {
+    quantidade?: true
+    pontosUnitarios?: true
+  }
+
+  export type ConectaDoacaoItemSumAggregateInputType = {
+    quantidade?: true
+    pontosUnitarios?: true
+  }
+
+  export type ConectaDoacaoItemMinAggregateInputType = {
+    id?: true
+    doacaoId?: true
+    itemId?: true
+    quantidade?: true
+    pontosUnitarios?: true
+  }
+
+  export type ConectaDoacaoItemMaxAggregateInputType = {
+    id?: true
+    doacaoId?: true
+    itemId?: true
+    quantidade?: true
+    pontosUnitarios?: true
+  }
+
+  export type ConectaDoacaoItemCountAggregateInputType = {
+    id?: true
+    doacaoId?: true
+    itemId?: true
+    quantidade?: true
+    pontosUnitarios?: true
+    _all?: true
+  }
+
+  export type ConectaDoacaoItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ConectaDoacaoItem to aggregate.
+     */
+    where?: ConectaDoacaoItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaDoacaoItems to fetch.
+     */
+    orderBy?: ConectaDoacaoItemOrderByWithRelationInput | ConectaDoacaoItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConectaDoacaoItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaDoacaoItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaDoacaoItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ConectaDoacaoItems
+    **/
+    _count?: true | ConectaDoacaoItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ConectaDoacaoItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ConectaDoacaoItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConectaDoacaoItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConectaDoacaoItemMaxAggregateInputType
+  }
+
+  export type GetConectaDoacaoItemAggregateType<T extends ConectaDoacaoItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateConectaDoacaoItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConectaDoacaoItem[P]>
+      : GetScalarType<T[P], AggregateConectaDoacaoItem[P]>
+  }
+
+
+
+
+  export type ConectaDoacaoItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConectaDoacaoItemWhereInput
+    orderBy?: ConectaDoacaoItemOrderByWithAggregationInput | ConectaDoacaoItemOrderByWithAggregationInput[]
+    by: ConectaDoacaoItemScalarFieldEnum[] | ConectaDoacaoItemScalarFieldEnum
+    having?: ConectaDoacaoItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConectaDoacaoItemCountAggregateInputType | true
+    _avg?: ConectaDoacaoItemAvgAggregateInputType
+    _sum?: ConectaDoacaoItemSumAggregateInputType
+    _min?: ConectaDoacaoItemMinAggregateInputType
+    _max?: ConectaDoacaoItemMaxAggregateInputType
+  }
+
+  export type ConectaDoacaoItemGroupByOutputType = {
+    id: string
+    doacaoId: string
+    itemId: string
+    quantidade: number
+    pontosUnitarios: number
+    _count: ConectaDoacaoItemCountAggregateOutputType | null
+    _avg: ConectaDoacaoItemAvgAggregateOutputType | null
+    _sum: ConectaDoacaoItemSumAggregateOutputType | null
+    _min: ConectaDoacaoItemMinAggregateOutputType | null
+    _max: ConectaDoacaoItemMaxAggregateOutputType | null
+  }
+
+  type GetConectaDoacaoItemGroupByPayload<T extends ConectaDoacaoItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConectaDoacaoItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConectaDoacaoItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConectaDoacaoItemGroupByOutputType[P]>
+            : GetScalarType<T[P], ConectaDoacaoItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConectaDoacaoItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    doacaoId?: boolean
+    itemId?: boolean
+    quantidade?: boolean
+    pontosUnitarios?: boolean
+    doacao?: boolean | ConectaDoacaoDefaultArgs<ExtArgs>
+    item?: boolean | ConectaItemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaDoacaoItem"]>
+
+  export type ConectaDoacaoItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    doacaoId?: boolean
+    itemId?: boolean
+    quantidade?: boolean
+    pontosUnitarios?: boolean
+    doacao?: boolean | ConectaDoacaoDefaultArgs<ExtArgs>
+    item?: boolean | ConectaItemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaDoacaoItem"]>
+
+  export type ConectaDoacaoItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    doacaoId?: boolean
+    itemId?: boolean
+    quantidade?: boolean
+    pontosUnitarios?: boolean
+    doacao?: boolean | ConectaDoacaoDefaultArgs<ExtArgs>
+    item?: boolean | ConectaItemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaDoacaoItem"]>
+
+  export type ConectaDoacaoItemSelectScalar = {
+    id?: boolean
+    doacaoId?: boolean
+    itemId?: boolean
+    quantidade?: boolean
+    pontosUnitarios?: boolean
+  }
+
+  export type ConectaDoacaoItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "doacaoId" | "itemId" | "quantidade" | "pontosUnitarios", ExtArgs["result"]["conectaDoacaoItem"]>
+  export type ConectaDoacaoItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doacao?: boolean | ConectaDoacaoDefaultArgs<ExtArgs>
+    item?: boolean | ConectaItemDefaultArgs<ExtArgs>
+  }
+  export type ConectaDoacaoItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doacao?: boolean | ConectaDoacaoDefaultArgs<ExtArgs>
+    item?: boolean | ConectaItemDefaultArgs<ExtArgs>
+  }
+  export type ConectaDoacaoItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doacao?: boolean | ConectaDoacaoDefaultArgs<ExtArgs>
+    item?: boolean | ConectaItemDefaultArgs<ExtArgs>
+  }
+
+  export type $ConectaDoacaoItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ConectaDoacaoItem"
+    objects: {
+      doacao: Prisma.$ConectaDoacaoPayload<ExtArgs>
+      item: Prisma.$ConectaItemPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      doacaoId: string
+      itemId: string
+      quantidade: number
+      pontosUnitarios: number
+    }, ExtArgs["result"]["conectaDoacaoItem"]>
+    composites: {}
+  }
+
+  type ConectaDoacaoItemGetPayload<S extends boolean | null | undefined | ConectaDoacaoItemDefaultArgs> = $Result.GetResult<Prisma.$ConectaDoacaoItemPayload, S>
+
+  type ConectaDoacaoItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ConectaDoacaoItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ConectaDoacaoItemCountAggregateInputType | true
+    }
+
+  export interface ConectaDoacaoItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ConectaDoacaoItem'], meta: { name: 'ConectaDoacaoItem' } }
+    /**
+     * Find zero or one ConectaDoacaoItem that matches the filter.
+     * @param {ConectaDoacaoItemFindUniqueArgs} args - Arguments to find a ConectaDoacaoItem
+     * @example
+     * // Get one ConectaDoacaoItem
+     * const conectaDoacaoItem = await prisma.conectaDoacaoItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConectaDoacaoItemFindUniqueArgs>(args: SelectSubset<T, ConectaDoacaoItemFindUniqueArgs<ExtArgs>>): Prisma__ConectaDoacaoItemClient<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ConectaDoacaoItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ConectaDoacaoItemFindUniqueOrThrowArgs} args - Arguments to find a ConectaDoacaoItem
+     * @example
+     * // Get one ConectaDoacaoItem
+     * const conectaDoacaoItem = await prisma.conectaDoacaoItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConectaDoacaoItemFindUniqueOrThrowArgs>(args: SelectSubset<T, ConectaDoacaoItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConectaDoacaoItemClient<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ConectaDoacaoItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoItemFindFirstArgs} args - Arguments to find a ConectaDoacaoItem
+     * @example
+     * // Get one ConectaDoacaoItem
+     * const conectaDoacaoItem = await prisma.conectaDoacaoItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConectaDoacaoItemFindFirstArgs>(args?: SelectSubset<T, ConectaDoacaoItemFindFirstArgs<ExtArgs>>): Prisma__ConectaDoacaoItemClient<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ConectaDoacaoItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoItemFindFirstOrThrowArgs} args - Arguments to find a ConectaDoacaoItem
+     * @example
+     * // Get one ConectaDoacaoItem
+     * const conectaDoacaoItem = await prisma.conectaDoacaoItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConectaDoacaoItemFindFirstOrThrowArgs>(args?: SelectSubset<T, ConectaDoacaoItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConectaDoacaoItemClient<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ConectaDoacaoItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ConectaDoacaoItems
+     * const conectaDoacaoItems = await prisma.conectaDoacaoItem.findMany()
+     * 
+     * // Get first 10 ConectaDoacaoItems
+     * const conectaDoacaoItems = await prisma.conectaDoacaoItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const conectaDoacaoItemWithIdOnly = await prisma.conectaDoacaoItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConectaDoacaoItemFindManyArgs>(args?: SelectSubset<T, ConectaDoacaoItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ConectaDoacaoItem.
+     * @param {ConectaDoacaoItemCreateArgs} args - Arguments to create a ConectaDoacaoItem.
+     * @example
+     * // Create one ConectaDoacaoItem
+     * const ConectaDoacaoItem = await prisma.conectaDoacaoItem.create({
+     *   data: {
+     *     // ... data to create a ConectaDoacaoItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConectaDoacaoItemCreateArgs>(args: SelectSubset<T, ConectaDoacaoItemCreateArgs<ExtArgs>>): Prisma__ConectaDoacaoItemClient<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ConectaDoacaoItems.
+     * @param {ConectaDoacaoItemCreateManyArgs} args - Arguments to create many ConectaDoacaoItems.
+     * @example
+     * // Create many ConectaDoacaoItems
+     * const conectaDoacaoItem = await prisma.conectaDoacaoItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConectaDoacaoItemCreateManyArgs>(args?: SelectSubset<T, ConectaDoacaoItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ConectaDoacaoItems and returns the data saved in the database.
+     * @param {ConectaDoacaoItemCreateManyAndReturnArgs} args - Arguments to create many ConectaDoacaoItems.
+     * @example
+     * // Create many ConectaDoacaoItems
+     * const conectaDoacaoItem = await prisma.conectaDoacaoItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ConectaDoacaoItems and only return the `id`
+     * const conectaDoacaoItemWithIdOnly = await prisma.conectaDoacaoItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ConectaDoacaoItemCreateManyAndReturnArgs>(args?: SelectSubset<T, ConectaDoacaoItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ConectaDoacaoItem.
+     * @param {ConectaDoacaoItemDeleteArgs} args - Arguments to delete one ConectaDoacaoItem.
+     * @example
+     * // Delete one ConectaDoacaoItem
+     * const ConectaDoacaoItem = await prisma.conectaDoacaoItem.delete({
+     *   where: {
+     *     // ... filter to delete one ConectaDoacaoItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConectaDoacaoItemDeleteArgs>(args: SelectSubset<T, ConectaDoacaoItemDeleteArgs<ExtArgs>>): Prisma__ConectaDoacaoItemClient<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ConectaDoacaoItem.
+     * @param {ConectaDoacaoItemUpdateArgs} args - Arguments to update one ConectaDoacaoItem.
+     * @example
+     * // Update one ConectaDoacaoItem
+     * const conectaDoacaoItem = await prisma.conectaDoacaoItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConectaDoacaoItemUpdateArgs>(args: SelectSubset<T, ConectaDoacaoItemUpdateArgs<ExtArgs>>): Prisma__ConectaDoacaoItemClient<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ConectaDoacaoItems.
+     * @param {ConectaDoacaoItemDeleteManyArgs} args - Arguments to filter ConectaDoacaoItems to delete.
+     * @example
+     * // Delete a few ConectaDoacaoItems
+     * const { count } = await prisma.conectaDoacaoItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConectaDoacaoItemDeleteManyArgs>(args?: SelectSubset<T, ConectaDoacaoItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ConectaDoacaoItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ConectaDoacaoItems
+     * const conectaDoacaoItem = await prisma.conectaDoacaoItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConectaDoacaoItemUpdateManyArgs>(args: SelectSubset<T, ConectaDoacaoItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ConectaDoacaoItems and returns the data updated in the database.
+     * @param {ConectaDoacaoItemUpdateManyAndReturnArgs} args - Arguments to update many ConectaDoacaoItems.
+     * @example
+     * // Update many ConectaDoacaoItems
+     * const conectaDoacaoItem = await prisma.conectaDoacaoItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ConectaDoacaoItems and only return the `id`
+     * const conectaDoacaoItemWithIdOnly = await prisma.conectaDoacaoItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ConectaDoacaoItemUpdateManyAndReturnArgs>(args: SelectSubset<T, ConectaDoacaoItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ConectaDoacaoItem.
+     * @param {ConectaDoacaoItemUpsertArgs} args - Arguments to update or create a ConectaDoacaoItem.
+     * @example
+     * // Update or create a ConectaDoacaoItem
+     * const conectaDoacaoItem = await prisma.conectaDoacaoItem.upsert({
+     *   create: {
+     *     // ... data to create a ConectaDoacaoItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ConectaDoacaoItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConectaDoacaoItemUpsertArgs>(args: SelectSubset<T, ConectaDoacaoItemUpsertArgs<ExtArgs>>): Prisma__ConectaDoacaoItemClient<$Result.GetResult<Prisma.$ConectaDoacaoItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ConectaDoacaoItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoItemCountArgs} args - Arguments to filter ConectaDoacaoItems to count.
+     * @example
+     * // Count the number of ConectaDoacaoItems
+     * const count = await prisma.conectaDoacaoItem.count({
+     *   where: {
+     *     // ... the filter for the ConectaDoacaoItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConectaDoacaoItemCountArgs>(
+      args?: Subset<T, ConectaDoacaoItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConectaDoacaoItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ConectaDoacaoItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConectaDoacaoItemAggregateArgs>(args: Subset<T, ConectaDoacaoItemAggregateArgs>): Prisma.PrismaPromise<GetConectaDoacaoItemAggregateType<T>>
+
+    /**
+     * Group by ConectaDoacaoItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaDoacaoItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConectaDoacaoItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConectaDoacaoItemGroupByArgs['orderBy'] }
+        : { orderBy?: ConectaDoacaoItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConectaDoacaoItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConectaDoacaoItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ConectaDoacaoItem model
+   */
+  readonly fields: ConectaDoacaoItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ConectaDoacaoItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConectaDoacaoItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    doacao<T extends ConectaDoacaoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConectaDoacaoDefaultArgs<ExtArgs>>): Prisma__ConectaDoacaoClient<$Result.GetResult<Prisma.$ConectaDoacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    item<T extends ConectaItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConectaItemDefaultArgs<ExtArgs>>): Prisma__ConectaItemClient<$Result.GetResult<Prisma.$ConectaItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ConectaDoacaoItem model
+   */
+  interface ConectaDoacaoItemFieldRefs {
+    readonly id: FieldRef<"ConectaDoacaoItem", 'String'>
+    readonly doacaoId: FieldRef<"ConectaDoacaoItem", 'String'>
+    readonly itemId: FieldRef<"ConectaDoacaoItem", 'String'>
+    readonly quantidade: FieldRef<"ConectaDoacaoItem", 'Int'>
+    readonly pontosUnitarios: FieldRef<"ConectaDoacaoItem", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ConectaDoacaoItem findUnique
+   */
+  export type ConectaDoacaoItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaDoacaoItem to fetch.
+     */
+    where: ConectaDoacaoItemWhereUniqueInput
+  }
+
+  /**
+   * ConectaDoacaoItem findUniqueOrThrow
+   */
+  export type ConectaDoacaoItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaDoacaoItem to fetch.
+     */
+    where: ConectaDoacaoItemWhereUniqueInput
+  }
+
+  /**
+   * ConectaDoacaoItem findFirst
+   */
+  export type ConectaDoacaoItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaDoacaoItem to fetch.
+     */
+    where?: ConectaDoacaoItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaDoacaoItems to fetch.
+     */
+    orderBy?: ConectaDoacaoItemOrderByWithRelationInput | ConectaDoacaoItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ConectaDoacaoItems.
+     */
+    cursor?: ConectaDoacaoItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaDoacaoItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaDoacaoItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ConectaDoacaoItems.
+     */
+    distinct?: ConectaDoacaoItemScalarFieldEnum | ConectaDoacaoItemScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaDoacaoItem findFirstOrThrow
+   */
+  export type ConectaDoacaoItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaDoacaoItem to fetch.
+     */
+    where?: ConectaDoacaoItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaDoacaoItems to fetch.
+     */
+    orderBy?: ConectaDoacaoItemOrderByWithRelationInput | ConectaDoacaoItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ConectaDoacaoItems.
+     */
+    cursor?: ConectaDoacaoItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaDoacaoItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaDoacaoItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ConectaDoacaoItems.
+     */
+    distinct?: ConectaDoacaoItemScalarFieldEnum | ConectaDoacaoItemScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaDoacaoItem findMany
+   */
+  export type ConectaDoacaoItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaDoacaoItems to fetch.
+     */
+    where?: ConectaDoacaoItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaDoacaoItems to fetch.
+     */
+    orderBy?: ConectaDoacaoItemOrderByWithRelationInput | ConectaDoacaoItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ConectaDoacaoItems.
+     */
+    cursor?: ConectaDoacaoItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaDoacaoItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaDoacaoItems.
+     */
+    skip?: number
+    distinct?: ConectaDoacaoItemScalarFieldEnum | ConectaDoacaoItemScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaDoacaoItem create
+   */
+  export type ConectaDoacaoItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ConectaDoacaoItem.
+     */
+    data: XOR<ConectaDoacaoItemCreateInput, ConectaDoacaoItemUncheckedCreateInput>
+  }
+
+  /**
+   * ConectaDoacaoItem createMany
+   */
+  export type ConectaDoacaoItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ConectaDoacaoItems.
+     */
+    data: ConectaDoacaoItemCreateManyInput | ConectaDoacaoItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ConectaDoacaoItem createManyAndReturn
+   */
+  export type ConectaDoacaoItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many ConectaDoacaoItems.
+     */
+    data: ConectaDoacaoItemCreateManyInput | ConectaDoacaoItemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ConectaDoacaoItem update
+   */
+  export type ConectaDoacaoItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ConectaDoacaoItem.
+     */
+    data: XOR<ConectaDoacaoItemUpdateInput, ConectaDoacaoItemUncheckedUpdateInput>
+    /**
+     * Choose, which ConectaDoacaoItem to update.
+     */
+    where: ConectaDoacaoItemWhereUniqueInput
+  }
+
+  /**
+   * ConectaDoacaoItem updateMany
+   */
+  export type ConectaDoacaoItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ConectaDoacaoItems.
+     */
+    data: XOR<ConectaDoacaoItemUpdateManyMutationInput, ConectaDoacaoItemUncheckedUpdateManyInput>
+    /**
+     * Filter which ConectaDoacaoItems to update
+     */
+    where?: ConectaDoacaoItemWhereInput
+    /**
+     * Limit how many ConectaDoacaoItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaDoacaoItem updateManyAndReturn
+   */
+  export type ConectaDoacaoItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * The data used to update ConectaDoacaoItems.
+     */
+    data: XOR<ConectaDoacaoItemUpdateManyMutationInput, ConectaDoacaoItemUncheckedUpdateManyInput>
+    /**
+     * Filter which ConectaDoacaoItems to update
+     */
+    where?: ConectaDoacaoItemWhereInput
+    /**
+     * Limit how many ConectaDoacaoItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ConectaDoacaoItem upsert
+   */
+  export type ConectaDoacaoItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ConectaDoacaoItem to update in case it exists.
+     */
+    where: ConectaDoacaoItemWhereUniqueInput
+    /**
+     * In case the ConectaDoacaoItem found by the `where` argument doesn't exist, create a new ConectaDoacaoItem with this data.
+     */
+    create: XOR<ConectaDoacaoItemCreateInput, ConectaDoacaoItemUncheckedCreateInput>
+    /**
+     * In case the ConectaDoacaoItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConectaDoacaoItemUpdateInput, ConectaDoacaoItemUncheckedUpdateInput>
+  }
+
+  /**
+   * ConectaDoacaoItem delete
+   */
+  export type ConectaDoacaoItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+    /**
+     * Filter which ConectaDoacaoItem to delete.
+     */
+    where: ConectaDoacaoItemWhereUniqueInput
+  }
+
+  /**
+   * ConectaDoacaoItem deleteMany
+   */
+  export type ConectaDoacaoItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ConectaDoacaoItems to delete
+     */
+    where?: ConectaDoacaoItemWhereInput
+    /**
+     * Limit how many ConectaDoacaoItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaDoacaoItem without action
+   */
+  export type ConectaDoacaoItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaDoacaoItem
+     */
+    select?: ConectaDoacaoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaDoacaoItem
+     */
+    omit?: ConectaDoacaoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaDoacaoItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ConectaProva
+   */
+
+  export type AggregateConectaProva = {
+    _count: ConectaProvaCountAggregateOutputType | null
+    _avg: ConectaProvaAvgAggregateOutputType | null
+    _sum: ConectaProvaSumAggregateOutputType | null
+    _min: ConectaProvaMinAggregateOutputType | null
+    _max: ConectaProvaMaxAggregateOutputType | null
+  }
+
+  export type ConectaProvaAvgAggregateOutputType = {
+    pontos: number | null
+  }
+
+  export type ConectaProvaSumAggregateOutputType = {
+    pontos: number | null
+  }
+
+  export type ConectaProvaMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    equipeId: string | null
+    nome: string | null
+    descricao: string | null
+    pontos: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConectaProvaMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    equipeId: string | null
+    nome: string | null
+    descricao: string | null
+    pontos: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConectaProvaCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    equipeId: number
+    nome: number
+    descricao: number
+    pontos: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ConectaProvaAvgAggregateInputType = {
+    pontos?: true
+  }
+
+  export type ConectaProvaSumAggregateInputType = {
+    pontos?: true
+  }
+
+  export type ConectaProvaMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    equipeId?: true
+    nome?: true
+    descricao?: true
+    pontos?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConectaProvaMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    equipeId?: true
+    nome?: true
+    descricao?: true
+    pontos?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConectaProvaCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    equipeId?: true
+    nome?: true
+    descricao?: true
+    pontos?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ConectaProvaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ConectaProva to aggregate.
+     */
+    where?: ConectaProvaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaProva to fetch.
+     */
+    orderBy?: ConectaProvaOrderByWithRelationInput | ConectaProvaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConectaProvaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaProva from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaProva.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ConectaProva
+    **/
+    _count?: true | ConectaProvaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ConectaProvaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ConectaProvaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConectaProvaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConectaProvaMaxAggregateInputType
+  }
+
+  export type GetConectaProvaAggregateType<T extends ConectaProvaAggregateArgs> = {
+        [P in keyof T & keyof AggregateConectaProva]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConectaProva[P]>
+      : GetScalarType<T[P], AggregateConectaProva[P]>
+  }
+
+
+
+
+  export type ConectaProvaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConectaProvaWhereInput
+    orderBy?: ConectaProvaOrderByWithAggregationInput | ConectaProvaOrderByWithAggregationInput[]
+    by: ConectaProvaScalarFieldEnum[] | ConectaProvaScalarFieldEnum
+    having?: ConectaProvaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConectaProvaCountAggregateInputType | true
+    _avg?: ConectaProvaAvgAggregateInputType
+    _sum?: ConectaProvaSumAggregateInputType
+    _min?: ConectaProvaMinAggregateInputType
+    _max?: ConectaProvaMaxAggregateInputType
+  }
+
+  export type ConectaProvaGroupByOutputType = {
+    id: string
+    semestreId: string
+    equipeId: string | null
+    nome: string
+    descricao: string | null
+    pontos: number
+    createdAt: Date
+    updatedAt: Date
+    _count: ConectaProvaCountAggregateOutputType | null
+    _avg: ConectaProvaAvgAggregateOutputType | null
+    _sum: ConectaProvaSumAggregateOutputType | null
+    _min: ConectaProvaMinAggregateOutputType | null
+    _max: ConectaProvaMaxAggregateOutputType | null
+  }
+
+  type GetConectaProvaGroupByPayload<T extends ConectaProvaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConectaProvaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConectaProvaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConectaProvaGroupByOutputType[P]>
+            : GetScalarType<T[P], ConectaProvaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConectaProvaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    equipeId?: boolean
+    nome?: boolean
+    descricao?: boolean
+    pontos?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    equipe?: boolean | ConectaProva$equipeArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaProva"]>
+
+  export type ConectaProvaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    equipeId?: boolean
+    nome?: boolean
+    descricao?: boolean
+    pontos?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    equipe?: boolean | ConectaProva$equipeArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaProva"]>
+
+  export type ConectaProvaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    equipeId?: boolean
+    nome?: boolean
+    descricao?: boolean
+    pontos?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    equipe?: boolean | ConectaProva$equipeArgs<ExtArgs>
+  }, ExtArgs["result"]["conectaProva"]>
+
+  export type ConectaProvaSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    equipeId?: boolean
+    nome?: boolean
+    descricao?: boolean
+    pontos?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ConectaProvaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "equipeId" | "nome" | "descricao" | "pontos" | "createdAt" | "updatedAt", ExtArgs["result"]["conectaProva"]>
+  export type ConectaProvaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    equipe?: boolean | ConectaProva$equipeArgs<ExtArgs>
+  }
+  export type ConectaProvaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    equipe?: boolean | ConectaProva$equipeArgs<ExtArgs>
+  }
+  export type ConectaProvaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    equipe?: boolean | ConectaProva$equipeArgs<ExtArgs>
+  }
+
+  export type $ConectaProvaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ConectaProva"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      equipe: Prisma.$ConectaEquipePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      equipeId: string | null
+      nome: string
+      descricao: string | null
+      pontos: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["conectaProva"]>
+    composites: {}
+  }
+
+  type ConectaProvaGetPayload<S extends boolean | null | undefined | ConectaProvaDefaultArgs> = $Result.GetResult<Prisma.$ConectaProvaPayload, S>
+
+  type ConectaProvaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ConectaProvaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ConectaProvaCountAggregateInputType | true
+    }
+
+  export interface ConectaProvaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ConectaProva'], meta: { name: 'ConectaProva' } }
+    /**
+     * Find zero or one ConectaProva that matches the filter.
+     * @param {ConectaProvaFindUniqueArgs} args - Arguments to find a ConectaProva
+     * @example
+     * // Get one ConectaProva
+     * const conectaProva = await prisma.conectaProva.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConectaProvaFindUniqueArgs>(args: SelectSubset<T, ConectaProvaFindUniqueArgs<ExtArgs>>): Prisma__ConectaProvaClient<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ConectaProva that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ConectaProvaFindUniqueOrThrowArgs} args - Arguments to find a ConectaProva
+     * @example
+     * // Get one ConectaProva
+     * const conectaProva = await prisma.conectaProva.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConectaProvaFindUniqueOrThrowArgs>(args: SelectSubset<T, ConectaProvaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConectaProvaClient<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ConectaProva that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaProvaFindFirstArgs} args - Arguments to find a ConectaProva
+     * @example
+     * // Get one ConectaProva
+     * const conectaProva = await prisma.conectaProva.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConectaProvaFindFirstArgs>(args?: SelectSubset<T, ConectaProvaFindFirstArgs<ExtArgs>>): Prisma__ConectaProvaClient<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ConectaProva that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaProvaFindFirstOrThrowArgs} args - Arguments to find a ConectaProva
+     * @example
+     * // Get one ConectaProva
+     * const conectaProva = await prisma.conectaProva.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConectaProvaFindFirstOrThrowArgs>(args?: SelectSubset<T, ConectaProvaFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConectaProvaClient<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ConectaProva that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaProvaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ConectaProva
+     * const conectaProva = await prisma.conectaProva.findMany()
+     * 
+     * // Get first 10 ConectaProva
+     * const conectaProva = await prisma.conectaProva.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const conectaProvaWithIdOnly = await prisma.conectaProva.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConectaProvaFindManyArgs>(args?: SelectSubset<T, ConectaProvaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ConectaProva.
+     * @param {ConectaProvaCreateArgs} args - Arguments to create a ConectaProva.
+     * @example
+     * // Create one ConectaProva
+     * const ConectaProva = await prisma.conectaProva.create({
+     *   data: {
+     *     // ... data to create a ConectaProva
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConectaProvaCreateArgs>(args: SelectSubset<T, ConectaProvaCreateArgs<ExtArgs>>): Prisma__ConectaProvaClient<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ConectaProva.
+     * @param {ConectaProvaCreateManyArgs} args - Arguments to create many ConectaProva.
+     * @example
+     * // Create many ConectaProva
+     * const conectaProva = await prisma.conectaProva.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConectaProvaCreateManyArgs>(args?: SelectSubset<T, ConectaProvaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ConectaProva and returns the data saved in the database.
+     * @param {ConectaProvaCreateManyAndReturnArgs} args - Arguments to create many ConectaProva.
+     * @example
+     * // Create many ConectaProva
+     * const conectaProva = await prisma.conectaProva.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ConectaProva and only return the `id`
+     * const conectaProvaWithIdOnly = await prisma.conectaProva.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ConectaProvaCreateManyAndReturnArgs>(args?: SelectSubset<T, ConectaProvaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ConectaProva.
+     * @param {ConectaProvaDeleteArgs} args - Arguments to delete one ConectaProva.
+     * @example
+     * // Delete one ConectaProva
+     * const ConectaProva = await prisma.conectaProva.delete({
+     *   where: {
+     *     // ... filter to delete one ConectaProva
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConectaProvaDeleteArgs>(args: SelectSubset<T, ConectaProvaDeleteArgs<ExtArgs>>): Prisma__ConectaProvaClient<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ConectaProva.
+     * @param {ConectaProvaUpdateArgs} args - Arguments to update one ConectaProva.
+     * @example
+     * // Update one ConectaProva
+     * const conectaProva = await prisma.conectaProva.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConectaProvaUpdateArgs>(args: SelectSubset<T, ConectaProvaUpdateArgs<ExtArgs>>): Prisma__ConectaProvaClient<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ConectaProva.
+     * @param {ConectaProvaDeleteManyArgs} args - Arguments to filter ConectaProva to delete.
+     * @example
+     * // Delete a few ConectaProva
+     * const { count } = await prisma.conectaProva.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConectaProvaDeleteManyArgs>(args?: SelectSubset<T, ConectaProvaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ConectaProva.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaProvaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ConectaProva
+     * const conectaProva = await prisma.conectaProva.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConectaProvaUpdateManyArgs>(args: SelectSubset<T, ConectaProvaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ConectaProva and returns the data updated in the database.
+     * @param {ConectaProvaUpdateManyAndReturnArgs} args - Arguments to update many ConectaProva.
+     * @example
+     * // Update many ConectaProva
+     * const conectaProva = await prisma.conectaProva.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ConectaProva and only return the `id`
+     * const conectaProvaWithIdOnly = await prisma.conectaProva.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ConectaProvaUpdateManyAndReturnArgs>(args: SelectSubset<T, ConectaProvaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ConectaProva.
+     * @param {ConectaProvaUpsertArgs} args - Arguments to update or create a ConectaProva.
+     * @example
+     * // Update or create a ConectaProva
+     * const conectaProva = await prisma.conectaProva.upsert({
+     *   create: {
+     *     // ... data to create a ConectaProva
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ConectaProva we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConectaProvaUpsertArgs>(args: SelectSubset<T, ConectaProvaUpsertArgs<ExtArgs>>): Prisma__ConectaProvaClient<$Result.GetResult<Prisma.$ConectaProvaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ConectaProva.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaProvaCountArgs} args - Arguments to filter ConectaProva to count.
+     * @example
+     * // Count the number of ConectaProva
+     * const count = await prisma.conectaProva.count({
+     *   where: {
+     *     // ... the filter for the ConectaProva we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConectaProvaCountArgs>(
+      args?: Subset<T, ConectaProvaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConectaProvaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ConectaProva.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaProvaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConectaProvaAggregateArgs>(args: Subset<T, ConectaProvaAggregateArgs>): Prisma.PrismaPromise<GetConectaProvaAggregateType<T>>
+
+    /**
+     * Group by ConectaProva.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConectaProvaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConectaProvaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConectaProvaGroupByArgs['orderBy'] }
+        : { orderBy?: ConectaProvaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConectaProvaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConectaProvaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ConectaProva model
+   */
+  readonly fields: ConectaProvaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ConectaProva.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConectaProvaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    equipe<T extends ConectaProva$equipeArgs<ExtArgs> = {}>(args?: Subset<T, ConectaProva$equipeArgs<ExtArgs>>): Prisma__ConectaEquipeClient<$Result.GetResult<Prisma.$ConectaEquipePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ConectaProva model
+   */
+  interface ConectaProvaFieldRefs {
+    readonly id: FieldRef<"ConectaProva", 'String'>
+    readonly semestreId: FieldRef<"ConectaProva", 'String'>
+    readonly equipeId: FieldRef<"ConectaProva", 'String'>
+    readonly nome: FieldRef<"ConectaProva", 'String'>
+    readonly descricao: FieldRef<"ConectaProva", 'String'>
+    readonly pontos: FieldRef<"ConectaProva", 'Int'>
+    readonly createdAt: FieldRef<"ConectaProva", 'DateTime'>
+    readonly updatedAt: FieldRef<"ConectaProva", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ConectaProva findUnique
+   */
+  export type ConectaProvaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaProva to fetch.
+     */
+    where: ConectaProvaWhereUniqueInput
+  }
+
+  /**
+   * ConectaProva findUniqueOrThrow
+   */
+  export type ConectaProvaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaProva to fetch.
+     */
+    where: ConectaProvaWhereUniqueInput
+  }
+
+  /**
+   * ConectaProva findFirst
+   */
+  export type ConectaProvaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaProva to fetch.
+     */
+    where?: ConectaProvaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaProva to fetch.
+     */
+    orderBy?: ConectaProvaOrderByWithRelationInput | ConectaProvaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ConectaProva.
+     */
+    cursor?: ConectaProvaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaProva from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaProva.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ConectaProva.
+     */
+    distinct?: ConectaProvaScalarFieldEnum | ConectaProvaScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaProva findFirstOrThrow
+   */
+  export type ConectaProvaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaProva to fetch.
+     */
+    where?: ConectaProvaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaProva to fetch.
+     */
+    orderBy?: ConectaProvaOrderByWithRelationInput | ConectaProvaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ConectaProva.
+     */
+    cursor?: ConectaProvaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaProva from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaProva.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ConectaProva.
+     */
+    distinct?: ConectaProvaScalarFieldEnum | ConectaProvaScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaProva findMany
+   */
+  export type ConectaProvaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    /**
+     * Filter, which ConectaProva to fetch.
+     */
+    where?: ConectaProvaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ConectaProva to fetch.
+     */
+    orderBy?: ConectaProvaOrderByWithRelationInput | ConectaProvaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ConectaProva.
+     */
+    cursor?: ConectaProvaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ConectaProva from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ConectaProva.
+     */
+    skip?: number
+    distinct?: ConectaProvaScalarFieldEnum | ConectaProvaScalarFieldEnum[]
+  }
+
+  /**
+   * ConectaProva create
+   */
+  export type ConectaProvaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ConectaProva.
+     */
+    data: XOR<ConectaProvaCreateInput, ConectaProvaUncheckedCreateInput>
+  }
+
+  /**
+   * ConectaProva createMany
+   */
+  export type ConectaProvaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ConectaProva.
+     */
+    data: ConectaProvaCreateManyInput | ConectaProvaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ConectaProva createManyAndReturn
+   */
+  export type ConectaProvaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * The data used to create many ConectaProva.
+     */
+    data: ConectaProvaCreateManyInput | ConectaProvaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ConectaProva update
+   */
+  export type ConectaProvaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ConectaProva.
+     */
+    data: XOR<ConectaProvaUpdateInput, ConectaProvaUncheckedUpdateInput>
+    /**
+     * Choose, which ConectaProva to update.
+     */
+    where: ConectaProvaWhereUniqueInput
+  }
+
+  /**
+   * ConectaProva updateMany
+   */
+  export type ConectaProvaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ConectaProva.
+     */
+    data: XOR<ConectaProvaUpdateManyMutationInput, ConectaProvaUncheckedUpdateManyInput>
+    /**
+     * Filter which ConectaProva to update
+     */
+    where?: ConectaProvaWhereInput
+    /**
+     * Limit how many ConectaProva to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaProva updateManyAndReturn
+   */
+  export type ConectaProvaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * The data used to update ConectaProva.
+     */
+    data: XOR<ConectaProvaUpdateManyMutationInput, ConectaProvaUncheckedUpdateManyInput>
+    /**
+     * Filter which ConectaProva to update
+     */
+    where?: ConectaProvaWhereInput
+    /**
+     * Limit how many ConectaProva to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ConectaProva upsert
+   */
+  export type ConectaProvaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ConectaProva to update in case it exists.
+     */
+    where: ConectaProvaWhereUniqueInput
+    /**
+     * In case the ConectaProva found by the `where` argument doesn't exist, create a new ConectaProva with this data.
+     */
+    create: XOR<ConectaProvaCreateInput, ConectaProvaUncheckedCreateInput>
+    /**
+     * In case the ConectaProva was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConectaProvaUpdateInput, ConectaProvaUncheckedUpdateInput>
+  }
+
+  /**
+   * ConectaProva delete
+   */
+  export type ConectaProvaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
+    /**
+     * Filter which ConectaProva to delete.
+     */
+    where: ConectaProvaWhereUniqueInput
+  }
+
+  /**
+   * ConectaProva deleteMany
+   */
+  export type ConectaProvaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ConectaProva to delete
+     */
+    where?: ConectaProvaWhereInput
+    /**
+     * Limit how many ConectaProva to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ConectaProva.equipe
+   */
+  export type ConectaProva$equipeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaEquipe
+     */
+    select?: ConectaEquipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaEquipe
+     */
+    omit?: ConectaEquipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaEquipeInclude<ExtArgs> | null
+    where?: ConectaEquipeWhereInput
+  }
+
+  /**
+   * ConectaProva without action
+   */
+  export type ConectaProvaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConectaProva
+     */
+    select?: ConectaProvaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConectaProva
+     */
+    omit?: ConectaProvaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConectaProvaInclude<ExtArgs> | null
   }
 
 
@@ -40562,6 +47987,15 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const TourConcluidoScalarFieldEnum: {
+    userId: 'userId',
+    tela: 'tela',
+    concluidoEm: 'concluidoEm'
+  };
+
+  export type TourConcluidoScalarFieldEnum = (typeof TourConcluidoScalarFieldEnum)[keyof typeof TourConcluidoScalarFieldEnum]
+
+
   export const CategoriaItemEstoqueScalarFieldEnum: {
     id: 'id',
     nome: 'nome',
@@ -40685,6 +48119,70 @@ export namespace Prisma {
   };
 
   export type TurmaScalarFieldEnum = (typeof TurmaScalarFieldEnum)[keyof typeof TurmaScalarFieldEnum]
+
+
+  export const ConectaEquipeScalarFieldEnum: {
+    id: 'id',
+    turmaId: 'turmaId',
+    nome: 'nome',
+    tema: 'tema',
+    corInicial: 'corInicial',
+    corFinal: 'corFinal',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ConectaEquipeScalarFieldEnum = (typeof ConectaEquipeScalarFieldEnum)[keyof typeof ConectaEquipeScalarFieldEnum]
+
+
+  export const ConectaItemScalarFieldEnum: {
+    id: 'id',
+    nome: 'nome',
+    descricao: 'descricao',
+    pontos: 'pontos',
+    ativo: 'ativo',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ConectaItemScalarFieldEnum = (typeof ConectaItemScalarFieldEnum)[keyof typeof ConectaItemScalarFieldEnum]
+
+
+  export const ConectaDoacaoScalarFieldEnum: {
+    id: 'id',
+    equipeId: 'equipeId',
+    nomeDoador: 'nomeDoador',
+    descricao: 'descricao',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ConectaDoacaoScalarFieldEnum = (typeof ConectaDoacaoScalarFieldEnum)[keyof typeof ConectaDoacaoScalarFieldEnum]
+
+
+  export const ConectaDoacaoItemScalarFieldEnum: {
+    id: 'id',
+    doacaoId: 'doacaoId',
+    itemId: 'itemId',
+    quantidade: 'quantidade',
+    pontosUnitarios: 'pontosUnitarios'
+  };
+
+  export type ConectaDoacaoItemScalarFieldEnum = (typeof ConectaDoacaoItemScalarFieldEnum)[keyof typeof ConectaDoacaoItemScalarFieldEnum]
+
+
+  export const ConectaProvaScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    equipeId: 'equipeId',
+    nome: 'nome',
+    descricao: 'descricao',
+    pontos: 'pontos',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ConectaProvaScalarFieldEnum = (typeof ConectaProvaScalarFieldEnum)[keyof typeof ConectaProvaScalarFieldEnum]
 
 
   export const ProfessorTurmaScalarFieldEnum: {
@@ -41393,6 +48891,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorListRelationFilter
     apostilasResponsavel?: ResponsavelApostilaListRelationFilter
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoListRelationFilter
+    toursConcluidos?: TourConcluidoListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -41421,6 +48920,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorOrderByRelationAggregateInput
     apostilasResponsavel?: ResponsavelApostilaOrderByRelationAggregateInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoOrderByRelationAggregateInput
+    toursConcluidos?: TourConcluidoOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -41452,6 +48952,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorListRelationFilter
     apostilasResponsavel?: ResponsavelApostilaListRelationFilter
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoListRelationFilter
+    toursConcluidos?: TourConcluidoListRelationFilter
   }, "id" | "email" | "matricula">
 
   export type UserOrderByWithAggregationInput = {
@@ -41486,6 +48987,52 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type TourConcluidoWhereInput = {
+    AND?: TourConcluidoWhereInput | TourConcluidoWhereInput[]
+    OR?: TourConcluidoWhereInput[]
+    NOT?: TourConcluidoWhereInput | TourConcluidoWhereInput[]
+    userId?: StringFilter<"TourConcluido"> | string
+    tela?: StringFilter<"TourConcluido"> | string
+    concluidoEm?: DateTimeFilter<"TourConcluido"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type TourConcluidoOrderByWithRelationInput = {
+    userId?: SortOrder
+    tela?: SortOrder
+    concluidoEm?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type TourConcluidoWhereUniqueInput = Prisma.AtLeast<{
+    userId_tela?: TourConcluidoUserIdTelaCompoundUniqueInput
+    AND?: TourConcluidoWhereInput | TourConcluidoWhereInput[]
+    OR?: TourConcluidoWhereInput[]
+    NOT?: TourConcluidoWhereInput | TourConcluidoWhereInput[]
+    userId?: StringFilter<"TourConcluido"> | string
+    tela?: StringFilter<"TourConcluido"> | string
+    concluidoEm?: DateTimeFilter<"TourConcluido"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "userId_tela">
+
+  export type TourConcluidoOrderByWithAggregationInput = {
+    userId?: SortOrder
+    tela?: SortOrder
+    concluidoEm?: SortOrder
+    _count?: TourConcluidoCountOrderByAggregateInput
+    _max?: TourConcluidoMaxOrderByAggregateInput
+    _min?: TourConcluidoMinOrderByAggregateInput
+  }
+
+  export type TourConcluidoScalarWhereWithAggregatesInput = {
+    AND?: TourConcluidoScalarWhereWithAggregatesInput | TourConcluidoScalarWhereWithAggregatesInput[]
+    OR?: TourConcluidoScalarWhereWithAggregatesInput[]
+    NOT?: TourConcluidoScalarWhereWithAggregatesInput | TourConcluidoScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"TourConcluido"> | string
+    tela?: StringWithAggregatesFilter<"TourConcluido"> | string
+    concluidoEm?: DateTimeWithAggregatesFilter<"TourConcluido"> | Date | string
   }
 
   export type CategoriaItemEstoqueWhereInput = {
@@ -41677,6 +49224,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreListRelationFilter
     semanasImpressao?: SemanaImpressaoListRelationFilter
     materiaisAtualizacao?: MaterialAtualizacaoListRelationFilter
+    conectaProvas?: ConectaProvaListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -41690,6 +49238,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreOrderByRelationAggregateInput
     semanasImpressao?: SemanaImpressaoOrderByRelationAggregateInput
     materiaisAtualizacao?: MaterialAtualizacaoOrderByRelationAggregateInput
+    conectaProvas?: ConectaProvaOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -41706,6 +49255,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreListRelationFilter
     semanasImpressao?: SemanaImpressaoListRelationFilter
     materiaisAtualizacao?: MaterialAtualizacaoListRelationFilter
+    conectaProvas?: ConectaProvaListRelationFilter
   }, "id" | "codigo">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -42086,6 +49636,7 @@ export namespace Prisma {
     avisos?: AvisoListRelationFilter
     anotacoes?: AnotacaoListRelationFilter
     presencas?: RegistroPresencaListRelationFilter
+    conectaEquipe?: XOR<ConectaEquipeNullableScalarRelationFilter, ConectaEquipeWhereInput> | null
   }
 
   export type TurmaOrderByWithRelationInput = {
@@ -42111,6 +49662,7 @@ export namespace Prisma {
     avisos?: AvisoOrderByRelationAggregateInput
     anotacoes?: AnotacaoOrderByRelationAggregateInput
     presencas?: RegistroPresencaOrderByRelationAggregateInput
+    conectaEquipe?: ConectaEquipeOrderByWithRelationInput
   }
 
   export type TurmaWhereUniqueInput = Prisma.AtLeast<{
@@ -42139,6 +49691,7 @@ export namespace Prisma {
     avisos?: AvisoListRelationFilter
     anotacoes?: AnotacaoListRelationFilter
     presencas?: RegistroPresencaListRelationFilter
+    conectaEquipe?: XOR<ConectaEquipeNullableScalarRelationFilter, ConectaEquipeWhereInput> | null
   }, "id">
 
   export type TurmaOrderByWithAggregationInput = {
@@ -42179,6 +49732,348 @@ export namespace Prisma {
     corDescricao?: StringWithAggregatesFilter<"Turma"> | string
     fonte?: StringWithAggregatesFilter<"Turma"> | string
     semestreId?: StringWithAggregatesFilter<"Turma"> | string
+  }
+
+  export type ConectaEquipeWhereInput = {
+    AND?: ConectaEquipeWhereInput | ConectaEquipeWhereInput[]
+    OR?: ConectaEquipeWhereInput[]
+    NOT?: ConectaEquipeWhereInput | ConectaEquipeWhereInput[]
+    id?: StringFilter<"ConectaEquipe"> | string
+    turmaId?: StringFilter<"ConectaEquipe"> | string
+    nome?: StringFilter<"ConectaEquipe"> | string
+    tema?: StringFilter<"ConectaEquipe"> | string
+    corInicial?: StringFilter<"ConectaEquipe"> | string
+    corFinal?: StringFilter<"ConectaEquipe"> | string
+    createdAt?: DateTimeFilter<"ConectaEquipe"> | Date | string
+    updatedAt?: DateTimeFilter<"ConectaEquipe"> | Date | string
+    turma?: XOR<TurmaScalarRelationFilter, TurmaWhereInput>
+    doacoes?: ConectaDoacaoListRelationFilter
+    provas?: ConectaProvaListRelationFilter
+  }
+
+  export type ConectaEquipeOrderByWithRelationInput = {
+    id?: SortOrder
+    turmaId?: SortOrder
+    nome?: SortOrder
+    tema?: SortOrder
+    corInicial?: SortOrder
+    corFinal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    turma?: TurmaOrderByWithRelationInput
+    doacoes?: ConectaDoacaoOrderByRelationAggregateInput
+    provas?: ConectaProvaOrderByRelationAggregateInput
+  }
+
+  export type ConectaEquipeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    turmaId?: string
+    AND?: ConectaEquipeWhereInput | ConectaEquipeWhereInput[]
+    OR?: ConectaEquipeWhereInput[]
+    NOT?: ConectaEquipeWhereInput | ConectaEquipeWhereInput[]
+    nome?: StringFilter<"ConectaEquipe"> | string
+    tema?: StringFilter<"ConectaEquipe"> | string
+    corInicial?: StringFilter<"ConectaEquipe"> | string
+    corFinal?: StringFilter<"ConectaEquipe"> | string
+    createdAt?: DateTimeFilter<"ConectaEquipe"> | Date | string
+    updatedAt?: DateTimeFilter<"ConectaEquipe"> | Date | string
+    turma?: XOR<TurmaScalarRelationFilter, TurmaWhereInput>
+    doacoes?: ConectaDoacaoListRelationFilter
+    provas?: ConectaProvaListRelationFilter
+  }, "id" | "turmaId">
+
+  export type ConectaEquipeOrderByWithAggregationInput = {
+    id?: SortOrder
+    turmaId?: SortOrder
+    nome?: SortOrder
+    tema?: SortOrder
+    corInicial?: SortOrder
+    corFinal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ConectaEquipeCountOrderByAggregateInput
+    _max?: ConectaEquipeMaxOrderByAggregateInput
+    _min?: ConectaEquipeMinOrderByAggregateInput
+  }
+
+  export type ConectaEquipeScalarWhereWithAggregatesInput = {
+    AND?: ConectaEquipeScalarWhereWithAggregatesInput | ConectaEquipeScalarWhereWithAggregatesInput[]
+    OR?: ConectaEquipeScalarWhereWithAggregatesInput[]
+    NOT?: ConectaEquipeScalarWhereWithAggregatesInput | ConectaEquipeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ConectaEquipe"> | string
+    turmaId?: StringWithAggregatesFilter<"ConectaEquipe"> | string
+    nome?: StringWithAggregatesFilter<"ConectaEquipe"> | string
+    tema?: StringWithAggregatesFilter<"ConectaEquipe"> | string
+    corInicial?: StringWithAggregatesFilter<"ConectaEquipe"> | string
+    corFinal?: StringWithAggregatesFilter<"ConectaEquipe"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ConectaEquipe"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ConectaEquipe"> | Date | string
+  }
+
+  export type ConectaItemWhereInput = {
+    AND?: ConectaItemWhereInput | ConectaItemWhereInput[]
+    OR?: ConectaItemWhereInput[]
+    NOT?: ConectaItemWhereInput | ConectaItemWhereInput[]
+    id?: StringFilter<"ConectaItem"> | string
+    nome?: StringFilter<"ConectaItem"> | string
+    descricao?: StringNullableFilter<"ConectaItem"> | string | null
+    pontos?: IntFilter<"ConectaItem"> | number
+    ativo?: BoolFilter<"ConectaItem"> | boolean
+    createdAt?: DateTimeFilter<"ConectaItem"> | Date | string
+    updatedAt?: DateTimeFilter<"ConectaItem"> | Date | string
+    doacoes?: ConectaDoacaoItemListRelationFilter
+  }
+
+  export type ConectaItemOrderByWithRelationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrderInput | SortOrder
+    pontos?: SortOrder
+    ativo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    doacoes?: ConectaDoacaoItemOrderByRelationAggregateInput
+  }
+
+  export type ConectaItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    nome?: string
+    AND?: ConectaItemWhereInput | ConectaItemWhereInput[]
+    OR?: ConectaItemWhereInput[]
+    NOT?: ConectaItemWhereInput | ConectaItemWhereInput[]
+    descricao?: StringNullableFilter<"ConectaItem"> | string | null
+    pontos?: IntFilter<"ConectaItem"> | number
+    ativo?: BoolFilter<"ConectaItem"> | boolean
+    createdAt?: DateTimeFilter<"ConectaItem"> | Date | string
+    updatedAt?: DateTimeFilter<"ConectaItem"> | Date | string
+    doacoes?: ConectaDoacaoItemListRelationFilter
+  }, "id" | "nome">
+
+  export type ConectaItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrderInput | SortOrder
+    pontos?: SortOrder
+    ativo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ConectaItemCountOrderByAggregateInput
+    _avg?: ConectaItemAvgOrderByAggregateInput
+    _max?: ConectaItemMaxOrderByAggregateInput
+    _min?: ConectaItemMinOrderByAggregateInput
+    _sum?: ConectaItemSumOrderByAggregateInput
+  }
+
+  export type ConectaItemScalarWhereWithAggregatesInput = {
+    AND?: ConectaItemScalarWhereWithAggregatesInput | ConectaItemScalarWhereWithAggregatesInput[]
+    OR?: ConectaItemScalarWhereWithAggregatesInput[]
+    NOT?: ConectaItemScalarWhereWithAggregatesInput | ConectaItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ConectaItem"> | string
+    nome?: StringWithAggregatesFilter<"ConectaItem"> | string
+    descricao?: StringNullableWithAggregatesFilter<"ConectaItem"> | string | null
+    pontos?: IntWithAggregatesFilter<"ConectaItem"> | number
+    ativo?: BoolWithAggregatesFilter<"ConectaItem"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"ConectaItem"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ConectaItem"> | Date | string
+  }
+
+  export type ConectaDoacaoWhereInput = {
+    AND?: ConectaDoacaoWhereInput | ConectaDoacaoWhereInput[]
+    OR?: ConectaDoacaoWhereInput[]
+    NOT?: ConectaDoacaoWhereInput | ConectaDoacaoWhereInput[]
+    id?: StringFilter<"ConectaDoacao"> | string
+    equipeId?: StringFilter<"ConectaDoacao"> | string
+    nomeDoador?: StringFilter<"ConectaDoacao"> | string
+    descricao?: StringNullableFilter<"ConectaDoacao"> | string | null
+    createdAt?: DateTimeFilter<"ConectaDoacao"> | Date | string
+    updatedAt?: DateTimeFilter<"ConectaDoacao"> | Date | string
+    equipe?: XOR<ConectaEquipeScalarRelationFilter, ConectaEquipeWhereInput>
+    itens?: ConectaDoacaoItemListRelationFilter
+  }
+
+  export type ConectaDoacaoOrderByWithRelationInput = {
+    id?: SortOrder
+    equipeId?: SortOrder
+    nomeDoador?: SortOrder
+    descricao?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    equipe?: ConectaEquipeOrderByWithRelationInput
+    itens?: ConectaDoacaoItemOrderByRelationAggregateInput
+  }
+
+  export type ConectaDoacaoWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ConectaDoacaoWhereInput | ConectaDoacaoWhereInput[]
+    OR?: ConectaDoacaoWhereInput[]
+    NOT?: ConectaDoacaoWhereInput | ConectaDoacaoWhereInput[]
+    equipeId?: StringFilter<"ConectaDoacao"> | string
+    nomeDoador?: StringFilter<"ConectaDoacao"> | string
+    descricao?: StringNullableFilter<"ConectaDoacao"> | string | null
+    createdAt?: DateTimeFilter<"ConectaDoacao"> | Date | string
+    updatedAt?: DateTimeFilter<"ConectaDoacao"> | Date | string
+    equipe?: XOR<ConectaEquipeScalarRelationFilter, ConectaEquipeWhereInput>
+    itens?: ConectaDoacaoItemListRelationFilter
+  }, "id">
+
+  export type ConectaDoacaoOrderByWithAggregationInput = {
+    id?: SortOrder
+    equipeId?: SortOrder
+    nomeDoador?: SortOrder
+    descricao?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ConectaDoacaoCountOrderByAggregateInput
+    _max?: ConectaDoacaoMaxOrderByAggregateInput
+    _min?: ConectaDoacaoMinOrderByAggregateInput
+  }
+
+  export type ConectaDoacaoScalarWhereWithAggregatesInput = {
+    AND?: ConectaDoacaoScalarWhereWithAggregatesInput | ConectaDoacaoScalarWhereWithAggregatesInput[]
+    OR?: ConectaDoacaoScalarWhereWithAggregatesInput[]
+    NOT?: ConectaDoacaoScalarWhereWithAggregatesInput | ConectaDoacaoScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ConectaDoacao"> | string
+    equipeId?: StringWithAggregatesFilter<"ConectaDoacao"> | string
+    nomeDoador?: StringWithAggregatesFilter<"ConectaDoacao"> | string
+    descricao?: StringNullableWithAggregatesFilter<"ConectaDoacao"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ConectaDoacao"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ConectaDoacao"> | Date | string
+  }
+
+  export type ConectaDoacaoItemWhereInput = {
+    AND?: ConectaDoacaoItemWhereInput | ConectaDoacaoItemWhereInput[]
+    OR?: ConectaDoacaoItemWhereInput[]
+    NOT?: ConectaDoacaoItemWhereInput | ConectaDoacaoItemWhereInput[]
+    id?: StringFilter<"ConectaDoacaoItem"> | string
+    doacaoId?: StringFilter<"ConectaDoacaoItem"> | string
+    itemId?: StringFilter<"ConectaDoacaoItem"> | string
+    quantidade?: IntFilter<"ConectaDoacaoItem"> | number
+    pontosUnitarios?: IntFilter<"ConectaDoacaoItem"> | number
+    doacao?: XOR<ConectaDoacaoScalarRelationFilter, ConectaDoacaoWhereInput>
+    item?: XOR<ConectaItemScalarRelationFilter, ConectaItemWhereInput>
+  }
+
+  export type ConectaDoacaoItemOrderByWithRelationInput = {
+    id?: SortOrder
+    doacaoId?: SortOrder
+    itemId?: SortOrder
+    quantidade?: SortOrder
+    pontosUnitarios?: SortOrder
+    doacao?: ConectaDoacaoOrderByWithRelationInput
+    item?: ConectaItemOrderByWithRelationInput
+  }
+
+  export type ConectaDoacaoItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    doacaoId_itemId?: ConectaDoacaoItemDoacaoIdItemIdCompoundUniqueInput
+    AND?: ConectaDoacaoItemWhereInput | ConectaDoacaoItemWhereInput[]
+    OR?: ConectaDoacaoItemWhereInput[]
+    NOT?: ConectaDoacaoItemWhereInput | ConectaDoacaoItemWhereInput[]
+    doacaoId?: StringFilter<"ConectaDoacaoItem"> | string
+    itemId?: StringFilter<"ConectaDoacaoItem"> | string
+    quantidade?: IntFilter<"ConectaDoacaoItem"> | number
+    pontosUnitarios?: IntFilter<"ConectaDoacaoItem"> | number
+    doacao?: XOR<ConectaDoacaoScalarRelationFilter, ConectaDoacaoWhereInput>
+    item?: XOR<ConectaItemScalarRelationFilter, ConectaItemWhereInput>
+  }, "id" | "doacaoId_itemId">
+
+  export type ConectaDoacaoItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    doacaoId?: SortOrder
+    itemId?: SortOrder
+    quantidade?: SortOrder
+    pontosUnitarios?: SortOrder
+    _count?: ConectaDoacaoItemCountOrderByAggregateInput
+    _avg?: ConectaDoacaoItemAvgOrderByAggregateInput
+    _max?: ConectaDoacaoItemMaxOrderByAggregateInput
+    _min?: ConectaDoacaoItemMinOrderByAggregateInput
+    _sum?: ConectaDoacaoItemSumOrderByAggregateInput
+  }
+
+  export type ConectaDoacaoItemScalarWhereWithAggregatesInput = {
+    AND?: ConectaDoacaoItemScalarWhereWithAggregatesInput | ConectaDoacaoItemScalarWhereWithAggregatesInput[]
+    OR?: ConectaDoacaoItemScalarWhereWithAggregatesInput[]
+    NOT?: ConectaDoacaoItemScalarWhereWithAggregatesInput | ConectaDoacaoItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ConectaDoacaoItem"> | string
+    doacaoId?: StringWithAggregatesFilter<"ConectaDoacaoItem"> | string
+    itemId?: StringWithAggregatesFilter<"ConectaDoacaoItem"> | string
+    quantidade?: IntWithAggregatesFilter<"ConectaDoacaoItem"> | number
+    pontosUnitarios?: IntWithAggregatesFilter<"ConectaDoacaoItem"> | number
+  }
+
+  export type ConectaProvaWhereInput = {
+    AND?: ConectaProvaWhereInput | ConectaProvaWhereInput[]
+    OR?: ConectaProvaWhereInput[]
+    NOT?: ConectaProvaWhereInput | ConectaProvaWhereInput[]
+    id?: StringFilter<"ConectaProva"> | string
+    semestreId?: StringFilter<"ConectaProva"> | string
+    equipeId?: StringNullableFilter<"ConectaProva"> | string | null
+    nome?: StringFilter<"ConectaProva"> | string
+    descricao?: StringNullableFilter<"ConectaProva"> | string | null
+    pontos?: IntFilter<"ConectaProva"> | number
+    createdAt?: DateTimeFilter<"ConectaProva"> | Date | string
+    updatedAt?: DateTimeFilter<"ConectaProva"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    equipe?: XOR<ConectaEquipeNullableScalarRelationFilter, ConectaEquipeWhereInput> | null
+  }
+
+  export type ConectaProvaOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    equipeId?: SortOrderInput | SortOrder
+    nome?: SortOrder
+    descricao?: SortOrderInput | SortOrder
+    pontos?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    equipe?: ConectaEquipeOrderByWithRelationInput
+  }
+
+  export type ConectaProvaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ConectaProvaWhereInput | ConectaProvaWhereInput[]
+    OR?: ConectaProvaWhereInput[]
+    NOT?: ConectaProvaWhereInput | ConectaProvaWhereInput[]
+    semestreId?: StringFilter<"ConectaProva"> | string
+    equipeId?: StringNullableFilter<"ConectaProva"> | string | null
+    nome?: StringFilter<"ConectaProva"> | string
+    descricao?: StringNullableFilter<"ConectaProva"> | string | null
+    pontos?: IntFilter<"ConectaProva"> | number
+    createdAt?: DateTimeFilter<"ConectaProva"> | Date | string
+    updatedAt?: DateTimeFilter<"ConectaProva"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    equipe?: XOR<ConectaEquipeNullableScalarRelationFilter, ConectaEquipeWhereInput> | null
+  }, "id">
+
+  export type ConectaProvaOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    equipeId?: SortOrderInput | SortOrder
+    nome?: SortOrder
+    descricao?: SortOrderInput | SortOrder
+    pontos?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ConectaProvaCountOrderByAggregateInput
+    _avg?: ConectaProvaAvgOrderByAggregateInput
+    _max?: ConectaProvaMaxOrderByAggregateInput
+    _min?: ConectaProvaMinOrderByAggregateInput
+    _sum?: ConectaProvaSumOrderByAggregateInput
+  }
+
+  export type ConectaProvaScalarWhereWithAggregatesInput = {
+    AND?: ConectaProvaScalarWhereWithAggregatesInput | ConectaProvaScalarWhereWithAggregatesInput[]
+    OR?: ConectaProvaScalarWhereWithAggregatesInput[]
+    NOT?: ConectaProvaScalarWhereWithAggregatesInput | ConectaProvaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ConectaProva"> | string
+    semestreId?: StringWithAggregatesFilter<"ConectaProva"> | string
+    equipeId?: StringNullableWithAggregatesFilter<"ConectaProva"> | string | null
+    nome?: StringWithAggregatesFilter<"ConectaProva"> | string
+    descricao?: StringNullableWithAggregatesFilter<"ConectaProva"> | string | null
+    pontos?: IntWithAggregatesFilter<"ConectaProva"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"ConectaProva"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ConectaProva"> | Date | string
   }
 
   export type ProfessorTurmaWhereInput = {
@@ -43616,6 +51511,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -43644,6 +51540,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -43672,6 +51569,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -43700,6 +51598,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -43742,6 +51641,47 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TourConcluidoCreateInput = {
+    tela: string
+    concluidoEm?: Date | string
+    user: UserCreateNestedOneWithoutToursConcluidosInput
+  }
+
+  export type TourConcluidoUncheckedCreateInput = {
+    userId: string
+    tela: string
+    concluidoEm?: Date | string
+  }
+
+  export type TourConcluidoUpdateInput = {
+    tela?: StringFieldUpdateOperationsInput | string
+    concluidoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutToursConcluidosNestedInput
+  }
+
+  export type TourConcluidoUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    tela?: StringFieldUpdateOperationsInput | string
+    concluidoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TourConcluidoCreateManyInput = {
+    userId: string
+    tela: string
+    concluidoEm?: Date | string
+  }
+
+  export type TourConcluidoUpdateManyMutationInput = {
+    tela?: StringFieldUpdateOperationsInput | string
+    concluidoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TourConcluidoUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    tela?: StringFieldUpdateOperationsInput | string
+    concluidoEm?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoriaItemEstoqueCreateInput = {
@@ -43936,6 +51876,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -43949,6 +51890,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -43962,6 +51904,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -43975,6 +51918,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -44356,6 +52300,7 @@ export namespace Prisma {
     avisos?: AvisoCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUncheckedCreateInput = {
@@ -44380,6 +52325,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaUncheckedCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUpdateInput = {
@@ -44404,6 +52350,7 @@ export namespace Prisma {
     avisos?: AvisoUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateInput = {
@@ -44428,6 +52375,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUncheckedUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaCreateManyInput = {
@@ -44475,6 +52423,359 @@ export namespace Prisma {
     corDescricao?: StringFieldUpdateOperationsInput | string
     fonte?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ConectaEquipeCreateInput = {
+    id?: string
+    nome: string
+    tema: string
+    corInicial?: string
+    corFinal?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    turma: TurmaCreateNestedOneWithoutConectaEquipeInput
+    doacoes?: ConectaDoacaoCreateNestedManyWithoutEquipeInput
+    provas?: ConectaProvaCreateNestedManyWithoutEquipeInput
+  }
+
+  export type ConectaEquipeUncheckedCreateInput = {
+    id?: string
+    turmaId: string
+    nome: string
+    tema: string
+    corInicial?: string
+    corFinal?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    doacoes?: ConectaDoacaoUncheckedCreateNestedManyWithoutEquipeInput
+    provas?: ConectaProvaUncheckedCreateNestedManyWithoutEquipeInput
+  }
+
+  export type ConectaEquipeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    tema?: StringFieldUpdateOperationsInput | string
+    corInicial?: StringFieldUpdateOperationsInput | string
+    corFinal?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turma?: TurmaUpdateOneRequiredWithoutConectaEquipeNestedInput
+    doacoes?: ConectaDoacaoUpdateManyWithoutEquipeNestedInput
+    provas?: ConectaProvaUpdateManyWithoutEquipeNestedInput
+  }
+
+  export type ConectaEquipeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    turmaId?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    tema?: StringFieldUpdateOperationsInput | string
+    corInicial?: StringFieldUpdateOperationsInput | string
+    corFinal?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    doacoes?: ConectaDoacaoUncheckedUpdateManyWithoutEquipeNestedInput
+    provas?: ConectaProvaUncheckedUpdateManyWithoutEquipeNestedInput
+  }
+
+  export type ConectaEquipeCreateManyInput = {
+    id?: string
+    turmaId: string
+    nome: string
+    tema: string
+    corInicial?: string
+    corFinal?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaEquipeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    tema?: StringFieldUpdateOperationsInput | string
+    corInicial?: StringFieldUpdateOperationsInput | string
+    corFinal?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaEquipeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    turmaId?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    tema?: StringFieldUpdateOperationsInput | string
+    corInicial?: StringFieldUpdateOperationsInput | string
+    corFinal?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaItemCreateInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    pontos: number
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    doacoes?: ConectaDoacaoItemCreateNestedManyWithoutItemInput
+  }
+
+  export type ConectaItemUncheckedCreateInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    pontos: number
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    doacoes?: ConectaDoacaoItemUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type ConectaItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    doacoes?: ConectaDoacaoItemUpdateManyWithoutItemNestedInput
+  }
+
+  export type ConectaItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    doacoes?: ConectaDoacaoItemUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type ConectaItemCreateManyInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    pontos: number
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaDoacaoCreateInput = {
+    id?: string
+    nomeDoador: string
+    descricao?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipe: ConectaEquipeCreateNestedOneWithoutDoacoesInput
+    itens?: ConectaDoacaoItemCreateNestedManyWithoutDoacaoInput
+  }
+
+  export type ConectaDoacaoUncheckedCreateInput = {
+    id?: string
+    equipeId: string
+    nomeDoador: string
+    descricao?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    itens?: ConectaDoacaoItemUncheckedCreateNestedManyWithoutDoacaoInput
+  }
+
+  export type ConectaDoacaoUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nomeDoador?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipe?: ConectaEquipeUpdateOneRequiredWithoutDoacoesNestedInput
+    itens?: ConectaDoacaoItemUpdateManyWithoutDoacaoNestedInput
+  }
+
+  export type ConectaDoacaoUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    equipeId?: StringFieldUpdateOperationsInput | string
+    nomeDoador?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    itens?: ConectaDoacaoItemUncheckedUpdateManyWithoutDoacaoNestedInput
+  }
+
+  export type ConectaDoacaoCreateManyInput = {
+    id?: string
+    equipeId: string
+    nomeDoador: string
+    descricao?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaDoacaoUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nomeDoador?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaDoacaoUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    equipeId?: StringFieldUpdateOperationsInput | string
+    nomeDoador?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaDoacaoItemCreateInput = {
+    id?: string
+    quantidade: number
+    pontosUnitarios: number
+    doacao: ConectaDoacaoCreateNestedOneWithoutItensInput
+    item: ConectaItemCreateNestedOneWithoutDoacoesInput
+  }
+
+  export type ConectaDoacaoItemUncheckedCreateInput = {
+    id?: string
+    doacaoId: string
+    itemId: string
+    quantidade: number
+    pontosUnitarios: number
+  }
+
+  export type ConectaDoacaoItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pontosUnitarios?: IntFieldUpdateOperationsInput | number
+    doacao?: ConectaDoacaoUpdateOneRequiredWithoutItensNestedInput
+    item?: ConectaItemUpdateOneRequiredWithoutDoacoesNestedInput
+  }
+
+  export type ConectaDoacaoItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    doacaoId?: StringFieldUpdateOperationsInput | string
+    itemId?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pontosUnitarios?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ConectaDoacaoItemCreateManyInput = {
+    id?: string
+    doacaoId: string
+    itemId: string
+    quantidade: number
+    pontosUnitarios: number
+  }
+
+  export type ConectaDoacaoItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pontosUnitarios?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ConectaDoacaoItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    doacaoId?: StringFieldUpdateOperationsInput | string
+    itemId?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pontosUnitarios?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ConectaProvaCreateInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    pontos: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutConectaProvasInput
+    equipe?: ConectaEquipeCreateNestedOneWithoutProvasInput
+  }
+
+  export type ConectaProvaUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    equipeId?: string | null
+    nome: string
+    descricao?: string | null
+    pontos: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaProvaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutConectaProvasNestedInput
+    equipe?: ConectaEquipeUpdateOneWithoutProvasNestedInput
+  }
+
+  export type ConectaProvaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    equipeId?: NullableStringFieldUpdateOperationsInput | string | null
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaProvaCreateManyInput = {
+    id?: string
+    semestreId: string
+    equipeId?: string | null
+    nome: string
+    descricao?: string | null
+    pontos: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaProvaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaProvaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    equipeId?: NullableStringFieldUpdateOperationsInput | string | null
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProfessorTurmaCreateInput = {
@@ -46031,6 +54332,12 @@ export namespace Prisma {
     none?: ResponsavelMaterialAtualizacaoWhereInput
   }
 
+  export type TourConcluidoListRelationFilter = {
+    every?: TourConcluidoWhereInput
+    some?: TourConcluidoWhereInput
+    none?: TourConcluidoWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -46080,6 +54387,10 @@ export namespace Prisma {
   }
 
   export type ResponsavelMaterialAtualizacaoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TourConcluidoOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -46147,6 +54458,29 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type TourConcluidoUserIdTelaCompoundUniqueInput = {
+    userId: string
+    tela: string
+  }
+
+  export type TourConcluidoCountOrderByAggregateInput = {
+    userId?: SortOrder
+    tela?: SortOrder
+    concluidoEm?: SortOrder
+  }
+
+  export type TourConcluidoMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    tela?: SortOrder
+    concluidoEm?: SortOrder
+  }
+
+  export type TourConcluidoMinOrderByAggregateInput = {
+    userId?: SortOrder
+    tela?: SortOrder
+    concluidoEm?: SortOrder
   }
 
   export type ItemEstoqueListRelationFilter = {
@@ -46314,6 +54648,12 @@ export namespace Prisma {
     none?: MaterialAtualizacaoWhereInput
   }
 
+  export type ConectaProvaListRelationFilter = {
+    every?: ConectaProvaWhereInput
+    some?: ConectaProvaWhereInput
+    none?: ConectaProvaWhereInput
+  }
+
   export type TurmaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -46331,6 +54671,10 @@ export namespace Prisma {
   }
 
   export type MaterialAtualizacaoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ConectaProvaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -46591,6 +54935,11 @@ export namespace Prisma {
     none?: RegistroPresencaWhereInput
   }
 
+  export type ConectaEquipeNullableScalarRelationFilter = {
+    is?: ConectaEquipeWhereInput | null
+    isNot?: ConectaEquipeWhereInput | null
+  }
+
   export type AlunoTurmaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -46666,6 +55015,219 @@ export namespace Prisma {
   export type TurmaScalarRelationFilter = {
     is?: TurmaWhereInput
     isNot?: TurmaWhereInput
+  }
+
+  export type ConectaDoacaoListRelationFilter = {
+    every?: ConectaDoacaoWhereInput
+    some?: ConectaDoacaoWhereInput
+    none?: ConectaDoacaoWhereInput
+  }
+
+  export type ConectaDoacaoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ConectaEquipeCountOrderByAggregateInput = {
+    id?: SortOrder
+    turmaId?: SortOrder
+    nome?: SortOrder
+    tema?: SortOrder
+    corInicial?: SortOrder
+    corFinal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaEquipeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    turmaId?: SortOrder
+    nome?: SortOrder
+    tema?: SortOrder
+    corInicial?: SortOrder
+    corFinal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaEquipeMinOrderByAggregateInput = {
+    id?: SortOrder
+    turmaId?: SortOrder
+    nome?: SortOrder
+    tema?: SortOrder
+    corInicial?: SortOrder
+    corFinal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaDoacaoItemListRelationFilter = {
+    every?: ConectaDoacaoItemWhereInput
+    some?: ConectaDoacaoItemWhereInput
+    none?: ConectaDoacaoItemWhereInput
+  }
+
+  export type ConectaDoacaoItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ConectaItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrder
+    pontos?: SortOrder
+    ativo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaItemAvgOrderByAggregateInput = {
+    pontos?: SortOrder
+  }
+
+  export type ConectaItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrder
+    pontos?: SortOrder
+    ativo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrder
+    pontos?: SortOrder
+    ativo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaItemSumOrderByAggregateInput = {
+    pontos?: SortOrder
+  }
+
+  export type ConectaEquipeScalarRelationFilter = {
+    is?: ConectaEquipeWhereInput
+    isNot?: ConectaEquipeWhereInput
+  }
+
+  export type ConectaDoacaoCountOrderByAggregateInput = {
+    id?: SortOrder
+    equipeId?: SortOrder
+    nomeDoador?: SortOrder
+    descricao?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaDoacaoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    equipeId?: SortOrder
+    nomeDoador?: SortOrder
+    descricao?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaDoacaoMinOrderByAggregateInput = {
+    id?: SortOrder
+    equipeId?: SortOrder
+    nomeDoador?: SortOrder
+    descricao?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaDoacaoScalarRelationFilter = {
+    is?: ConectaDoacaoWhereInput
+    isNot?: ConectaDoacaoWhereInput
+  }
+
+  export type ConectaItemScalarRelationFilter = {
+    is?: ConectaItemWhereInput
+    isNot?: ConectaItemWhereInput
+  }
+
+  export type ConectaDoacaoItemDoacaoIdItemIdCompoundUniqueInput = {
+    doacaoId: string
+    itemId: string
+  }
+
+  export type ConectaDoacaoItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    doacaoId?: SortOrder
+    itemId?: SortOrder
+    quantidade?: SortOrder
+    pontosUnitarios?: SortOrder
+  }
+
+  export type ConectaDoacaoItemAvgOrderByAggregateInput = {
+    quantidade?: SortOrder
+    pontosUnitarios?: SortOrder
+  }
+
+  export type ConectaDoacaoItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    doacaoId?: SortOrder
+    itemId?: SortOrder
+    quantidade?: SortOrder
+    pontosUnitarios?: SortOrder
+  }
+
+  export type ConectaDoacaoItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    doacaoId?: SortOrder
+    itemId?: SortOrder
+    quantidade?: SortOrder
+    pontosUnitarios?: SortOrder
+  }
+
+  export type ConectaDoacaoItemSumOrderByAggregateInput = {
+    quantidade?: SortOrder
+    pontosUnitarios?: SortOrder
+  }
+
+  export type ConectaProvaCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    equipeId?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrder
+    pontos?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaProvaAvgOrderByAggregateInput = {
+    pontos?: SortOrder
+  }
+
+  export type ConectaProvaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    equipeId?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrder
+    pontos?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaProvaMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    equipeId?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrder
+    pontos?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConectaProvaSumOrderByAggregateInput = {
+    pontos?: SortOrder
   }
 
   export type ProfessorTurmaUserIdTurmaIdCompoundUniqueInput = {
@@ -47705,6 +56267,13 @@ export namespace Prisma {
     connect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
   }
 
+  export type TourConcluidoCreateNestedManyWithoutUserInput = {
+    create?: XOR<TourConcluidoCreateWithoutUserInput, TourConcluidoUncheckedCreateWithoutUserInput> | TourConcluidoCreateWithoutUserInput[] | TourConcluidoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TourConcluidoCreateOrConnectWithoutUserInput | TourConcluidoCreateOrConnectWithoutUserInput[]
+    createMany?: TourConcluidoCreateManyUserInputEnvelope
+    connect?: TourConcluidoWhereUniqueInput | TourConcluidoWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -47801,6 +56370,13 @@ export namespace Prisma {
     connectOrCreate?: ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput | ResponsavelMaterialAtualizacaoCreateOrConnectWithoutUserInput[]
     createMany?: ResponsavelMaterialAtualizacaoCreateManyUserInputEnvelope
     connect?: ResponsavelMaterialAtualizacaoWhereUniqueInput | ResponsavelMaterialAtualizacaoWhereUniqueInput[]
+  }
+
+  export type TourConcluidoUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TourConcluidoCreateWithoutUserInput, TourConcluidoUncheckedCreateWithoutUserInput> | TourConcluidoCreateWithoutUserInput[] | TourConcluidoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TourConcluidoCreateOrConnectWithoutUserInput | TourConcluidoCreateOrConnectWithoutUserInput[]
+    createMany?: TourConcluidoCreateManyUserInputEnvelope
+    connect?: TourConcluidoWhereUniqueInput | TourConcluidoWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -48007,6 +56583,20 @@ export namespace Prisma {
     deleteMany?: ResponsavelMaterialAtualizacaoScalarWhereInput | ResponsavelMaterialAtualizacaoScalarWhereInput[]
   }
 
+  export type TourConcluidoUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TourConcluidoCreateWithoutUserInput, TourConcluidoUncheckedCreateWithoutUserInput> | TourConcluidoCreateWithoutUserInput[] | TourConcluidoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TourConcluidoCreateOrConnectWithoutUserInput | TourConcluidoCreateOrConnectWithoutUserInput[]
+    upsert?: TourConcluidoUpsertWithWhereUniqueWithoutUserInput | TourConcluidoUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TourConcluidoCreateManyUserInputEnvelope
+    set?: TourConcluidoWhereUniqueInput | TourConcluidoWhereUniqueInput[]
+    disconnect?: TourConcluidoWhereUniqueInput | TourConcluidoWhereUniqueInput[]
+    delete?: TourConcluidoWhereUniqueInput | TourConcluidoWhereUniqueInput[]
+    connect?: TourConcluidoWhereUniqueInput | TourConcluidoWhereUniqueInput[]
+    update?: TourConcluidoUpdateWithWhereUniqueWithoutUserInput | TourConcluidoUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TourConcluidoUpdateManyWithWhereWithoutUserInput | TourConcluidoUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TourConcluidoScalarWhereInput | TourConcluidoScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -48203,6 +56793,34 @@ export namespace Prisma {
     deleteMany?: ResponsavelMaterialAtualizacaoScalarWhereInput | ResponsavelMaterialAtualizacaoScalarWhereInput[]
   }
 
+  export type TourConcluidoUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TourConcluidoCreateWithoutUserInput, TourConcluidoUncheckedCreateWithoutUserInput> | TourConcluidoCreateWithoutUserInput[] | TourConcluidoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TourConcluidoCreateOrConnectWithoutUserInput | TourConcluidoCreateOrConnectWithoutUserInput[]
+    upsert?: TourConcluidoUpsertWithWhereUniqueWithoutUserInput | TourConcluidoUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TourConcluidoCreateManyUserInputEnvelope
+    set?: TourConcluidoWhereUniqueInput | TourConcluidoWhereUniqueInput[]
+    disconnect?: TourConcluidoWhereUniqueInput | TourConcluidoWhereUniqueInput[]
+    delete?: TourConcluidoWhereUniqueInput | TourConcluidoWhereUniqueInput[]
+    connect?: TourConcluidoWhereUniqueInput | TourConcluidoWhereUniqueInput[]
+    update?: TourConcluidoUpdateWithWhereUniqueWithoutUserInput | TourConcluidoUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TourConcluidoUpdateManyWithWhereWithoutUserInput | TourConcluidoUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TourConcluidoScalarWhereInput | TourConcluidoScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutToursConcluidosInput = {
+    create?: XOR<UserCreateWithoutToursConcluidosInput, UserUncheckedCreateWithoutToursConcluidosInput>
+    connectOrCreate?: UserCreateOrConnectWithoutToursConcluidosInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutToursConcluidosNestedInput = {
+    create?: XOR<UserCreateWithoutToursConcluidosInput, UserUncheckedCreateWithoutToursConcluidosInput>
+    connectOrCreate?: UserCreateOrConnectWithoutToursConcluidosInput
+    upsert?: UserUpsertWithoutToursConcluidosInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutToursConcluidosInput, UserUpdateWithoutToursConcluidosInput>, UserUncheckedUpdateWithoutToursConcluidosInput>
+  }
+
   export type ItemEstoqueCreateNestedManyWithoutCategoriasInput = {
     create?: XOR<ItemEstoqueCreateWithoutCategoriasInput, ItemEstoqueUncheckedCreateWithoutCategoriasInput> | ItemEstoqueCreateWithoutCategoriasInput[] | ItemEstoqueUncheckedCreateWithoutCategoriasInput[]
     connectOrCreate?: ItemEstoqueCreateOrConnectWithoutCategoriasInput | ItemEstoqueCreateOrConnectWithoutCategoriasInput[]
@@ -48357,6 +56975,13 @@ export namespace Prisma {
     connect?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
   }
 
+  export type ConectaProvaCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<ConectaProvaCreateWithoutSemestreInput, ConectaProvaUncheckedCreateWithoutSemestreInput> | ConectaProvaCreateWithoutSemestreInput[] | ConectaProvaUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ConectaProvaCreateOrConnectWithoutSemestreInput | ConectaProvaCreateOrConnectWithoutSemestreInput[]
+    createMany?: ConectaProvaCreateManySemestreInputEnvelope
+    connect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+  }
+
   export type TurmaUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<TurmaCreateWithoutSemestreInput, TurmaUncheckedCreateWithoutSemestreInput> | TurmaCreateWithoutSemestreInput[] | TurmaUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: TurmaCreateOrConnectWithoutSemestreInput | TurmaCreateOrConnectWithoutSemestreInput[]
@@ -48397,6 +57022,13 @@ export namespace Prisma {
     connectOrCreate?: MaterialAtualizacaoCreateOrConnectWithoutSemestreInput | MaterialAtualizacaoCreateOrConnectWithoutSemestreInput[]
     createMany?: MaterialAtualizacaoCreateManySemestreInputEnvelope
     connect?: MaterialAtualizacaoWhereUniqueInput | MaterialAtualizacaoWhereUniqueInput[]
+  }
+
+  export type ConectaProvaUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<ConectaProvaCreateWithoutSemestreInput, ConectaProvaUncheckedCreateWithoutSemestreInput> | ConectaProvaCreateWithoutSemestreInput[] | ConectaProvaUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ConectaProvaCreateOrConnectWithoutSemestreInput | ConectaProvaCreateOrConnectWithoutSemestreInput[]
+    createMany?: ConectaProvaCreateManySemestreInputEnvelope
+    connect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -48487,6 +57119,20 @@ export namespace Prisma {
     deleteMany?: MaterialAtualizacaoScalarWhereInput | MaterialAtualizacaoScalarWhereInput[]
   }
 
+  export type ConectaProvaUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<ConectaProvaCreateWithoutSemestreInput, ConectaProvaUncheckedCreateWithoutSemestreInput> | ConectaProvaCreateWithoutSemestreInput[] | ConectaProvaUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ConectaProvaCreateOrConnectWithoutSemestreInput | ConectaProvaCreateOrConnectWithoutSemestreInput[]
+    upsert?: ConectaProvaUpsertWithWhereUniqueWithoutSemestreInput | ConectaProvaUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: ConectaProvaCreateManySemestreInputEnvelope
+    set?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    disconnect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    delete?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    connect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    update?: ConectaProvaUpdateWithWhereUniqueWithoutSemestreInput | ConectaProvaUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: ConectaProvaUpdateManyWithWhereWithoutSemestreInput | ConectaProvaUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: ConectaProvaScalarWhereInput | ConectaProvaScalarWhereInput[]
+  }
+
   export type TurmaUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<TurmaCreateWithoutSemestreInput, TurmaUncheckedCreateWithoutSemestreInput> | TurmaCreateWithoutSemestreInput[] | TurmaUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: TurmaCreateOrConnectWithoutSemestreInput | TurmaCreateOrConnectWithoutSemestreInput[]
@@ -48569,6 +57215,20 @@ export namespace Prisma {
     update?: MaterialAtualizacaoUpdateWithWhereUniqueWithoutSemestreInput | MaterialAtualizacaoUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: MaterialAtualizacaoUpdateManyWithWhereWithoutSemestreInput | MaterialAtualizacaoUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: MaterialAtualizacaoScalarWhereInput | MaterialAtualizacaoScalarWhereInput[]
+  }
+
+  export type ConectaProvaUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<ConectaProvaCreateWithoutSemestreInput, ConectaProvaUncheckedCreateWithoutSemestreInput> | ConectaProvaCreateWithoutSemestreInput[] | ConectaProvaUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ConectaProvaCreateOrConnectWithoutSemestreInput | ConectaProvaCreateOrConnectWithoutSemestreInput[]
+    upsert?: ConectaProvaUpsertWithWhereUniqueWithoutSemestreInput | ConectaProvaUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: ConectaProvaCreateManySemestreInputEnvelope
+    set?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    disconnect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    delete?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    connect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    update?: ConectaProvaUpdateWithWhereUniqueWithoutSemestreInput | ConectaProvaUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: ConectaProvaUpdateManyWithWhereWithoutSemestreInput | ConectaProvaUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: ConectaProvaScalarWhereInput | ConectaProvaScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutSemanasImpressaoInput = {
@@ -48857,6 +57517,12 @@ export namespace Prisma {
     connect?: RegistroPresencaWhereUniqueInput | RegistroPresencaWhereUniqueInput[]
   }
 
+  export type ConectaEquipeCreateNestedOneWithoutTurmaInput = {
+    create?: XOR<ConectaEquipeCreateWithoutTurmaInput, ConectaEquipeUncheckedCreateWithoutTurmaInput>
+    connectOrCreate?: ConectaEquipeCreateOrConnectWithoutTurmaInput
+    connect?: ConectaEquipeWhereUniqueInput
+  }
+
   export type ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput = {
     create?: XOR<ProfessorTurmaCreateWithoutTurmaInput, ProfessorTurmaUncheckedCreateWithoutTurmaInput> | ProfessorTurmaCreateWithoutTurmaInput[] | ProfessorTurmaUncheckedCreateWithoutTurmaInput[]
     connectOrCreate?: ProfessorTurmaCreateOrConnectWithoutTurmaInput | ProfessorTurmaCreateOrConnectWithoutTurmaInput[]
@@ -48911,6 +57577,12 @@ export namespace Prisma {
     connectOrCreate?: RegistroPresencaCreateOrConnectWithoutTurmaInput | RegistroPresencaCreateOrConnectWithoutTurmaInput[]
     createMany?: RegistroPresencaCreateManyTurmaInputEnvelope
     connect?: RegistroPresencaWhereUniqueInput | RegistroPresencaWhereUniqueInput[]
+  }
+
+  export type ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput = {
+    create?: XOR<ConectaEquipeCreateWithoutTurmaInput, ConectaEquipeUncheckedCreateWithoutTurmaInput>
+    connectOrCreate?: ConectaEquipeCreateOrConnectWithoutTurmaInput
+    connect?: ConectaEquipeWhereUniqueInput
   }
 
   export type SemestreUpdateOneRequiredWithoutTurmasNestedInput = {
@@ -49033,6 +57705,16 @@ export namespace Prisma {
     deleteMany?: RegistroPresencaScalarWhereInput | RegistroPresencaScalarWhereInput[]
   }
 
+  export type ConectaEquipeUpdateOneWithoutTurmaNestedInput = {
+    create?: XOR<ConectaEquipeCreateWithoutTurmaInput, ConectaEquipeUncheckedCreateWithoutTurmaInput>
+    connectOrCreate?: ConectaEquipeCreateOrConnectWithoutTurmaInput
+    upsert?: ConectaEquipeUpsertWithoutTurmaInput
+    disconnect?: ConectaEquipeWhereInput | boolean
+    delete?: ConectaEquipeWhereInput | boolean
+    connect?: ConectaEquipeWhereUniqueInput
+    update?: XOR<XOR<ConectaEquipeUpdateToOneWithWhereWithoutTurmaInput, ConectaEquipeUpdateWithoutTurmaInput>, ConectaEquipeUncheckedUpdateWithoutTurmaInput>
+  }
+
   export type ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput = {
     create?: XOR<ProfessorTurmaCreateWithoutTurmaInput, ProfessorTurmaUncheckedCreateWithoutTurmaInput> | ProfessorTurmaCreateWithoutTurmaInput[] | ProfessorTurmaUncheckedCreateWithoutTurmaInput[]
     connectOrCreate?: ProfessorTurmaCreateOrConnectWithoutTurmaInput | ProfessorTurmaCreateOrConnectWithoutTurmaInput[]
@@ -49143,6 +57825,270 @@ export namespace Prisma {
     update?: RegistroPresencaUpdateWithWhereUniqueWithoutTurmaInput | RegistroPresencaUpdateWithWhereUniqueWithoutTurmaInput[]
     updateMany?: RegistroPresencaUpdateManyWithWhereWithoutTurmaInput | RegistroPresencaUpdateManyWithWhereWithoutTurmaInput[]
     deleteMany?: RegistroPresencaScalarWhereInput | RegistroPresencaScalarWhereInput[]
+  }
+
+  export type ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput = {
+    create?: XOR<ConectaEquipeCreateWithoutTurmaInput, ConectaEquipeUncheckedCreateWithoutTurmaInput>
+    connectOrCreate?: ConectaEquipeCreateOrConnectWithoutTurmaInput
+    upsert?: ConectaEquipeUpsertWithoutTurmaInput
+    disconnect?: ConectaEquipeWhereInput | boolean
+    delete?: ConectaEquipeWhereInput | boolean
+    connect?: ConectaEquipeWhereUniqueInput
+    update?: XOR<XOR<ConectaEquipeUpdateToOneWithWhereWithoutTurmaInput, ConectaEquipeUpdateWithoutTurmaInput>, ConectaEquipeUncheckedUpdateWithoutTurmaInput>
+  }
+
+  export type TurmaCreateNestedOneWithoutConectaEquipeInput = {
+    create?: XOR<TurmaCreateWithoutConectaEquipeInput, TurmaUncheckedCreateWithoutConectaEquipeInput>
+    connectOrCreate?: TurmaCreateOrConnectWithoutConectaEquipeInput
+    connect?: TurmaWhereUniqueInput
+  }
+
+  export type ConectaDoacaoCreateNestedManyWithoutEquipeInput = {
+    create?: XOR<ConectaDoacaoCreateWithoutEquipeInput, ConectaDoacaoUncheckedCreateWithoutEquipeInput> | ConectaDoacaoCreateWithoutEquipeInput[] | ConectaDoacaoUncheckedCreateWithoutEquipeInput[]
+    connectOrCreate?: ConectaDoacaoCreateOrConnectWithoutEquipeInput | ConectaDoacaoCreateOrConnectWithoutEquipeInput[]
+    createMany?: ConectaDoacaoCreateManyEquipeInputEnvelope
+    connect?: ConectaDoacaoWhereUniqueInput | ConectaDoacaoWhereUniqueInput[]
+  }
+
+  export type ConectaProvaCreateNestedManyWithoutEquipeInput = {
+    create?: XOR<ConectaProvaCreateWithoutEquipeInput, ConectaProvaUncheckedCreateWithoutEquipeInput> | ConectaProvaCreateWithoutEquipeInput[] | ConectaProvaUncheckedCreateWithoutEquipeInput[]
+    connectOrCreate?: ConectaProvaCreateOrConnectWithoutEquipeInput | ConectaProvaCreateOrConnectWithoutEquipeInput[]
+    createMany?: ConectaProvaCreateManyEquipeInputEnvelope
+    connect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+  }
+
+  export type ConectaDoacaoUncheckedCreateNestedManyWithoutEquipeInput = {
+    create?: XOR<ConectaDoacaoCreateWithoutEquipeInput, ConectaDoacaoUncheckedCreateWithoutEquipeInput> | ConectaDoacaoCreateWithoutEquipeInput[] | ConectaDoacaoUncheckedCreateWithoutEquipeInput[]
+    connectOrCreate?: ConectaDoacaoCreateOrConnectWithoutEquipeInput | ConectaDoacaoCreateOrConnectWithoutEquipeInput[]
+    createMany?: ConectaDoacaoCreateManyEquipeInputEnvelope
+    connect?: ConectaDoacaoWhereUniqueInput | ConectaDoacaoWhereUniqueInput[]
+  }
+
+  export type ConectaProvaUncheckedCreateNestedManyWithoutEquipeInput = {
+    create?: XOR<ConectaProvaCreateWithoutEquipeInput, ConectaProvaUncheckedCreateWithoutEquipeInput> | ConectaProvaCreateWithoutEquipeInput[] | ConectaProvaUncheckedCreateWithoutEquipeInput[]
+    connectOrCreate?: ConectaProvaCreateOrConnectWithoutEquipeInput | ConectaProvaCreateOrConnectWithoutEquipeInput[]
+    createMany?: ConectaProvaCreateManyEquipeInputEnvelope
+    connect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+  }
+
+  export type TurmaUpdateOneRequiredWithoutConectaEquipeNestedInput = {
+    create?: XOR<TurmaCreateWithoutConectaEquipeInput, TurmaUncheckedCreateWithoutConectaEquipeInput>
+    connectOrCreate?: TurmaCreateOrConnectWithoutConectaEquipeInput
+    upsert?: TurmaUpsertWithoutConectaEquipeInput
+    connect?: TurmaWhereUniqueInput
+    update?: XOR<XOR<TurmaUpdateToOneWithWhereWithoutConectaEquipeInput, TurmaUpdateWithoutConectaEquipeInput>, TurmaUncheckedUpdateWithoutConectaEquipeInput>
+  }
+
+  export type ConectaDoacaoUpdateManyWithoutEquipeNestedInput = {
+    create?: XOR<ConectaDoacaoCreateWithoutEquipeInput, ConectaDoacaoUncheckedCreateWithoutEquipeInput> | ConectaDoacaoCreateWithoutEquipeInput[] | ConectaDoacaoUncheckedCreateWithoutEquipeInput[]
+    connectOrCreate?: ConectaDoacaoCreateOrConnectWithoutEquipeInput | ConectaDoacaoCreateOrConnectWithoutEquipeInput[]
+    upsert?: ConectaDoacaoUpsertWithWhereUniqueWithoutEquipeInput | ConectaDoacaoUpsertWithWhereUniqueWithoutEquipeInput[]
+    createMany?: ConectaDoacaoCreateManyEquipeInputEnvelope
+    set?: ConectaDoacaoWhereUniqueInput | ConectaDoacaoWhereUniqueInput[]
+    disconnect?: ConectaDoacaoWhereUniqueInput | ConectaDoacaoWhereUniqueInput[]
+    delete?: ConectaDoacaoWhereUniqueInput | ConectaDoacaoWhereUniqueInput[]
+    connect?: ConectaDoacaoWhereUniqueInput | ConectaDoacaoWhereUniqueInput[]
+    update?: ConectaDoacaoUpdateWithWhereUniqueWithoutEquipeInput | ConectaDoacaoUpdateWithWhereUniqueWithoutEquipeInput[]
+    updateMany?: ConectaDoacaoUpdateManyWithWhereWithoutEquipeInput | ConectaDoacaoUpdateManyWithWhereWithoutEquipeInput[]
+    deleteMany?: ConectaDoacaoScalarWhereInput | ConectaDoacaoScalarWhereInput[]
+  }
+
+  export type ConectaProvaUpdateManyWithoutEquipeNestedInput = {
+    create?: XOR<ConectaProvaCreateWithoutEquipeInput, ConectaProvaUncheckedCreateWithoutEquipeInput> | ConectaProvaCreateWithoutEquipeInput[] | ConectaProvaUncheckedCreateWithoutEquipeInput[]
+    connectOrCreate?: ConectaProvaCreateOrConnectWithoutEquipeInput | ConectaProvaCreateOrConnectWithoutEquipeInput[]
+    upsert?: ConectaProvaUpsertWithWhereUniqueWithoutEquipeInput | ConectaProvaUpsertWithWhereUniqueWithoutEquipeInput[]
+    createMany?: ConectaProvaCreateManyEquipeInputEnvelope
+    set?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    disconnect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    delete?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    connect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    update?: ConectaProvaUpdateWithWhereUniqueWithoutEquipeInput | ConectaProvaUpdateWithWhereUniqueWithoutEquipeInput[]
+    updateMany?: ConectaProvaUpdateManyWithWhereWithoutEquipeInput | ConectaProvaUpdateManyWithWhereWithoutEquipeInput[]
+    deleteMany?: ConectaProvaScalarWhereInput | ConectaProvaScalarWhereInput[]
+  }
+
+  export type ConectaDoacaoUncheckedUpdateManyWithoutEquipeNestedInput = {
+    create?: XOR<ConectaDoacaoCreateWithoutEquipeInput, ConectaDoacaoUncheckedCreateWithoutEquipeInput> | ConectaDoacaoCreateWithoutEquipeInput[] | ConectaDoacaoUncheckedCreateWithoutEquipeInput[]
+    connectOrCreate?: ConectaDoacaoCreateOrConnectWithoutEquipeInput | ConectaDoacaoCreateOrConnectWithoutEquipeInput[]
+    upsert?: ConectaDoacaoUpsertWithWhereUniqueWithoutEquipeInput | ConectaDoacaoUpsertWithWhereUniqueWithoutEquipeInput[]
+    createMany?: ConectaDoacaoCreateManyEquipeInputEnvelope
+    set?: ConectaDoacaoWhereUniqueInput | ConectaDoacaoWhereUniqueInput[]
+    disconnect?: ConectaDoacaoWhereUniqueInput | ConectaDoacaoWhereUniqueInput[]
+    delete?: ConectaDoacaoWhereUniqueInput | ConectaDoacaoWhereUniqueInput[]
+    connect?: ConectaDoacaoWhereUniqueInput | ConectaDoacaoWhereUniqueInput[]
+    update?: ConectaDoacaoUpdateWithWhereUniqueWithoutEquipeInput | ConectaDoacaoUpdateWithWhereUniqueWithoutEquipeInput[]
+    updateMany?: ConectaDoacaoUpdateManyWithWhereWithoutEquipeInput | ConectaDoacaoUpdateManyWithWhereWithoutEquipeInput[]
+    deleteMany?: ConectaDoacaoScalarWhereInput | ConectaDoacaoScalarWhereInput[]
+  }
+
+  export type ConectaProvaUncheckedUpdateManyWithoutEquipeNestedInput = {
+    create?: XOR<ConectaProvaCreateWithoutEquipeInput, ConectaProvaUncheckedCreateWithoutEquipeInput> | ConectaProvaCreateWithoutEquipeInput[] | ConectaProvaUncheckedCreateWithoutEquipeInput[]
+    connectOrCreate?: ConectaProvaCreateOrConnectWithoutEquipeInput | ConectaProvaCreateOrConnectWithoutEquipeInput[]
+    upsert?: ConectaProvaUpsertWithWhereUniqueWithoutEquipeInput | ConectaProvaUpsertWithWhereUniqueWithoutEquipeInput[]
+    createMany?: ConectaProvaCreateManyEquipeInputEnvelope
+    set?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    disconnect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    delete?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    connect?: ConectaProvaWhereUniqueInput | ConectaProvaWhereUniqueInput[]
+    update?: ConectaProvaUpdateWithWhereUniqueWithoutEquipeInput | ConectaProvaUpdateWithWhereUniqueWithoutEquipeInput[]
+    updateMany?: ConectaProvaUpdateManyWithWhereWithoutEquipeInput | ConectaProvaUpdateManyWithWhereWithoutEquipeInput[]
+    deleteMany?: ConectaProvaScalarWhereInput | ConectaProvaScalarWhereInput[]
+  }
+
+  export type ConectaDoacaoItemCreateNestedManyWithoutItemInput = {
+    create?: XOR<ConectaDoacaoItemCreateWithoutItemInput, ConectaDoacaoItemUncheckedCreateWithoutItemInput> | ConectaDoacaoItemCreateWithoutItemInput[] | ConectaDoacaoItemUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: ConectaDoacaoItemCreateOrConnectWithoutItemInput | ConectaDoacaoItemCreateOrConnectWithoutItemInput[]
+    createMany?: ConectaDoacaoItemCreateManyItemInputEnvelope
+    connect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+  }
+
+  export type ConectaDoacaoItemUncheckedCreateNestedManyWithoutItemInput = {
+    create?: XOR<ConectaDoacaoItemCreateWithoutItemInput, ConectaDoacaoItemUncheckedCreateWithoutItemInput> | ConectaDoacaoItemCreateWithoutItemInput[] | ConectaDoacaoItemUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: ConectaDoacaoItemCreateOrConnectWithoutItemInput | ConectaDoacaoItemCreateOrConnectWithoutItemInput[]
+    createMany?: ConectaDoacaoItemCreateManyItemInputEnvelope
+    connect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+  }
+
+  export type ConectaDoacaoItemUpdateManyWithoutItemNestedInput = {
+    create?: XOR<ConectaDoacaoItemCreateWithoutItemInput, ConectaDoacaoItemUncheckedCreateWithoutItemInput> | ConectaDoacaoItemCreateWithoutItemInput[] | ConectaDoacaoItemUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: ConectaDoacaoItemCreateOrConnectWithoutItemInput | ConectaDoacaoItemCreateOrConnectWithoutItemInput[]
+    upsert?: ConectaDoacaoItemUpsertWithWhereUniqueWithoutItemInput | ConectaDoacaoItemUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: ConectaDoacaoItemCreateManyItemInputEnvelope
+    set?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    disconnect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    delete?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    connect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    update?: ConectaDoacaoItemUpdateWithWhereUniqueWithoutItemInput | ConectaDoacaoItemUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: ConectaDoacaoItemUpdateManyWithWhereWithoutItemInput | ConectaDoacaoItemUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: ConectaDoacaoItemScalarWhereInput | ConectaDoacaoItemScalarWhereInput[]
+  }
+
+  export type ConectaDoacaoItemUncheckedUpdateManyWithoutItemNestedInput = {
+    create?: XOR<ConectaDoacaoItemCreateWithoutItemInput, ConectaDoacaoItemUncheckedCreateWithoutItemInput> | ConectaDoacaoItemCreateWithoutItemInput[] | ConectaDoacaoItemUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: ConectaDoacaoItemCreateOrConnectWithoutItemInput | ConectaDoacaoItemCreateOrConnectWithoutItemInput[]
+    upsert?: ConectaDoacaoItemUpsertWithWhereUniqueWithoutItemInput | ConectaDoacaoItemUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: ConectaDoacaoItemCreateManyItemInputEnvelope
+    set?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    disconnect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    delete?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    connect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    update?: ConectaDoacaoItemUpdateWithWhereUniqueWithoutItemInput | ConectaDoacaoItemUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: ConectaDoacaoItemUpdateManyWithWhereWithoutItemInput | ConectaDoacaoItemUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: ConectaDoacaoItemScalarWhereInput | ConectaDoacaoItemScalarWhereInput[]
+  }
+
+  export type ConectaEquipeCreateNestedOneWithoutDoacoesInput = {
+    create?: XOR<ConectaEquipeCreateWithoutDoacoesInput, ConectaEquipeUncheckedCreateWithoutDoacoesInput>
+    connectOrCreate?: ConectaEquipeCreateOrConnectWithoutDoacoesInput
+    connect?: ConectaEquipeWhereUniqueInput
+  }
+
+  export type ConectaDoacaoItemCreateNestedManyWithoutDoacaoInput = {
+    create?: XOR<ConectaDoacaoItemCreateWithoutDoacaoInput, ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput> | ConectaDoacaoItemCreateWithoutDoacaoInput[] | ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: ConectaDoacaoItemCreateOrConnectWithoutDoacaoInput | ConectaDoacaoItemCreateOrConnectWithoutDoacaoInput[]
+    createMany?: ConectaDoacaoItemCreateManyDoacaoInputEnvelope
+    connect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+  }
+
+  export type ConectaDoacaoItemUncheckedCreateNestedManyWithoutDoacaoInput = {
+    create?: XOR<ConectaDoacaoItemCreateWithoutDoacaoInput, ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput> | ConectaDoacaoItemCreateWithoutDoacaoInput[] | ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: ConectaDoacaoItemCreateOrConnectWithoutDoacaoInput | ConectaDoacaoItemCreateOrConnectWithoutDoacaoInput[]
+    createMany?: ConectaDoacaoItemCreateManyDoacaoInputEnvelope
+    connect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+  }
+
+  export type ConectaEquipeUpdateOneRequiredWithoutDoacoesNestedInput = {
+    create?: XOR<ConectaEquipeCreateWithoutDoacoesInput, ConectaEquipeUncheckedCreateWithoutDoacoesInput>
+    connectOrCreate?: ConectaEquipeCreateOrConnectWithoutDoacoesInput
+    upsert?: ConectaEquipeUpsertWithoutDoacoesInput
+    connect?: ConectaEquipeWhereUniqueInput
+    update?: XOR<XOR<ConectaEquipeUpdateToOneWithWhereWithoutDoacoesInput, ConectaEquipeUpdateWithoutDoacoesInput>, ConectaEquipeUncheckedUpdateWithoutDoacoesInput>
+  }
+
+  export type ConectaDoacaoItemUpdateManyWithoutDoacaoNestedInput = {
+    create?: XOR<ConectaDoacaoItemCreateWithoutDoacaoInput, ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput> | ConectaDoacaoItemCreateWithoutDoacaoInput[] | ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: ConectaDoacaoItemCreateOrConnectWithoutDoacaoInput | ConectaDoacaoItemCreateOrConnectWithoutDoacaoInput[]
+    upsert?: ConectaDoacaoItemUpsertWithWhereUniqueWithoutDoacaoInput | ConectaDoacaoItemUpsertWithWhereUniqueWithoutDoacaoInput[]
+    createMany?: ConectaDoacaoItemCreateManyDoacaoInputEnvelope
+    set?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    disconnect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    delete?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    connect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    update?: ConectaDoacaoItemUpdateWithWhereUniqueWithoutDoacaoInput | ConectaDoacaoItemUpdateWithWhereUniqueWithoutDoacaoInput[]
+    updateMany?: ConectaDoacaoItemUpdateManyWithWhereWithoutDoacaoInput | ConectaDoacaoItemUpdateManyWithWhereWithoutDoacaoInput[]
+    deleteMany?: ConectaDoacaoItemScalarWhereInput | ConectaDoacaoItemScalarWhereInput[]
+  }
+
+  export type ConectaDoacaoItemUncheckedUpdateManyWithoutDoacaoNestedInput = {
+    create?: XOR<ConectaDoacaoItemCreateWithoutDoacaoInput, ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput> | ConectaDoacaoItemCreateWithoutDoacaoInput[] | ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: ConectaDoacaoItemCreateOrConnectWithoutDoacaoInput | ConectaDoacaoItemCreateOrConnectWithoutDoacaoInput[]
+    upsert?: ConectaDoacaoItemUpsertWithWhereUniqueWithoutDoacaoInput | ConectaDoacaoItemUpsertWithWhereUniqueWithoutDoacaoInput[]
+    createMany?: ConectaDoacaoItemCreateManyDoacaoInputEnvelope
+    set?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    disconnect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    delete?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    connect?: ConectaDoacaoItemWhereUniqueInput | ConectaDoacaoItemWhereUniqueInput[]
+    update?: ConectaDoacaoItemUpdateWithWhereUniqueWithoutDoacaoInput | ConectaDoacaoItemUpdateWithWhereUniqueWithoutDoacaoInput[]
+    updateMany?: ConectaDoacaoItemUpdateManyWithWhereWithoutDoacaoInput | ConectaDoacaoItemUpdateManyWithWhereWithoutDoacaoInput[]
+    deleteMany?: ConectaDoacaoItemScalarWhereInput | ConectaDoacaoItemScalarWhereInput[]
+  }
+
+  export type ConectaDoacaoCreateNestedOneWithoutItensInput = {
+    create?: XOR<ConectaDoacaoCreateWithoutItensInput, ConectaDoacaoUncheckedCreateWithoutItensInput>
+    connectOrCreate?: ConectaDoacaoCreateOrConnectWithoutItensInput
+    connect?: ConectaDoacaoWhereUniqueInput
+  }
+
+  export type ConectaItemCreateNestedOneWithoutDoacoesInput = {
+    create?: XOR<ConectaItemCreateWithoutDoacoesInput, ConectaItemUncheckedCreateWithoutDoacoesInput>
+    connectOrCreate?: ConectaItemCreateOrConnectWithoutDoacoesInput
+    connect?: ConectaItemWhereUniqueInput
+  }
+
+  export type ConectaDoacaoUpdateOneRequiredWithoutItensNestedInput = {
+    create?: XOR<ConectaDoacaoCreateWithoutItensInput, ConectaDoacaoUncheckedCreateWithoutItensInput>
+    connectOrCreate?: ConectaDoacaoCreateOrConnectWithoutItensInput
+    upsert?: ConectaDoacaoUpsertWithoutItensInput
+    connect?: ConectaDoacaoWhereUniqueInput
+    update?: XOR<XOR<ConectaDoacaoUpdateToOneWithWhereWithoutItensInput, ConectaDoacaoUpdateWithoutItensInput>, ConectaDoacaoUncheckedUpdateWithoutItensInput>
+  }
+
+  export type ConectaItemUpdateOneRequiredWithoutDoacoesNestedInput = {
+    create?: XOR<ConectaItemCreateWithoutDoacoesInput, ConectaItemUncheckedCreateWithoutDoacoesInput>
+    connectOrCreate?: ConectaItemCreateOrConnectWithoutDoacoesInput
+    upsert?: ConectaItemUpsertWithoutDoacoesInput
+    connect?: ConectaItemWhereUniqueInput
+    update?: XOR<XOR<ConectaItemUpdateToOneWithWhereWithoutDoacoesInput, ConectaItemUpdateWithoutDoacoesInput>, ConectaItemUncheckedUpdateWithoutDoacoesInput>
+  }
+
+  export type SemestreCreateNestedOneWithoutConectaProvasInput = {
+    create?: XOR<SemestreCreateWithoutConectaProvasInput, SemestreUncheckedCreateWithoutConectaProvasInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutConectaProvasInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type ConectaEquipeCreateNestedOneWithoutProvasInput = {
+    create?: XOR<ConectaEquipeCreateWithoutProvasInput, ConectaEquipeUncheckedCreateWithoutProvasInput>
+    connectOrCreate?: ConectaEquipeCreateOrConnectWithoutProvasInput
+    connect?: ConectaEquipeWhereUniqueInput
+  }
+
+  export type SemestreUpdateOneRequiredWithoutConectaProvasNestedInput = {
+    create?: XOR<SemestreCreateWithoutConectaProvasInput, SemestreUncheckedCreateWithoutConectaProvasInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutConectaProvasInput
+    upsert?: SemestreUpsertWithoutConectaProvasInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutConectaProvasInput, SemestreUpdateWithoutConectaProvasInput>, SemestreUncheckedUpdateWithoutConectaProvasInput>
+  }
+
+  export type ConectaEquipeUpdateOneWithoutProvasNestedInput = {
+    create?: XOR<ConectaEquipeCreateWithoutProvasInput, ConectaEquipeUncheckedCreateWithoutProvasInput>
+    connectOrCreate?: ConectaEquipeCreateOrConnectWithoutProvasInput
+    upsert?: ConectaEquipeUpsertWithoutProvasInput
+    disconnect?: ConectaEquipeWhereInput | boolean
+    delete?: ConectaEquipeWhereInput | boolean
+    connect?: ConectaEquipeWhereUniqueInput
+    update?: XOR<XOR<ConectaEquipeUpdateToOneWithWhereWithoutProvasInput, ConectaEquipeUpdateWithoutProvasInput>, ConectaEquipeUncheckedUpdateWithoutProvasInput>
   }
 
   export type UserCreateNestedOneWithoutTurmasProfessorInput = {
@@ -50376,6 +59322,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -50403,6 +59350,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -50446,6 +59394,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -50473,6 +59422,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -50500,6 +59450,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -50527,6 +59478,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -50570,6 +59522,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -50597,6 +59550,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -50948,6 +59902,26 @@ export namespace Prisma {
 
   export type ResponsavelMaterialAtualizacaoCreateManyUserInputEnvelope = {
     data: ResponsavelMaterialAtualizacaoCreateManyUserInput | ResponsavelMaterialAtualizacaoCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TourConcluidoCreateWithoutUserInput = {
+    tela: string
+    concluidoEm?: Date | string
+  }
+
+  export type TourConcluidoUncheckedCreateWithoutUserInput = {
+    tela: string
+    concluidoEm?: Date | string
+  }
+
+  export type TourConcluidoCreateOrConnectWithoutUserInput = {
+    where: TourConcluidoWhereUniqueInput
+    create: XOR<TourConcluidoCreateWithoutUserInput, TourConcluidoUncheckedCreateWithoutUserInput>
+  }
+
+  export type TourConcluidoCreateManyUserInputEnvelope = {
+    data: TourConcluidoCreateManyUserInput | TourConcluidoCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -51322,6 +60296,159 @@ export namespace Prisma {
     userId?: StringFilter<"ResponsavelMaterialAtualizacao"> | string
   }
 
+  export type TourConcluidoUpsertWithWhereUniqueWithoutUserInput = {
+    where: TourConcluidoWhereUniqueInput
+    update: XOR<TourConcluidoUpdateWithoutUserInput, TourConcluidoUncheckedUpdateWithoutUserInput>
+    create: XOR<TourConcluidoCreateWithoutUserInput, TourConcluidoUncheckedCreateWithoutUserInput>
+  }
+
+  export type TourConcluidoUpdateWithWhereUniqueWithoutUserInput = {
+    where: TourConcluidoWhereUniqueInput
+    data: XOR<TourConcluidoUpdateWithoutUserInput, TourConcluidoUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TourConcluidoUpdateManyWithWhereWithoutUserInput = {
+    where: TourConcluidoScalarWhereInput
+    data: XOR<TourConcluidoUpdateManyMutationInput, TourConcluidoUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TourConcluidoScalarWhereInput = {
+    AND?: TourConcluidoScalarWhereInput | TourConcluidoScalarWhereInput[]
+    OR?: TourConcluidoScalarWhereInput[]
+    NOT?: TourConcluidoScalarWhereInput | TourConcluidoScalarWhereInput[]
+    userId?: StringFilter<"TourConcluido"> | string
+    tela?: StringFilter<"TourConcluido"> | string
+    concluidoEm?: DateTimeFilter<"TourConcluido"> | Date | string
+  }
+
+  export type UserCreateWithoutToursConcluidosInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreCreateNestedManyWithoutUserInput
+    avisos?: AvisoCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestCreateNestedManyWithoutUserInput
+    presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutToursConcluidosInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    senhaAlteradaEm?: Date | string | null
+    matricula: string
+    role: $Enums.Role
+    image?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    turmasProfessor?: ProfessorTurmaUncheckedCreateNestedManyWithoutUserInput
+    turmasMonitor?: MonitorTurmaUncheckedCreateNestedManyWithoutUserInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutUserInput
+    avisos?: AvisoUncheckedCreateNestedManyWithoutAutorInput
+    anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutAutorInput
+    formulariosCriados?: FormularioUncheckedCreateNestedManyWithoutAutorInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
+    presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
+    presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutToursConcluidosInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutToursConcluidosInput, UserUncheckedCreateWithoutToursConcluidosInput>
+  }
+
+  export type UserUpsertWithoutToursConcluidosInput = {
+    update: XOR<UserUpdateWithoutToursConcluidosInput, UserUncheckedUpdateWithoutToursConcluidosInput>
+    create: XOR<UserCreateWithoutToursConcluidosInput, UserUncheckedCreateWithoutToursConcluidosInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutToursConcluidosInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutToursConcluidosInput, UserUncheckedUpdateWithoutToursConcluidosInput>
+  }
+
+  export type UserUpdateWithoutToursConcluidosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUpdateManyWithoutUserNestedInput
+    presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutToursConcluidosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    senhaAlteradaEm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matricula?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    turmasProfessor?: ProfessorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    turmasMonitor?: MonitorTurmaUncheckedUpdateManyWithoutUserNestedInput
+    vinculosSemestre?: VinculoEquipeSemestreUncheckedUpdateManyWithoutUserNestedInput
+    avisos?: AvisoUncheckedUpdateManyWithoutAutorNestedInput
+    anotacoes?: AnotacaoUncheckedUpdateManyWithoutAutorNestedInput
+    formulariosCriados?: FormularioUncheckedUpdateManyWithoutAutorNestedInput
+    redefinicoesSolicitadas?: PasswordResetRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    redefinicoesRecebidas?: PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
+    presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
+    presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
+    apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type ItemEstoqueCreateWithoutCategoriasInput = {
     id?: string
     nome: string
@@ -51440,6 +60567,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRedefinicoesRecebidasInput = {
@@ -51467,6 +60595,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRedefinicoesRecebidasInput = {
@@ -51499,6 +60628,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRedefinicoesSolicitadasInput = {
@@ -51526,6 +60656,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRedefinicoesSolicitadasInput = {
@@ -51569,6 +60700,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRedefinicoesRecebidasInput = {
@@ -51596,6 +60728,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutRedefinicoesSolicitadasInput = {
@@ -51634,6 +60767,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRedefinicoesSolicitadasInput = {
@@ -51661,6 +60795,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TurmaCreateWithoutSemestreInput = {
@@ -51684,6 +60819,7 @@ export namespace Prisma {
     avisos?: AvisoCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUncheckedCreateWithoutSemestreInput = {
@@ -51707,6 +60843,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaUncheckedCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaCreateOrConnectWithoutSemestreInput = {
@@ -51919,6 +61056,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ConectaProvaCreateWithoutSemestreInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    pontos: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipe?: ConectaEquipeCreateNestedOneWithoutProvasInput
+  }
+
+  export type ConectaProvaUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    equipeId?: string | null
+    nome: string
+    descricao?: string | null
+    pontos: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaProvaCreateOrConnectWithoutSemestreInput = {
+    where: ConectaProvaWhereUniqueInput
+    create: XOR<ConectaProvaCreateWithoutSemestreInput, ConectaProvaUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type ConectaProvaCreateManySemestreInputEnvelope = {
+    data: ConectaProvaCreateManySemestreInput | ConectaProvaCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TurmaUpsertWithWhereUniqueWithoutSemestreInput = {
     where: TurmaWhereUniqueInput
     update: XOR<TurmaUpdateWithoutSemestreInput, TurmaUncheckedUpdateWithoutSemestreInput>
@@ -52116,6 +61283,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"MaterialAtualizacao"> | Date | string
   }
 
+  export type ConectaProvaUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: ConectaProvaWhereUniqueInput
+    update: XOR<ConectaProvaUpdateWithoutSemestreInput, ConectaProvaUncheckedUpdateWithoutSemestreInput>
+    create: XOR<ConectaProvaCreateWithoutSemestreInput, ConectaProvaUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type ConectaProvaUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: ConectaProvaWhereUniqueInput
+    data: XOR<ConectaProvaUpdateWithoutSemestreInput, ConectaProvaUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type ConectaProvaUpdateManyWithWhereWithoutSemestreInput = {
+    where: ConectaProvaScalarWhereInput
+    data: XOR<ConectaProvaUpdateManyMutationInput, ConectaProvaUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type ConectaProvaScalarWhereInput = {
+    AND?: ConectaProvaScalarWhereInput | ConectaProvaScalarWhereInput[]
+    OR?: ConectaProvaScalarWhereInput[]
+    NOT?: ConectaProvaScalarWhereInput | ConectaProvaScalarWhereInput[]
+    id?: StringFilter<"ConectaProva"> | string
+    semestreId?: StringFilter<"ConectaProva"> | string
+    equipeId?: StringNullableFilter<"ConectaProva"> | string | null
+    nome?: StringFilter<"ConectaProva"> | string
+    descricao?: StringNullableFilter<"ConectaProva"> | string | null
+    pontos?: IntFilter<"ConectaProva"> | number
+    createdAt?: DateTimeFilter<"ConectaProva"> | Date | string
+    updatedAt?: DateTimeFilter<"ConectaProva"> | Date | string
+  }
+
   export type SemestreCreateWithoutSemanasImpressaoInput = {
     id?: string
     codigo: string
@@ -52126,6 +61323,7 @@ export namespace Prisma {
     candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutSemanasImpressaoInput = {
@@ -52138,6 +61336,7 @@ export namespace Prisma {
     candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutSemanasImpressaoInput = {
@@ -52204,6 +61403,7 @@ export namespace Prisma {
     candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutSemanasImpressaoInput = {
@@ -52216,6 +61416,7 @@ export namespace Prisma {
     candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ApostilaImpressaoUpsertWithWhereUniqueWithoutSemanaInput = {
@@ -52399,6 +61600,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApostilasResponsavelInput = {
@@ -52426,6 +61628,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApostilasResponsavelInput = {
@@ -52508,6 +61711,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApostilasResponsavelInput = {
@@ -52535,6 +61739,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SemestreCreateWithoutMateriaisAtualizacaoInput = {
@@ -52547,6 +61752,7 @@ export namespace Prisma {
     candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutMateriaisAtualizacaoInput = {
@@ -52559,6 +61765,7 @@ export namespace Prisma {
     candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutMateriaisAtualizacaoInput = {
@@ -52605,6 +61812,7 @@ export namespace Prisma {
     candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutMateriaisAtualizacaoInput = {
@@ -52617,6 +61825,7 @@ export namespace Prisma {
     candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
     vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ResponsavelMaterialAtualizacaoUpsertWithWhereUniqueWithoutMaterialInput = {
@@ -52691,6 +61900,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMateriaisAtualizacaoResponsavelInput = {
@@ -52718,6 +61928,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMateriaisAtualizacaoResponsavelInput = {
@@ -52798,6 +62009,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMateriaisAtualizacaoResponsavelInput = {
@@ -52825,6 +62037,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SemestreCreateWithoutTurmasInput = {
@@ -52837,6 +62050,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutTurmasInput = {
@@ -52849,6 +62063,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutTurmasInput = {
@@ -53042,6 +62257,35 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ConectaEquipeCreateWithoutTurmaInput = {
+    id?: string
+    nome: string
+    tema: string
+    corInicial?: string
+    corFinal?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    doacoes?: ConectaDoacaoCreateNestedManyWithoutEquipeInput
+    provas?: ConectaProvaCreateNestedManyWithoutEquipeInput
+  }
+
+  export type ConectaEquipeUncheckedCreateWithoutTurmaInput = {
+    id?: string
+    nome: string
+    tema: string
+    corInicial?: string
+    corFinal?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    doacoes?: ConectaDoacaoUncheckedCreateNestedManyWithoutEquipeInput
+    provas?: ConectaProvaUncheckedCreateNestedManyWithoutEquipeInput
+  }
+
+  export type ConectaEquipeCreateOrConnectWithoutTurmaInput = {
+    where: ConectaEquipeWhereUniqueInput
+    create: XOR<ConectaEquipeCreateWithoutTurmaInput, ConectaEquipeUncheckedCreateWithoutTurmaInput>
+  }
+
   export type SemestreUpsertWithoutTurmasInput = {
     update: XOR<SemestreUpdateWithoutTurmasInput, SemestreUncheckedUpdateWithoutTurmasInput>
     create: XOR<SemestreCreateWithoutTurmasInput, SemestreUncheckedCreateWithoutTurmasInput>
@@ -53063,6 +62307,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutTurmasInput = {
@@ -53075,6 +62320,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ProfessorTurmaUpsertWithWhereUniqueWithoutTurmaInput = {
@@ -53245,6 +62491,650 @@ export namespace Prisma {
     data?: DateTimeFilter<"RegistroPresenca"> | Date | string
   }
 
+  export type ConectaEquipeUpsertWithoutTurmaInput = {
+    update: XOR<ConectaEquipeUpdateWithoutTurmaInput, ConectaEquipeUncheckedUpdateWithoutTurmaInput>
+    create: XOR<ConectaEquipeCreateWithoutTurmaInput, ConectaEquipeUncheckedCreateWithoutTurmaInput>
+    where?: ConectaEquipeWhereInput
+  }
+
+  export type ConectaEquipeUpdateToOneWithWhereWithoutTurmaInput = {
+    where?: ConectaEquipeWhereInput
+    data: XOR<ConectaEquipeUpdateWithoutTurmaInput, ConectaEquipeUncheckedUpdateWithoutTurmaInput>
+  }
+
+  export type ConectaEquipeUpdateWithoutTurmaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    tema?: StringFieldUpdateOperationsInput | string
+    corInicial?: StringFieldUpdateOperationsInput | string
+    corFinal?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    doacoes?: ConectaDoacaoUpdateManyWithoutEquipeNestedInput
+    provas?: ConectaProvaUpdateManyWithoutEquipeNestedInput
+  }
+
+  export type ConectaEquipeUncheckedUpdateWithoutTurmaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    tema?: StringFieldUpdateOperationsInput | string
+    corInicial?: StringFieldUpdateOperationsInput | string
+    corFinal?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    doacoes?: ConectaDoacaoUncheckedUpdateManyWithoutEquipeNestedInput
+    provas?: ConectaProvaUncheckedUpdateManyWithoutEquipeNestedInput
+  }
+
+  export type TurmaCreateWithoutConectaEquipeInput = {
+    id?: string
+    limiteAlunos?: number
+    titulo: string
+    sala?: string | null
+    horario?: string | null
+    cor?: string
+    corDestaque?: string
+    corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
+    fonte?: string
+    semestre: SemestreCreateNestedOneWithoutTurmasInput
+    professores?: ProfessorTurmaCreateNestedManyWithoutTurmaInput
+    monitores?: MonitorTurmaCreateNestedManyWithoutTurmaInput
+    alunos?: AlunoTurmaCreateNestedManyWithoutTurmaInput
+    materiais?: MaterialCreateNestedManyWithoutTurmaInput
+    eventos?: EventoCalendarioCreateNestedManyWithoutTurmaInput
+    avisos?: AvisoCreateNestedManyWithoutTurmaInput
+    anotacoes?: AnotacaoCreateNestedManyWithoutTurmaInput
+    presencas?: RegistroPresencaCreateNestedManyWithoutTurmaInput
+  }
+
+  export type TurmaUncheckedCreateWithoutConectaEquipeInput = {
+    id?: string
+    limiteAlunos?: number
+    titulo: string
+    sala?: string | null
+    horario?: string | null
+    cor?: string
+    corDestaque?: string
+    corFundo?: string
+    corTexto?: string
+    corTitulo?: string
+    corDescricao?: string
+    fonte?: string
+    semestreId: string
+    professores?: ProfessorTurmaUncheckedCreateNestedManyWithoutTurmaInput
+    monitores?: MonitorTurmaUncheckedCreateNestedManyWithoutTurmaInput
+    alunos?: AlunoTurmaUncheckedCreateNestedManyWithoutTurmaInput
+    materiais?: MaterialUncheckedCreateNestedManyWithoutTurmaInput
+    eventos?: EventoCalendarioUncheckedCreateNestedManyWithoutTurmaInput
+    avisos?: AvisoUncheckedCreateNestedManyWithoutTurmaInput
+    anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutTurmaInput
+    presencas?: RegistroPresencaUncheckedCreateNestedManyWithoutTurmaInput
+  }
+
+  export type TurmaCreateOrConnectWithoutConectaEquipeInput = {
+    where: TurmaWhereUniqueInput
+    create: XOR<TurmaCreateWithoutConectaEquipeInput, TurmaUncheckedCreateWithoutConectaEquipeInput>
+  }
+
+  export type ConectaDoacaoCreateWithoutEquipeInput = {
+    id?: string
+    nomeDoador: string
+    descricao?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    itens?: ConectaDoacaoItemCreateNestedManyWithoutDoacaoInput
+  }
+
+  export type ConectaDoacaoUncheckedCreateWithoutEquipeInput = {
+    id?: string
+    nomeDoador: string
+    descricao?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    itens?: ConectaDoacaoItemUncheckedCreateNestedManyWithoutDoacaoInput
+  }
+
+  export type ConectaDoacaoCreateOrConnectWithoutEquipeInput = {
+    where: ConectaDoacaoWhereUniqueInput
+    create: XOR<ConectaDoacaoCreateWithoutEquipeInput, ConectaDoacaoUncheckedCreateWithoutEquipeInput>
+  }
+
+  export type ConectaDoacaoCreateManyEquipeInputEnvelope = {
+    data: ConectaDoacaoCreateManyEquipeInput | ConectaDoacaoCreateManyEquipeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ConectaProvaCreateWithoutEquipeInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    pontos: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutConectaProvasInput
+  }
+
+  export type ConectaProvaUncheckedCreateWithoutEquipeInput = {
+    id?: string
+    semestreId: string
+    nome: string
+    descricao?: string | null
+    pontos: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaProvaCreateOrConnectWithoutEquipeInput = {
+    where: ConectaProvaWhereUniqueInput
+    create: XOR<ConectaProvaCreateWithoutEquipeInput, ConectaProvaUncheckedCreateWithoutEquipeInput>
+  }
+
+  export type ConectaProvaCreateManyEquipeInputEnvelope = {
+    data: ConectaProvaCreateManyEquipeInput | ConectaProvaCreateManyEquipeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TurmaUpsertWithoutConectaEquipeInput = {
+    update: XOR<TurmaUpdateWithoutConectaEquipeInput, TurmaUncheckedUpdateWithoutConectaEquipeInput>
+    create: XOR<TurmaCreateWithoutConectaEquipeInput, TurmaUncheckedCreateWithoutConectaEquipeInput>
+    where?: TurmaWhereInput
+  }
+
+  export type TurmaUpdateToOneWithWhereWithoutConectaEquipeInput = {
+    where?: TurmaWhereInput
+    data: XOR<TurmaUpdateWithoutConectaEquipeInput, TurmaUncheckedUpdateWithoutConectaEquipeInput>
+  }
+
+  export type TurmaUpdateWithoutConectaEquipeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    sala?: NullableStringFieldUpdateOperationsInput | string | null
+    horario?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
+    semestre?: SemestreUpdateOneRequiredWithoutTurmasNestedInput
+    professores?: ProfessorTurmaUpdateManyWithoutTurmaNestedInput
+    monitores?: MonitorTurmaUpdateManyWithoutTurmaNestedInput
+    alunos?: AlunoTurmaUpdateManyWithoutTurmaNestedInput
+    materiais?: MaterialUpdateManyWithoutTurmaNestedInput
+    eventos?: EventoCalendarioUpdateManyWithoutTurmaNestedInput
+    avisos?: AvisoUpdateManyWithoutTurmaNestedInput
+    anotacoes?: AnotacaoUpdateManyWithoutTurmaNestedInput
+    presencas?: RegistroPresencaUpdateManyWithoutTurmaNestedInput
+  }
+
+  export type TurmaUncheckedUpdateWithoutConectaEquipeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    limiteAlunos?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    sala?: NullableStringFieldUpdateOperationsInput | string | null
+    horario?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: StringFieldUpdateOperationsInput | string
+    corDestaque?: StringFieldUpdateOperationsInput | string
+    corFundo?: StringFieldUpdateOperationsInput | string
+    corTexto?: StringFieldUpdateOperationsInput | string
+    corTitulo?: StringFieldUpdateOperationsInput | string
+    corDescricao?: StringFieldUpdateOperationsInput | string
+    fonte?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    professores?: ProfessorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
+    monitores?: MonitorTurmaUncheckedUpdateManyWithoutTurmaNestedInput
+    alunos?: AlunoTurmaUncheckedUpdateManyWithoutTurmaNestedInput
+    materiais?: MaterialUncheckedUpdateManyWithoutTurmaNestedInput
+    eventos?: EventoCalendarioUncheckedUpdateManyWithoutTurmaNestedInput
+    avisos?: AvisoUncheckedUpdateManyWithoutTurmaNestedInput
+    anotacoes?: AnotacaoUncheckedUpdateManyWithoutTurmaNestedInput
+    presencas?: RegistroPresencaUncheckedUpdateManyWithoutTurmaNestedInput
+  }
+
+  export type ConectaDoacaoUpsertWithWhereUniqueWithoutEquipeInput = {
+    where: ConectaDoacaoWhereUniqueInput
+    update: XOR<ConectaDoacaoUpdateWithoutEquipeInput, ConectaDoacaoUncheckedUpdateWithoutEquipeInput>
+    create: XOR<ConectaDoacaoCreateWithoutEquipeInput, ConectaDoacaoUncheckedCreateWithoutEquipeInput>
+  }
+
+  export type ConectaDoacaoUpdateWithWhereUniqueWithoutEquipeInput = {
+    where: ConectaDoacaoWhereUniqueInput
+    data: XOR<ConectaDoacaoUpdateWithoutEquipeInput, ConectaDoacaoUncheckedUpdateWithoutEquipeInput>
+  }
+
+  export type ConectaDoacaoUpdateManyWithWhereWithoutEquipeInput = {
+    where: ConectaDoacaoScalarWhereInput
+    data: XOR<ConectaDoacaoUpdateManyMutationInput, ConectaDoacaoUncheckedUpdateManyWithoutEquipeInput>
+  }
+
+  export type ConectaDoacaoScalarWhereInput = {
+    AND?: ConectaDoacaoScalarWhereInput | ConectaDoacaoScalarWhereInput[]
+    OR?: ConectaDoacaoScalarWhereInput[]
+    NOT?: ConectaDoacaoScalarWhereInput | ConectaDoacaoScalarWhereInput[]
+    id?: StringFilter<"ConectaDoacao"> | string
+    equipeId?: StringFilter<"ConectaDoacao"> | string
+    nomeDoador?: StringFilter<"ConectaDoacao"> | string
+    descricao?: StringNullableFilter<"ConectaDoacao"> | string | null
+    createdAt?: DateTimeFilter<"ConectaDoacao"> | Date | string
+    updatedAt?: DateTimeFilter<"ConectaDoacao"> | Date | string
+  }
+
+  export type ConectaProvaUpsertWithWhereUniqueWithoutEquipeInput = {
+    where: ConectaProvaWhereUniqueInput
+    update: XOR<ConectaProvaUpdateWithoutEquipeInput, ConectaProvaUncheckedUpdateWithoutEquipeInput>
+    create: XOR<ConectaProvaCreateWithoutEquipeInput, ConectaProvaUncheckedCreateWithoutEquipeInput>
+  }
+
+  export type ConectaProvaUpdateWithWhereUniqueWithoutEquipeInput = {
+    where: ConectaProvaWhereUniqueInput
+    data: XOR<ConectaProvaUpdateWithoutEquipeInput, ConectaProvaUncheckedUpdateWithoutEquipeInput>
+  }
+
+  export type ConectaProvaUpdateManyWithWhereWithoutEquipeInput = {
+    where: ConectaProvaScalarWhereInput
+    data: XOR<ConectaProvaUpdateManyMutationInput, ConectaProvaUncheckedUpdateManyWithoutEquipeInput>
+  }
+
+  export type ConectaDoacaoItemCreateWithoutItemInput = {
+    id?: string
+    quantidade: number
+    pontosUnitarios: number
+    doacao: ConectaDoacaoCreateNestedOneWithoutItensInput
+  }
+
+  export type ConectaDoacaoItemUncheckedCreateWithoutItemInput = {
+    id?: string
+    doacaoId: string
+    quantidade: number
+    pontosUnitarios: number
+  }
+
+  export type ConectaDoacaoItemCreateOrConnectWithoutItemInput = {
+    where: ConectaDoacaoItemWhereUniqueInput
+    create: XOR<ConectaDoacaoItemCreateWithoutItemInput, ConectaDoacaoItemUncheckedCreateWithoutItemInput>
+  }
+
+  export type ConectaDoacaoItemCreateManyItemInputEnvelope = {
+    data: ConectaDoacaoItemCreateManyItemInput | ConectaDoacaoItemCreateManyItemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ConectaDoacaoItemUpsertWithWhereUniqueWithoutItemInput = {
+    where: ConectaDoacaoItemWhereUniqueInput
+    update: XOR<ConectaDoacaoItemUpdateWithoutItemInput, ConectaDoacaoItemUncheckedUpdateWithoutItemInput>
+    create: XOR<ConectaDoacaoItemCreateWithoutItemInput, ConectaDoacaoItemUncheckedCreateWithoutItemInput>
+  }
+
+  export type ConectaDoacaoItemUpdateWithWhereUniqueWithoutItemInput = {
+    where: ConectaDoacaoItemWhereUniqueInput
+    data: XOR<ConectaDoacaoItemUpdateWithoutItemInput, ConectaDoacaoItemUncheckedUpdateWithoutItemInput>
+  }
+
+  export type ConectaDoacaoItemUpdateManyWithWhereWithoutItemInput = {
+    where: ConectaDoacaoItemScalarWhereInput
+    data: XOR<ConectaDoacaoItemUpdateManyMutationInput, ConectaDoacaoItemUncheckedUpdateManyWithoutItemInput>
+  }
+
+  export type ConectaDoacaoItemScalarWhereInput = {
+    AND?: ConectaDoacaoItemScalarWhereInput | ConectaDoacaoItemScalarWhereInput[]
+    OR?: ConectaDoacaoItemScalarWhereInput[]
+    NOT?: ConectaDoacaoItemScalarWhereInput | ConectaDoacaoItemScalarWhereInput[]
+    id?: StringFilter<"ConectaDoacaoItem"> | string
+    doacaoId?: StringFilter<"ConectaDoacaoItem"> | string
+    itemId?: StringFilter<"ConectaDoacaoItem"> | string
+    quantidade?: IntFilter<"ConectaDoacaoItem"> | number
+    pontosUnitarios?: IntFilter<"ConectaDoacaoItem"> | number
+  }
+
+  export type ConectaEquipeCreateWithoutDoacoesInput = {
+    id?: string
+    nome: string
+    tema: string
+    corInicial?: string
+    corFinal?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    turma: TurmaCreateNestedOneWithoutConectaEquipeInput
+    provas?: ConectaProvaCreateNestedManyWithoutEquipeInput
+  }
+
+  export type ConectaEquipeUncheckedCreateWithoutDoacoesInput = {
+    id?: string
+    turmaId: string
+    nome: string
+    tema: string
+    corInicial?: string
+    corFinal?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    provas?: ConectaProvaUncheckedCreateNestedManyWithoutEquipeInput
+  }
+
+  export type ConectaEquipeCreateOrConnectWithoutDoacoesInput = {
+    where: ConectaEquipeWhereUniqueInput
+    create: XOR<ConectaEquipeCreateWithoutDoacoesInput, ConectaEquipeUncheckedCreateWithoutDoacoesInput>
+  }
+
+  export type ConectaDoacaoItemCreateWithoutDoacaoInput = {
+    id?: string
+    quantidade: number
+    pontosUnitarios: number
+    item: ConectaItemCreateNestedOneWithoutDoacoesInput
+  }
+
+  export type ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput = {
+    id?: string
+    itemId: string
+    quantidade: number
+    pontosUnitarios: number
+  }
+
+  export type ConectaDoacaoItemCreateOrConnectWithoutDoacaoInput = {
+    where: ConectaDoacaoItemWhereUniqueInput
+    create: XOR<ConectaDoacaoItemCreateWithoutDoacaoInput, ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput>
+  }
+
+  export type ConectaDoacaoItemCreateManyDoacaoInputEnvelope = {
+    data: ConectaDoacaoItemCreateManyDoacaoInput | ConectaDoacaoItemCreateManyDoacaoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ConectaEquipeUpsertWithoutDoacoesInput = {
+    update: XOR<ConectaEquipeUpdateWithoutDoacoesInput, ConectaEquipeUncheckedUpdateWithoutDoacoesInput>
+    create: XOR<ConectaEquipeCreateWithoutDoacoesInput, ConectaEquipeUncheckedCreateWithoutDoacoesInput>
+    where?: ConectaEquipeWhereInput
+  }
+
+  export type ConectaEquipeUpdateToOneWithWhereWithoutDoacoesInput = {
+    where?: ConectaEquipeWhereInput
+    data: XOR<ConectaEquipeUpdateWithoutDoacoesInput, ConectaEquipeUncheckedUpdateWithoutDoacoesInput>
+  }
+
+  export type ConectaEquipeUpdateWithoutDoacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    tema?: StringFieldUpdateOperationsInput | string
+    corInicial?: StringFieldUpdateOperationsInput | string
+    corFinal?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turma?: TurmaUpdateOneRequiredWithoutConectaEquipeNestedInput
+    provas?: ConectaProvaUpdateManyWithoutEquipeNestedInput
+  }
+
+  export type ConectaEquipeUncheckedUpdateWithoutDoacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    turmaId?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    tema?: StringFieldUpdateOperationsInput | string
+    corInicial?: StringFieldUpdateOperationsInput | string
+    corFinal?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    provas?: ConectaProvaUncheckedUpdateManyWithoutEquipeNestedInput
+  }
+
+  export type ConectaDoacaoItemUpsertWithWhereUniqueWithoutDoacaoInput = {
+    where: ConectaDoacaoItemWhereUniqueInput
+    update: XOR<ConectaDoacaoItemUpdateWithoutDoacaoInput, ConectaDoacaoItemUncheckedUpdateWithoutDoacaoInput>
+    create: XOR<ConectaDoacaoItemCreateWithoutDoacaoInput, ConectaDoacaoItemUncheckedCreateWithoutDoacaoInput>
+  }
+
+  export type ConectaDoacaoItemUpdateWithWhereUniqueWithoutDoacaoInput = {
+    where: ConectaDoacaoItemWhereUniqueInput
+    data: XOR<ConectaDoacaoItemUpdateWithoutDoacaoInput, ConectaDoacaoItemUncheckedUpdateWithoutDoacaoInput>
+  }
+
+  export type ConectaDoacaoItemUpdateManyWithWhereWithoutDoacaoInput = {
+    where: ConectaDoacaoItemScalarWhereInput
+    data: XOR<ConectaDoacaoItemUpdateManyMutationInput, ConectaDoacaoItemUncheckedUpdateManyWithoutDoacaoInput>
+  }
+
+  export type ConectaDoacaoCreateWithoutItensInput = {
+    id?: string
+    nomeDoador: string
+    descricao?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipe: ConectaEquipeCreateNestedOneWithoutDoacoesInput
+  }
+
+  export type ConectaDoacaoUncheckedCreateWithoutItensInput = {
+    id?: string
+    equipeId: string
+    nomeDoador: string
+    descricao?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaDoacaoCreateOrConnectWithoutItensInput = {
+    where: ConectaDoacaoWhereUniqueInput
+    create: XOR<ConectaDoacaoCreateWithoutItensInput, ConectaDoacaoUncheckedCreateWithoutItensInput>
+  }
+
+  export type ConectaItemCreateWithoutDoacoesInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    pontos: number
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaItemUncheckedCreateWithoutDoacoesInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    pontos: number
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaItemCreateOrConnectWithoutDoacoesInput = {
+    where: ConectaItemWhereUniqueInput
+    create: XOR<ConectaItemCreateWithoutDoacoesInput, ConectaItemUncheckedCreateWithoutDoacoesInput>
+  }
+
+  export type ConectaDoacaoUpsertWithoutItensInput = {
+    update: XOR<ConectaDoacaoUpdateWithoutItensInput, ConectaDoacaoUncheckedUpdateWithoutItensInput>
+    create: XOR<ConectaDoacaoCreateWithoutItensInput, ConectaDoacaoUncheckedCreateWithoutItensInput>
+    where?: ConectaDoacaoWhereInput
+  }
+
+  export type ConectaDoacaoUpdateToOneWithWhereWithoutItensInput = {
+    where?: ConectaDoacaoWhereInput
+    data: XOR<ConectaDoacaoUpdateWithoutItensInput, ConectaDoacaoUncheckedUpdateWithoutItensInput>
+  }
+
+  export type ConectaDoacaoUpdateWithoutItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nomeDoador?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipe?: ConectaEquipeUpdateOneRequiredWithoutDoacoesNestedInput
+  }
+
+  export type ConectaDoacaoUncheckedUpdateWithoutItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    equipeId?: StringFieldUpdateOperationsInput | string
+    nomeDoador?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaItemUpsertWithoutDoacoesInput = {
+    update: XOR<ConectaItemUpdateWithoutDoacoesInput, ConectaItemUncheckedUpdateWithoutDoacoesInput>
+    create: XOR<ConectaItemCreateWithoutDoacoesInput, ConectaItemUncheckedCreateWithoutDoacoesInput>
+    where?: ConectaItemWhereInput
+  }
+
+  export type ConectaItemUpdateToOneWithWhereWithoutDoacoesInput = {
+    where?: ConectaItemWhereInput
+    data: XOR<ConectaItemUpdateWithoutDoacoesInput, ConectaItemUncheckedUpdateWithoutDoacoesInput>
+  }
+
+  export type ConectaItemUpdateWithoutDoacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaItemUncheckedUpdateWithoutDoacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SemestreCreateWithoutConectaProvasInput = {
+    id?: string
+    codigo: string
+    ativo?: boolean
+    createdAt?: Date | string
+    turmas?: TurmaCreateNestedManyWithoutSemestreInput
+    alunos?: AlunoCreateNestedManyWithoutSemestreInput
+    candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutConectaProvasInput = {
+    id?: string
+    codigo: string
+    ativo?: boolean
+    createdAt?: Date | string
+    turmas?: TurmaUncheckedCreateNestedManyWithoutSemestreInput
+    alunos?: AlunoUncheckedCreateNestedManyWithoutSemestreInput
+    candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
+    semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutConectaProvasInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutConectaProvasInput, SemestreUncheckedCreateWithoutConectaProvasInput>
+  }
+
+  export type ConectaEquipeCreateWithoutProvasInput = {
+    id?: string
+    nome: string
+    tema: string
+    corInicial?: string
+    corFinal?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    turma: TurmaCreateNestedOneWithoutConectaEquipeInput
+    doacoes?: ConectaDoacaoCreateNestedManyWithoutEquipeInput
+  }
+
+  export type ConectaEquipeUncheckedCreateWithoutProvasInput = {
+    id?: string
+    turmaId: string
+    nome: string
+    tema: string
+    corInicial?: string
+    corFinal?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    doacoes?: ConectaDoacaoUncheckedCreateNestedManyWithoutEquipeInput
+  }
+
+  export type ConectaEquipeCreateOrConnectWithoutProvasInput = {
+    where: ConectaEquipeWhereUniqueInput
+    create: XOR<ConectaEquipeCreateWithoutProvasInput, ConectaEquipeUncheckedCreateWithoutProvasInput>
+  }
+
+  export type SemestreUpsertWithoutConectaProvasInput = {
+    update: XOR<SemestreUpdateWithoutConectaProvasInput, SemestreUncheckedUpdateWithoutConectaProvasInput>
+    create: XOR<SemestreCreateWithoutConectaProvasInput, SemestreUncheckedCreateWithoutConectaProvasInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutConectaProvasInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutConectaProvasInput, SemestreUncheckedUpdateWithoutConectaProvasInput>
+  }
+
+  export type SemestreUpdateWithoutConectaProvasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turmas?: TurmaUpdateManyWithoutSemestreNestedInput
+    alunos?: AlunoUpdateManyWithoutSemestreNestedInput
+    candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutConectaProvasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turmas?: TurmaUncheckedUpdateManyWithoutSemestreNestedInput
+    alunos?: AlunoUncheckedUpdateManyWithoutSemestreNestedInput
+    candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
+    vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
+    semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
+    materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type ConectaEquipeUpsertWithoutProvasInput = {
+    update: XOR<ConectaEquipeUpdateWithoutProvasInput, ConectaEquipeUncheckedUpdateWithoutProvasInput>
+    create: XOR<ConectaEquipeCreateWithoutProvasInput, ConectaEquipeUncheckedCreateWithoutProvasInput>
+    where?: ConectaEquipeWhereInput
+  }
+
+  export type ConectaEquipeUpdateToOneWithWhereWithoutProvasInput = {
+    where?: ConectaEquipeWhereInput
+    data: XOR<ConectaEquipeUpdateWithoutProvasInput, ConectaEquipeUncheckedUpdateWithoutProvasInput>
+  }
+
+  export type ConectaEquipeUpdateWithoutProvasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    tema?: StringFieldUpdateOperationsInput | string
+    corInicial?: StringFieldUpdateOperationsInput | string
+    corFinal?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    turma?: TurmaUpdateOneRequiredWithoutConectaEquipeNestedInput
+    doacoes?: ConectaDoacaoUpdateManyWithoutEquipeNestedInput
+  }
+
+  export type ConectaEquipeUncheckedUpdateWithoutProvasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    turmaId?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    tema?: StringFieldUpdateOperationsInput | string
+    corInicial?: StringFieldUpdateOperationsInput | string
+    corFinal?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    doacoes?: ConectaDoacaoUncheckedUpdateManyWithoutEquipeNestedInput
+  }
+
   export type UserCreateWithoutTurmasProfessorInput = {
     id?: string
     nome: string
@@ -53270,6 +63160,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTurmasProfessorInput = {
@@ -53297,6 +63188,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTurmasProfessorInput = {
@@ -53325,6 +63217,7 @@ export namespace Prisma {
     avisos?: AvisoCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUncheckedCreateWithoutProfessoresInput = {
@@ -53348,6 +63241,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaUncheckedCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaCreateOrConnectWithoutProfessoresInput = {
@@ -53391,6 +63285,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTurmasProfessorInput = {
@@ -53418,6 +63313,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TurmaUpsertWithoutProfessoresInput = {
@@ -53452,6 +63348,7 @@ export namespace Prisma {
     avisos?: AvisoUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateWithoutProfessoresInput = {
@@ -53475,6 +63372,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUncheckedUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput
   }
 
   export type UserCreateWithoutTurmasMonitorInput = {
@@ -53502,6 +63400,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTurmasMonitorInput = {
@@ -53529,6 +63428,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTurmasMonitorInput = {
@@ -53557,6 +63457,7 @@ export namespace Prisma {
     avisos?: AvisoCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUncheckedCreateWithoutMonitoresInput = {
@@ -53580,6 +63481,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaUncheckedCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaCreateOrConnectWithoutMonitoresInput = {
@@ -53623,6 +63525,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTurmasMonitorInput = {
@@ -53650,6 +63553,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TurmaUpsertWithoutMonitoresInput = {
@@ -53684,6 +63588,7 @@ export namespace Prisma {
     avisos?: AvisoUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateWithoutMonitoresInput = {
@@ -53707,6 +63612,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUncheckedUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput
   }
 
   export type AlunoCreateWithoutTurmasInput = {
@@ -53807,6 +63713,7 @@ export namespace Prisma {
     avisos?: AvisoCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUncheckedCreateWithoutAlunosInput = {
@@ -53830,6 +63737,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaUncheckedCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaCreateOrConnectWithoutAlunosInput = {
@@ -53952,6 +63860,7 @@ export namespace Prisma {
     avisos?: AvisoUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateWithoutAlunosInput = {
@@ -53975,6 +63884,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUncheckedUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput
   }
 
   export type SemestreCreateWithoutAlunosInput = {
@@ -53987,6 +63897,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAlunosInput = {
@@ -53999,6 +63910,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAlunosInput = {
@@ -54226,6 +64138,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAlunosInput = {
@@ -54238,6 +64151,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type AlunoUpsertWithoutContinuidadesInput = {
@@ -54406,6 +64320,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVinculosSemestreInput = {
@@ -54433,6 +64348,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVinculosSemestreInput = {
@@ -54450,6 +64366,7 @@ export namespace Prisma {
     candidatos?: CandidatoCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutVinculosEquipeInput = {
@@ -54462,6 +64379,7 @@ export namespace Prisma {
     candidatos?: CandidatoUncheckedCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutVinculosEquipeInput = {
@@ -54505,6 +64423,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVinculosSemestreInput = {
@@ -54532,6 +64451,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SemestreUpsertWithoutVinculosEquipeInput = {
@@ -54555,6 +64475,7 @@ export namespace Prisma {
     candidatos?: CandidatoUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutVinculosEquipeInput = {
@@ -54567,6 +64488,7 @@ export namespace Prisma {
     candidatos?: CandidatoUncheckedUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type TurmaCreateWithoutMateriaisInput = {
@@ -54590,6 +64512,7 @@ export namespace Prisma {
     avisos?: AvisoCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUncheckedCreateWithoutMateriaisInput = {
@@ -54613,6 +64536,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaUncheckedCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaCreateOrConnectWithoutMateriaisInput = {
@@ -54652,6 +64576,7 @@ export namespace Prisma {
     avisos?: AvisoUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateWithoutMateriaisInput = {
@@ -54675,6 +64600,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUncheckedUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaCreateWithoutEventosInput = {
@@ -54698,6 +64624,7 @@ export namespace Prisma {
     avisos?: AvisoCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUncheckedCreateWithoutEventosInput = {
@@ -54721,6 +64648,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaUncheckedCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaCreateOrConnectWithoutEventosInput = {
@@ -54760,6 +64688,7 @@ export namespace Prisma {
     avisos?: AvisoUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateWithoutEventosInput = {
@@ -54783,6 +64712,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUncheckedUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaCreateWithoutAvisosInput = {
@@ -54806,6 +64736,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUncheckedCreateWithoutAvisosInput = {
@@ -54829,6 +64760,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioUncheckedCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaUncheckedCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaCreateOrConnectWithoutAvisosInput = {
@@ -54861,6 +64793,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAvisosInput = {
@@ -54888,6 +64821,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAvisosInput = {
@@ -54927,6 +64861,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateWithoutAvisosInput = {
@@ -54950,6 +64885,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioUncheckedUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUncheckedUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput
   }
 
   export type UserUpsertWithoutAvisosInput = {
@@ -54988,6 +64924,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAvisosInput = {
@@ -55015,6 +64952,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TurmaCreateWithoutAnotacoesInput = {
@@ -55038,6 +64976,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioCreateNestedManyWithoutTurmaInput
     avisos?: AvisoCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUncheckedCreateWithoutAnotacoesInput = {
@@ -55061,6 +65000,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioUncheckedCreateNestedManyWithoutTurmaInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutTurmaInput
     presencas?: RegistroPresencaUncheckedCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaCreateOrConnectWithoutAnotacoesInput = {
@@ -55093,6 +65033,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAnotacoesInput = {
@@ -55120,6 +65061,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAnotacoesInput = {
@@ -55159,6 +65101,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioUpdateManyWithoutTurmaNestedInput
     avisos?: AvisoUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateWithoutAnotacoesInput = {
@@ -55182,6 +65125,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioUncheckedUpdateManyWithoutTurmaNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUncheckedUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput
   }
 
   export type UserUpsertWithoutAnotacoesInput = {
@@ -55220,6 +65164,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAnotacoesInput = {
@@ -55247,6 +65192,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TurmaCreateWithoutPresencasInput = {
@@ -55270,6 +65216,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioCreateNestedManyWithoutTurmaInput
     avisos?: AvisoCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaUncheckedCreateWithoutPresencasInput = {
@@ -55293,6 +65240,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioUncheckedCreateNestedManyWithoutTurmaInput
     avisos?: AvisoUncheckedCreateNestedManyWithoutTurmaInput
     anotacoes?: AnotacaoUncheckedCreateNestedManyWithoutTurmaInput
+    conectaEquipe?: ConectaEquipeUncheckedCreateNestedOneWithoutTurmaInput
   }
 
   export type TurmaCreateOrConnectWithoutPresencasInput = {
@@ -55398,6 +65346,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioUpdateManyWithoutTurmaNestedInput
     avisos?: AvisoUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateWithoutPresencasInput = {
@@ -55421,6 +65370,7 @@ export namespace Prisma {
     eventos?: EventoCalendarioUncheckedUpdateManyWithoutTurmaNestedInput
     avisos?: AvisoUncheckedUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput
   }
 
   export type PresencaAlunoUpsertWithWhereUniqueWithoutRegistroInput = {
@@ -55725,6 +65675,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPresencasMonitorInput = {
@@ -55752,6 +65703,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPresencasMonitorInput = {
@@ -55822,6 +65774,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPresencasMonitorInput = {
@@ -55849,6 +65802,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RegistroPresencaCreateWithoutProfessoresInput = {
@@ -55897,6 +65851,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorCreateNestedManyWithoutMonitorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPresencasProfessorInput = {
@@ -55924,6 +65879,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorUncheckedCreateNestedManyWithoutMonitorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPresencasProfessorInput = {
@@ -55994,6 +65950,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorUpdateManyWithoutMonitorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPresencasProfessorInput = {
@@ -56021,6 +65978,7 @@ export namespace Prisma {
     presencasMonitor?: PresencaMonitorUncheckedUpdateManyWithoutMonitorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SemestreCreateWithoutCandidatosInput = {
@@ -56033,6 +65991,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCandidatosInput = {
@@ -56045,6 +66004,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUncheckedCreateNestedManyWithoutSemestreInput
     semanasImpressao?: SemanaImpressaoUncheckedCreateNestedManyWithoutSemestreInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedCreateNestedManyWithoutSemestreInput
+    conectaProvas?: ConectaProvaUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCandidatosInput = {
@@ -56073,6 +66033,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCandidatosInput = {
@@ -56085,6 +66046,7 @@ export namespace Prisma {
     vinculosEquipe?: VinculoEquipeSemestreUncheckedUpdateManyWithoutSemestreNestedInput
     semanasImpressao?: SemanaImpressaoUncheckedUpdateManyWithoutSemestreNestedInput
     materiaisAtualizacao?: MaterialAtualizacaoUncheckedUpdateManyWithoutSemestreNestedInput
+    conectaProvas?: ConectaProvaUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type PerguntaCreateWithoutFormularioInput = {
@@ -56168,6 +66130,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFormulariosCriadosInput = {
@@ -56195,6 +66158,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedCreateNestedManyWithoutProfessorInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedCreateNestedManyWithoutUserInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedCreateNestedManyWithoutUserInput
+    toursConcluidos?: TourConcluidoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFormulariosCriadosInput = {
@@ -56295,6 +66259,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFormulariosCriadosInput = {
@@ -56322,6 +66287,7 @@ export namespace Prisma {
     presencasProfessor?: PresencaProfessorUncheckedUpdateManyWithoutProfessorNestedInput
     apostilasResponsavel?: ResponsavelApostilaUncheckedUpdateManyWithoutUserNestedInput
     materiaisAtualizacaoResponsavel?: ResponsavelMaterialAtualizacaoUncheckedUpdateManyWithoutUserNestedInput
+    toursConcluidos?: TourConcluidoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FormularioCreateWithoutRespostasInput = {
@@ -56696,6 +66662,11 @@ export namespace Prisma {
     materialId: string
   }
 
+  export type TourConcluidoCreateManyUserInput = {
+    tela: string
+    concluidoEm?: Date | string
+  }
+
   export type AccountUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
@@ -57012,6 +66983,21 @@ export namespace Prisma {
     materialId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type TourConcluidoUpdateWithoutUserInput = {
+    tela?: StringFieldUpdateOperationsInput | string
+    concluidoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TourConcluidoUncheckedUpdateWithoutUserInput = {
+    tela?: StringFieldUpdateOperationsInput | string
+    concluidoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TourConcluidoUncheckedUpdateManyWithoutUserInput = {
+    tela?: StringFieldUpdateOperationsInput | string
+    concluidoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ItemEstoqueUpdateWithoutCategoriasInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
@@ -57142,6 +67128,16 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ConectaProvaCreateManySemestreInput = {
+    id?: string
+    equipeId?: string | null
+    nome: string
+    descricao?: string | null
+    pontos: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type TurmaUpdateWithoutSemestreInput = {
     id?: StringFieldUpdateOperationsInput | string
     limiteAlunos?: IntFieldUpdateOperationsInput | number
@@ -57163,6 +67159,7 @@ export namespace Prisma {
     avisos?: AvisoUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateWithoutSemestreInput = {
@@ -57186,6 +67183,7 @@ export namespace Prisma {
     avisos?: AvisoUncheckedUpdateManyWithoutTurmaNestedInput
     anotacoes?: AnotacaoUncheckedUpdateManyWithoutTurmaNestedInput
     presencas?: RegistroPresencaUncheckedUpdateManyWithoutTurmaNestedInput
+    conectaEquipe?: ConectaEquipeUncheckedUpdateOneWithoutTurmaNestedInput
   }
 
   export type TurmaUncheckedUpdateManyWithoutSemestreInput = {
@@ -57419,6 +67417,36 @@ export namespace Prisma {
     revisado?: BoolFieldUpdateOperationsInput | boolean
     precisaAjuste?: BoolFieldUpdateOperationsInput | boolean
     ajustado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaProvaUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipe?: ConectaEquipeUpdateOneWithoutProvasNestedInput
+  }
+
+  export type ConectaProvaUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    equipeId?: NullableStringFieldUpdateOperationsInput | string | null
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaProvaUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    equipeId?: NullableStringFieldUpdateOperationsInput | string | null
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -57713,6 +67741,136 @@ export namespace Prisma {
   export type RegistroPresencaUncheckedUpdateManyWithoutTurmaInput = {
     id?: StringFieldUpdateOperationsInput | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaDoacaoCreateManyEquipeInput = {
+    id?: string
+    nomeDoador: string
+    descricao?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaProvaCreateManyEquipeInput = {
+    id?: string
+    semestreId: string
+    nome: string
+    descricao?: string | null
+    pontos: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConectaDoacaoUpdateWithoutEquipeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nomeDoador?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    itens?: ConectaDoacaoItemUpdateManyWithoutDoacaoNestedInput
+  }
+
+  export type ConectaDoacaoUncheckedUpdateWithoutEquipeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nomeDoador?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    itens?: ConectaDoacaoItemUncheckedUpdateManyWithoutDoacaoNestedInput
+  }
+
+  export type ConectaDoacaoUncheckedUpdateManyWithoutEquipeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nomeDoador?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaProvaUpdateWithoutEquipeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutConectaProvasNestedInput
+  }
+
+  export type ConectaProvaUncheckedUpdateWithoutEquipeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaProvaUncheckedUpdateManyWithoutEquipeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    pontos?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConectaDoacaoItemCreateManyItemInput = {
+    id?: string
+    doacaoId: string
+    quantidade: number
+    pontosUnitarios: number
+  }
+
+  export type ConectaDoacaoItemUpdateWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pontosUnitarios?: IntFieldUpdateOperationsInput | number
+    doacao?: ConectaDoacaoUpdateOneRequiredWithoutItensNestedInput
+  }
+
+  export type ConectaDoacaoItemUncheckedUpdateWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    doacaoId?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pontosUnitarios?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ConectaDoacaoItemUncheckedUpdateManyWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    doacaoId?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pontosUnitarios?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ConectaDoacaoItemCreateManyDoacaoInput = {
+    id?: string
+    itemId: string
+    quantidade: number
+    pontosUnitarios: number
+  }
+
+  export type ConectaDoacaoItemUpdateWithoutDoacaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pontosUnitarios?: IntFieldUpdateOperationsInput | number
+    item?: ConectaItemUpdateOneRequiredWithoutDoacoesNestedInput
+  }
+
+  export type ConectaDoacaoItemUncheckedUpdateWithoutDoacaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemId?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pontosUnitarios?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ConectaDoacaoItemUncheckedUpdateManyWithoutDoacaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemId?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pontosUnitarios?: IntFieldUpdateOperationsInput | number
   }
 
   export type AlunoCreateManyAlunoOrigemInput = {

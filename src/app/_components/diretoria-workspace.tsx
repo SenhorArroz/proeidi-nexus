@@ -16,6 +16,7 @@ const ROTAS: Record<string, string> = {
 	"/nexus/diretoria/sorteio": "Sorteio",
 	"/nexus/diretoria/estoque": "Estoque",
 	"/nexus/diretoria/diretores": "Diretores",
+	"/nexus/diretoria/conecta": "Conecta View",
 };
 
 export default function DiretoriaWorkspace({ children }: Readonly<{ children: React.ReactNode }>) {

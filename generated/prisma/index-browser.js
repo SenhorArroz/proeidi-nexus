@@ -164,6 +164,12 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TourConcluidoScalarFieldEnum = {
+  userId: 'userId',
+  tela: 'tela',
+  concluidoEm: 'concluidoEm'
+};
+
 exports.Prisma.CategoriaItemEstoqueScalarFieldEnum = {
   id: 'id',
   nome: 'nome',
@@ -257,6 +263,55 @@ exports.Prisma.TurmaScalarFieldEnum = {
   corDescricao: 'corDescricao',
   fonte: 'fonte',
   semestreId: 'semestreId'
+};
+
+exports.Prisma.ConectaEquipeScalarFieldEnum = {
+  id: 'id',
+  turmaId: 'turmaId',
+  nome: 'nome',
+  tema: 'tema',
+  corInicial: 'corInicial',
+  corFinal: 'corFinal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConectaItemScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  descricao: 'descricao',
+  pontos: 'pontos',
+  ativo: 'ativo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConectaDoacaoScalarFieldEnum = {
+  id: 'id',
+  equipeId: 'equipeId',
+  nomeDoador: 'nomeDoador',
+  descricao: 'descricao',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConectaDoacaoItemScalarFieldEnum = {
+  id: 'id',
+  doacaoId: 'doacaoId',
+  itemId: 'itemId',
+  quantidade: 'quantidade',
+  pontosUnitarios: 'pontosUnitarios'
+};
+
+exports.Prisma.ConectaProvaScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  equipeId: 'equipeId',
+  nome: 'nome',
+  descricao: 'descricao',
+  pontos: 'pontos',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ProfessorTurmaScalarFieldEnum = {
@@ -522,6 +577,7 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   User: 'User',
+  TourConcluido: 'TourConcluido',
   CategoriaItemEstoque: 'CategoriaItemEstoque',
   ItemEstoque: 'ItemEstoque',
   PasswordResetRequest: 'PasswordResetRequest',
@@ -532,6 +588,11 @@ exports.Prisma.ModelName = {
   MaterialAtualizacao: 'MaterialAtualizacao',
   ResponsavelMaterialAtualizacao: 'ResponsavelMaterialAtualizacao',
   Turma: 'Turma',
+  ConectaEquipe: 'ConectaEquipe',
+  ConectaItem: 'ConectaItem',
+  ConectaDoacao: 'ConectaDoacao',
+  ConectaDoacaoItem: 'ConectaDoacaoItem',
+  ConectaProva: 'ConectaProva',
   ProfessorTurma: 'ProfessorTurma',
   MonitorTurma: 'MonitorTurma',
   AlunoTurma: 'AlunoTurma',

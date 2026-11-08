@@ -40,6 +40,7 @@ O histórico versionado em `prisma/migrations` contém:
 1. `20260101000000_baseline`: estrutura anterior do sistema, necessária para construir um banco novo.
 2. `20260908000000_add_limite_alunos`: capacidade padrão de turma.
 3. `20261013000000_add_estoque`: itens, categorias e relação entre eles.
+4. `20261013010000_add_tours_concluidos`: progresso dos tours por usuário e tela.
 
 Ao mudar `prisma/schema.prisma` em desenvolvimento, crie uma migração com `npx prisma migrate dev --name nome_da_alteracao`. O script `npm run db:generate` também chama `prisma migrate dev`; apesar do nome, ele **não** executa apenas `prisma generate`. Para gerar só o cliente, use `npx prisma generate`. Em deploy, use `npm run db:migrate`.
 

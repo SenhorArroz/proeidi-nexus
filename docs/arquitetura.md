@@ -48,6 +48,7 @@ As telas grandes normalmente mantêm hooks e componentes próprios em `_componen
 | `formulario` | Gestão de questionários e endpoints públicos de resposta. |
 | `certificado`, `declaracao` | Geração de certificados e declarações. |
 | `estoque` | Itens, categorias e operações de estoque restritas à diretoria. |
+| `tour` | Consulta de telas já vistas e registro de conclusão do guia por usuário. |
 
 `protectedProcedure` exige uma sessão. `directorProcedure` e `coordinatorProcedure` consultam o papel do usuário no banco. `turma` aplica verificações de vínculo e função em suas procedures. O router `formulario` permite também professores em questionários compartilhados, com regras de visibilidade/autoria próprias.
 
@@ -75,6 +76,7 @@ erDiagram
 - `RegistroPresenca` é único por turma e data. Tabelas específicas guardam o estado de alunos, monitores e docentes.
 - `Formulario` guarda a definição em `conteudo` JSON; `FormularioResposta` guarda cada envio em `respostas` JSON.
 - `ItemEstoque` tem `nome`, `qtd`, `validade` e relação muitos para muitos com `CategoriaItemEstoque`. O estoque não possui vínculo com semestre.
+- `TourConcluido` associa `User` à chave de uma tela, com unicidade por usuário e tela e a data de conclusão. O componente `ScreenTour` no layout interno escolhe os passos pela rota e pelo perfil, e consulta esse estado via tRPC.
 
 O schema completo, inclusive índices, restrições e regras de exclusão, está em `prisma/schema.prisma`.
 

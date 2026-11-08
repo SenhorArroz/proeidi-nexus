@@ -65,6 +65,12 @@ O formulário aceita modo anônimo ou identificação por cookie e pode limitar 
 
 A interface oferece tema claro e escuro, contraste padrão ou alto e opção de fonte ampliada. As preferências e controles ficam em `/nexus/acessibilidade` e nos componentes compartilhados do Nexus.
 
+## Tours das telas
+
+Na primeira visita de cada tela interna, o Nexus abre um guia com a finalidade da página, recursos disponíveis e ações dos botões principais. Os passos destacam controles da própria tela quando estão visíveis. Há textos específicos para a turma de monitor e para os demais perfis; áreas da diretoria só recebem o tour para diretor e coordenador.
+
+O usuário pode avançar, voltar, concluir ou pular. Concluir e pular registram aquela tela como vista na conta, de modo que o tour não aparece de novo automaticamente, inclusive em outro navegador. O botão **Ajuda desta tela** permite abrir o guia novamente a qualquer momento. Páginas de login, redefinição de senha e questionário público não exibem tour. Durante a troca obrigatória da senha inicial, o guia aguarda o término dessa etapa.
+
 ## Limites conhecidos
 
 - A importação de alunos, apostilas e materiais exige planilhas compatíveis com os campos e modelos oferecidos nas respectivas telas.
