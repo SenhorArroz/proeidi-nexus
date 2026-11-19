@@ -94,6 +94,7 @@ export default function MonitoresDiretoria() {
 										onResetPassword={() =>
 											solicitarRedefinicao.mutate({ usuarioId: monitor.id })
 										}
+										certificatePending={gerarDeclaracao.isPending}
 										onCertificate={() =>
 											gerarDeclaracao.mutate({
 												usuarioId: monitor.id,

@@ -18,13 +18,15 @@ export function PresenceGrid({
 	estadoNaData,
 	onAlterar,
 	cores,
+	instrucao,
 }: {
 	titulo: string;
 	pessoas: PessoaPresenca[];
 	datas: string[];
-	estadoNaData: (id: string, data: string) => EstadoPresenca;
+	estadoNaData: (id: string, data: string) => EstadoPresenca | undefined;
 	onAlterar: (id: string, data: string, estado: EstadoPresenca) => void;
 	cores: { presente: string; ausente: string; justificado: string };
+	instrucao?: string;
 }) {
 	const estados = ["PRESENTE", "AUSENTE", "JUSTIFICADO"] as const;
 	const hojeIso = hoje();
@@ -73,18 +75,19 @@ export function PresenceGrid({
 			</select>
 		) : (
 			<select
-				value={estado}
+				value={estado ?? ""}
 				aria-label={rotulo}
 				onChange={(event) =>
 					onAlterar(pessoa.id, dia, event.target.value as EstadoPresenca)
 				}
 				className="min-h-11 w-full rounded-lg border px-2 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-1"
-				style={{
+				style={estado ? {
 					color: corDoEstado(estado),
 					borderColor: `${corDoEstado(estado)}66`,
 					backgroundColor: `${corDoEstado(estado)}12`,
-				}}
+				} : undefined}
 			>
+				{!estado && <option value="" disabled>A registrar</option>}
 				<option value="PRESENTE">Presente</option>
 				<option value="AUSENTE">Ausente</option>
 				<option value="JUSTIFICADO">Justificado</option>
@@ -99,6 +102,11 @@ export function PresenceGrid({
 					{pessoas.length} pessoa(s)
 				</span>
 			</div>
+			{instrucao && (
+				<p className="border-b border-slate-100 px-4 py-3 text-sm text-slate-600">
+					{instrucao}
+				</p>
+			)}
 			<div className="grid grid-cols-3 gap-2 border-b border-slate-100 p-3 sm:px-5">
 				{totais.map(({ estado, total }) => (
 					<div

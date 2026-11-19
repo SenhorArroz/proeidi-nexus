@@ -10,6 +10,7 @@ export interface Aluno {
 	id: string;
 	semestre: string;
 	turma: string;
+	turmasVinculadas: { id: string; titulo: string }[];
 
 	// Geral
 	nome: string;

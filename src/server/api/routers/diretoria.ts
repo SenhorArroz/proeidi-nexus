@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { salvarPresencasDaTurma, salvarPresencasInput } from "~/server/presencas";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { hashPassword } from "~/server/auth/password";
@@ -805,127 +806,9 @@ export const diretoriaRouter = createTRPCRouter({
 				}),
 			),
 		salvar: directorProcedure
-			.input(
-				z.object({
-					turmaId: id,
-					data: z.coerce.date(),
-					alunos: z
-						.array(
-							z.object({
-								id,
-								estado: z.enum(["PRESENTE", "AUSENTE", "JUSTIFICADO"]),
-							}),
-						)
-						.max(300),
-					monitores: z
-						.array(
-							z.object({
-								id,
-								estado: z.enum(["PRESENTE", "AUSENTE", "JUSTIFICADO"]),
-							}),
-						)
-						.max(50),
-					professores: z
-						.array(
-							z.object({
-								id,
-								estado: z.enum(["PRESENTE", "AUSENTE", "JUSTIFICADO"]),
-							}),
-						)
-						.max(50),
-				}),
-			)
+			.input(salvarPresencasInput)
 			.mutation(async ({ ctx, input }) => {
-				const turma = await ctx.db.turma.findUnique({
-					where: { id: input.turmaId },
-					select: {
-						alunos: { select: { alunoId: true } },
-						monitores: { select: { userId: true } },
-						professores: { select: { userId: true } },
-						eventos: { where: { tipo: "AULA" }, select: { data: true } },
-					},
-				});
-				if (!turma) throw new TRPCError({ code: "NOT_FOUND" });
-				const inicioDoDia = new Date(input.data);
-				inicioDoDia.setUTCHours(0, 0, 0, 0);
-				const fimDoDia = new Date(inicioDoDia);
-				fimDoDia.setUTCDate(fimDoDia.getUTCDate() + 1);
-				if (
-					!turma.eventos.some(
-						(evento) => evento.data >= inicioDoDia && evento.data < fimDoDia,
-					)
-				)
-					throw new TRPCError({
-						code: "BAD_REQUEST",
-						message:
-							"A presença só pode ser registrada em uma data de aula da turma.",
-					});
-				const conferir = (
-					enviados: { id: string }[],
-					permitidos: { alunoId?: string; userId?: string }[],
-				) =>
-					enviados.every((pessoa) =>
-						permitidos.some(
-							(vinculo) => (vinculo.alunoId ?? vinculo.userId) === pessoa.id,
-						),
-					);
-				if (
-					!conferir(input.alunos, turma.alunos) ||
-					!conferir(input.monitores, turma.monitores) ||
-					!conferir(input.professores, turma.professores)
-				)
-					throw new TRPCError({
-						code: "BAD_REQUEST",
-						message: "Há pessoas que não pertencem a esta turma.",
-					});
-				return ctx.db.$transaction(async (tx) => {
-					const registro = await tx.registroPresenca.upsert({
-						where: {
-							turmaId_data: { turmaId: input.turmaId, data: input.data },
-						},
-						create: { turmaId: input.turmaId, data: input.data },
-						update: {},
-					});
-					await Promise.all([
-						tx.presencaAluno.deleteMany({ where: { registroId: registro.id } }),
-						tx.presencaMonitor.deleteMany({
-							where: { registroId: registro.id },
-						}),
-						tx.presencaProfessor.deleteMany({
-							where: { registroId: registro.id },
-						}),
-					]);
-					await Promise.all([
-						input.alunos.length
-							? tx.presencaAluno.createMany({
-									data: input.alunos.map((pessoa) => ({
-										registroId: registro.id,
-										alunoId: pessoa.id,
-										estado: pessoa.estado,
-									})),
-								})
-							: undefined,
-						input.monitores.length
-							? tx.presencaMonitor.createMany({
-									data: input.monitores.map((pessoa) => ({
-										registroId: registro.id,
-										monitorId: pessoa.id,
-										estado: pessoa.estado,
-									})),
-								})
-							: undefined,
-						input.professores.length
-							? tx.presencaProfessor.createMany({
-									data: input.professores.map((pessoa) => ({
-										registroId: registro.id,
-										professorId: pessoa.id,
-										estado: pessoa.estado,
-									})),
-								})
-							: undefined,
-					]);
-					return { id: registro.id };
-				});
+				return salvarPresencasDaTurma(ctx.db, input);
 			}),
 		remove: directorProcedure
 			.input(z.object({ id, turmaId: id }))

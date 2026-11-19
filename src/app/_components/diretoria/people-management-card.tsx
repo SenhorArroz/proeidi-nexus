@@ -1,4 +1,4 @@
-import { DoorOpen, FileText, KeyRound, Pencil, Trash2 } from "lucide-react";
+import { DoorOpen, FileText, KeyRound, Loader2, Pencil, Trash2 } from "lucide-react";
 
 type PersonManagementCardProps = {
 	person: { nome: string; email: string; matricula: string; turmas: string[] };
@@ -8,6 +8,7 @@ type PersonManagementCardProps = {
 	onRemove?: () => void;
 	onResetPassword?: () => void;
 	onCertificate: () => void;
+	certificatePending?: boolean;
 };
 
 const initials = (name: string) =>
@@ -27,6 +28,7 @@ export function PersonManagementCard({
 	onRemove,
 	onResetPassword,
 	onCertificate,
+	certificatePending,
 }: PersonManagementCardProps) {
 	const isProfessor = personRole === "professor";
 	const tint = isProfessor
@@ -69,11 +71,12 @@ export function PersonManagementCard({
 					<button
 						type="button"
 						onClick={onCertificate}
+						disabled={certificatePending}
 						className="grid min-h-11 min-w-11 place-items-center rounded-lg text-slate-400 transition hover:bg-orange-50 hover:text-orange-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
 						aria-label="Gerar certificado PM"
 						title="Gerar certificado PM"
 					>
-						<FileText className="h-4 w-4" />
+						{certificatePending ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileText className="h-4 w-4" />}
 					</button>
 					{onEdit && (
 						<button

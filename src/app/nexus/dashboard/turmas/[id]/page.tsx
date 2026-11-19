@@ -12,6 +12,7 @@ import { NavegacaoTurmaMobile } from "./_components/navegacao-turma-mobile";
 import { useTurmaView } from "./_components/use-turma-view";
 
 import { AlertTriangle, CalendarDays } from "lucide-react";
+import { SincronizarPresencasModal } from "~/app/_components/diretoria/sincronizar-presencas-modal";
 
 // ---------------------------------------------------------------------------
 // Componente principal
@@ -43,12 +44,8 @@ export default function TurmaView() {
 		presencaAlunos,
 		datasDeAula,
 		estadoPresenca,
-		alterarPresenca,
-		salvarAlteracoesPresenca,
-		temAlteracoesPresenca,
+		chamada,
 		carregandoPresencas,
-		erroPresenca,
-		salvarPresencas,
 		presencaMonitores,
 		presencaProfessores,
 		confirmacaoPresenca,
@@ -165,17 +162,18 @@ export default function TurmaView() {
 				{podeAcessarGestao && tab === "presenca-alunos" && (
 					<MatrizPresencaView
 						titulo="Presença de alunos"
+						instrucao="Ao salvar a chamada de alunos, quem estiver sem marcação no dia será registrado como presente."
 						pessoas={presencaAlunos}
 						datas={datasDeAula}
-						estadoNaData={(id, data) => estadoPresenca("ALUNOS", id, data)}
+						estadoNaData={(id, data) => estadoPresenca("alunos", id, data)}
 						onAlterar={(id, data, estado) =>
-							alterarPresenca("ALUNOS", id, data, estado)
+							chamada.alterar("alunos", id, data, estado)
 						}
 						cor={corDestaqueLegivel}
-						onSalvar={() => void salvarAlteracoesPresenca()}
-						temAlteracoes={temAlteracoesPresenca}
-						erroSalvar={erroPresenca}
-						salvando={salvarPresencas.isPending}
+						onSalvar={chamada.iniciar}
+						temAlteracoes={chamada.temAlteracoes}
+						erroSalvar={chamada.erro}
+						salvando={chamada.salvando}
 						carregando={carregandoPresencas}
 						coresEstado={{
 							presente: turma.cor,
@@ -189,15 +187,15 @@ export default function TurmaView() {
 						titulo="Presença de monitores"
 						pessoas={presencaMonitores}
 						datas={datasDeAula}
-						estadoNaData={(id, data) => estadoPresenca("MONITORES", id, data)}
+						estadoNaData={(id, data) => estadoPresenca("monitores", id, data)}
 						onAlterar={(id, data, estado) =>
-							alterarPresenca("MONITORES", id, data, estado)
+							chamada.alterar("monitores", id, data, estado)
 						}
 						cor={corDestaqueLegivel}
-						onSalvar={() => void salvarAlteracoesPresenca()}
-						temAlteracoes={temAlteracoesPresenca}
-						erroSalvar={erroPresenca}
-						salvando={salvarPresencas.isPending}
+						onSalvar={chamada.iniciar}
+						temAlteracoes={chamada.temAlteracoes}
+						erroSalvar={chamada.erro}
+						salvando={chamada.salvando}
 						carregando={carregandoPresencas}
 						coresEstado={{
 							presente: turma.cor,
@@ -211,15 +209,15 @@ export default function TurmaView() {
 						titulo="Presença de professores"
 						pessoas={presencaProfessores}
 						datas={datasDeAula}
-						estadoNaData={(id, data) => estadoPresenca("PROFESSORES", id, data)}
+						estadoNaData={(id, data) => estadoPresenca("professores", id, data)}
 						onAlterar={(id, data, estado) =>
-							alterarPresenca("PROFESSORES", id, data, estado)
+							chamada.alterar("professores", id, data, estado)
 						}
 						cor={corDestaqueLegivel}
-						onSalvar={() => void salvarAlteracoesPresenca()}
-						temAlteracoes={temAlteracoesPresenca}
-						erroSalvar={erroPresenca}
-						salvando={salvarPresencas.isPending}
+						onSalvar={chamada.iniciar}
+						temAlteracoes={chamada.temAlteracoes}
+						erroSalvar={chamada.erro}
+						salvando={chamada.salvando}
 						carregando={carregandoPresencas}
 						coresEstado={{
 							presente: turma.cor,
@@ -230,6 +228,12 @@ export default function TurmaView() {
 				)}
 			</div>
 
+			{podeAcessarGestao && chamada.confirmarEquipe && (
+				<SincronizarPresencasModal
+					onCancelar={chamada.cancelarConfirmacao}
+					onConfirmar={(modo) => void chamada.salvar(modo)}
+				/>
+			)}
 			{podeAcessarGestao && confirmacaoPresenca && (
 				<ConfirmacaoPresencaModal
 					confirmacao={confirmacaoPresenca}

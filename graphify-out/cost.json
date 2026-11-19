@@ -11,6 +11,13 @@
       "input_tokens": 0,
       "output_tokens": 0,
       "files": 334
+    },
+    {
+      "date": "2026-11-19T16:43:43.945685+00:00",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "files": 186,
+      "usage_available": false
     }
   ],
   "total_input_tokens": 0,

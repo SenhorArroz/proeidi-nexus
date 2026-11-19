@@ -124,6 +124,7 @@ export function useGerenciarAlunos() {
 		id: "",
 		semestre: "2026.1",
 		turma: "",
+		turmasVinculadas: [],
 		nome: "",
 		dataNascimento: "",
 		cpf: "",
@@ -154,6 +155,7 @@ export function useGerenciarAlunos() {
 				id: a.id,
 				semestre: semestreSelecionado.codigo,
 				turma: a.turmas.map((v) => v.turma.titulo).join(", "),
+				turmasVinculadas: a.turmas.map(({ turma }) => turma),
 				nome: a.nome,
 				dataNascimento: a.dataNascimento.toISOString().slice(0, 10),
 				cpf: formatarCpf(a.cpf),
@@ -634,14 +636,9 @@ export function useGerenciarAlunos() {
 		});
 	};
 
-	const handleGerarCertificadoIndividual = (aluno: Aluno) => {
+	const handleGerarCertificadoIndividual = (aluno: Aluno, turmaId: string) => {
 		setGerandoAlunoId(aluno.id);
-		gerarIndividualMutation.mutate({
-			alunoId: aluno.id,
-			nome: aluno.nome,
-			curso: aluno.turma,
-			periodo: aluno.semestre,
-		});
+		gerarIndividualMutation.mutate({ alunoId: aluno.id, turmaId });
 	};
 
 	// Filtros

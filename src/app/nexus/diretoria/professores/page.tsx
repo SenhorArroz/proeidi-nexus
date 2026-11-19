@@ -1,7 +1,6 @@
 "use client";
 import { AcoesProfessores } from "./_components/acoes-professores";
 import { FormularioProfessor } from "./_components/formulario-professor";
-import { ModalDeclaracao } from "./_components/modal-declaracao";
 import { useProfessoresDiretoria } from "./_components/use-professores-diretoria";
 
 import { Users } from "lucide-react";
@@ -29,14 +28,13 @@ export default function ProfessoresDiretoria() {
 		abrirEdicao,
 		excluir,
 		solicitarRedefinicao,
-		setProfessorParaCertificado,
+		gerarDeclaracao,
 		cancelar,
 		editandoId,
 		rascunho,
 		setRascunho,
 		salvar,
 		formValido,
-		professorParaCertificado,
 		modalLoteAberto,
 		setModalLoteAberto,
 		confirmarLote,
@@ -93,7 +91,8 @@ export default function ProfessoresDiretoria() {
 										onResetPassword={() =>
 											solicitarRedefinicao.mutate({ usuarioId: professor.id })
 										}
-										onCertificate={() => setProfessorParaCertificado(professor)}
+										onCertificate={() => gerarDeclaracao.mutate({ usuarioId: professor.id, tipo: "professor" })}
+										certificatePending={gerarDeclaracao.isPending}
 									/>
 								))}
 							</div>
@@ -119,12 +118,6 @@ export default function ProfessoresDiretoria() {
 				)}
 			</div>
 
-			{professorParaCertificado && (
-				<ModalDeclaracao
-					professor={professorParaCertificado}
-					onClose={() => setProfessorParaCertificado(null)}
-				/>
-			)}
 			<ProjectCodeModal
 				isOpen={modalLoteAberto}
 				isSubmitting={gerarLoteDeclaracoes.isPending}

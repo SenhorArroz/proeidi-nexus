@@ -48,10 +48,6 @@ const previa = (abrir: string, fechar?: string): TourStep["previa"] => ({
 });
 
 const editarTurma = previa("turma-editar", "turma-voltar");
-const declaracaoProfessor = {
-	abrir: 'button[aria-label="Gerar certificado PM"]',
-	fechar: marcador("professor-declaracao-fechar"),
-};
 const certificadosEmLote = previa(
 	"certificados-lote",
 	"certificados-lote-fechar",
@@ -265,34 +261,9 @@ const diretoria: Record<string, TourGuide> = {
 			'[aria-label="Editar professor"]',
 		),
 		mostrar(
-			"Abrir a declaração",
-			"O botão Gerar certificado PM abre o modal da declaração individual. Confira o nome e a matrícula do professor.",
-			".view-nexus-diretoria-professores-modal-declaracao h2",
-			declaracaoProfessor,
-		),
-		mostrar(
-			"Selecionar a turma de referência",
-			"No modal, escolha a turma. O semestre, as datas e o ano vêm das aulas cadastradas nessa turma.",
-			marcador("professor-declaracao-turma"),
-			declaracaoProfessor,
-		),
-		mostrar(
-			"Preencher os dados da declaração",
-			"Confira a matrícula e os cursos ministrados. Separe vários cursos com “e” e revise carga horária, nome e código do projeto.",
-			marcador("professor-declaracao-dados"),
-			declaracaoProfessor,
-		),
-		mostrar(
-			"Conferir a prévia",
-			"Leia a prévia para conferir os nomes, o período, a carga horária e os cursos antes de gerar o documento.",
-			marcador("professor-declaracao-previa"),
-			declaracaoProfessor,
-		),
-		mostrar(
 			"Gerar declaração em PDF",
-			"Depois de preencher matrícula, curso e turma, clique em Gerar Declaração. Use Cancelar para fechar o modal.",
-			marcador("professor-declaracao-gerar"),
-			declaracaoProfessor,
+			"Use Gerar certificado PM no cartão para baixar a declaração individual com as turmas e presenças registradas do docente.",
+			'[aria-label="Gerar certificado PM"]',
 		),
 		mostrar(
 			"Gerar lote",

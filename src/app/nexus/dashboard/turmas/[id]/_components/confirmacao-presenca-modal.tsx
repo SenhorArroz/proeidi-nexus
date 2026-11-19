@@ -34,8 +34,8 @@ export function ConfirmacaoPresencaModal({
 				</h2>
 				<p className="mt-1 text-sm text-gray-600">
 					{confirmacao.total === 1
-						? "O registro de 1 pessoa foi salvo"
-						: `Os registros de ${confirmacao.total} pessoas foram salvos`}{" "}
+						? "Uma alteração foi salva"
+						: `${confirmacao.total} alterações foram salvas`}{" "}
 					para {confirmacao.data}.
 				</p>
 				<button

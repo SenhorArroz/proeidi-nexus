@@ -12,7 +12,6 @@ export interface Professor {
 	senha: string;
 	role: "PROFESSOR" | "DIRETOR";
 	turmas: string[]; // somente leitura aqui — vínculo é feito na tela de Turmas
-	turmasDetalhadas: { id: string; titulo: string; semestre: string }[];
 }
 
 export const professorVazio = (): Professor => ({
@@ -23,7 +22,6 @@ export const professorVazio = (): Professor => ({
 	senha: "",
 	role: "PROFESSOR",
 	turmas: [],
-	turmasDetalhadas: [],
 });
 
 export function normalizarProfessor(
@@ -37,7 +35,6 @@ export function normalizarProfessor(
 		senha: p.senha ?? "",
 		role: p.role ?? "PROFESSOR",
 		turmas: p.turmas ?? [],
-		turmasDetalhadas: p.turmasDetalhadas ?? [],
 	};
 }
 
@@ -49,25 +46,3 @@ export function gerarSenha() {
 	}
 	return senha;
 }
-
-export interface DeclaracaoForm {
-	matricula: string;
-	curso: string;
-	dataInicio: string;
-	dataFim: string;
-	ano: string;
-	cargaHoraria: string;
-	nomeProjeto: string;
-	codigoProjeto: string;
-}
-
-export const declaracaoFormPadrao = (): DeclaracaoForm => ({
-	matricula: "",
-	curso: "",
-	dataInicio: "11 de abril",
-	dataFim: "20 de junho",
-	ano: "2026",
-	cargaHoraria: "54 horas",
-	nomeProjeto: "Projeto de Extensão de Inclusão Digital para Pessoas Idosas",
-	codigoProjeto: "PJ457-2026",
-});

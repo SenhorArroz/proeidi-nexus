@@ -32,8 +32,10 @@ export function useProfessoresDiretoria() {
 	const [editandoId, setEditandoId] = useState<string | null>(null);
 	const [rascunho, setRascunho] = useState<Professor>(professorVazio());
 	const [mostrarSenha, setMostrarSenha] = useState(false);
-	const [professorParaCertificado, setProfessorParaCertificado] =
-		useState<Professor | null>(null);
+	const gerarDeclaracao = api.declaracao.gerarIndividual.useMutation({
+		onSuccess: (data) => downloadBase64Pdf(data.arquivoBase64, data.nomeArquivo),
+		onError: (err) => alert(`Erro ao gerar certificado: ${err.message}`),
+	});
 	const [modalLoteAberto, setModalLoteAberto] = useState(false);
 	const gerarLoteDeclaracoes = api.declaracao.gerarLoteUsuarios.useMutation({
 		onSuccess: (data) => {
@@ -55,11 +57,6 @@ export function useProfessoresDiretoria() {
 				senha: "",
 				role: p.role as "PROFESSOR" | "DIRETOR",
 				turmas: p.turmasProfessor.map((v) => v.turma.titulo),
-				turmasDetalhadas: p.turmasProfessor.map((v) => ({
-					id: v.turma.id,
-					titulo: v.turma.titulo,
-					semestre: v.turma.semestre.codigo,
-				})),
 			})),
 		);
 	}, [professoresDb, diretoresDb]);
@@ -142,14 +139,13 @@ export function useProfessoresDiretoria() {
 		abrirEdicao,
 		excluir,
 		solicitarRedefinicao,
-		setProfessorParaCertificado,
+		gerarDeclaracao,
 		cancelar,
 		editandoId,
 		rascunho,
 		setRascunho,
 		salvar,
 		formValido,
-		professorParaCertificado,
 		modalLoteAberto,
 		setModalLoteAberto,
 		confirmarLote,

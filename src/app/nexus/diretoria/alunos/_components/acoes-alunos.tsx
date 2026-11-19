@@ -66,7 +66,7 @@ export function AcoesAlunos({
 						onClick={handleGerarLoteCertificados}
 						disabled={gerarLoteMutation.isPending}
 						className="flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white text-sm font-bold rounded-xl shadow-sm transition-all shrink-0 disabled:opacity-50"
-						title="Gerar certificados em lote (PDF único) para todos os alunos deste semestre"
+						title="Gerar um PDF com os certificados por turma dos alunos da lista"
 					>
 						{gerarLoteMutation.isPending ? (
 							<Loader2 className="w-4 h-4 animate-spin" />

@@ -21,11 +21,12 @@ export function MatrizPresencaView({
 	salvando,
 	carregando,
 	coresEstado,
+	instrucao,
 }: {
 	titulo: string;
 	pessoas: PessoaPresenca[];
 	datas: string[];
-	estadoNaData: (id: string, data: string) => EstadoPresenca;
+	estadoNaData: (id: string, data: string) => EstadoPresenca | undefined;
 	onAlterar: (id: string, data: string, estado: EstadoPresenca) => void;
 	cor: string;
 	onSalvar: () => void;
@@ -34,6 +35,7 @@ export function MatrizPresencaView({
 	salvando: boolean;
 	carregando: boolean;
 	coresEstado: { presente: string; ausente: string; justificado: string };
+	instrucao?: string;
 }) {
 	const corTextoAcao = corLegivel("#ffffff", cor);
 
@@ -108,6 +110,7 @@ export function MatrizPresencaView({
 					estadoNaData={estadoNaData}
 					onAlterar={onAlterar}
 					cores={coresEstado}
+					instrucao={instrucao}
 				/>
 			)}
 		</div>

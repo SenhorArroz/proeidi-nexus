@@ -9,6 +9,7 @@ import {
 	DiretoriaPageIntro,
 } from "~/app/_components/diretoria/page-intro";
 import { PresenceGrid } from "~/app/_components/diretoria/presence-grid";
+import { SincronizarPresencasModal } from "~/app/_components/diretoria/sincronizar-presencas-modal";
 
 export default function GerenciarPresencas() {
 	const {
@@ -21,19 +22,12 @@ export default function GerenciarPresencas() {
 		semestres,
 		turma,
 		turmas,
-		salvarPresencas,
-		rascunhos,
-		salvar,
+		chamada,
 		datasDeAula,
 		setGrupoAtivo,
 		grupoAtivo,
-		alunos,
-		monitores,
-		professores,
 		estadoExibido,
-		alterarPresenca,
 		registrosOrdenados,
-		setData,
 		remover,
 	} = useGerenciarPresencas();
 
@@ -107,15 +101,20 @@ export default function GerenciarPresencas() {
 								{turma.titulo}
 							</div>
 							<button
-								onClick={() => void salvarPresencas()}
-								disabled={!Object.keys(rascunhos).length || salvar.isPending}
+								onClick={chamada.iniciar}
+								disabled={!chamada.temAlteracoes || chamada.salvando}
 								style={{ backgroundColor: turma.corDestaque }}
 								className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
 							>
 								<Check className="h-4 w-4" />
-								{salvar.isPending ? "Salvando..." : "Salvar presenças"}
+								{chamada.salvando ? "Salvando..." : "Salvar presenças"}
 							</button>
 						</div>
+						{chamada.erro && (
+							<p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+								{chamada.erro}
+							</p>
+						)}
 						{!datasDeAula.length && (
 							<p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-800">
 								Cadastre ao menos uma aula na turma para registrar presenças.
@@ -126,33 +125,34 @@ export default function GerenciarPresencas() {
 								onClick={() => setGrupoAtivo("ALUNOS")}
 								className={`border-b-2 px-4 py-2 text-sm font-semibold ${grupoAtivo === "ALUNOS" ? "border-sky-600 text-sky-700" : "border-transparent text-gray-500 hover:text-gray-700"}`}
 							>
-								Alunos ({alunos.length})
+								Alunos ({turma.alunos.length})
 							</button>
 							<button
 								onClick={() => setGrupoAtivo("MONITORES")}
 								className={`border-b-2 px-4 py-2 text-sm font-semibold ${grupoAtivo === "MONITORES" ? "border-sky-600 text-sky-700" : "border-transparent text-gray-500 hover:text-gray-700"}`}
 							>
-								Monitores ({monitores.length})
+								Monitores ({turma.monitores.length})
 							</button>
 							<button
 								onClick={() => setGrupoAtivo("PROFESSORES")}
 								className={`border-b-2 px-4 py-2 text-sm font-semibold ${grupoAtivo === "PROFESSORES" ? "border-sky-600 text-sky-700" : "border-transparent text-gray-500 hover:text-gray-700"}`}
 							>
-								Professores e diretores ({professores.length})
+								Professores e diretores ({turma.professores.length})
 							</button>
 						</div>
 						{grupoAtivo === "ALUNOS" ? (
 							<PresenceGrid
 								titulo="Alunos"
+								instrucao="Ao salvar a chamada de alunos, quem estiver sem marcação no dia será registrado como presente."
 								pessoas={turma.alunos.map((item) => ({
 									id: item.aluno.id,
 									nome: item.aluno.nome,
 									estado: "PRESENTE",
 								}))}
 								datas={datasDeAula}
-								estadoNaData={(id, dia) => estadoExibido("ALUNOS", id, dia)}
+								estadoNaData={(id, dia) => estadoExibido("alunos", id, dia)}
 								onAlterar={(id, dia, estado) =>
-									alterarPresenca("ALUNOS", id, dia, estado)
+									chamada.alterar("alunos", id, dia, estado)
 								}
 								cores={{
 									presente: turma.cor,
@@ -170,9 +170,9 @@ export default function GerenciarPresencas() {
 									estado: "PRESENTE",
 								}))}
 								datas={datasDeAula}
-								estadoNaData={(id, dia) => estadoExibido("MONITORES", id, dia)}
+								estadoNaData={(id, dia) => estadoExibido("monitores", id, dia)}
 								onAlterar={(id, dia, estado) =>
-									alterarPresenca("MONITORES", id, dia, estado)
+									chamada.alterar("monitores", id, dia, estado)
 								}
 								cores={{
 									presente: turma.cor,
@@ -191,10 +191,10 @@ export default function GerenciarPresencas() {
 								}))}
 								datas={datasDeAula}
 								estadoNaData={(id, dia) =>
-									estadoExibido("PROFESSORES", id, dia)
+									estadoExibido("professores", id, dia)
 								}
 								onAlterar={(id, dia, estado) =>
-									alterarPresenca("PROFESSORES", id, dia, estado)
+									chamada.alterar("professores", id, dia, estado)
 								}
 								cores={{
 									presente: turma.cor,
@@ -205,7 +205,6 @@ export default function GerenciarPresencas() {
 						)}
 						<HistoricoPresencas
 							registrosOrdenados={registrosOrdenados}
-							setData={setData}
 							remover={remover}
 							turma={turma}
 						/>
@@ -216,6 +215,12 @@ export default function GerenciarPresencas() {
 					</p>
 				)}
 			</div>
+			{chamada.confirmarEquipe && (
+				<SincronizarPresencasModal
+					onCancelar={chamada.cancelarConfirmacao}
+					onConfirmar={(modo) => void chamada.salvar(modo)}
+				/>
+			)}
 		</main>
 	);
 }

@@ -2,6 +2,7 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { sendPostTurmaEmail } from "~/server/email";
+import { salvarPresencasDaTurma, salvarPresencasInput } from "~/server/presencas";
 
 const turmaId = z.string().cuid();
 const texto = z.string().trim().min(1).max(1000);
@@ -437,126 +438,11 @@ export const turmaRouter = createTRPCRouter({
 				});
 			}),
 		salvar: protectedProcedure
-			.input(
-				z.object({
-					turmaId,
-					data: z.coerce.date(),
-					alunos: z
-						.array(
-							z.object({
-								id: z.string().cuid(),
-								estado: z.enum(["PRESENTE", "AUSENTE", "JUSTIFICADO"]),
-							}),
-						)
-						.max(300),
-					monitores: z
-						.array(
-							z.object({
-								id: z.string().cuid(),
-								estado: z.enum(["PRESENTE", "AUSENTE", "JUSTIFICADO"]),
-							}),
-						)
-						.max(50),
-					professores: z
-						.array(
-							z.object({
-								id: z.string().cuid(),
-								estado: z.enum(["PRESENTE", "AUSENTE", "JUSTIFICADO"]),
-							}),
-						)
-						.max(50),
-				}),
-			)
+			.input(salvarPresencasInput)
 			.mutation(async ({ ctx, input }) => {
 				if ((await acessoTurma(ctx, input.turmaId)) === "MONITOR")
 					throw new TRPCError({ code: "FORBIDDEN" });
-				const turma = await ctx.db.turma.findUnique({
-					where: { id: input.turmaId },
-					select: {
-						alunos: { select: { alunoId: true } },
-						monitores: { select: { userId: true } },
-						professores: { select: { userId: true } },
-						eventos: { where: { tipo: "AULA" }, select: { data: true } },
-					},
-				});
-				if (!turma) throw new TRPCError({ code: "NOT_FOUND" });
-				const inicio = new Date(input.data);
-				inicio.setUTCHours(0, 0, 0, 0);
-				const fim = new Date(inicio);
-				fim.setUTCDate(fim.getUTCDate() + 1);
-				if (
-					!turma.eventos.some(
-						(evento: { data: Date }) =>
-							evento.data >= inicio && evento.data < fim,
-					)
-				)
-					throw new TRPCError({
-						code: "BAD_REQUEST",
-						message: "A presença só pode ser registrada em uma data de aula.",
-					});
-				const conferir = (ids: string[], permitidos: string[]) =>
-					ids.every((id) => permitidos.includes(id));
-				if (
-					!conferir(
-						input.alunos.map((p) => p.id),
-						turma.alunos.map((p: { alunoId: string }) => p.alunoId),
-					) ||
-					!conferir(
-						input.monitores.map((p) => p.id),
-						turma.monitores.map((p: { userId: string }) => p.userId),
-					) ||
-					!conferir(
-						input.professores.map((p) => p.id),
-						turma.professores.map((p: { userId: string }) => p.userId),
-					)
-				)
-					throw new TRPCError({
-						code: "BAD_REQUEST",
-						message: "Há pessoas sem vínculo com a turma.",
-					});
-				return ctx.db.$transaction(async (tx: any) => {
-					const registro = await tx.registroPresenca.upsert({
-						where: {
-							turmaId_data: { turmaId: input.turmaId, data: input.data },
-						},
-						create: { turmaId: input.turmaId, data: input.data },
-						update: {},
-					});
-					await tx.presencaAluno.deleteMany({
-						where: { registroId: registro.id },
-					});
-					await tx.presencaMonitor.deleteMany({
-						where: { registroId: registro.id },
-					});
-					await tx.presencaProfessor.deleteMany({
-						where: { registroId: registro.id },
-					});
-					if (input.alunos.length)
-						await tx.presencaAluno.createMany({
-							data: input.alunos.map((p) => ({
-								registroId: registro.id,
-								alunoId: p.id,
-								estado: p.estado,
-							})),
-						});
-					if (input.monitores.length)
-						await tx.presencaMonitor.createMany({
-							data: input.monitores.map((p) => ({
-								registroId: registro.id,
-								monitorId: p.id,
-								estado: p.estado,
-							})),
-						});
-					if (input.professores.length)
-						await tx.presencaProfessor.createMany({
-							data: input.professores.map((p) => ({
-								registroId: registro.id,
-								professorId: p.id,
-								estado: p.estado,
-							})),
-						});
-					return { id: registro.id };
-				});
+				return salvarPresencasDaTurma(ctx.db, input);
 			}),
 	}),
 });

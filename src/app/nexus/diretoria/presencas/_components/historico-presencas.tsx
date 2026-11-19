@@ -5,14 +5,12 @@ import { useGerenciarPresencas } from "./use-gerenciar-presencas";
 type Estado = ReturnType<typeof useGerenciarPresencas>;
 type HistoricoPresencasProps = {
 	registrosOrdenados: NonNullable<Estado["registrosOrdenados"]>;
-	setData: NonNullable<Estado["setData"]>;
 	remover: NonNullable<Estado["remover"]>;
 	turma: NonNullable<Estado["turma"]>;
 };
 
 export function HistoricoPresencas({
 	registrosOrdenados,
-	setData,
 	remover,
 	turma,
 }: HistoricoPresencasProps) {
@@ -29,14 +27,12 @@ export function HistoricoPresencas({
 							key={registro.id}
 							className="flex items-center justify-between px-5 py-3"
 						>
-							<button
-								onClick={() =>
-									setData(registro.data.toISOString().slice(0, 10))
-								}
-								className="text-sm font-medium text-sky-700 hover:underline"
+							<time
+								dateTime={registro.data.toISOString().slice(0, 10)}
+								className="text-sm font-medium text-slate-700"
 							>
-								{registro.data.toLocaleDateString("pt-BR")}
-							</button>
+								{registro.data.toLocaleDateString("pt-BR", { timeZone: "UTC" })}
+							</time>
 							<span className="text-xs text-gray-500">
 								{registro.alunos.length} alunos · {registro.monitores.length}{" "}
 								monitores · {registro.professores.length} docentes
@@ -50,7 +46,7 @@ export function HistoricoPresencas({
 										});
 								}}
 								className="rounded p-2 text-gray-400 hover:bg-red-50 hover:text-red-600"
-								aria-label={`Excluir registro de presença de ${registro.data.toLocaleDateString("pt-BR")}`}
+								aria-label={`Excluir registro de presença de ${registro.data.toLocaleDateString("pt-BR", { timeZone: "UTC" })}`}
 							>
 								<Trash2 className="h-4 w-4" />
 							</button>

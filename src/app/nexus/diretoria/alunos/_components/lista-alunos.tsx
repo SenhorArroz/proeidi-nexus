@@ -119,22 +119,27 @@ export function ListaAlunos({
 								>
 									<User className="w-4 h-4" /> Ver informações
 								</Link>
-								<button
-									onClick={() => handleGerarCertificadoIndividual(aluno)}
-									disabled={gerandoAlunoId === aluno.id}
-									className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-amber-50 px-3 text-xs font-bold text-amber-800 hover:bg-amber-100 disabled:cursor-wait disabled:opacity-60 dark:bg-amber-950/60 dark:text-amber-300 dark:hover:bg-amber-900"
-									title="Gerar certificado PDF deste aluno"
-								>
-									{gerandoAlunoId === aluno.id ? (
-										<>
-											<Loader2 className="w-4 h-4 animate-spin" /> Gerando...
-										</>
-									) : (
-										<>
-											<Award className="w-4 h-4" /> Certificado
-										</>
-									)}
-								</button>
+								{aluno.turmasVinculadas.map((turma) => (
+									<button
+										key={turma.id}
+										type="button"
+										onClick={() => handleGerarCertificadoIndividual(aluno, turma.id)}
+										disabled={gerandoAlunoId !== null}
+										className="flex min-h-11 min-w-0 items-center justify-center gap-2 rounded-xl bg-amber-50 px-3 py-2 text-xs font-bold text-amber-800 hover:bg-amber-100 disabled:opacity-60 dark:bg-amber-950/60 dark:text-amber-300 dark:hover:bg-amber-900"
+										title={`Gerar certificado de ${turma.titulo}`}
+									>
+										{gerandoAlunoId === aluno.id ? (
+											<><Loader2 className="h-4 w-4 shrink-0 animate-spin" /> Gerando...</>
+										) : (
+											<>
+												<Award className="h-4 w-4 shrink-0" aria-hidden="true" />
+												<span className="min-w-0 break-words">
+													{aluno.turmasVinculadas.length > 1 ? `Certificado · ${turma.titulo}` : "Certificado"}
+												</span>
+											</>
+										)}
+									</button>
+								))}
 								<button
 									onClick={() => abrirModalEdicao(aluno)}
 									className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-sky-50 px-3 text-xs font-bold text-sky-800 hover:bg-sky-100 dark:bg-sky-950/60 dark:text-sky-300 dark:hover:bg-sky-900"
