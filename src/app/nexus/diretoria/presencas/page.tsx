@@ -1,5 +1,6 @@
 "use client";
 import { HistoricoPresencas } from "./_components/historico-presencas";
+import { PlanilhasPresencas } from "./_components/planilhas-presencas";
 import { useGerenciarPresencas } from "./_components/use-gerenciar-presencas";
 
 import { Check, ClipboardCheck, Users } from "lucide-react";
@@ -93,6 +94,14 @@ export default function GerenciarPresencas() {
 						</select>
 					</label>
 				</section>
+				{semestre && (
+					<PlanilhasPresencas
+						key={semestre.id}
+						semestreId={semestre.id}
+						codigoSemestre={semestre.codigo}
+						salvandoChamada={chamada.salvando}
+					/>
+				)}
 				{turma ? (
 					<>
 						<div className="flex items-center justify-between gap-3 text-sm text-gray-600">

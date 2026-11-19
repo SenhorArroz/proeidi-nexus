@@ -1,5 +1,10 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import {
+	baixarModeloPresencas,
+	importarPlanilhaPresencas,
+	tipoPlanilhaPresencas,
+} from "~/server/planilha-presencas";
 import { salvarPresencasDaTurma, salvarPresencasInput } from "~/server/presencas";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
@@ -772,6 +777,19 @@ export const diretoriaRouter = createTRPCRouter({
 	}),
 
 	presencas: createTRPCRouter({
+		baixarModelo: directorProcedure
+			.input(z.object({ semestreId: id, tipo: tipoPlanilhaPresencas }))
+			.mutation(({ ctx, input }) =>
+				baixarModeloPresencas(ctx.db, input.semestreId, input.tipo),
+			),
+		importarPlanilha: directorProcedure
+			.input(z.object({
+				semestreId: id,
+				arquivoBase64: z.string().min(1).max(2_796_204, "O arquivo XLSX deve ter até 2 MB."),
+			}))
+			.mutation(({ ctx, input }) =>
+				importarPlanilhaPresencas(ctx.db, input.semestreId, input.arquivoBase64),
+			),
 		list: directorProcedure
 			.input(z.object({ turmaId: id }))
 			.query(({ ctx, input }) =>

@@ -18,6 +18,7 @@ export const salvarPresencasInput = z.object({
 });
 
 type Entrada = z.infer<typeof salvarPresencasInput>;
+export type MarcacoesDaTurma = Omit<Entrada, "modoEquipe">;
 type Pessoa = z.infer<typeof pessoa>;
 
 async function registroDoDia(
@@ -54,30 +55,92 @@ async function salvarEquipe(
 	professores: Pessoa[],
 ) {
 	const registroId = registro.id;
-	for (const { id: monitorId, estado } of monitores) {
-		await tx.presencaMonitor.upsert({
-			where: { registroId_monitorId: { registroId, monitorId } },
-			update: { estado },
-			create: { registroId, monitorId, estado },
-		});
-		if (registro.outrosIds.length)
+	const registros = { in: [registroId, ...registro.outrosIds] };
+	for (const estado of ["PRESENTE", "AUSENTE", "JUSTIFICADO"] as const) {
+		const monitorIds = monitores
+			.filter((pessoa) => pessoa.estado === estado)
+			.map(({ id }) => id);
+		if (monitorIds.length)
 			await tx.presencaMonitor.updateMany({
-				where: { registroId: { in: registro.outrosIds }, monitorId },
+				where: { registroId: registros, monitorId: { in: monitorIds } },
 				data: { estado },
 			});
-	}
-	for (const { id: professorId, estado } of professores) {
-		await tx.presencaProfessor.upsert({
-			where: { registroId_professorId: { registroId, professorId } },
-			update: { estado },
-			create: { registroId, professorId, estado },
-		});
-		if (registro.outrosIds.length)
+		const professorIds = professores
+			.filter((pessoa) => pessoa.estado === estado)
+			.map(({ id }) => id);
+		if (professorIds.length)
 			await tx.presencaProfessor.updateMany({
-				where: { registroId: { in: registro.outrosIds }, professorId },
+				where: { registroId: registros, professorId: { in: professorIds } },
 				data: { estado },
 			});
 	}
+	if (monitores.length)
+		await tx.presencaMonitor.createMany({
+			data: monitores.map(({ id: monitorId, estado }) => ({
+				registroId,
+				monitorId,
+				estado,
+			})),
+			skipDuplicates: true,
+		});
+	if (professores.length)
+		await tx.presencaProfessor.createMany({
+			data: professores.map(({ id: professorId, estado }) => ({
+				registroId,
+				professorId,
+				estado,
+			})),
+			skipDuplicates: true,
+		});
+}
+
+export async function salvarMarcacoesDaTurma(
+	tx: Prisma.TransactionClient,
+	input: MarcacoesDaTurma,
+	alunosPadrao = new Set<string>(),
+) {
+	const registro = await registroDoDia(tx, input.turmaId, input.data);
+	const registroId = registro.id;
+	if (input.alunos.length) {
+		const marcacoes = new Map(
+			input.alunos.map(({ id, estado }) => [id, estado]),
+		);
+		for (const estado of ["PRESENTE", "AUSENTE", "JUSTIFICADO"] as const) {
+			const alunoIds = [...marcacoes]
+				.filter(([, valor]) => valor === estado)
+				.map(([id]) => id);
+			if (alunoIds.length)
+				await tx.presencaAluno.updateMany({
+					where: {
+						registroId: { in: [registroId, ...registro.outrosIds] },
+						alunoId: { in: alunoIds },
+					},
+					data: { estado },
+				});
+		}
+		const alunosDeOutrosRegistros =
+			alunosPadrao.size && registro.outrosIds.length
+				? await tx.presencaAluno.findMany({
+						where: { registroId: { in: registro.outrosIds } },
+						select: { alunoId: true },
+					})
+				: [];
+		const jaRegistrados = new Set(
+			alunosDeOutrosRegistros.map(({ alunoId }) => alunoId),
+		);
+		await tx.presencaAluno.createMany({
+			data: [...new Set([...marcacoes.keys(), ...alunosPadrao])]
+				.filter((id) => marcacoes.has(id) || !jaRegistrados.has(id))
+				.map((alunoId) => ({
+					registroId,
+					alunoId,
+					estado: marcacoes.get(alunoId) ?? "PRESENTE",
+				})),
+			skipDuplicates: true,
+		});
+	}
+	await salvarEquipe(tx, registro, input.monitores, input.professores);
+	return { id: registroId };
 }
 
 async function registrarPresencas(
@@ -115,46 +178,7 @@ async function registrarPresencas(
 			message: "Há pessoas sem vínculo com a turma.",
 		});
 
-	const registro = await registroDoDia(tx, input.turmaId, input.data);
-	const registroId = registro.id;
-	if (input.alunos.length) {
-		const marcacoes = new Map(
-			input.alunos.map(({ id, estado }) => [id, estado]),
-		);
-		for (const estado of ["PRESENTE", "AUSENTE", "JUSTIFICADO"] as const) {
-			const alunoIds = [...marcacoes]
-				.filter(([, valor]) => valor === estado)
-				.map(([id]) => id);
-			if (alunoIds.length)
-				await tx.presencaAluno.updateMany({
-					where: {
-						registroId: { in: [registroId, ...registro.outrosIds] },
-						alunoId: { in: alunoIds },
-					},
-					data: { estado },
-				});
-		}
-		const alunosDeOutrosRegistros = registro.outrosIds.length
-			? await tx.presencaAluno.findMany({
-					where: { registroId: { in: registro.outrosIds } },
-					select: { alunoId: true },
-				})
-			: [];
-		const jaRegistrados = new Set(
-			alunosDeOutrosRegistros.map(({ alunoId }) => alunoId),
-		);
-		await tx.presencaAluno.createMany({
-			data: [...alunos]
-				.filter((id) => marcacoes.has(id) || !jaRegistrados.has(id))
-				.map((alunoId) => ({
-					registroId,
-					alunoId,
-					estado: marcacoes.get(alunoId) ?? "PRESENTE",
-				})),
-			skipDuplicates: true,
-		});
-	}
-	await salvarEquipe(tx, registro, input.monitores, input.professores);
+	const { id: registroId } = await salvarMarcacoesDaTurma(tx, input, alunos);
 
 	if (!input.monitores.length && !input.professores.length)
 		return { id: registroId };
@@ -206,10 +230,15 @@ async function registrarPresencas(
 	return { id: registroId };
 }
 
-export async function salvarPresencasDaTurma(db: PrismaClient, input: Entrada) {
+export async function transacaoPresencas<T>(
+	db: PrismaClient,
+	salvar: (tx: Prisma.TransactionClient) => Promise<T>,
+	timeout?: number,
+) {
 	for (let tentativa = 1; ; tentativa++) {
 		try {
-			return await db.$transaction((tx) => registrarPresencas(tx, input), {
+			return await db.$transaction(salvar, {
+				timeout,
 				isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
 			});
 		} catch (erro) {
@@ -221,4 +250,8 @@ export async function salvarPresencasDaTurma(db: PrismaClient, input: Entrada) {
 				throw erro;
 		}
 	}
+}
+
+export function salvarPresencasDaTurma(db: PrismaClient, input: Entrada) {
+	return transacaoPresencas(db, (tx) => registrarPresencas(tx, input));
 }

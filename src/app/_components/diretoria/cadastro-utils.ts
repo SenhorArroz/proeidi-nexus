@@ -1,12 +1,11 @@
 /** Shared formatting and downloads used by the Directorate registration views. */
 export function downloadBase64Pdf(base64Data: string, filename: string) {
-	const byteCharacters = atob(base64Data);
-	const byteNumbers = new Array(byteCharacters.length);
-	for (let i = 0; i < byteCharacters.length; i++) {
-		byteNumbers[i] = byteCharacters.charCodeAt(i);
-	}
-	const byteArray = new Uint8Array(byteNumbers);
-	const blob = new Blob([byteArray], { type: "application/pdf" });
+	downloadBase64(base64Data, filename, "application/pdf");
+}
+
+export function downloadBase64(base64Data: string, filename: string, type: string) {
+	const bytes = Uint8Array.from(atob(base64Data), (char) => char.charCodeAt(0));
+	const blob = new Blob([bytes], { type });
 	const url = URL.createObjectURL(blob);
 	const a = document.createElement("a");
 	a.href = url;
