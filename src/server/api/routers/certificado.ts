@@ -47,34 +47,27 @@ function dadosCertificado(aluno: Aluno, turma: Turma) {
 			.filter(({ estado }) => estado === "PRESENTE")
 			.map(({ registro }) => diaCalendario(registro.data)),
 	);
-	if (!diasPresentes.size) return null;
-
 	const diasDeFalta = new Set(
 		presencas
 			.filter(({ estado }) => estado === "AUSENTE")
 			.map(({ registro }) => diaCalendario(registro.data))
 			.filter((dia) => !diasPresentes.has(dia)),
 	);
-	const cargaHoraria = Math.max(
-		0,
-		12 - Math.max(0, diasDeFalta.size - 3) * 1.5,
-	);
+	const cargaHoraria = diasPresentes.size
+		? Math.max(0, 12 - Math.max(0, diasDeFalta.size - 3) * 1.5)
+		: 0;
 	const periodo =
 		periodoDasAulas(turma.eventos) ??
 		periodoDasAulas(presencas.map(({ registro }) => registro));
-	if (!periodo) return null;
-
 	return {
 		nome: aluno.nome,
 		curso: turma.titulo,
 		cargaHoraria: `${cargaHoraria.toLocaleString("pt-BR")} horas`,
-		...periodo,
+		periodo,
 	};
 }
 
-async function gerarPdf(
-	certificados: NonNullable<ReturnType<typeof dadosCertificado>>[],
-) {
+async function gerarPdf(certificados: ReturnType<typeof dadosCertificado>[]) {
 	const pdf = await PDFDocument.create();
 	const normal = await pdf.embedFont(StandardFonts.Helvetica);
 	const negrito = await pdf.embedFont(StandardFonts.HelveticaBold);
@@ -111,12 +104,16 @@ async function gerarPdf(
 				font: negrito,
 				color: azulUfrn,
 			},
-			{ text: " no período de ", font: normal, color: cor },
-			{ text: certificado.inicio, font: negrito, color: cor },
-			{ text: " a ", font: normal, color: cor },
-			{ text: certificado.fim, font: negrito, color: cor },
-			{ text: ".", font: normal, color: cor },
 		];
+		if (certificado.periodo) {
+			spans.push(
+				{ text: " no período de ", font: normal, color: cor },
+				{ text: certificado.periodo.inicio, font: negrito, color: cor },
+				{ text: " a ", font: normal, color: cor },
+				{ text: certificado.periodo.fim, font: negrito, color: cor },
+			);
+		}
+		spans.push({ text: ".", font: normal, color: cor });
 		desenharParagrafoFormatado(pagina, spans, {
 			x: 96,
 			y: 340,
@@ -149,13 +146,6 @@ export const certificadoRouter = createTRPCRouter({
 				});
 
 			const certificado = dadosCertificado(aluno, turma);
-			if (!certificado)
-				throw new TRPCError({
-					code: "BAD_REQUEST",
-					message:
-						"O aluno precisa ter pelo menos uma presença nesta turma para receber o certificado.",
-				});
-
 			return {
 				arquivoBase64: await gerarPdf([certificado]),
 				nomeArquivo: `Certificado_${aluno.nome.replace(/\s+/g, "_")}_${turma.titulo.replace(/[^\p{L}\p{N}._-]+/gu, "_")}.pdf`,
@@ -193,17 +183,13 @@ export const certificadoRouter = createTRPCRouter({
 							turma.semestreId === aluno.semestreId &&
 							(!input.turmaId || turma.id === input.turmaId),
 					)
-					.flatMap(({ turma }) => {
-						const certificado = dadosCertificado(aluno, turma);
-						return certificado ? [certificado] : [];
-					}),
+					.map(({ turma }) => dadosCertificado(aluno, turma)),
 			);
 
 			if (!certificados.length)
 				throw new TRPCError({
 					code: "BAD_REQUEST",
-					message:
-						"Nenhum aluno tem presença confirmada nas turmas selecionadas.",
+					message: "Nenhum aluno está matriculado nas turmas selecionadas.",
 				});
 
 			return {
