@@ -9,6 +9,23 @@ export async function carregarModeloCertificado(arquivo: string) {
 	return PDFDocument.load(modelo);
 }
 
+const particulasDoNome = new Set(["da", "das", "de", "do", "dos", "e"]);
+
+export function formatarNomeCertificado(nome: string) {
+	return nome
+		.trim()
+		.toLocaleLowerCase("pt-BR")
+		.split(/\s+/)
+		.map((parte, indice) =>
+			indice > 0 && particulasDoNome.has(parte)
+				? parte
+				: parte.replace(/(^|[-'’])\p{L}/gu, (inicio) =>
+						inicio.toLocaleUpperCase("pt-BR"),
+					),
+		)
+		.join(" ");
+}
+
 const formatoData = new Intl.DateTimeFormat("pt-BR", {
 	dateStyle: "long",
 	timeZone: "UTC",

@@ -7,6 +7,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
 import {
 	carregarModeloCertificado,
 	desenharParagrafoFormatado,
+	formatarNomeCertificado,
 	periodoDasAulas,
 	type TextSpan,
 } from "~/server/certificado-pdf";
@@ -60,7 +61,7 @@ function dadosCertificado(aluno: Aluno, turma: Turma) {
 		periodoDasAulas(turma.eventos) ??
 		periodoDasAulas(presencas.map(({ registro }) => registro));
 	return {
-		nome: aluno.nome,
+		nome: formatarNomeCertificado(aluno.nome),
 		curso: turma.titulo,
 		cargaHoraria: `${cargaHoraria.toLocaleString("pt-BR")} horas`,
 		periodo,

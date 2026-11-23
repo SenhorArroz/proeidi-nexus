@@ -7,6 +7,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
 import {
 	carregarModeloCertificado,
 	desenharParagrafoFormatado,
+	formatarNomeCertificado,
 	periodoDasAulas,
 	type TextSpan,
 } from "~/server/certificado-pdf";
@@ -84,7 +85,7 @@ function dadosCertificado(usuario: Usuario, tipo: TipoCertificado) {
 	].sort();
 
 	return {
-		nome: usuario.nome,
+		nome: formatarNomeCertificado(usuario.nome),
 		matricula: usuario.matricula,
 		cursos: cursos.length ? cursos : ["Inclusão Digital"],
 		cargaHoraria: diasPresentes.size * 6,
