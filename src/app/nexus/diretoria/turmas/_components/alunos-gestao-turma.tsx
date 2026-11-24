@@ -11,6 +11,10 @@ type AlunosGestaoTurmaProps = Pick<
 	"turma" | "onChange" | "salvando"
 >;
 
+const comparadorDeNomes = new Intl.Collator("pt-BR", { sensitivity: "base" });
+const compararPorNome = (a: { nome: string }, b: { nome: string }) =>
+	comparadorDeNomes.compare(a.nome, b.nome);
+
 export function AlunosGestaoTurma({
 	turma,
 	onChange,
@@ -42,7 +46,7 @@ export function AlunosGestaoTurma({
 	const secoes = [
 		{
 			titulo: "Alunos vinculados",
-			alunos: vinculados.filter(correspondeAoNome),
+			alunos: vinculados.filter(correspondeAoNome).sort(compararPorNome),
 			vinculados: true,
 			mensagem: vinculados.length
 				? "Nenhum aluno vinculado encontrado com esse nome."
@@ -52,7 +56,8 @@ export function AlunosGestaoTurma({
 			titulo: "Alunos disponíveis",
 			alunos: alunosDb
 				.filter((aluno) => !idsVinculados.has(aluno.id))
-				.filter(correspondeAoNome),
+				.filter(correspondeAoNome)
+				.sort(compararPorNome),
 			vinculados: false,
 			mensagem: buscaNormalizada
 				? "Nenhum aluno disponível encontrado com esse nome."
