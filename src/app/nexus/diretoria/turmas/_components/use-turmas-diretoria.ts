@@ -42,15 +42,18 @@ export function useTurmasDiretoria() {
 		api.diretoria.usuarios.list.useQuery({
 			role: "MONITOR",
 		});
-	const { data: alunosDb } = api.aluno.list.useQuery(
-		{ semestreId: semestreSelecionado?.id ?? "c0000000000000000000000000" },
-		{ enabled: Boolean(semestreSelecionado) },
-	);
+	const invalidarVinculos = (turmaId: string) =>
+		Promise.all([
+			utils.diretoria.turmas.list.invalidate(),
+			utils.aluno.list.invalidate(),
+			utils.turma.minhas.invalidate(),
+			utils.turma.detalhe.invalidate({ id: turmaId }),
+		]);
 	const criar = api.diretoria.turmas.create.useMutation({
-		onSuccess: () => utils.diretoria.turmas.list.invalidate(),
+		onSuccess: (turma) => invalidarVinculos(turma.id),
 	});
 	const atualizar = api.diretoria.turmas.update.useMutation({
-		onSuccess: () => utils.diretoria.turmas.list.invalidate(),
+		onSuccess: (turma) => invalidarVinculos(turma.id),
 	});
 	const remover = api.diretoria.turmas.remove.useMutation({
 		onSuccess: () => utils.diretoria.turmas.list.invalidate(),
@@ -181,7 +184,6 @@ export function useTurmasDiretoria() {
 			} else {
 				await criar.mutateAsync(payload);
 			}
-			await utils.diretoria.turmas.list.invalidate();
 			setModo("lista");
 		} catch (erro) {
 			alert(
@@ -212,7 +214,6 @@ export function useTurmasDiretoria() {
 		modo,
 		rascunho,
 		semestres,
-		alunosDb,
 		docentesDb,
 		monitoresDb,
 		setRascunho,

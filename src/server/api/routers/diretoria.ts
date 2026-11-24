@@ -158,6 +158,7 @@ const turmaInput = z.object({
 async function validateTurmaRelations(
 	ctx: { db: any },
 	input: z.infer<typeof turmaInput>,
+	alunoIdsJaVinculados: string[] = [],
 ) {
 	const [professores, monitores, alunos] = await Promise.all([
 		ctx.db.user.findMany({
@@ -172,7 +173,13 @@ async function validateTurmaRelations(
 			select: { id: true },
 		}),
 		ctx.db.aluno.findMany({
-			where: { id: { in: input.alunoIds }, semestreId: input.semestreId },
+			where: {
+				id: { in: input.alunoIds },
+				OR: [
+					{ semestreId: input.semestreId },
+					{ id: { in: alunoIdsJaVinculados } },
+				],
+			},
 			select: { id: true },
 		}),
 	]);
@@ -991,7 +998,6 @@ export const diretoriaRouter = createTRPCRouter({
 		update: directorProcedure
 			.input(turmaInput.extend({ id }))
 			.mutation(async ({ ctx, input }) => {
-				await validateTurmaRelations(ctx, input);
 				const [existing, semestreDestino] = await Promise.all([
 					ctx.db.turma.findUnique({
 						where: { id: input.id },
@@ -1014,18 +1020,17 @@ export const diretoriaRouter = createTRPCRouter({
 					});
 				}
 				const mudouSemestre = existing.semestreId !== input.semestreId;
-				const alunosVinculados = existing.alunos.map((aluno) => aluno.alunoId);
-				const alunoIds = Array.from(
-					new Set([
-						...input.alunoIds,
-						...(mudouSemestre ? alunosVinculados : []),
-					]),
+				const alunosJaVinculados = existing.alunos.map((aluno) => aluno.alunoId);
+				await validateTurmaRelations(ctx, input, alunosJaVinculados);
+				const alunoIds = [...new Set(input.alunoIds)];
+				const alunosMantidos = alunosJaVinculados.filter((alunoId) =>
+					alunoIds.includes(alunoId),
 				);
 				return ctx.db.$transaction(async (tx: any) => {
-					if (mudouSemestre && alunosVinculados.length) {
+					if (mudouSemestre && alunosMantidos.length) {
 						await tx.aluno.updateMany({
 							where: {
-								id: { in: alunosVinculados },
+								id: { in: alunosMantidos },
 								semestreId: existing.semestreId,
 							},
 							data: { semestreId: input.semestreId },

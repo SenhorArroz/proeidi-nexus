@@ -4,12 +4,6 @@ import { VisaoGeralGestaoTurma } from "./visao-geral-gestao-turma";
 export type GestaoTurmaProps = {
 	turma: Turma;
 	semestres: Array<{ id: string; codigo: string }>;
-	alunosDb: Array<{
-		id: string;
-		nome: string;
-		email?: string | null;
-		telefone?: string | null;
-	}>;
 	docentesDb: Array<{ id: string; nome: string; email?: string | null }>;
 	monitoresDb: Array<{ id: string; nome: string; email?: string | null }>;
 	onChange: (turma: Turma) => void;
@@ -25,18 +19,19 @@ import {
 	DoorOpen,
 	ShieldCheck,
 	TriangleAlert,
+	Users,
 } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 import { useAccessibility } from "~/app/_components/accessibility-preferences";
 import { api } from "~/trpc/react";
+import { AlunosGestaoTurma } from "./alunos-gestao-turma";
 import { AulasEditor } from "./aulas-editor";
 import { type AbaGestaoTurma, luminosidadeHex, type Turma } from "./suporte";
 
 export function JanelaGestaoTurma({
 	turma,
 	semestres,
-	alunosDb: _alunosDb,
 	docentesDb,
 	monitoresDb,
 	onChange,
@@ -107,6 +102,7 @@ export function JanelaGestaoTurma({
 	}> = [
 		{ id: "visao", label: "Visão geral", Icon: DoorOpen },
 		{ id: "equipe", label: "Equipe", Icon: ShieldCheck },
+		{ id: "alunos", label: "Alunos", Icon: Users },
 		{ id: "calendario", label: "Calendário", Icon: CalendarDays },
 	];
 
@@ -176,6 +172,7 @@ export function JanelaGestaoTurma({
 						<button
 							key={id}
 							onClick={() => setAba(id)} data-tour={`turma-${id}`}
+							aria-current={aba === id ? "true" : undefined}
 							className="flex min-h-13 shrink-0 items-center gap-2 border-b-2 px-4 text-sm font-semibold transition"
 							style={{
 								borderColor: aba === id ? turma.corDestaque : "transparent",
@@ -212,7 +209,7 @@ export function JanelaGestaoTurma({
 										.
 									</p>
 									<p className="mt-2 text-sm">
-										Ajuste os vínculos pela lista de alunos ou altere o limite
+										Ajuste os vínculos na aba Alunos ou altere o limite
 										na aba Visão geral.
 									</p>
 								</div>
@@ -242,6 +239,14 @@ export function JanelaGestaoTurma({
 							corFundo={corFundo}
 							corTexto={corTexto}
 							corDescricao={corDescricao}
+						/>
+					)}
+
+					{aba === "alunos" && (
+						<AlunosGestaoTurma
+							turma={turma}
+							onChange={onChange}
+							salvando={salvando}
 						/>
 					)}
 

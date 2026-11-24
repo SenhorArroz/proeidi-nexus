@@ -16,7 +16,6 @@ export default function TurmasDiretoria() {
 		modo,
 		rascunho,
 		semestres,
-		alunosDb,
 		docentesDb,
 		monitoresDb,
 		setRascunho,
@@ -44,7 +43,6 @@ export default function TurmasDiretoria() {
 			<JanelaGestaoTurma
 				turma={rascunho}
 				semestres={semestres ?? []}
-				alunosDb={alunosDb ?? []}
 				docentesDb={docentesDb}
 				monitoresDb={monitoresDb ?? []}
 				onChange={setRascunho}
