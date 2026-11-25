@@ -150,11 +150,7 @@ function Podio({
 							}}
 						>
 							<span className={styles.lider}>
-								<span
-									className={`${styles.posicaoPodio} bg-linear-to-r to-blue-100 hover:to-amber-100 transition-colors delay-150 duration-300`}
-								>
-									{lugar}º
-								</span>
+								<span className={styles.posicaoPodio}>{lugar}º</span>
 								<span className={styles.nomeLider}>{equipe.nome}</span>
 								<span className={styles.total}>
 									{total} <small>pts</small>

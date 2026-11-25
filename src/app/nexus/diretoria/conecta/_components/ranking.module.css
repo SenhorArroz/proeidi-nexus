@@ -1,5 +1,6 @@
 .ranking {
 	--ranking-fundo: var(--nexus-surface);
+	--ranking-fundo-card: var(--nexus-surface-soft);
 	--ranking-texto: var(--nexus-ink);
 	--ranking-secundario: var(--nexus-muted);
 	--ranking-borda: var(--nexus-line);
@@ -142,11 +143,22 @@
 }
 
 .posicaoPodio {
+	--mistura-posicao: var(--ranking-mistura);
 	min-width: clamp(2rem, 5vw, 3rem);
 	min-height: clamp(2rem, 5vw, 3rem);
 	border: 2px solid
 		color-mix(in srgb, var(--cor-equipe-inicial) 65%, var(--ranking-texto));
+	background-color: color-mix(
+		in srgb,
+		var(--cor-equipe-inicial) var(--mistura-posicao),
+		var(--ranking-fundo)
+	);
+	color: var(--ranking-texto);
 	font-size: clamp(0.85rem, 1.9vw, 1.15rem);
+}
+
+.botaoPodio[aria-expanded="true"] .posicaoPodio {
+	--mistura-posicao: calc(2 * var(--ranking-mistura));
 }
 
 [data-lugar="1"] .posicaoPodio {
@@ -302,7 +314,7 @@
 	background:
 		linear-gradient(115deg, var(--cor-equipe-inicial), var(--cor-equipe-final))
 		top / 100% 0.25rem no-repeat,
-		linear-gradient(115deg, white);
+		var(--ranking-fundo-card);
 }
 
 .resumoEquipe {
@@ -443,6 +455,7 @@
 
 :global(html[data-contrast="high"]) .ranking {
 	--ranking-fundo: var(--contrast-surface);
+	--ranking-fundo-card: var(--contrast-surface);
 	--ranking-texto: var(--contrast-ink);
 	--ranking-secundario: var(--contrast-ink);
 	--ranking-borda: var(--contrast-border);
@@ -453,6 +466,10 @@
 
 :global(html[data-contrast="high"]) .palco {
 	background: var(--ranking-fundo);
+}
+
+:global(html[data-contrast="high"]) .posicaoPodio {
+	border-color: var(--ranking-borda);
 }
 
 :global(html[data-contrast="high"]) .iconeAtividade {
