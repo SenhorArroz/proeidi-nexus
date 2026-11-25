@@ -3,16 +3,14 @@ import {
 	ChevronDown,
 	Download,
 	Hash,
-	Loader2,
 	Monitor,
 	SlidersHorizontal,
 	Smartphone,
 	Trash2,
-	UserCircle2,
 	Users,
 } from "lucide-react";
 import { exportarResultados, LIMITE_DE_EXCLUSOES } from "./suporte";
-import { useSorteadorOrganico } from "./use-sorteador-organico";
+import type { useSorteadorOrganico } from "./use-sorteador-organico";
 
 type Estado = ReturnType<typeof useSorteadorOrganico>;
 type PainelSorteadorProps = {
@@ -42,6 +40,8 @@ type PainelSorteadorProps = {
 	candidatos: NonNullable<Estado["candidatos"]>;
 	resetar: NonNullable<Estado["resetar"]>;
 };
+
+import { ResultadoSorteio } from "./resultado-sorteio";
 
 export function PainelSorteador({
 	semestreSelecionado,
@@ -118,7 +118,8 @@ export function PainelSorteador({
 						<div className="grid min-w-0 grid-cols-2 rounded-xl bg-gray-100 p-1">
 							<button
 								type="button"
-								onClick={() => setModo("vinculado")} data-tour="sorteador-vinculado"
+								onClick={() => setModo("vinculado")}
+								data-tour="sorteador-vinculado"
 								className={`flex min-h-11 min-w-0 items-center justify-center gap-1.5 rounded-lg px-1 py-2 text-xs font-semibold tracking-wide transition-all ${
 									modo === "vinculado"
 										? "bg-white shadow-sm text-sky-600 ring-1 ring-gray-200"
@@ -130,7 +131,8 @@ export function PainelSorteador({
 							</button>
 							<button
 								type="button"
-								onClick={() => setModo("simples")} data-tour="sorteador-simples"
+								onClick={() => setModo("simples")}
+								data-tour="sorteador-simples"
 								className={`flex min-h-11 min-w-0 items-center justify-center gap-1.5 rounded-lg px-1 py-2 text-xs font-semibold tracking-wide transition-all ${
 									modo === "simples"
 										? "bg-white shadow-sm text-sky-600 ring-1 ring-gray-200"
@@ -177,7 +179,10 @@ export function PainelSorteador({
 					</div>
 
 					{modo === "vinculado" && (
-						<div data-tour="sorteador-vinculado-dados" className="sorteador-availability rounded-xl border border-sky-100 bg-sky-50 px-3 py-2.5 text-center">
+						<div
+							data-tour="sorteador-vinculado-dados"
+							className="sorteador-availability rounded-xl border border-sky-100 bg-sky-50 px-3 py-2.5 text-center"
+						>
 							<p className="text-xs font-semibold text-sky-800">
 								{candidatosDoModulo.length} ficha(s) de {deviceType}{" "}
 								disponível(is)
@@ -308,48 +313,12 @@ export function PainelSorteador({
 				</div>
 
 				{/* Área de resultado (Modificada para exibir o nome) */}
-				<div className="sorteador-result relative flex min-h-[clamp(7rem,16vh,11rem)] min-w-0 flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl border border-gray-200 bg-sky-50/50 px-3 py-3 sm:px-4">
-					{isAnimating ? (
-						<div className="flex flex-col items-center gap-3">
-							<Loader2 className="h-8 w-8 animate-spin text-sky-600/50" />
-							<div className="flex flex-col items-center text-center">
-								<span className="animate-pulse text-xs font-semibold tracking-[0.25em] text-sky-600">
-									PROCESSANDO
-								</span>
-								<span className="mt-1 font-mono text-xs text-sky-600/60">
-									Entropy shift...
-								</span>
-							</div>
-						</div>
-					) : results.length > 0 ? (
-						<div className="text-center animate-in zoom-in duration-500 w-full flex flex-col items-center justify-center">
-							<div className="text-6xl font-black leading-none tracking-tighter text-sky-600 sm:text-7xl">
-								{results[0]}
-							</div>
-
-							{/* Badge do dispositivo e Nome do Candidato */}
-							{ganhadorAtual ? (
-								<div className="mt-3 flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 px-3 py-1.5 rounded-full shadow-sm max-w-full">
-									<UserCircle2 className="h-4 w-4 shrink-0" />
-									<span className="min-w-0 truncate text-sm font-bold">
-										{ganhadorAtual}
-									</span>
-								</div>
-							) : (
-								<div className="mt-3 inline-block rounded-full bg-amber-500 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-white">
-									{deviceType} registrado
-								</div>
-							)}
-						</div>
-					) : (
-						<div className="flex flex-col items-center opacity-20">
-							<div className="w-16 h-1 bg-gray-400 mb-2 rounded-full" />
-							<span className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500">
-								Standby
-							</span>
-						</div>
-					)}
-				</div>
+				<ResultadoSorteio
+					isAnimating={isAnimating}
+					numero={results[0]}
+					ganhadorAtual={ganhadorAtual}
+					deviceType={deviceType}
+				/>
 
 				{/* Ação principal */}
 				<button

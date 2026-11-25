@@ -1,79 +1,20 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, CircleHelp, X } from "lucide-react";
+import { CircleHelp } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { api } from "~/trpc/react";
+import {
+	encontrarAlvo,
+	encontrarVisivel,
+	posicionarPainel,
+	type Retangulo,
+} from "./screen-tour/alvo-tour";
+import { PainelTour } from "./screen-tour/painel-tour";
 import { guiaParaRota, type TourRole, type TourStep } from "./tour-content";
 
 type EstadoAtivo = { chave: string; indice: number };
-type Retangulo = { top: number; left: number; width: number; height: number };
-
-function normalizar(texto: string) {
-	return texto
-		.normalize("NFD")
-		.replace(/[\u0300-\u036f]/g, "")
-		.replace(/\s+/g, " ")
-		.trim()
-		.toLowerCase();
-}
-
-function visivel(elemento: HTMLElement) {
-	const detalhes = elemento.closest("details:not([open])");
-	if (
-		detalhes &&
-		!detalhes.querySelector(":scope > summary")?.contains(elemento)
-	)
-		return false;
-	const rect = elemento.getBoundingClientRect();
-	const estilo = window.getComputedStyle(elemento);
-	return (
-		rect.width > 0 &&
-		rect.height > 0 &&
-		estilo.visibility !== "hidden" &&
-		estilo.display !== "none"
-	);
-}
-
-function encontrarVisivel(raiz: ParentNode, seletor: string) {
-	return Array.from(raiz.querySelectorAll<HTMLElement>(seletor)).find(visivel);
-}
-
-function encontrarAlvo(passo: TourStep): HTMLElement | null {
-	if (!passo.alvo) return null;
-	const conteudo =
-		document.querySelector<HTMLElement>(".nexus-main") ?? document.body;
-	if (passo.alvo.seletor) {
-		const elemento = encontrarVisivel(conteudo, passo.alvo.seletor);
-		if (elemento) return elemento;
-		if (passo.alvo.seletor === ".nexus-sidebar")
-			return encontrarVisivel(document, passo.alvo.seletor) ?? null;
-	}
-	if (!passo.alvo.rotulos?.length)
-		return passo.alvo.alternativa
-			? (encontrarVisivel(conteudo, passo.alvo.alternativa) ?? null)
-			: null;
-	const candidatos = Array.from(
-		conteudo.querySelectorAll<HTMLElement>("button, a, [role='button']"),
-	);
-	for (const rotulo of passo.alvo.rotulos) {
-		const esperado = normalizar(rotulo);
-		const alvo = candidatos.find((elemento) => {
-			if (!visivel(elemento)) return false;
-			const nome = normalizar(
-				elemento.getAttribute("aria-label") ??
-					elemento.getAttribute("title") ??
-					elemento.textContent ??
-					"",
-			);
-			return nome.includes(esperado);
-		});
-		if (alvo) return alvo;
-	}
-	return null;
-}
-
 export function ScreenTour() {
 	const pathname = usePathname();
 	const deveConsultar = !["/nexus/login", "/nexus/redefinir-senha"].includes(
@@ -299,45 +240,33 @@ export function ScreenTour() {
 
 	const indice = ativo?.chave === guia.chave ? ativo.indice : -1;
 	const passoAtual = indice >= 0 ? guia.passos[indice] : undefined;
-	const pequeno = window.innerWidth < 640;
-	const larguraPainel = 360;
-	const painel: React.CSSProperties = {
-		right: 16,
-		bottom: 16,
-		width: `min(${larguraPainel}px, calc(100vw - 2rem))`,
-	};
-	if (retangulo) {
-		const direita = retangulo.left + retangulo.width + 14;
-		const esquerda = retangulo.left - larguraPainel - 14;
-		const cabeADireita = direita + larguraPainel <= window.innerWidth - 16;
-		if (!pequeno && (cabeADireita || esquerda >= 16)) {
-			delete painel.bottom;
-			delete painel.right;
-			painel.left = cabeADireita ? direita : esquerda;
-			painel.top = Math.max(
-				16,
-				Math.min(retangulo.top, window.innerHeight - alturaPainel - 16),
-			);
-		} else {
-			const abaixo = retangulo.top + retangulo.height + 14;
-			const espacoAbaixo = window.innerHeight - abaixo - 16;
-			const espacoAcima = retangulo.top - 14 - 16;
-			const maiorEspaco = Math.max(espacoAbaixo, espacoAcima);
-			if (maiorEspaco >= 200) {
-				painel.maxHeight = maiorEspaco;
-				if (espacoAbaixo >= espacoAcima) {
-					delete painel.bottom;
-					painel.top = abaixo;
-				} else {
-					painel.bottom = window.innerHeight - retangulo.top + 14;
-				}
-			}
-		}
-	}
 	const irPara = (destino: number) => {
 		fecharPrevia(guia.passos[destino]);
 		setAtivo({ chave: guia.chave, indice: destino });
 		setErro("");
+	};
+
+	const mostrarPrevia = () => {
+		const previa = passoAtual?.previa;
+		if (!previa) return;
+		const abrir = encontrarVisivel(
+			document.querySelector(".nexus-main") ?? document.body,
+			previa.abrir,
+		);
+		if (!abrir || abrir.matches(":disabled")) return;
+		if (previa.fechar)
+			fecharPreviaRef.current = {
+				pathname,
+				seletor: previa.fechar,
+			};
+		abrir.click();
+		dialogRef.current?.focus({ preventScroll: true });
+	};
+	const avancar = () => {
+		setErro("");
+		if (indice === guia.passos.length - 1)
+			concluir.mutate({ tela: guia.chave });
+		else irPara(indice + 1);
 	};
 
 	return createPortal(
@@ -358,171 +287,23 @@ export function ScreenTour() {
 				</button>
 			)}
 			{passoAtual && (
-				<>
-					<div
-						className={`fixed inset-0 z-[70] ${retangulo ? "" : "bg-slate-950/65"}`}
-						aria-hidden="true"
-					/>
-					{retangulo && (
-						<div
-							className="pointer-events-none fixed z-[71] rounded-xl outline outline-[3px] outline-orange-400"
-							style={{
-								top: retangulo.top,
-								left: retangulo.left,
-								width: retangulo.width,
-								height: retangulo.height,
-								boxShadow: "0 0 0 100vmax rgba(2, 6, 23, 0.68)",
-							}}
-							aria-hidden="true"
-						/>
-					)}
-					<div
-						ref={dialogRef}
-						role="dialog"
-						tabIndex={-1}
-						aria-modal="true"
-						aria-labelledby="tour-titulo"
-						aria-describedby="tour-descricao"
-						className="fixed z-[72] flex max-h-[calc(100dvh-2rem)] flex-col rounded-2xl bg-white p-4 text-slate-900 shadow-[0_24px_60px_rgba(2,6,23,.32)] sm:p-5 dark:bg-slate-900 dark:text-slate-100"
-						style={painel}
-					>
-						<div className="flex shrink-0 items-start justify-between gap-3">
-							<p className="text-xs font-extrabold text-sky-700 dark:text-sky-300">
-								{guia.titulo} · {indice + 1} de {guia.passos.length}
-							</p>
-							<button
-								type="button"
-								onClick={() => concluir.mutate({ tela: guia.chave })}
-								disabled={concluir.isPending}
-								className="-mr-1 -mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-lg text-slate-600 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-sky-600 dark:text-slate-300 dark:hover:bg-slate-800"
-								aria-label="Pular tour"
-							>
-								<X className="h-4 w-4" />
-							</button>
-						</div>
-						<div
-							ref={textoRef}
-							className="min-h-0 overflow-y-auto overscroll-contain"
-						>
-							<h2
-								id="tour-titulo"
-								className="mt-2 text-xl font-extrabold tracking-[-.02em]"
-							>
-								{passoAtual.titulo}
-							</h2>
-							<p
-								id="tour-descricao"
-								className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200"
-							>
-								{passoAtual.descricao}
-							</p>
-							{podeMostrar && passoAtual.previa && (
-								<button
-									type="button"
-									className="mt-3 min-h-11 rounded-lg border border-[var(--nexus-line)] px-3 text-sm font-semibold text-sky-800 hover:bg-sky-50 dark:text-sky-200 dark:hover:bg-slate-800"
-									onClick={() => {
-										const previa = passoAtual.previa;
-										if (!previa) return;
-										const abrir = encontrarVisivel(
-											document.querySelector(".nexus-main") ?? document.body,
-											previa.abrir,
-										);
-										if (!abrir || abrir.matches(":disabled")) return;
-										if (previa.fechar)
-											fecharPreviaRef.current = {
-												pathname,
-												seletor: previa.fechar,
-											};
-										abrir.click();
-										dialogRef.current?.focus({ preventScroll: true });
-									}}
-								>
-									Mostrar na tela
-								</button>
-							)}
-							{alvoAusente && !podeMostrar && (
-								<p className="mt-2 text-xs text-[var(--nexus-muted)]">
-									O controle aparece quando os dados ou a seção correspondente
-									estiverem disponíveis.
-								</p>
-							)}
-							<div className="mt-5 hidden h-1.5 overflow-hidden rounded-full bg-sky-100 sm:block dark:bg-slate-700">
-								<div
-									className="h-full rounded-full bg-orange-500 transition-[width] duration-200"
-									style={{
-										width: `${((indice + 1) / guia.passos.length) * 100}%`,
-									}}
-								/>
-							</div>
-							{guia.passos.length > 7 && (
-								<label className="mt-3 block text-xs font-semibold">
-									Ir para uma etapa
-									<select
-										value={indice}
-										onChange={(event) => irPara(Number(event.target.value))}
-										className="mt-1 block min-h-10 w-full rounded-lg border border-[var(--nexus-line)] bg-[var(--nexus-surface)] px-2 text-sm text-[var(--nexus-ink)]"
-									>
-										{guia.passos.map((etapa, numero) => (
-											<option key={etapa.titulo} value={numero}>
-												{numero + 1}. {etapa.titulo}
-											</option>
-										))}
-									</select>
-								</label>
-							)}
-							{erro && (
-								<p
-									role="alert"
-									className="mt-3 text-sm font-semibold text-red-700 dark:text-red-300"
-								>
-									{erro}
-								</p>
-							)}
-						</div>
-						<div className="mt-3 flex shrink-0 flex-wrap items-center justify-between gap-2 sm:mt-5">
-							<button
-								type="button"
-								onClick={() => concluir.mutate({ tela: guia.chave })}
-								disabled={concluir.isPending}
-								className="min-h-11 rounded-xl px-3 text-sm font-semibold text-slate-600 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-sky-600 dark:text-slate-200 dark:hover:bg-slate-800"
-							>
-								Pular tour
-							</button>
-							<div className="flex gap-2">
-								{indice > 0 && (
-									<button
-										type="button"
-										onClick={() => irPara(indice - 1)}
-										className="inline-flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-bold text-sky-800 hover:bg-sky-50 focus-visible:outline-2 focus-visible:outline-sky-600 dark:text-sky-200 dark:hover:bg-slate-800"
-									>
-										<ChevronLeft className="h-4 w-4" />
-										Voltar
-									</button>
-								)}
-								<button
-									type="button"
-									disabled={concluir.isPending}
-									onClick={() => {
-										setErro("");
-										if (indice === guia.passos.length - 1)
-											concluir.mutate({ tela: guia.chave });
-										else irPara(indice + 1);
-									}}
-									className="inline-flex min-h-11 items-center gap-1 rounded-xl bg-sky-700 px-4 text-sm font-bold text-white hover:bg-sky-800 focus-visible:outline-2 focus-visible:outline-sky-400 disabled:opacity-50"
-								>
-									{indice === guia.passos.length - 1
-										? concluir.isPending
-											? "Salvando..."
-											: "Concluir"
-										: "Próximo"}
-									{indice < guia.passos.length - 1 && (
-										<ChevronRight className="h-4 w-4" />
-									)}
-								</button>
-							</div>
-						</div>
-					</div>
-				</>
+				<PainelTour
+					guia={guia}
+					passoAtual={passoAtual}
+					indice={indice}
+					retangulo={retangulo}
+					painel={posicionarPainel(retangulo, alturaPainel)}
+					dialogRef={dialogRef}
+					textoRef={textoRef}
+					podeMostrar={podeMostrar}
+					alvoAusente={alvoAusente}
+					erro={erro}
+					salvando={concluir.isPending}
+					irPara={irPara}
+					mostrarPrevia={mostrarPrevia}
+					avancar={avancar}
+					pular={() => concluir.mutate({ tela: guia.chave })}
+				/>
 			)}
 		</div>,
 		document.body,

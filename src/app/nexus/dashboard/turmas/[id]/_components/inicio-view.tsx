@@ -1,17 +1,6 @@
 "use client";
 
-import {
-	CalendarDays,
-	Check,
-	MapPin,
-	Pencil,
-	Pin,
-	Plus,
-	ShieldCheck,
-	Trash2,
-	Users,
-	X,
-} from "lucide-react";
+import { Check, Plus, X } from "lucide-react";
 import { useState } from "react";
 import { api } from "~/trpc/react";
 import {
@@ -20,6 +9,10 @@ import {
 	type EventoCalendario,
 	UploadButton,
 } from "./suporte";
+
+import { ResumoTurma } from "./resumo-turma";
+
+import { CardAviso } from "./card-aviso";
 
 export function InicioView({
 	turma,
@@ -124,42 +117,7 @@ export function InicioView({
 
 	return (
 		<div className="view-dashboard-turmas-id-inicio-view mx-auto w-full max-w-6xl min-w-0 space-y-5 px-3 py-5 sm:px-6 lg:px-8">
-			{/* Card info */}
-			<div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 shadow-xs">
-				<div className="mb-3 flex min-w-0 flex-wrap items-center gap-2">
-					<div
-						className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-semibold text-white"
-						style={{ backgroundColor: turma.cor }}
-					>
-						{turma.professores
-							.map((p) => p[0])
-							.join("")
-							.slice(0, 2)}
-					</div>
-					<p className="min-w-0 break-words text-sm font-medium text-gray-700">
-						{turma.professores.join(" e ")}
-					</p>
-					<span className="text-gray-300">·</span>
-					<span className="flex items-center gap-1 text-xs text-gray-500">
-						<MapPin className="w-3.5 h-3.5" />
-						{turma.sala}
-					</span>
-				</div>
-				<div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs text-gray-500">
-					<span className="flex items-center gap-1.5">
-						<Users className="w-4 h-4 text-gray-400" />
-						{turma.alunos.length} alunos
-					</span>
-					<span className="flex items-center gap-1.5">
-						<ShieldCheck className="w-4 h-4 text-gray-400" />
-						{turma.monitores.length} monitores
-					</span>
-					<span className="flex items-center gap-1.5">
-						<CalendarDays className="w-4 h-4 text-gray-400" />
-						{turma.horario}
-					</span>
-				</div>
-			</div>
+			<ResumoTurma turma={turma} />
 
 			{/* Avisos */}
 			<div>
@@ -203,7 +161,10 @@ export function InicioView({
 								endpoint="avisoImagem"
 								onClientUploadComplete={(arquivos) => {
 									const arquivo = arquivos[0];
-									const url = arquivo?.ufsUrl ?? (arquivo as unknown as { url?: string })?.url ?? null;
+									const url =
+										arquivo?.ufsUrl ??
+										(arquivo as unknown as { url?: string })?.url ??
+										null;
 									setImagemAviso(url);
 									setErro(null);
 								}}
@@ -268,79 +229,16 @@ export function InicioView({
 
 				<div className="space-y-3">
 					{avisosOrdenados.map((aviso) => (
-						<div
+						<CardAviso
+							aviso={aviso}
+							cor={turma.cor}
+							iniciarEdicao={iniciarEdicao}
+							toggleFixar={toggleFixar}
+							excluirAviso={excluirAviso}
+							fixando={fixarAviso.isPending}
+							excluindo={removerAviso.isPending}
 							key={aviso.id}
-							className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-5 group shadow-xs"
-						>
-							<div className="flex items-start justify-between gap-2 mb-2">
-								<div className="flex items-center gap-2">
-									<div
-										className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-semibold text-white flex-shrink-0"
-										style={{ backgroundColor: turma.cor }}
-									>
-										{aviso.autor[0]}
-									</div>
-									<div>
-										<p className="text-sm font-medium text-gray-900">
-											{aviso.autor}
-										</p>
-										<p className="text-[11px] text-gray-400">{aviso.quando}</p>
-									</div>
-								</div>
-								<div className="flex items-center gap-1">
-									{aviso.podeEditar && (
-										<button
-											onClick={() => iniciarEdicao(aviso)}
-											className={`p-1 rounded-full transition-colors text-gray-300 opacity-0 group-hover:opacity-100 hover:text-sky-500`}
-											title="Editar aviso"
-											aria-label="Editar aviso"
-										>
-											<Pencil className="w-3.5 h-3.5" />
-										</button>
-									)}
-									{aviso.podeFixar && (
-										<button
-											onClick={() => toggleFixar(aviso)}
-											disabled={fixarAviso.isPending}
-											className={`p-1 rounded-full transition-colors ${aviso.fixado ? "text-amber-500" : "text-gray-300 opacity-0 group-hover:opacity-100 hover:text-amber-500"}`}
-											title={aviso.fixado ? "Desafixar" : "Fixar"}
-										>
-											<Pin className="w-3.5 h-3.5" />
-										</button>
-									)}
-									{aviso.podeExcluir && (
-										<button
-											onClick={() => excluirAviso(aviso.id)}
-											disabled={removerAviso.isPending}
-											className="p-1 rounded-full text-gray-300 opacity-0 group-hover:opacity-100 hover:text-red-400 transition-colors"
-											title="Excluir"
-										>
-											<Trash2 className="w-3.5 h-3.5" />
-										</button>
-									)}
-								</div>
-							</div>
-							<p className="text-sm text-gray-600 leading-relaxed">
-								{aviso.texto}
-							</p>
-							{aviso.imagemUrl && (
-								<img
-									src={aviso.imagemUrl}
-									alt={`Imagem do aviso de ${aviso.autor}`}
-									className="mt-3 max-h-72 w-full rounded-xl bg-slate-100 object-contain"
-								/>
-							)}
-							{aviso.linkUrl && (
-								<a
-									href={aviso.linkUrl}
-									target="_blank"
-									rel="noreferrer"
-									className="mt-3 inline-flex min-h-11 items-center rounded-lg bg-sky-50 px-3 text-sm font-bold text-sky-700 hover:bg-sky-100"
-								>
-									Abrir link
-								</a>
-							)}
-						</div>
+						/>
 					))}
 					{avisos.length === 0 && (
 						<p className="text-center py-8 text-sm text-gray-400">

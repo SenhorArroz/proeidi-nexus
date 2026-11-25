@@ -1,0 +1,461 @@
+.ranking {
+	--ranking-fundo: var(--nexus-surface);
+	--ranking-texto: var(--nexus-ink);
+	--ranking-secundario: var(--nexus-muted);
+	--ranking-borda: var(--nexus-line);
+	--ranking-azul: light-dark(#03668e, #7dd3fc);
+	--ranking-laranja: light-dark(#b45309, #fdba74);
+	--ranking-mistura: 13%;
+	display: grid;
+	gap: 1.25rem;
+	min-width: 0;
+	color: var(--ranking-texto);
+}
+
+.palco,
+.painel {
+	min-width: 0;
+	border: 1px solid var(--ranking-borda);
+	border-radius: 1rem;
+	background: var(--ranking-fundo);
+}
+
+.palco {
+	padding: clamp(1rem, 3vw, 2rem);
+	border-top: 4px solid var(--ranking-azul);
+	background:
+		radial-gradient(
+			ellipse at top,
+			color-mix(in srgb, #0ea5e9 10%, transparent),
+			transparent 65%
+		),
+		var(--ranking-fundo);
+}
+
+.tituloPalco {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.625rem;
+	margin-bottom: clamp(1rem, 3vw, 1.75rem);
+}
+
+.tituloPalco h2 {
+	font-size: clamp(1.15rem, 3vw, 1.75rem);
+	font-weight: 800;
+	letter-spacing: -0.025em;
+}
+
+.tituloPalco svg {
+	width: 1.25rem;
+	flex: none;
+	color: var(--ranking-laranja);
+}
+
+.podio,
+.equipes,
+.atividades {
+	list-style-type: "";
+}
+
+.podio {
+	--degrau-alto: clamp(4rem, 9vw, 6rem);
+	--degrau-medio: clamp(2.75rem, 6.25vw, 4.375rem);
+	--degrau-baixo: clamp(1.5rem, 3.75vw, 2.75rem);
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr);
+	gap: 0 clamp(0.4rem, 1.3vw, 0.85rem);
+	max-width: 40rem;
+	margin-inline: auto;
+	border-bottom: 2px solid var(--ranking-borda);
+	container-type: inline-size;
+}
+
+.podio > li {
+	position: relative;
+	display: flex;
+	grid-row: 1;
+	min-width: 0;
+	flex-direction: column;
+	padding-top: calc(var(--degrau-alto) - var(--altura-degrau));
+	text-align: center;
+}
+
+.podio li[data-lugar="1"] {
+	--altura-degrau: var(--degrau-alto);
+	grid-column: 2;
+}
+
+.podio li[data-lugar="2"] {
+	--altura-degrau: var(--degrau-medio);
+	grid-column: 1;
+}
+
+.podio li[data-lugar="3"] {
+	--altura-degrau: var(--degrau-baixo);
+	grid-column: 3;
+}
+
+.botaoPodio {
+	display: flex;
+	min-width: 0;
+	flex: 1;
+	flex-direction: column;
+	border-radius: 0.75rem 0.75rem 0 0;
+	cursor: pointer;
+}
+
+.botaoPodio:focus-visible {
+	outline: 2px solid var(--ranking-azul);
+	outline-offset: 3px;
+}
+
+.lider {
+	display: grid;
+	flex: 1;
+	grid-template-rows: auto 1fr auto;
+	justify-items: center;
+	align-items: center;
+	gap: 0.4rem;
+	padding: clamp(0.25rem, 1vw, 0.625rem);
+	padding-bottom: 0.75rem;
+	overflow-wrap: anywhere;
+}
+
+.nomeLider {
+	font-size: clamp(0.75rem, 1.85vw, 1rem);
+	font-weight: 750;
+	line-height: 1.25;
+}
+
+.posicaoPodio,
+.posicaoEquipe {
+	display: grid;
+	place-items: center;
+	min-width: 2rem;
+	min-height: 2rem;
+	padding: 0.25rem;
+	border: 1px solid var(--ranking-borda);
+	border-radius: 0.625rem;
+	font-weight: 800;
+	font-variant-numeric: tabular-nums;
+}
+
+.posicaoPodio {
+	min-width: clamp(2rem, 5vw, 3rem);
+	min-height: clamp(2rem, 5vw, 3rem);
+	border: 2px solid
+		color-mix(in srgb, var(--cor-equipe-inicial) 65%, var(--ranking-texto));
+	font-size: clamp(0.85rem, 1.9vw, 1.15rem);
+}
+
+[data-lugar="1"] .posicaoPodio {
+	min-width: clamp(2.4rem, 6vw, 3.5rem);
+	min-height: clamp(2.4rem, 6vw, 3.5rem);
+	font-size: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.total {
+	color: var(--ranking-texto);
+	font-size: clamp(0.95rem, 2.65vw, 1.75rem);
+	font-weight: 850;
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.025em;
+	line-height: 1.12;
+	overflow-wrap: anywhere;
+}
+
+.total > :is(span, small) {
+	display: inline-block;
+	font-size: 0.7rem;
+	font-weight: 650;
+	letter-spacing: normal;
+}
+
+.degrau {
+	flex: none;
+	height: var(--altura-degrau);
+	border: 1px solid color-mix(in srgb, var(--ranking-borda) 35%, transparent);
+	border-bottom: 0;
+	border-radius: 0.75rem 0.75rem 0 0;
+	background: linear-gradient(
+		120deg,
+		var(--cor-equipe-inicial),
+		var(--cor-equipe-final)
+	);
+	box-shadow: inset 0 5px rgb(255 255 255 / 0.16);
+}
+
+.painelPodio {
+	--deslocamento-painel: -0.375rem;
+	position: absolute;
+	z-index: 5;
+	inset-block-start: 100%;
+	inline-size: min(17rem, 100cqi);
+	padding-block-start: 0.5rem;
+	text-align: start;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition:
+		opacity 140ms ease-in,
+		visibility 0s 140ms;
+}
+
+.painelPodio[data-aberto="true"] {
+	z-index: 6;
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+	transition: opacity 180ms ease-out;
+}
+
+[data-lugar="1"] .painelPodio {
+	inset-inline-start: 50%;
+	transform: translateX(-50%);
+}
+
+[data-lugar="2"] .painelPodio {
+	inset-inline-start: 0;
+}
+
+[data-lugar="3"] .painelPodio {
+	inset-inline-end: 0;
+}
+
+.detalheLider {
+	min-width: 0;
+	padding: 0.75rem;
+	border: 1px solid var(--ranking-borda);
+	border-radius: 0.75rem;
+	background: color-mix(
+		in srgb,
+		color-mix(in srgb, var(--cor-equipe-inicial), var(--cor-equipe-final))
+			var(--ranking-mistura),
+		var(--ranking-fundo)
+	);
+	box-shadow: var(--nexus-shadow);
+	translate: 0 var(--deslocamento-painel);
+	transition: translate 140ms ease-in;
+}
+
+.painelPodio[data-aberto="true"] .detalheLider {
+	translate: 0 0;
+	transition: translate 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.painelPodio {
+		--deslocamento-painel: 0px;
+	}
+}
+
+.grade {
+	display: grid;
+	gap: 1.25rem;
+	align-items: start;
+}
+
+.painel {
+	padding: clamp(1rem, 2.6vw, 1.5rem);
+}
+
+.cabecalhoPainel {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+	margin-bottom: 1rem;
+}
+
+.cabecalhoPainel h2 {
+	font-size: 1.125rem;
+	font-weight: 800;
+	letter-spacing: -0.025em;
+}
+
+.cabecalhoPainel::before {
+	width: 0.375rem;
+	height: 1rem;
+	flex: none;
+	border-radius: 1rem;
+	background: var(--ranking-laranja);
+	content: "";
+}
+
+.cabecalhoPainel > span {
+	margin-left: auto;
+	color: var(--ranking-secundario);
+	font-size: 0.875rem;
+	font-weight: 700;
+}
+
+.equipes {
+	display: grid;
+	gap: 0.625rem;
+}
+
+.equipe {
+	overflow: hidden;
+	padding: 0.875rem 1rem 0.75rem;
+	border: 1px solid var(--ranking-borda);
+	border-radius: 0.75rem;
+	background:
+		linear-gradient(115deg, var(--cor-equipe-inicial), var(--cor-equipe-final))
+		top / 100% 0.25rem no-repeat,
+		linear-gradient(115deg, white);
+}
+
+.resumoEquipe {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr) fit-content(40%);
+	align-items: start;
+	gap: 0.625rem;
+}
+
+.resumoEquipe .total {
+	text-align: right;
+	font-size: clamp(1rem, 2.3vw, 1.4rem);
+}
+
+.posicaoEquipe {
+	font-size: 0.8rem;
+}
+
+.dadosEquipe {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.dadosEquipe h3 {
+	font-weight: 750;
+	line-height: 1.3;
+}
+
+.dadosEquipe p,
+.pontuacao dt {
+	color: color-mix(in srgb, var(--ranking-texto) 78%, var(--ranking-fundo));
+	font-size: 0.75rem;
+}
+
+.dadosEquipe p:first-of-type {
+	margin-top: 0.25rem;
+}
+
+.pontuacao {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+	padding-top: 0.625rem;
+	border-top: 1px solid var(--ranking-borda);
+	font-variant-numeric: tabular-nums;
+	overflow-wrap: anywhere;
+}
+
+.pontuacao dd {
+	font-size: 0.875rem;
+	font-weight: 700;
+}
+
+.regra,
+.vazio {
+	color: var(--ranking-secundario);
+	font-size: 0.875rem;
+}
+
+.palco .vazio {
+	text-align: center;
+}
+
+.regra {
+	display: grid;
+	gap: 0.25rem;
+	margin-top: 1rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--ranking-borda);
+}
+
+.atividades li {
+	position: relative;
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	gap: 0.75rem;
+	padding-bottom: 1rem;
+	overflow-wrap: anywhere;
+}
+
+.atividades li:last-child {
+	padding-bottom: 0;
+}
+
+.atividades li:not(:last-child)::before {
+	position: absolute;
+	inset: 1.75rem auto -0.125rem 0.875rem;
+	width: 1px;
+	background: var(--ranking-borda);
+	content: "";
+}
+
+.iconeAtividade {
+	z-index: 1;
+	display: grid;
+	width: 1.75rem;
+	height: 1.75rem;
+	place-items: center;
+	border-radius: 50%;
+	background: var(--nexus-surface-soft);
+	color: var(--ranking-azul);
+}
+
+.tituloAtividade {
+	font-size: 0.875rem;
+	font-weight: 750;
+}
+
+.metaAtividade {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 0.5rem;
+	color: var(--ranking-secundario);
+	font-size: 0.75rem;
+}
+
+.metaAtividade time {
+	font-variant-numeric: tabular-nums;
+}
+
+.pontosAtividade {
+	margin-top: 0.125rem;
+	color: var(--ranking-azul);
+	font-size: 0.75rem;
+	font-weight: 700;
+}
+
+@media (min-width: 60rem) {
+	.grade {
+		grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+	}
+}
+
+:global(html[data-theme="dark"]) .ranking {
+	color-scheme: dark;
+}
+
+:global(html[data-contrast="high"]) .ranking {
+	--ranking-fundo: var(--contrast-surface);
+	--ranking-texto: var(--contrast-ink);
+	--ranking-secundario: var(--contrast-ink);
+	--ranking-borda: var(--contrast-border);
+	--ranking-azul: var(--contrast-ink);
+	--ranking-laranja: var(--contrast-ink);
+	--ranking-mistura: 0%;
+}
+
+:global(html[data-contrast="high"]) .palco {
+	background: var(--ranking-fundo);
+}
+
+:global(html[data-contrast="high"]) .iconeAtividade {
+	border: 1px solid var(--ranking-borda);
+	background: var(--ranking-fundo);
+}
