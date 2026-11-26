@@ -279,10 +279,10 @@ export function ScreenTour() {
 						setAtivo({ chave: guia.chave, indice: 0 });
 						setErro("");
 					}}
-					className="fixed bottom-[max(5rem,env(safe-area-inset-bottom))] right-4 z-[60] inline-flex min-h-11 items-center gap-2 rounded-full bg-sky-700 px-4 text-sm font-bold text-white shadow-[0_12px_28px_rgba(2,132,199,.28)] hover:bg-sky-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
+					className="nexus-controle-flutuante fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-20 inline-flex min-h-11 -translate-x-1/2 items-center justify-center gap-2 rounded-full bg-sky-700 px-4 text-sm font-bold text-white shadow-[0_12px_28px_rgba(2,132,199,.28)] hover:bg-sky-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 max-sm:w-max max-sm:max-w-[calc(100%-8.5rem)] sm:right-4 sm:left-auto sm:z-[60] sm:translate-x-0"
 					aria-label={`Ver tour da tela ${guia.titulo}`}
 				>
-					<CircleHelp className="h-4 w-4" />
+					<CircleHelp className="h-4 w-4 shrink-0" />
 					Ajuda desta tela
 				</button>
 			)}

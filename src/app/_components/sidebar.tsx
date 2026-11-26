@@ -87,7 +87,7 @@ export default function Sidebar() {
 				<button
 					type="button"
 					onClick={toggleSidebar}
-					className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] z-30 flex h-12 w-12 items-center justify-center rounded-full bg-sky-600 text-white shadow-[0_10px_24px_rgb(2_132_199_/_0.34)] transition-transform active:scale-95 sm:hidden"
+					className="nexus-controle-flutuante fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] z-30 flex h-12 w-12 items-center justify-center rounded-full bg-sky-600 text-white shadow-[0_10px_24px_rgb(2_132_199_/_0.34)] active:scale-95 sm:hidden"
 					aria-label="Abrir menu"
 				>
 					<PanelLeftOpen className="h-5 w-5" />
