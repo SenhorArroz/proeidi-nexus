@@ -51,11 +51,18 @@ export function Equipes({
 		setCorFinal("#0284c7");
 	}
 	const equipes = data?.equipes ?? [];
-	const turmasDisponiveis = (data?.turmas ?? []).filter(
-		(turma) =>
-			turma.id === turmaId ||
-			!equipes.some((equipe) => equipe.turmaId === turma.id),
-	);
+	const turmasDisponiveis = (data?.turmas ?? [])
+		.filter(
+			(turma) =>
+				turma.id === turmaId ||
+				!equipes.some((equipe) => equipe.turmaId === turma.id),
+		)
+		.sort((a, b) =>
+			a.titulo.localeCompare(b.titulo, "pt-BR", {
+				sensitivity: "base",
+				numeric: true,
+			}),
+		);
 
 	if (!ativa || !data) return null;
 

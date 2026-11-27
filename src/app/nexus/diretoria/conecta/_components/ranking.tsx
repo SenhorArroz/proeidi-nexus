@@ -265,6 +265,8 @@ export function Ranking({
 	dados: DadosConecta;
 	formatarPontos: FormatarPontos;
 }) {
+	const formatarPontosArredondados = (valor: number) =>
+		formatarPontos(Math.ceil(valor));
 	const lideres = dados.equipes.slice(0, 3);
 	const demais = dados.equipes.slice(3);
 
@@ -276,7 +278,10 @@ export function Ranking({
 					<h2 id="classificacao">Líderes da gincana</h2>
 				</div>
 				{lideres.length > 0 ? (
-					<Podio lideres={lideres} formatarPontos={formatarPontos} />
+					<Podio
+						lideres={lideres}
+						formatarPontos={formatarPontosArredondados}
+					/>
 				) : (
 					<p className={styles.vazio}>
 						Cadastre uma equipe na aba Equipes para começar a classificação.
@@ -308,12 +313,13 @@ export function Ranking({
 										</span>
 										<DadosEquipe equipe={equipe} />
 										<p className={styles.total}>
-											{formatarPontos(equipe.pontos)} <span>pts</span>
+											{formatarPontosArredondados(equipe.pontos)}{" "}
+											<span>pts</span>
 										</p>
 									</div>
 									<PontuacaoDetalhada
 										equipe={equipe}
-										formatarPontos={formatarPontos}
+										formatarPontos={formatarPontosArredondados}
 									/>
 								</li>
 							))}
@@ -338,7 +344,10 @@ export function Ranking({
 						)}
 					</div>
 				</section>
-				<AtividadesRecentes dados={dados} formatarPontos={formatarPontos} />
+				<AtividadesRecentes
+					dados={dados}
+					formatarPontos={formatarPontosArredondados}
+				/>
 			</div>
 		</div>
 	);
