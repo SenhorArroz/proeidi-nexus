@@ -153,7 +153,7 @@ export function Provas({
 					)}
 				</div>
 			</form>
-			<div className="space-y-3">
+			<div className="min-w-0 space-y-3">
 				<h2 className="text-lg font-extrabold text-[var(--nexus-ink)]">
 					Resultados do semestre
 				</h2>
@@ -162,48 +162,50 @@ export function Provas({
 						Nenhum resultado lançado.
 					</p>
 				)}
-				{data.provas.map((prova) => (
-					<article key={prova.id} className={linha}>
-						<div className="min-w-36 flex-1 wrap-anywhere">
-							<h3 className="font-bold text-[var(--nexus-ink)]">
-								{prova.nome}
-							</h3>
-							<p className="text-sm text-[var(--nexus-muted)]">
-								{equipes.find((equipe) => equipe.id === prova.equipeId)?.nome ??
-									"Equipe removida"}
-								{prova.descricao && ` · ${prova.descricao}`}
-							</p>
-							<p className="mt-1 text-sm font-bold text-sky-800 dark:text-sky-300">
-								{pontos(prova.pontos)} pts
-							</p>
-						</div>
-						<button
-							type="button"
-							aria-label={`Editar ${prova.nome}`}
-							className={botaoIcone}
-							onClick={() => {
-								setProvaEditando(prova.id);
-								setProvaNome(prova.nome);
-								setProvaDescricao(prova.descricao ?? "");
-								setProvaEquipeId(prova.equipeId ?? "");
-								setProvaPontos(prova.pontos);
-							}}
-						>
-							<Pencil size={16} />
-						</button>
-						<button
-							type="button"
-							aria-label={`Excluir ${prova.nome}`}
-							className={botaoIcone}
-							onClick={() => {
-								if (confirmarExclusao(prova.nome))
-									excluirProva.mutate({ id: prova.id });
-							}}
-						>
-							<Trash2 size={16} />
-						</button>
-					</article>
-				))}
+				<div className="max-h-[min(65dvh,40rem)] space-y-3 overflow-y-auto overscroll-contain pr-1">
+					{data.provas.map((prova) => (
+						<article key={prova.id} className={linha}>
+							<div className="min-w-36 flex-1 wrap-anywhere">
+								<h3 className="font-bold text-[var(--nexus-ink)]">
+									{prova.nome}
+								</h3>
+								<p className="text-sm text-[var(--nexus-muted)]">
+									{equipes.find((equipe) => equipe.id === prova.equipeId)
+										?.nome ?? "Equipe removida"}
+									{prova.descricao && ` · ${prova.descricao}`}
+								</p>
+								<p className="mt-1 text-sm font-bold text-sky-800 dark:text-sky-300">
+									{pontos(prova.pontos)} pts
+								</p>
+							</div>
+							<button
+								type="button"
+								aria-label={`Editar ${prova.nome}`}
+								className={botaoIcone}
+								onClick={() => {
+									setProvaEditando(prova.id);
+									setProvaNome(prova.nome);
+									setProvaDescricao(prova.descricao ?? "");
+									setProvaEquipeId(prova.equipeId ?? "");
+									setProvaPontos(prova.pontos);
+								}}
+							>
+								<Pencil size={16} />
+							</button>
+							<button
+								type="button"
+								aria-label={`Excluir ${prova.nome}`}
+								className={botaoIcone}
+								onClick={() => {
+									if (confirmarExclusao(prova.nome))
+										excluirProva.mutate({ id: prova.id });
+								}}
+							>
+								<Trash2 size={16} />
+							</button>
+						</article>
+					))}
+				</div>
 			</div>
 		</section>
 	);

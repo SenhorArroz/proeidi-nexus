@@ -304,6 +304,10 @@
 .equipes {
 	display: grid;
 	gap: 0.625rem;
+	max-height: min(65dvh, 40rem);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	padding-right: 0.25rem;
 }
 
 .equipe {
@@ -394,6 +398,13 @@
 	gap: 0.75rem;
 	padding-bottom: 1rem;
 	overflow-wrap: anywhere;
+}
+
+.atividades {
+	max-height: min(65dvh, 40rem);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	padding-right: 0.25rem;
 }
 
 .atividades li:last-child {

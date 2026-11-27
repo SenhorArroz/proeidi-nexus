@@ -167,7 +167,7 @@ export function Equipes({
 					)}
 				</div>
 			</form>
-			<div className="space-y-3">
+			<div className="min-w-0 space-y-3">
 				<h2 className="text-lg font-extrabold text-[var(--nexus-ink)]">
 					Equipes do semestre
 				</h2>
@@ -176,50 +176,53 @@ export function Equipes({
 						Nenhuma equipe cadastrada.
 					</p>
 				)}
-				{equipes.map((equipe) => (
-					<article key={equipe.id} className={linha}>
-						<span
-							className="h-12 w-12 shrink-0 rounded-xl"
-							style={{
-								background: `linear-gradient(135deg, ${equipe.corInicial}, ${equipe.corFinal})`,
-							}}
-						/>
-						<div className="min-w-36 flex-1 wrap-anywhere">
-							<h3 className="font-bold text-[var(--nexus-ink)]">
-								{equipe.nome}
-							</h3>
-							<p className="text-sm text-[var(--nexus-muted)]">
-								{equipe.tema} · {equipe.turma.titulo} · {equipe.pessoas} alunos
-							</p>
-						</div>
-						<button
-							type="button"
-							aria-label={`Editar ${equipe.nome}`}
-							className={botaoIcone}
-							onClick={() => {
-								setEquipeEditando(equipe.id);
-								setTurmaId(equipe.turmaId);
-								setEquipeNome(equipe.nome);
-								setTema(equipe.tema);
-								setCorInicial(equipe.corInicial);
-								setCorFinal(equipe.corFinal);
-							}}
-						>
-							<Pencil size={16} />
-						</button>
-						<button
-							type="button"
-							aria-label={`Excluir ${equipe.nome}`}
-							className={botaoIcone}
-							onClick={() => {
-								if (confirmarExclusao(equipe.nome))
-									excluirEquipe.mutate({ id: equipe.id });
-							}}
-						>
-							<Trash2 size={16} />
-						</button>
-					</article>
-				))}
+				<div className="max-h-[min(65dvh,40rem)] space-y-3 overflow-y-auto overscroll-contain pr-1">
+					{equipes.map((equipe) => (
+						<article key={equipe.id} className={linha}>
+							<span
+								className="h-12 w-12 shrink-0 rounded-xl"
+								style={{
+									background: `linear-gradient(135deg, ${equipe.corInicial}, ${equipe.corFinal})`,
+								}}
+							/>
+							<div className="min-w-36 flex-1 wrap-anywhere">
+								<h3 className="font-bold text-[var(--nexus-ink)]">
+									{equipe.nome}
+								</h3>
+								<p className="text-sm text-[var(--nexus-muted)]">
+									{equipe.tema} · {equipe.turma.titulo} · {equipe.pessoas}{" "}
+									alunos
+								</p>
+							</div>
+							<button
+								type="button"
+								aria-label={`Editar ${equipe.nome}`}
+								className={botaoIcone}
+								onClick={() => {
+									setEquipeEditando(equipe.id);
+									setTurmaId(equipe.turmaId);
+									setEquipeNome(equipe.nome);
+									setTema(equipe.tema);
+									setCorInicial(equipe.corInicial);
+									setCorFinal(equipe.corFinal);
+								}}
+							>
+								<Pencil size={16} />
+							</button>
+							<button
+								type="button"
+								aria-label={`Excluir ${equipe.nome}`}
+								className={botaoIcone}
+								onClick={() => {
+									if (confirmarExclusao(equipe.nome))
+										excluirEquipe.mutate({ id: equipe.id });
+								}}
+							>
+								<Trash2 size={16} />
+							</button>
+						</article>
+					))}
+				</div>
 			</div>
 		</section>
 	);

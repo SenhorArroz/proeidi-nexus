@@ -137,7 +137,7 @@ export function Itens({
 					)}
 				</div>
 			</form>
-			<div className="space-y-3">
+			<div className="min-w-0 space-y-3">
 				<h2 className="text-lg font-extrabold text-[var(--nexus-ink)]">
 					Catálogo de itens
 				</h2>
@@ -146,43 +146,47 @@ export function Itens({
 						Nenhum item cadastrado.
 					</p>
 				)}
-				{itens.map((item) => (
-					<article key={item.id} className={linha}>
-						<Gift className="shrink-0 text-amber-700 dark:text-amber-300" />
-						<div className="min-w-36 flex-1 wrap-anywhere">
-							<h3 className="font-bold text-[var(--nexus-ink)]">{item.nome}</h3>
-							<p className="text-sm text-[var(--nexus-muted)]">
-								{item.pontos} pts/un. · {item.ativo ? "Ativo" : "Inativo"}
-								{item.descricao && ` · ${item.descricao}`}
-							</p>
-						</div>
-						<button
-							type="button"
-							aria-label={`Editar ${item.nome}`}
-							className={botaoIcone}
-							onClick={() => {
-								setItemEditando(item.id);
-								setItemNome(item.nome);
-								setItemDescricao(item.descricao ?? "");
-								setItemPontos(item.pontos);
-								setItemAtivo(item.ativo);
-							}}
-						>
-							<Pencil size={16} />
-						</button>
-						<button
-							type="button"
-							aria-label={`Remover ${item.nome}`}
-							className={botaoIcone}
-							onClick={() => {
-								if (confirmarExclusao(item.nome))
-									excluirItem.mutate({ id: item.id });
-							}}
-						>
-							<Trash2 size={16} />
-						</button>
-					</article>
-				))}
+				<div className="max-h-[min(65dvh,40rem)] space-y-3 overflow-y-auto overscroll-contain pr-1">
+					{itens.map((item) => (
+						<article key={item.id} className={linha}>
+							<Gift className="shrink-0 text-amber-700 dark:text-amber-300" />
+							<div className="min-w-36 flex-1 wrap-anywhere">
+								<h3 className="font-bold text-[var(--nexus-ink)]">
+									{item.nome}
+								</h3>
+								<p className="text-sm text-[var(--nexus-muted)]">
+									{item.pontos} pts/un. · {item.ativo ? "Ativo" : "Inativo"}
+									{item.descricao && ` · ${item.descricao}`}
+								</p>
+							</div>
+							<button
+								type="button"
+								aria-label={`Editar ${item.nome}`}
+								className={botaoIcone}
+								onClick={() => {
+									setItemEditando(item.id);
+									setItemNome(item.nome);
+									setItemDescricao(item.descricao ?? "");
+									setItemPontos(item.pontos);
+									setItemAtivo(item.ativo);
+								}}
+							>
+								<Pencil size={16} />
+							</button>
+							<button
+								type="button"
+								aria-label={`Remover ${item.nome}`}
+								className={botaoIcone}
+								onClick={() => {
+									if (confirmarExclusao(item.nome))
+										excluirItem.mutate({ id: item.id });
+								}}
+							>
+								<Trash2 size={16} />
+							</button>
+						</article>
+					))}
+				</div>
 			</div>
 		</section>
 	);

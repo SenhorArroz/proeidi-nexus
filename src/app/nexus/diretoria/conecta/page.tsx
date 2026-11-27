@@ -29,7 +29,7 @@ export default function ConectaPage() {
 		"";
 
 	return (
-		<div className="diretoria-page-canvas mx-auto w-full max-w-6xl space-y-5 px-3 py-4 text-[var(--nexus-ink)] sm:px-6 sm:py-5 dark:[&_.diretoria-back-link]:text-sky-300 max-sm:[&_div[class$=orb]]:opacity-25">
+		<div className="diretoria-page-canvas mx-auto w-full max-w-6xl min-w-0 space-y-5 overflow-x-clip px-3 py-4 text-[var(--nexus-ink)] sm:px-6 sm:py-5 dark:[&_.diretoria-back-link]:text-sky-300 max-sm:[&_div[class$=orb]]:opacity-25">
 			<DiretoriaBackLink />
 			<DiretoriaPageIntro
 				icon={Trophy}
