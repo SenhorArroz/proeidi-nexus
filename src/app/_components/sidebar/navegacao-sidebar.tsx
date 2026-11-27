@@ -43,52 +43,22 @@ const QUESTIONARIOS_ITEM: NavItem = {
 
 const DIRETORIA_ITEMS: NavItem[] = [
 	{
-		id: "conecta",
-		label: "Conecta View",
-		link: "/nexus/diretoria/conecta",
-		icon: Trophy,
-	},
-	{
-		id: "diretoria-inicio",
-		label: "Painel da Diretoria",
-		link: "/nexus/diretoria",
-		icon: LayoutDashboard,
-	},
-	{
-		id: "semestres",
-		label: "Semestres",
-		link: "/nexus/diretoria/semestres",
-		icon: CalendarDays,
-	},
-	{
-		id: "turmas",
-		label: "Turmas",
-		link: "/nexus/diretoria/turmas",
-		icon: DoorOpen,
-	},
-	{
 		id: "alunos",
 		label: "Alunos",
 		link: "/nexus/diretoria/alunos",
 		icon: GraduationCap,
 	},
 	{
-		id: "professores",
-		label: "Professores",
-		link: "/nexus/diretoria/professores",
-		icon: Users,
+		id: "materiais-atualizacao",
+		label: "Atualização de materiais",
+		link: "/nexus/diretoria/materiais-atualizacao",
+		icon: Wrench,
 	},
 	{
-		id: "monitores",
-		label: "Monitores",
-		link: "/nexus/diretoria/monitores",
-		icon: ShieldCheck,
-	},
-	{
-		id: "presencas",
-		label: "Presenças",
-		link: "/nexus/diretoria/presencas",
-		icon: ClipboardCheck,
+		id: "conecta",
+		label: "Conecta View",
+		link: "/nexus/diretoria/conecta",
+		icon: Trophy,
 	},
 	{
 		id: "estoque",
@@ -103,16 +73,46 @@ const DIRETORIA_ITEMS: NavItem[] = [
 		icon: Printer,
 	},
 	{
-		id: "materiais-atualizacao",
-		label: "Atualização de materiais",
-		link: "/nexus/diretoria/materiais-atualizacao",
-		icon: Wrench,
+		id: "monitores",
+		label: "Monitores",
+		link: "/nexus/diretoria/monitores",
+		icon: ShieldCheck,
+	},
+	{
+		id: "diretoria-inicio",
+		label: "Painel da Diretoria",
+		link: "/nexus/diretoria",
+		icon: LayoutDashboard,
+	},
+	{
+		id: "presencas",
+		label: "Presenças",
+		link: "/nexus/diretoria/presencas",
+		icon: ClipboardCheck,
+	},
+	{
+		id: "professores",
+		label: "Professores",
+		link: "/nexus/diretoria/professores",
+		icon: Users,
+	},
+	{
+		id: "semestres",
+		label: "Semestres",
+		link: "/nexus/diretoria/semestres",
+		icon: CalendarDays,
 	},
 	{
 		id: "sorteio",
 		label: "Sorteio",
 		link: "/nexus/diretoria/sorteio",
 		icon: Dices,
+	},
+	{
+		id: "turmas",
+		label: "Turmas",
+		link: "/nexus/diretoria/turmas",
+		icon: DoorOpen,
 	},
 ];
 
