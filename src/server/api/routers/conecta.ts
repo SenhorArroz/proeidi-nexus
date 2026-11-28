@@ -64,14 +64,16 @@ export const conectaRouter = createTRPCRouter({
 					const pessoas = pessoasPorTurma.get(equipe.turmaId) ?? 0;
 					const pontosBrutosDoacoes = doacoesPorEquipe.get(equipe.id) ?? 0;
 					const pontosProvas = provasPorEquipe.get(equipe.id) ?? 0;
-					const pontosDoacoes = pessoas > 0 ? pontosBrutosDoacoes / pessoas : pontosBrutosDoacoes;
+					const pontosDoacoes =
+						pessoas > 0 ? pontosBrutosDoacoes / pessoas : pontosBrutosDoacoes;
+					const pontosProvaTotal = pontosProvas / 4;
 					return {
 						...equipe,
 						pessoas,
 						pontosBrutosDoacoes,
 						pontosDoacoes,
-						pontosProvas,
-						pontos: pontosDoacoes + pontosProvas,
+						pontosProvas: pontosProvaTotal,
+						pontos: pontosDoacoes + pontosProvaTotal,
 					};
 				})
 				.sort(
