@@ -64,7 +64,7 @@ export const conectaRouter = createTRPCRouter({
 					const pessoas = pessoasPorTurma.get(equipe.turmaId) ?? 0;
 					const pontosBrutosDoacoes = doacoesPorEquipe.get(equipe.id) ?? 0;
 					const pontosProvas = provasPorEquipe.get(equipe.id) ?? 0;
-					const pontosDoacoes = pessoas > 0 ? pontosBrutosDoacoes / pessoas : 0;
+					const pontosDoacoes = pessoas > 0 ? pontosBrutosDoacoes / pessoas : pontosBrutosDoacoes;
 					return {
 						...equipe,
 						pessoas,
